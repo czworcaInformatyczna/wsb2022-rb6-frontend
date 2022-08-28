@@ -13,8 +13,7 @@ import { menuItems } from './menuItems';
 import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
-import { Menu } from '@mui/material';
-
+import QrCode2Icon from '@mui/icons-material/QrCode2';
 
 type Nested = {
     [key: number]: boolean
@@ -165,6 +164,16 @@ export default function SideMenu(props: myProps) {
             <Box flex="none" order="5" align-self="stretch" flex-grow="0" sx={{
                 maxWidth: props.open ? "240px" : "55px"
             }}>
+                <Divider />
+                <ListItemButton sx={{
+                    height: "48px"
+                }}>
+                    <ListItemIcon>
+                        <QrCode2Icon />
+                    </ListItemIcon>
+                    <ListItemText sx={{ opacity: props.open ? 1 : 1 }} primary="Scanner" />
+
+                </ListItemButton>
                 <Divider />
                 <ListItemButton sx={{
                     height: "48px"

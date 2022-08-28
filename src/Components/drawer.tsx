@@ -5,8 +5,8 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import Header from '../Header/header';
-import SideMenu from './menu';
+import Header from './Header/header';
+import SideMenu from './Menu/menu';
 import { Hidden, Toolbar } from '@mui/material';
 
 const drawerWidth = 240;
@@ -115,7 +115,7 @@ export default function MiniDrawer() {
         <SideMenu open={open}/>
       </Drawer>
       </Hidden>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 0, pr: 3 }}>
         <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
