@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Header from './Header/header';
 import SideMenu from './Menu/menu';
 import { Hidden, Toolbar } from '@mui/material';
+import { stringify } from 'querystring';
 
 const drawerWidth = 240;
 
@@ -82,14 +83,27 @@ const Drawer = styled(MuiDrawer)(
   }),
 );
 
+
+
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-
+  
   const toogleDrower = () => {
+    localStorage.setItem("openDrawer", ""+!open+"")
     setOpen(!open);
   };
-
+  
+  React.useEffect(() => {
+    let isOpen = localStorage.getItem("openDrawer");
+    if(isOpen==="false"){
+      setOpen(false)
+    }
+    else{
+      setOpen(true)
+    }
+    
+  }, []);
  
   return (
     <Box sx={{ display: 'flex' }}>
