@@ -14,6 +14,8 @@ import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import { useTheme} from '@mui/material/styles';
+import { ColorModeContext } from "../../App"
 
 type Nested = {
     [key: number]: boolean
@@ -39,7 +41,8 @@ export default function SideMenu(props: myProps) {
     const [openNested, setOpenNested] = React.useState<Nested>({});
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-
+    const theme = useTheme();
+    const colorMode = React.useContext(ColorModeContext);
 
     React.useEffect(() => {
         if (openNested === undefined) {
@@ -58,7 +61,7 @@ export default function SideMenu(props: myProps) {
     const handleClick = (id: number) => {
         setOpenNested({ ...openNested, [id]: !openNested[id] })
     };
-
+ 
     return (
         <Box height="100vh" display="flex" flexDirection="column" align-items="flex-start" overflow='auto'
             sx={{
@@ -167,7 +170,8 @@ export default function SideMenu(props: myProps) {
                 <Divider />
                 <ListItemButton sx={{
                     height: "48px"
-                }}>
+                }} onClick={colorMode.toggleColorMode}>
+                    
                     <ListItemIcon>
                         <QrCode2Icon />
                     </ListItemIcon>
