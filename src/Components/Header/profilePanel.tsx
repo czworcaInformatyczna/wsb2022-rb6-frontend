@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, Typography } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Avatar from '@mui/material/Avatar';
 import AccountMenu from './accountMenu';
@@ -18,7 +18,7 @@ function ProfilePanel() {
                         </Badge>
                             </IconButton>
                         <IconButton sx={{ padding: 0, borderRadius: 0, height: "100%" }} aria-label="upload picture" component="label">
-                            <div style={{ marginRight: 6 }}>User</div>
+                           <Typography> <div style={{ marginRight: 6 }}>User</div></Typography>
                             <Avatar sx={{ width: 30, height: 30 }} alt="Uemy Sharp" src="/static/images/avatar/1.jpg" />
                         </IconButton>
                         <AccountMenu />

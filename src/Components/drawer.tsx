@@ -33,13 +33,13 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  }));
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -60,7 +60,7 @@ const AppBar = styled(MuiAppBar, {
   ...(!open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-   
+
   }),
 }));
 
@@ -70,7 +70,7 @@ const Drawer = styled(MuiDrawer)(
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-    
+
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
@@ -90,30 +90,35 @@ export default function MiniDrawer() {
     setOpen(!open);
   };
 
- 
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-        <Toolbar>
-      <AppBar position="fixed" open={open} >
-        <Header toogleOpen ={ toogleDrower}/>
-      </AppBar>
+      <Toolbar>
+        <AppBar position="fixed" open={open} >
+          <Header toogleOpen={toogleDrower} />
+        </AppBar>
       </Toolbar>
       <Hidden smDown>
-      <Drawer variant="permanent" open={open}>
-        <SideMenu open={open}/>
-      </Drawer>
+        <Drawer variant="permanent" open={open}>
+          <SideMenu open={open} />
+        </Drawer>
       </Hidden>
-      <Hidden smUp>
-      <Drawer variant="temporary"
-            anchor='left'
-            onClose={toogleDrower}
-           
-            ModalProps={{
-              keepMounted: true, 
-            }} open={open}>
-        <SideMenu open={open}/>
-      </Drawer>
+      <Hidden smUp >
+        <Drawer variant="temporary"
+          anchor='left'
+          onClose={toogleDrower}
+          PaperProps={{
+            elevation:0,
+            sx:{
+              backgroundColor: theme.palette.background.default,
+            },
+          }}
+          ModalProps={{
+            keepMounted: true,
+          }} open={open}>
+          <SideMenu open={open} />
+        </Drawer>
       </Hidden>
       <Box component="main" sx={{ flexGrow: 0, pr: 3 }}>
         <DrawerHeader />
