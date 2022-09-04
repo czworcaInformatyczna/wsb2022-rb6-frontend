@@ -31,8 +31,6 @@ const Header=(props: myProps)=> {
                     <Box height="100%" display="flex" alignItems="center" justifyContent="flex-start" width="auto" maxWidth="240px">
                         <ListItemButton component={Link} disableRipple to="/" style={{ color: "primary" }}
                             sx={{
-                                backgroundColor: 'primary.main',
-
                                 "&:hover": {
                                     bgcolor: "primary.main"
                                 }

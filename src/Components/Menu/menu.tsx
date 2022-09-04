@@ -1,6 +1,6 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
+import ListItemButton, { listItemButtonClasses } from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
@@ -15,16 +15,17 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import { WrapProps, menuProps as myProps, Nested } from './domain';
-
+import { ColorModeContext } from "../../App"
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
     return !condition ? wrapper(children) : <>{children}</>
 }
 
- const SideMenu=(props: myProps)=>{
+const SideMenu=(props: myProps)=> {
 
 
     const [openNested, setOpenNested] = React.useState<Nested>({});
+    const colorMode = React.useContext(ColorModeContext);
 
     React.useEffect(() => {
         if (openNested === undefined) {
@@ -43,7 +44,6 @@ export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, childr
     const handleClick = (id: number) => {
         setOpenNested({ ...openNested, [id]: !openNested[id] })
     };
-
     return (
         <Box height="100vh" display="flex" flexDirection="column" align-items="flex-start" overflow='auto'
             sx={{
@@ -152,7 +152,8 @@ export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, childr
                 <Divider />
                 <ListItemButton sx={{
                     height: "48px"
-                }}>
+                }} onClick={colorMode.toggleColorMode}>
+                    
                     <ListItemIcon>
                         <QrCode2Icon />
                     </ListItemIcon>
