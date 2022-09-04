@@ -18,7 +18,7 @@ const ProfilePanel=()=>{
                         </Badge>
                             </IconButton>
                         <IconButton sx={{ padding: 0, borderRadius: 0, height: "100%" }} aria-label="upload picture" component="label">
-                           <Typography> <div style={{ marginRight: 6 }}>User</div></Typography>
+                           <Typography sx={{marginRight:1}}> User</Typography>
                             <Avatar sx={{ width: 30, height: 30 }} alt="Uemy Sharp" src="/static/images/avatar/1.jpg" />
                         </IconButton>
                         <AccountMenu />
