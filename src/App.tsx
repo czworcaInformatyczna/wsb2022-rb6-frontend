@@ -29,7 +29,7 @@ const App=()=>{
       createTheme({
         palette: {
           mode,
-          ...(mode === 'light'
+          ...(mode === ThemeMode.LIGHT
             ? {
                 // palette values for light mode
                 primary: {
