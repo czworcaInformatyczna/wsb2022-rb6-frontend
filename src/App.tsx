@@ -8,7 +8,7 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-function App() {
+const App=()=>{
   
   const [mode, setMode] = React.useState<'light' | 'dark'>('light');
   const colorMode = React.useMemo(
