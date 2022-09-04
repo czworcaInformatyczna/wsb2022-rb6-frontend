@@ -1,6 +1,6 @@
 import * as React from 'react';
 import List from '@mui/material/List';
-import ListItemButton, { listItemButtonClasses } from '@mui/material/ListItemButton';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
@@ -14,32 +14,17 @@ import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import { WrapProps, menuProps as myProps, Nested } from './domain';
 
-type Nested = {
-    [key: number]: boolean
-}
-
-interface myProps {
-    open: boolean
-}
-
-interface WrapProps {
-    if: boolean
-    with: (children: React.ReactNode) => JSX.Element,
-    children: React.ReactNode;
-}
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
     return !condition ? wrapper(children) : <>{children}</>
 }
 
-export default function SideMenu(props: myProps) {
+ const SideMenu=(props: myProps)=>{
 
 
     const [openNested, setOpenNested] = React.useState<Nested>({});
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
 
     React.useEffect(() => {
         if (openNested === undefined) {
@@ -188,3 +173,4 @@ export default function SideMenu(props: myProps) {
         </Box>
     );
 }
+export default SideMenu

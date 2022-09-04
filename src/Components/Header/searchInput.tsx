@@ -43,7 +43,7 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
   
-  export default function SearchInput() {
+ const SearchInput=()=> {
     return(
     <Search>
     <SearchIconWrapper>
@@ -56,3 +56,4 @@ const Search = styled('div')(({ theme }) => ({
   </Search>
     )
   }
+  export default SearchInput

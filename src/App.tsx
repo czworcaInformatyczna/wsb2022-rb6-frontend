@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import Drawer from './Components/drawer';
+import Drawer from './Components/Drawer/drawer';
 import { Box } from "@mui/material";
 
 function App() {

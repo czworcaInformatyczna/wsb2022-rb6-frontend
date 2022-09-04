@@ -2,13 +2,13 @@ import * as React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import Header from './Header/header';
-import SideMenu from './Menu/menu';
+import Header from '../Header/header';
+import SideMenu from '../Menu/menu';
 import { Hidden, Toolbar } from '@mui/material';
-import { stringify } from 'querystring';
+import { AppBarProps } from './domain';
 
 const drawerWidth = 240;
 
@@ -41,10 +41,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   }));
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -85,7 +81,7 @@ const Drawer = styled(MuiDrawer)(
 
 
 
-export default function MiniDrawer() {
+ const MiniDrawer=()=>{
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   
@@ -162,3 +158,4 @@ export default function MiniDrawer() {
     </Box>
   );
 }
+export default MiniDrawer
