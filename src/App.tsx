@@ -4,18 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import Drawer from './Components/Drawer/drawer';
 import { Box, CssBaseline, GlobalStyles } from "@mui/material";
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
-
+import { ThemeMode } from './domain';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 const App=()=>{
   
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const [mode, setMode] = React.useState<ThemeMode>(ThemeMode.LIGHT);
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => {
-          let darkMode:'light' | 'dark' = prevMode === 'light' ? 'dark' : 'light';
+          let darkMode: ThemeMode = prevMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
           localStorage.setItem("darkMode", darkMode);
           return darkMode;
         })
@@ -29,7 +29,7 @@ const App=()=>{
       createTheme({
         palette: {
           mode,
-          ...(mode === 'light'
+          ...(mode === ThemeMode.LIGHT
             ? {
                 // palette values for light mode
                 primary: {
@@ -57,10 +57,10 @@ const App=()=>{
   React.useEffect(() => {
     const themeMode = localStorage.getItem("darkMode")
     if(themeMode==="light"){
-      setMode("light")
+      setMode(ThemeMode.LIGHT)
     }
     else{
-      setMode("dark")
+      setMode(ThemeMode.DARK)
     }
   },[]);
 
