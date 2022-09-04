@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import AccountMenu from './accountMenu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-function ProfilePanel() {
+const ProfilePanel=()=>{
     return ( 
         <Box height="100%" display="flex" alignItems="center" justifyContent="flex-end">
             <IconButton onClick={()=>{}} aria-label="Notification" component="label" sx={{ color: "black" }}>

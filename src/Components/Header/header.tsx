@@ -8,13 +8,9 @@ import { Link } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import ProfilePanel from './profilePanel';
 import AccountMenu from './accountMenu';
+import { headerProps as myProps }  from './domain';
 
-interface myProps {
-
-    toogleOpen: () => void;
-}
-
-function Header(props: myProps) {
+const Header=(props: myProps)=> {
     return (
         <Box
             position="fixed"
