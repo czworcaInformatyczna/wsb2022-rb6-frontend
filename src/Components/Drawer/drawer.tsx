@@ -126,6 +126,7 @@ const Drawer = styled(MuiDrawer)(
       </Drawer>
       </Hidden>
       <Box component="main" sx={{ flexGrow: 0, pr: 3 }}>
+      <DrawerHeader/>
         <AppRoutes/>
       </Box>
     </Box>

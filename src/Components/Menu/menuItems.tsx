@@ -47,7 +47,7 @@ export const menuItems =[{
         id:0,
         name:"All assets",
         icon: <AllInclusiveIcon/>,
-        link:"/Assets/All",
+        link:"/Assets",
     },{
         id:1,
         name:"Ready to deploy",
