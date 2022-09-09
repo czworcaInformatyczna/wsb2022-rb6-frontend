@@ -33,10 +33,15 @@ const App=()=>{
             ? {
                 // palette values for light mode
                 primary: {
-                  main: '#00a2f5',
+                  main: '#67b3e6',
+                  contrastText: 'rgba(0,0,0,0.87)',
                 },
                 secondary: {
-                  main: '#f50057',
+                  main: '#dc0022',
+                },
+                background: {
+                  paper: '#f1f1f1',
+                  default: '#e0e0e0',
                 },
               }
             : {
@@ -46,6 +51,10 @@ const App=()=>{
                 },
                 secondary: {
                   main: '#f50057',
+                },
+                background: {
+                  paper: '#121212',
+                  default: '#2D2D2D',
                 },
               }),
         },

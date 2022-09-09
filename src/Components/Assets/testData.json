@@ -1,0 +1,70 @@
+[{
+    "id":1,
+    "name":"AssetName",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":16,
+    "name":"AssetName1",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":6,
+    "name":"AssetName3",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":5,
+    "name":"AssetName2",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":4,
+    "name":"AssetName5",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":3,
+    "name":"AssetName6",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+},
+{
+    "id":2,
+    "name":"AssetName4",
+    "image": "https://www.datocms-assets.com/34299/1659681297-streaming-pc-cta-primary.png",
+    "serial":"YYEz64GgdQ3M",
+    "model":"Model",
+    "manufacturer":"Manufacturer",
+    "category":"category",
+    "status":"Ready to deploy"
+}]

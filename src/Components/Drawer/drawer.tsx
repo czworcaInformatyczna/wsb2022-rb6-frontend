@@ -125,9 +125,11 @@ const Drawer = styled(MuiDrawer)(
         <SideMenu open={open}/>
       </Drawer>
       </Hidden>
-      <Box component="main" sx={{ flexGrow: 0, pr: 3 }}>
+      <Box sx={{width:"100%",mr:5 }}>
       <DrawerHeader/>
+      <Box component="main" sx={{ flexGrow: 0,backgroundColor:'background.paper', width:"100%", boxShadow:1,borderRadius:1, marginTop:2 }}>
         <AppRoutes/>
+      </Box>
       </Box>
     </Box>
   );
