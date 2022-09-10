@@ -23,7 +23,7 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <React.Fragment>
       <Box>
@@ -34,13 +34,13 @@ export default function AccountMenu() {
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-            sx={{padding:0, borderRadius:0,height:"100%"}}
+            sx={{ padding: 0, borderRadius: 0, height: '100%' }}
           >
             <Hidden smUp>
-              <MoreVertIcon/>
+              <MoreVertIcon />
             </Hidden>
             <Hidden smDown>
-               <ArrowDropDownIcon/>
+              <ArrowDropDownIcon />
             </Hidden>
           </IconButton>
         </Tooltip>
@@ -61,7 +61,7 @@ export default function AccountMenu() {
               width: 32,
               height: 32,
               ml: -0.5,
-              mr: 1,
+              mr: 1
             },
             '&:before': {
               content: '""',
@@ -73,9 +73,9 @@ export default function AccountMenu() {
               height: 10,
               bgcolor: 'background.paper',
               transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
+              zIndex: 0
+            }
+          }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}

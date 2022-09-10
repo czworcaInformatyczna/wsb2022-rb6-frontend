@@ -14,105 +14,112 @@ import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import GroupIcon from '@mui/icons-material/Group';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
-export const menuItems =[{
-    id:0,
-    name:"Dashboard",
-    icon: <DashboardIcon/>,
-    link:"/Dashboard",
+export const menuItems = [
+  {
+    id: 0,
+    name: 'Dashboard',
+    icon: <DashboardIcon />,
+    link: '/Dashboard',
     nestedList: null
-    
-},
-{   id:1,
-    name:"Add",
-    icon: <AddIcon/>,
-    link: null ,
-    nestedList: [{
-        id:0,
-        name:"Asset",
-        icon: <FormatListBulletedIcon/>,
-        link:"/AddAsset",
-    },{
-        id:1,
-        name:"Accessories",
-        icon: <CableIcon/>,
-        link:"/AddAccessories",
-    }]
-},
-{
-    id:2,
-    name:"Assets",
-    icon: <FormatListBulletedIcon/>,
-    link: null ,
-    nestedList: [{
-        id:0,
-        name:"All assets",
-        icon: <AllInclusiveIcon/>,
-        link:"/Assets/All",
-    },{
-        id:1,
-        name:"Ready to deploy",
-        icon: <CheckIcon/>,
-        link:"/Assets/ReadyToDeploy",
-    },
-    {
-        id:2,
-        name:"Deployed",
-        icon: <PanoramaFishEyeIcon/>,
-        link:"/Assets/Deployed",
-    },
-    {
-        id:3,
-        name:"Maintenance",
-        icon: <BuildCircleOutlinedIcon/>,
-        link:"/Assets/Maintenance",
-    },
-    {
-        id:4,
-        name:"Archived",
-        icon: <DeleteForeverOutlinedIcon/>,
-        link:"/Assets/Archived",
-    }]
-},{
-    id:3,
-    name:"Accessories",
-    icon: <CableOutlinedIcon/>,
-    link:"/Accessories",
+  },
+  {
+    id: 1,
+    name: 'Add',
+    icon: <AddIcon />,
+    link: null,
+    nestedList: [
+      {
+        id: 0,
+        name: 'Asset',
+        icon: <FormatListBulletedIcon />,
+        link: '/AddAsset'
+      },
+      {
+        id: 1,
+        name: 'Accessories',
+        icon: <CableIcon />,
+        link: '/AddAccessories'
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Assets',
+    icon: <FormatListBulletedIcon />,
+    link: null,
+    nestedList: [
+      {
+        id: 0,
+        name: 'All assets',
+        icon: <AllInclusiveIcon />,
+        link: '/Assets/All'
+      },
+      {
+        id: 1,
+        name: 'Ready to deploy',
+        icon: <CheckIcon />,
+        link: '/Assets/ReadyToDeploy'
+      },
+      {
+        id: 2,
+        name: 'Deployed',
+        icon: <PanoramaFishEyeIcon />,
+        link: '/Assets/Deployed'
+      },
+      {
+        id: 3,
+        name: 'Maintenance',
+        icon: <BuildCircleOutlinedIcon />,
+        link: '/Assets/Maintenance'
+      },
+      {
+        id: 4,
+        name: 'Archived',
+        icon: <DeleteForeverOutlinedIcon />,
+        link: '/Assets/Archived'
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Accessories',
+    icon: <CableOutlinedIcon />,
+    link: '/Accessories',
     nestedList: null
-    
-},{
-    id:4,
-    name:"Licenses",
-    icon: <StickyNote2OutlinedIcon/>,
-    link:"/Licenses",
+  },
+  {
+    id: 4,
+    name: 'Licenses',
+    icon: <StickyNote2OutlinedIcon />,
+    link: '/Licenses',
     nestedList: null
-    
-},{
-    id:5,
-    name:"Consumables",
-    icon: <LocalDrinkOutlinedIcon/>,
-    link:"/Consumables",
+  },
+  {
+    id: 5,
+    name: 'Consumables',
+    icon: <LocalDrinkOutlinedIcon />,
+    link: '/Consumables',
     nestedList: null
-    
-},{
-    id:6,
-    name:"Components",
-    icon: <AccountTreeOutlinedIcon/>,
-    link:"/Components",
+  },
+  {
+    id: 6,
+    name: 'Components',
+    icon: <AccountTreeOutlinedIcon />,
+    link: '/Components',
     nestedList: null
-    
-}
-,{
-    id:7,
-    name:"Users",
-    icon: <GroupIcon/>,
-    link:"/Users",
+  },
+  {
+    id: 7,
+    name: 'Users',
+    icon: <GroupIcon />,
+    link: '/Users',
     nestedList: null
-    
-},{
-    id:8,
-    name:"Roles",
-    icon: <AdminPanelSettingsIcon/>,
-    link:"/Roles",
+  },
+  {
+    id: 8,
+    name: 'Roles',
+    icon: <AdminPanelSettingsIcon />,
+    link: '/Roles',
     nestedList: null
-    
-}]
+  }
+];
