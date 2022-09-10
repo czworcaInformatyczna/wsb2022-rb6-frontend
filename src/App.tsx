@@ -1,20 +1,21 @@
-import * as React from 'react';
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
-import Drawer from './Components/Drawer/drawer';
 import { Box, CssBaseline, GlobalStyles } from '@mui/material';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import './App.css';
+import Drawer from './Components/Drawer/drawer';
 import { ThemeMode } from './domain';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-const App = () => {
+const App = (): JSX.Element => {
   const [mode, setMode] = React.useState<ThemeMode>(ThemeMode.LIGHT);
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => {
-          let darkMode: ThemeMode = prevMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
+          const darkMode: ThemeMode =
+            prevMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
           localStorage.setItem('darkMode', darkMode);
           return darkMode;
         });

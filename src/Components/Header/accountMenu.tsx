@@ -1,20 +1,20 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Logout from '@mui/icons-material/Logout';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Hidden } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import * as React from 'react';
 
-export default function AccountMenu() {
+export const AccountMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,8 +34,7 @@ export default function AccountMenu() {
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-            sx={{ padding: 0, borderRadius: 0, height: '100%' }}
-          >
+            sx={{ padding: 0, borderRadius: 0, height: '100%' }}>
             <Hidden smUp>
               <MoreVertIcon />
             </Hidden>
@@ -78,8 +77,7 @@ export default function AccountMenu() {
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         <MenuItem>
           <Avatar /> Profile
         </MenuItem>
@@ -108,4 +106,4 @@ export default function AccountMenu() {
       </Menu>
     </React.Fragment>
   );
-}
+};
