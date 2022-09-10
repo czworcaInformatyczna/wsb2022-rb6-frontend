@@ -1,14 +1,13 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Hidden, IconButton, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import SearchInput from './searchInput';
-import { Link } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
-import ProfilePanel from './profilePanel';
-import AccountMenu from './accountMenu';
+import { Hidden, IconButton, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import { AccountMenu } from './accountMenu';
 import { headerProps as myProps } from './domain';
+import ProfilePanel from './profilePanel';
+import SearchInput from './searchInput';
 
 const Header = (props: myProps) => {
   return (
@@ -23,8 +22,7 @@ const Header = (props: myProps) => {
       alignItems="center"
       sx={{
         backgroundColor: 'primary.main'
-      }}
-    >
+      }}>
       <Grid container>
         <Grid item xl={1} lg={2} md={2} sm={3} xs={5}>
           <Box
@@ -33,8 +31,7 @@ const Header = (props: myProps) => {
             alignItems="center"
             justifyContent="flex-start"
             width="auto"
-            maxWidth="240px"
-          >
+            maxWidth="240px">
             <ListItemButton
               component={Link}
               disableRipple
@@ -44,8 +41,7 @@ const Header = (props: myProps) => {
                 '&:hover': {
                   bgcolor: 'primary.main'
                 }
-              }}
-            >
+              }}>
               <ListItemIcon>
                 <SendIcon />
               </ListItemIcon>
@@ -59,8 +55,7 @@ const Header = (props: myProps) => {
               onClick={props.toogleOpen}
               aria-label="upload picture"
               component="label"
-              sx={{ color: 'black' }}
-            >
+              sx={{ color: 'black' }}>
               <MenuIcon />
             </IconButton>
           </Box>
