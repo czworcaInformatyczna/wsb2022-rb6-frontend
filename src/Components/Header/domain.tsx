@@ -1,3 +1,3 @@
-export interface headerProps {
+export type headerProps = {
   toogleOpen: () => void;
-}
+};

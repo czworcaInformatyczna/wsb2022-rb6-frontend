@@ -6,52 +6,51 @@ import './App.css';
 import Drawer from './Components/Drawer/drawer';
 import { ThemeMode } from './domain';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = React.createContext({
+  toggleColorMode: () => {},
+});
 
 const App = (): JSX.Element => {
   const [mode, setMode] = React.useState<ThemeMode>(ThemeMode.LIGHT);
-  const colorMode = React.useMemo(
-    () => ({
+  const colorMode = React.useMemo(() => {
+    return {
       toggleColorMode: () => {
-        setMode((prevMode) => {
+        setMode((previousMode) => {
           const darkMode: ThemeMode =
-            prevMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
+            previousMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
           localStorage.setItem('darkMode', darkMode);
           return darkMode;
         });
-      }
-    }),
-    []
-  );
+      },
+    };
+  }, []);
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          ...(mode === ThemeMode.LIGHT
-            ? {
-                // palette values for light mode
-                primary: {
-                  main: '#00a2f5'
-                },
-                secondary: {
-                  main: '#f50057'
-                }
-              }
-            : {
-                // palette values for dark mode
-                primary: {
-                  main: '#3f51b5'
-                },
-                secondary: {
-                  main: '#f50057'
-                }
-              })
-        }
-      }),
-    [mode]
-  );
+  const theme = React.useMemo(() => {
+    return createTheme({
+      palette: {
+        mode,
+        ...(mode === ThemeMode.LIGHT
+          ? {
+              // palette values for light mode
+              primary: {
+                main: '#00a2f5',
+              },
+              secondary: {
+                main: '#f50057',
+              },
+            }
+          : {
+              // palette values for dark mode
+              primary: {
+                main: '#3f51b5',
+              },
+              secondary: {
+                main: '#f50057',
+              },
+            }),
+      },
+    });
+  }, [mode]);
 
   React.useEffect(() => {
     const themeMode = localStorage.getItem('darkMode');
@@ -66,14 +65,16 @@ const App = (): JSX.Element => {
     <Box>
       <GlobalStyles
         styles={{
-          h1: { color: 'grey' },
           '::-webkit-scrollbar': {
-            width: '0.4em'
+            width: '0.4em',
           },
           '::-webkit-scrollbar-thumb': {
             backgroundColor: 'rgba(0,0,0,.1)',
-            outline: '1px solid slategrey'
-          }
+            outline: '1px solid slategrey',
+          },
+          h1: {
+            color: 'grey',
+          },
         }}
       />
       <CssBaseline />
@@ -87,4 +88,5 @@ const App = (): JSX.Element => {
     </Box>
   );
 };
+
 export default App;

@@ -5,43 +5,48 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import { AccountMenu } from './accountMenu';
-import { headerProps as myProps } from './domain';
+import { type headerProps as myProps } from './domain';
 import ProfilePanel from './profilePanel';
 import SearchInput from './searchInput';
 
 const Header = (props: myProps) => {
   return (
     <Box
-      position="fixed"
-      maxHeight="48px"
+      alignItems="center"
+      display="flex"
       height="100%"
       left="0px"
+      maxHeight="48px"
+      position="fixed"
       right="0px"
-      top="0px"
-      display="flex"
-      alignItems="center"
       sx={{
-        backgroundColor: 'primary.main'
-      }}>
+        backgroundColor: 'primary.main',
+      }}
+      top="0px"
+    >
       <Grid container>
-        <Grid item xl={1} lg={2} md={2} sm={3} xs={5}>
+        <Grid item lg={2} md={2} sm={3} xl={1} xs={5}>
           <Box
-            height="100%"
-            display="flex"
             alignItems="center"
+            display="flex"
+            height="100%"
             justifyContent="flex-start"
+            maxWidth="240px"
             width="auto"
-            maxWidth="240px">
+          >
             <ListItemButton
               component={Link}
               disableRipple
-              to="/"
-              style={{ color: 'primary' }}
+              style={{
+                color: 'primary',
+              }}
               sx={{
                 '&:hover': {
-                  bgcolor: 'primary.main'
-                }
-              }}>
+                  bgcolor: 'primary.main',
+                },
+              }}
+              to="/"
+            >
               <ListItemIcon>
                 <SendIcon />
               </ListItemIcon>
@@ -49,24 +54,27 @@ const Header = (props: myProps) => {
             </ListItemButton>
           </Box>
         </Grid>
-        <Grid item xl={1} lg={1} md={1} sm={1} xs={2}>
-          <Box height="100%" display="flex" alignItems="center" justifyContent="flex-start">
+        <Grid item lg={1} md={1} sm={1} xl={1} xs={2}>
+          <Box alignItems="center" display="flex" height="100%" justifyContent="flex-start">
             <IconButton
-              onClick={props.toogleOpen}
               aria-label="upload picture"
               component="label"
-              sx={{ color: 'black' }}>
+              onClick={props.toogleOpen}
+              sx={{
+                color: 'black',
+              }}
+            >
               <MenuIcon />
             </IconButton>
           </Box>
         </Grid>
-        <Grid item xl={8} lg={6} md={6} sm={3} xs={4} container justifyContent="center">
-          <Box height="100%" display="flex" alignItems="center" justifyContent="flex-start">
+        <Grid container item justifyContent="center" lg={6} md={6} sm={3} xl={8} xs={4}>
+          <Box alignItems="center" display="flex" height="100%" justifyContent="flex-start">
             <SearchInput />
           </Box>
         </Grid>
-        <Grid item xl={2} lg={3} md={3} sm={5} xs={1}>
-          <Box height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+        <Grid item lg={3} md={3} sm={5} xl={2} xs={1}>
+          <Box alignItems="center" display="flex" height="100%" justifyContent="flex-end">
             <Hidden smDown>
               <ProfilePanel />
             </Hidden>
