@@ -3,7 +3,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
-import { type CSSObject, type Theme, styled, useTheme } from '@mui/material/styles';
+import { type CSSObject, type Theme, styled } from '@mui/material/styles';
 import * as React from 'react';
 import Header from '../Header/header';
 import SideMenu from '../Menu/menu';

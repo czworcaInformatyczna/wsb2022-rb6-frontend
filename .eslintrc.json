@@ -8,13 +8,16 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest-formatting/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:promise/recommended",
     "plugin:testing-library/react",
     "plugin:jest/recommended",
-    "canonical"
+    "canonical/react",
+    "canonical/typescript",
+    "canonical/prettier",
+    "canonical/jsx-a11y",
+    "prettier"
   ],
   "overrides": [
     {
@@ -29,15 +32,15 @@
       "files": "*.tsx",
       "parserOptions": {
         "project": "./tsconfig.json"
+      },
+      "rules": {
+        "linebreak-style": "off",
+        "@typescript-eslint/indent": 0,
+        "@typescript-eslint/no-extra-parens": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
       }
     },
-    {
-      "extends": ["canonical/jest"],
-      "files": "*.test.{ts,tsx}",
-      "parserOptions": {
-        "project": "./tsconfig.json"
-      }
-    },
+
     {
       "extends": ["canonical/json"],
       "files": "*.json"
@@ -53,10 +56,9 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "canonical"],
   "rules": {
-    "react/react-in-jsx-scope": 0,
-    "linebreak-style": "off"
+    "react/react-in-jsx-scope": 0
   },
   "globals": {},
   "settings": {
