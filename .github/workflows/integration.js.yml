@@ -3,10 +3,51 @@ name: CI
 on:
   push:
     branches: ['develop']
+
+jobs:
+  branch-naming-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: deepakputhraya/action-branch-name@master
+        with:
+          allowed_prefixes: 'feature/INZ-'
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install all dependencies
+        run: npm ci
+
+      - name: Run the tests
+        run: npm test -- --coverage
+
+      - name: Build the app
+        run: npm run build --if-present
+    
+on:
   pull_request:
     branches: ['develop']
 
 jobs:
+  branch-naming-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: deepakputhraya/action-branch-name@master
+        with:
+          allowed_prefixes: 'feature/INZ-'
   build:
     runs-on: ubuntu-latest
 
