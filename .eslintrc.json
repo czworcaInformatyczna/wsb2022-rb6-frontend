@@ -15,20 +15,24 @@
     "plugin:jest/recommended",
     "canonical/react",
     "canonical/typescript",
-    "canonical/prettier",
-    "canonical/jsx-a11y",
-    "prettier"
+    "canonical/jsx-a11y"
   ],
   "overrides": [
     {
-      "extends": ["canonical/typescript"],
+      "extends": ["canonical/typescript", "canonical/prettier"],
       "files": "*.ts",
       "parserOptions": {
         "project": "./tsconfig.json"
-      }
+      },
+      "rules": { "@typescript-eslint/member-delimiter-style": "off" }
     },
     {
-      "extends": ["canonical/react", "canonical/jsx-a11y", "canonical/typescript"],
+      "extends": [
+        "canonical/react",
+        "canonical/jsx-a11y",
+        "canonical/typescript",
+        "canonical/prettier"
+      ],
       "files": "*.tsx",
       "parserOptions": {
         "project": "./tsconfig.json"
@@ -37,7 +41,8 @@
         "linebreak-style": "off",
         "@typescript-eslint/indent": 0,
         "@typescript-eslint/no-extra-parens": "off",
-        "@typescript-eslint/triple-slash-reference": "off"
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/consistent-type-definitions": "off"
       }
     },
 
