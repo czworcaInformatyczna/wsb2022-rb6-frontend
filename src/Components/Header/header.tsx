@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SendIcon from '@mui/icons-material/Send';
-import { Hidden, IconButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Hidden, IconButton, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { AccountMenu } from './accountMenu';
 import { type headerProps } from './domain';
 import ProfilePanel from './profilePanel';
 import SearchInput from './searchInput';
-import { StyledListItemButton } from './styled';
 
 const Header = ({ handleToggleOpen }: headerProps) => {
   return (
@@ -35,9 +34,12 @@ const Header = ({ handleToggleOpen }: headerProps) => {
             maxWidth="240px"
             width="auto"
           >
-            <StyledListItemButton // https://mui.com/material-ui/guides/interoperability/#global-css
+            <ListItemButton
               component={Link}
               disableRipple
+              style={{
+                color: 'primary',
+              }}
               sx={{
                 '&:hover': {
                   bgcolor: 'primary.main',
@@ -49,7 +51,7 @@ const Header = ({ handleToggleOpen }: headerProps) => {
                 <SendIcon />
               </ListItemIcon>
               <ListItemText primary="InvenMan" />
-            </StyledListItemButton>
+            </ListItemButton>
           </Box>
         </Grid>
         <Grid item lg={1} md={1} sm={1} xl={1} xs={2}>
