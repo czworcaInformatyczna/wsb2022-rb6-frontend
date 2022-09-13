@@ -103,7 +103,7 @@ const MiniDrawer = (): JSX.Element => {
       <CssBaseline />
       <Toolbar>
         <AppBar open={open} position="fixed">
-          <Header toogleOpen={toogleDrower} />
+          <Header handleToggleOpen={toogleDrower} />
         </AppBar>
       </Toolbar>
       <Hidden smDown>

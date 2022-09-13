@@ -1,15 +1,16 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SendIcon from '@mui/icons-material/Send';
-import { Hidden, IconButton, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Hidden, IconButton, ListItemIcon, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import { AccountMenu } from './accountMenu';
-import { type headerProps as myProps } from './domain';
+import { type headerProps } from './domain';
 import ProfilePanel from './profilePanel';
 import SearchInput from './searchInput';
+import { StyledListItemButton } from './styled';
 
-const Header = (props: myProps) => {
+const Header = ({ handleToggleOpen }: headerProps) => {
   return (
     <Box
       alignItems="center"
@@ -34,12 +35,9 @@ const Header = (props: myProps) => {
             maxWidth="240px"
             width="auto"
           >
-            <ListItemButton
+            <StyledListItemButton // https://mui.com/material-ui/guides/interoperability/#global-css
               component={Link}
               disableRipple
-              style={{
-                color: 'primary',
-              }}
               sx={{
                 '&:hover': {
                   bgcolor: 'primary.main',
@@ -51,7 +49,7 @@ const Header = (props: myProps) => {
                 <SendIcon />
               </ListItemIcon>
               <ListItemText primary="InvenMan" />
-            </ListItemButton>
+            </StyledListItemButton>
           </Box>
         </Grid>
         <Grid item lg={1} md={1} sm={1} xl={1} xs={2}>
@@ -59,7 +57,7 @@ const Header = (props: myProps) => {
             <IconButton
               aria-label="upload picture"
               component="label"
-              onClick={props.toogleOpen}
+              onClick={handleToggleOpen}
               sx={{
                 color: 'black',
               }}
