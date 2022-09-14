@@ -39,3 +39,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.PORT }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
           EXCLUDE: '/dist/, /node_modules/'
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
