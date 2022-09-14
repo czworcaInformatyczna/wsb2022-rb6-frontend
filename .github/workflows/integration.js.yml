@@ -21,4 +21,4 @@ jobs:
         node-version: [16.x]
 
     steps:
-      include: './../templates/ci-template.yaml'
+      template: './../templates/ci-template.yaml'
