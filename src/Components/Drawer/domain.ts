@@ -1,5 +1,5 @@
-import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { type AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
-export interface AppBarProps extends MuiAppBarProps {
+export type AppBarProps = MuiAppBarProps & {
   open?: boolean;
-}
+};

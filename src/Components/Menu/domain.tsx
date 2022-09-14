@@ -2,12 +2,12 @@ export type Nested = {
   [key: number]: boolean;
 };
 
-export interface menuProps {
+export type menuProps = {
   open: boolean;
-}
+};
 
-export interface WrapProps {
+export type WrapProps = {
+  children: React.ReactNode;
   if: boolean;
   with: (children: React.ReactNode) => JSX.Element;
-  children: React.ReactNode;
-}
+};

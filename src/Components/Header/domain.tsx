@@ -1,3 +1,3 @@
 export interface headerProps {
-  toogleOpen: () => void;
+  handleToggleOpen: () => void;
 }

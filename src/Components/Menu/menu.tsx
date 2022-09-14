@@ -1,21 +1,21 @@
-import * as React from 'react';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import QrCode2Icon from '@mui/icons-material/QrCode2';
+import SendIcon from '@mui/icons-material/Send';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItemButton, { listItemButtonClasses } from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import SendIcon from '@mui/icons-material/Send';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import Divider from '@mui/material/Divider';
-import { Link } from 'react-router-dom';
-import { menuItems } from './menuItems';
-import Box from '@mui/material/Box';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Tooltip from '@mui/material/Tooltip';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import { WrapProps, menuProps as myProps, Nested } from './domain';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { ColorModeContext } from '../../App';
+import { type WrapProps, type menuProps as myProps, type Nested } from './domain';
+import { menuItems } from './menuItems';
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
   return !condition ? wrapper(children) : <>{children}</>;
@@ -27,55 +27,62 @@ const SideMenu = (props: myProps) => {
 
   React.useEffect(() => {
     if (openNested === undefined) {
-      var obj: Nested = {};
-      menuItems.forEach((val) => {
-        if (val.link == null) {
-          obj[val.id] = false;
+      const object: Nested = {};
+      for (const value of menuItems) {
+        if (value.link == null) {
+          object[value.id] = false;
         }
-        setOpenNested(obj);
-      });
+
+        setOpenNested(object);
+      }
     }
   });
 
   const handleClick = (id: number) => {
-    setOpenNested({ ...openNested, [id]: !openNested[id] });
+    setOpenNested({
+      ...openNested,
+      [id]: !openNested[id],
+    });
   };
+
   return (
     <Box
-      height="100vh"
+      align-items="flex-start"
       display="flex"
       flexDirection="column"
-      align-items="flex-start"
+      height="100vh"
       overflow="auto"
       sx={{
-        overflowX: 'hidden'
+        overflowX: 'hidden',
       }}
     >
       <List
-        sx={{
-          width: '100%',
-          bgcolor: 'background.primary',
-          paddingTop: 0,
-          flex: 'none',
-          order: 3,
-          flexGrow: 1
-        }}
-        component="nav"
         aria-labelledby="nested-list-subheader"
+        component="nav"
+        sx={{
+          bgcolor: 'background.primary',
+          flex: 'none',
+          flexGrow: 1,
+          order: 3,
+          paddingTop: 0,
+          width: '100%',
+        }}
       >
         <>
           <ListItemButton
             component={Link}
             disableRipple
-            to="/"
-            style={{ color: 'primary' }}
-            sx={{
-              backgroundColor: 'primary.main',
-
-              '&:hover': {
-                bgcolor: 'primary.main'
-              }
+            style={{
+              color: 'primary',
             }}
+            sx={{
+              '&:hover': {
+                bgcolor: 'primary.main',
+              },
+
+              backgroundColor: 'primary.main',
+            }}
+            to="/"
           >
             <ListItemIcon>
               <SendIcon />
@@ -85,34 +92,39 @@ const SideMenu = (props: myProps) => {
 
           <Divider />
           <Box>
-            {menuItems.map((val) => {
-              return val.link != null ? (
-                <div key={val.id}>
+            {menuItems.map((value) => {
+              return value.link != null ? (
+                <div key={value.id}>
                   <Wrap
                     if={props.open}
                     with={(children) => {
                       return (
-                        <Tooltip placement="right" title={val.name}>
+                        <Tooltip placement="right" title={value.name}>
                           <Box>{children}</Box>
                         </Tooltip>
                       );
                     }}
                   >
-                    <ListItemButton component={Link} to={val.link}>
-                      <ListItemIcon>{val.icon}</ListItemIcon>
+                    <ListItemButton component={Link} to={value.link}>
+                      <ListItemIcon>{value.icon}</ListItemIcon>
 
-                      <ListItemText sx={{ opacity: props.open ? 1 : 0 }} primary={val.name} />
+                      <ListItemText
+                        primary={value.name}
+                        sx={{
+                          opacity: props.open ? 1 : 0,
+                        }}
+                      />
                     </ListItemButton>
                   </Wrap>
                   <Divider />
                 </div>
               ) : (
-                <div key={val.id}>
+                <div key={value.id}>
                   <Wrap
                     if={props.open}
                     with={(children) => {
                       return (
-                        <Tooltip placement="right" title={val.name}>
+                        <Tooltip placement="right" title={value.name}>
                           <Box>{children}</Box>
                         </Tooltip>
                       );
@@ -120,26 +132,31 @@ const SideMenu = (props: myProps) => {
                   >
                     <ListItemButton
                       onClick={() => {
-                        handleClick(val.id);
+                        handleClick(value.id);
                       }}
                     >
-                      <ListItemIcon>{val.icon}</ListItemIcon>
-                      <ListItemText sx={{ opacity: props.open ? 1 : 0 }} primary={val.name} />
-                      {props.open && (openNested[val.id] ? <ExpandLess /> : <ExpandMore />)}
+                      <ListItemIcon>{value.icon}</ListItemIcon>
+                      <ListItemText
+                        primary={value.name}
+                        sx={{
+                          opacity: props.open ? 1 : 0,
+                        }}
+                      />
+                      {props.open && (openNested[value.id] ? <ExpandLess /> : <ExpandMore />)}
                     </ListItemButton>
                     <Divider />
                   </Wrap>
                   {openNested !== undefined && (
-                    <Collapse in={openNested[val.id]} timeout="auto" unmountOnExit>
+                    <Collapse in={openNested[value.id]} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        {val.nestedList.map((nestedVal) => {
+                        {value.nestedList.map((nestedValue) => {
                           return (
-                            <div key={nestedVal.id}>
+                            <div key={nestedValue.id}>
                               <Wrap
                                 if={props.open}
                                 with={(children) => {
                                   return (
-                                    <Tooltip placement="right" title={nestedVal.name}>
+                                    <Tooltip placement="right" title={nestedValue.name}>
                                       <Box>{children}</Box>
                                     </Tooltip>
                                   );
@@ -147,14 +164,18 @@ const SideMenu = (props: myProps) => {
                               >
                                 <ListItemButton
                                   component={Link}
-                                  to={nestedVal.link}
                                   dense
-                                  sx={{ pl: props.open ? 4 : 3 }}
+                                  sx={{
+                                    pl: props.open ? 4 : 3,
+                                  }}
+                                  to={nestedValue.link}
                                 >
-                                  <ListItemIcon>{nestedVal.icon}</ListItemIcon>
+                                  <ListItemIcon>{nestedValue.icon}</ListItemIcon>
                                   <ListItemText
-                                    sx={{ opacity: props.open ? 1 : 0 }}
-                                    primary={nestedVal.name}
+                                    primary={nestedValue.name}
+                                    sx={{
+                                      opacity: props.open ? 1 : 0,
+                                    }}
                                   />
                                 </ListItemButton>
                               </Wrap>
@@ -172,39 +193,50 @@ const SideMenu = (props: myProps) => {
         </>
       </List>
       <Box
-        flex="none"
-        order="5"
         align-self="stretch"
+        flex="none"
         flex-grow="0"
+        order="5"
         sx={{
-          maxWidth: props.open ? '240px' : '55px'
+          maxWidth: props.open ? '240px' : '55px',
         }}
       >
         <Divider />
         <ListItemButton
-          sx={{
-            height: '48px'
-          }}
           onClick={colorMode.toggleColorMode}
+          sx={{
+            height: '48px',
+          }}
         >
           <ListItemIcon>
             <QrCode2Icon />
           </ListItemIcon>
-          <ListItemText sx={{ opacity: props.open ? 1 : 1 }} primary="Scanner" />
+          <ListItemText
+            primary="Scanner"
+            sx={{
+              opacity: props.open ? 1 : 1,
+            }}
+          />
         </ListItemButton>
         <Divider />
         <ListItemButton
           sx={{
-            height: '48px'
+            height: '48px',
           }}
         >
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText sx={{ opacity: props.open ? 1 : 1 }} primary="Settings" />
+          <ListItemText
+            primary="Settings"
+            sx={{
+              opacity: props.open ? 1 : 1,
+            }}
+          />
         </ListItemButton>
       </Box>
     </Box>
   );
 };
+
 export default SideMenu;

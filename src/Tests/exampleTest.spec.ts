@@ -5,4 +5,9 @@ describe('testMe', () => {
     const someTestValue = testMe();
     expect(someTestValue).toBe('someValue');
   });
+
+  it('should display return someValue', () => {
+    const someTestValue = testMe();
+    expect(someTestValue).toBe('someValue');
+  });
 });
