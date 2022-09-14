@@ -19,24 +19,8 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      include: './../templates/ci-template.yaml'
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install all dependencies
-        run: npm ci
-
-      - name: Run the tests
-        run: npm test -- --coverage
-
-      - name: Build the app
-        run: npm run build --if-present
-    
 on:
   pull_request:
     branches: ['develop']
@@ -59,21 +43,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install all dependencies
-        run: npm ci
-
-      - name: Run the tests
-        run: npm test -- --coverage
-
-      - name: Build the app
-        run: npm run build --if-present
-
+      include: './../templates/ci-template.yaml'
+      
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
         with:
