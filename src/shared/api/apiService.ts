@@ -1,12 +1,13 @@
+import { type ILogin } from '../../Components/Login/Login';
 import apiClient from './apiClient';
 
-// const urlOk = '/login?password=123&email=adam@user.pl';
-const urlNot = '/login?password=wrong&email=adam@user.pl';
+// const urlNot = '/login?password=wrong&email=adam@user.pl';
 
-const getToken = async () => {
+const getToken = async ({ email, password }: ILogin) => {
+  const urlOk = `/login?password=${password}&email=${email}`;
   {
     try {
-      return await apiClient.get(urlNot);
+      return await apiClient.get(urlOk);
     } catch (e) {
       console.error(e);
     }
