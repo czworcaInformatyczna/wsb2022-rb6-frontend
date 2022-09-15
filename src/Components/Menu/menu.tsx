@@ -36,7 +36,7 @@ const SideMenu = (props: myProps) => {
         setOpenNested(object);
       }
     }
-  });
+  }, [openNested]);
 
   const handleClick = (id: number) => {
     setOpenNested({

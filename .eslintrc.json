@@ -42,7 +42,9 @@
         "@typescript-eslint/indent": 0,
         "@typescript-eslint/no-extra-parens": "off",
         "@typescript-eslint/triple-slash-reference": "off",
-        "@typescript-eslint/consistent-type-definitions": "off"
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "no-console": "warn",
+        "react/jsx-sort-props": "off"
       }
     },
 

@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Drawer from './Components/Drawer/drawer';
+import AppRoutes from './Components/routes';
 import { ThemeMode } from './domain';
 
 export const ColorModeContext = React.createContext({
@@ -81,7 +81,7 @@ const App = (): JSX.Element => {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Drawer />
+            <AppRoutes />
           </BrowserRouter>
         </ThemeProvider>
       </ColorModeContext.Provider>
