@@ -1,84 +1,95 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Logout from '@mui/icons-material/Logout';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Hidden } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import * as React from 'react';
 
-export default function AccountMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+export const AccountMenu = (): JSX.Element => {
+  const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
+  const open = Boolean(anchorElement);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorElement(event.currentTarget);
   };
+
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorElement(null);
   };
-  
+
   return (
-    <React.Fragment>
+    <>
       <Box>
         <Tooltip title="Account">
           <IconButton
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-haspopup="true"
             onClick={handleClick}
             size="small"
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            sx={{padding:0, borderRadius:0,height:"100%"}}
+            sx={{
+              borderRadius: 0,
+              height: '100%',
+              padding: 0,
+            }}
           >
             <Hidden smUp>
-              <MoreVertIcon/>
+              <MoreVertIcon />
             </Hidden>
             <Hidden smDown>
-               <ArrowDropDownIcon/>
+              <ArrowDropDownIcon />
             </Hidden>
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
             '& .MuiAvatar-root': {
-              width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
+              width: 32,
             },
             '&:before': {
               content: '""',
               display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
               height: 10,
+              position: 'absolute',
               bgcolor: 'background.paper',
+              right: 14,
+              top: 0,
               transform: 'translateY(-50%) rotate(45deg)',
+              width: 10,
               zIndex: 0,
             },
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            overflow: 'visible',
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        anchorEl={anchorElement}
+        anchorOrigin={{
+          horizontal: 'right',
+          vertical: 'bottom',
+        }}
+        id="account-menu"
+        onClick={handleClose}
+        onClose={handleClose}
+        open={open}
+        transformOrigin={{
+          horizontal: 'right',
+          vertical: 'top',
+        }}
       >
         <MenuItem>
           <Avatar /> Profile
@@ -106,6 +117,6 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
-}
+};

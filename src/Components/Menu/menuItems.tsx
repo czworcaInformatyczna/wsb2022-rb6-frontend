@@ -1,118 +1,125 @@
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AddIcon from '@mui/icons-material/Add';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import CableIcon from '@mui/icons-material/Cable';
-import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import CheckIcon from '@mui/icons-material/Check';
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import CableOutlinedIcon from '@mui/icons-material/CableOutlined';
-import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
-import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
-import GroupIcon from '@mui/icons-material/Group';
+import AddIcon from '@mui/icons-material/Add';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
+import CableIcon from '@mui/icons-material/Cable';
+import CableOutlinedIcon from '@mui/icons-material/CableOutlined';
+import CheckIcon from '@mui/icons-material/Check';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import GroupIcon from '@mui/icons-material/Group';
+import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined';
+import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 
-export const menuItems =[{
-    id:0,
-    name:"Dashboard",
-    icon: <DashboardIcon/>,
-    link:"/Dashboard",
-    nestedList: null
-    
-},
-{   id:1,
-    name:"Add",
-    icon: <AddIcon/>,
-    link: null ,
-    nestedList: [{
-        id:0,
-        name:"Asset",
-        icon: <FormatListBulletedIcon/>,
-        link:"/AddAsset",
-    },{
-        id:1,
-        name:"Accessories",
-        icon: <CableIcon/>,
-        link:"/AddAccessories",
-    }]
-},
-{
-    id:2,
-    name:"Assets",
-    icon: <FormatListBulletedIcon/>,
-    link: null ,
-    nestedList: [{
-        id:0,
-        name:"All assets",
-        icon: <AllInclusiveIcon/>,
-        link:"/Assets",
-    },{
-        id:1,
-        name:"Ready to deploy",
-        icon: <CheckIcon/>,
-        link:"/Assets/ReadyToDeploy",
-    },
-    {
-        id:2,
-        name:"Deployed",
-        icon: <PanoramaFishEyeIcon/>,
-        link:"/Assets/Deployed",
-    },
-    {
-        id:3,
-        name:"Maintenance",
-        icon: <BuildCircleOutlinedIcon/>,
-        link:"/Assets/Maintenance",
-    },
-    {
-        id:4,
-        name:"Archived",
-        icon: <DeleteForeverOutlinedIcon/>,
-        link:"/Assets/Archived",
-    }]
-},{
-    id:3,
-    name:"Accessories",
-    icon: <CableOutlinedIcon/>,
-    link:"/Accessories",
-    nestedList: null
-    
-},{
-    id:4,
-    name:"Licenses",
-    icon: <StickyNote2OutlinedIcon/>,
-    link:"/Licenses",
-    nestedList: null
-    
-},{
-    id:5,
-    name:"Consumables",
-    icon: <LocalDrinkOutlinedIcon/>,
-    link:"/Consumables",
-    nestedList: null
-    
-},{
-    id:6,
-    name:"Components",
-    icon: <AccountTreeOutlinedIcon/>,
-    link:"/Components",
-    nestedList: null
-    
-}
-,{
-    id:7,
-    name:"Users",
-    icon: <GroupIcon/>,
-    link:"/Users",
-    nestedList: null
-    
-},{
-    id:8,
-    name:"Roles",
-    icon: <AdminPanelSettingsIcon/>,
-    link:"/Roles",
-    nestedList: null
-    
-}]
+export const menuItems = [
+  {
+    icon: <DashboardIcon />,
+    id: 0,
+    link: '/Dashboard',
+    name: 'Dashboard',
+    nestedList: null,
+  },
+  {
+    icon: <AddIcon />,
+    id: 1,
+    link: null,
+    name: 'Add',
+    nestedList: [
+      {
+        icon: <FormatListBulletedIcon />,
+        id: 0,
+        link: '/AddAsset',
+        name: 'Asset',
+      },
+      {
+        icon: <CableIcon />,
+        id: 1,
+        link: '/AddAccessories',
+        name: 'Accessories',
+      },
+    ],
+  },
+  {
+    icon: <FormatListBulletedIcon />,
+    id: 2,
+    link: null,
+    name: 'Assets',
+    nestedList: [
+      {
+        icon: <AllInclusiveIcon />,
+        id: 0,
+        link: '/Assets/All',
+        name: 'All assets',
+      },
+      {
+        icon: <CheckIcon />,
+        id: 1,
+        link: '/Assets/ReadyToDeploy',
+        name: 'Ready to deploy',
+      },
+      {
+        icon: <PanoramaFishEyeIcon />,
+        id: 2,
+        link: '/Assets/Deployed',
+        name: 'Deployed',
+      },
+      {
+        icon: <BuildCircleOutlinedIcon />,
+        id: 3,
+        link: '/Assets/Maintenance',
+        name: 'Maintenance',
+      },
+      {
+        icon: <DeleteForeverOutlinedIcon />,
+        id: 4,
+        link: '/Assets/Archived',
+        name: 'Archived',
+      },
+    ],
+  },
+  {
+    icon: <CableOutlinedIcon />,
+    id: 3,
+    link: '/Accessories',
+    name: 'Accessories',
+    nestedList: null,
+  },
+  {
+    icon: <StickyNote2OutlinedIcon />,
+    id: 4,
+    link: '/Licenses',
+    name: 'Licenses',
+    nestedList: null,
+  },
+  {
+    icon: <LocalDrinkOutlinedIcon />,
+    id: 5,
+    link: '/Consumables',
+    name: 'Consumables',
+    nestedList: null,
+  },
+  {
+    icon: <AccountTreeOutlinedIcon />,
+    id: 6,
+    link: '/Components',
+    name: 'Components',
+    nestedList: null,
+  },
+  {
+    icon: <GroupIcon />,
+    id: 7,
+    link: '/Users',
+    name: 'Users',
+    nestedList: null,
+  },
+  {
+    icon: <AdminPanelSettingsIcon />,
+    id: 8,
+    link: '/Roles',
+    name: 'Roles',
+    nestedList: null,
+  },
+];

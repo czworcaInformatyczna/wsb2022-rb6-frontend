@@ -17,7 +17,6 @@
     "@types/node": "^18.7.13",
     "@types/react-dom": "^18.0.6",
     "enzyme": "^3.11.0",
-    "eslint": "^8.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -28,20 +27,16 @@
     "redux-mock-store": "^1.5.4",
     "redux-saga": "^1.2.1",
     "type-name": "^2.0.2",
-    "typescript": "^4.7.4",
     "web-vitals": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "test": "react-scripts test --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "lint:fix": "eslint --fix .gitignore --ext .js,.ts,.tsx .",
+    "format": "prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   },
   "browserslist": {
     "production": [
@@ -61,7 +56,23 @@
     "@types/react-redux": "^7.1.24",
     "@types/react-router": "^5.1.18",
     "@types/redux-mock-store": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "eslint-config-canonical": "^37.0.3",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.0.4",
+    "eslint-plugin-jest-dom": "^4.0.2",
+    "eslint-plugin-jest-formatting": "^3.1.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^5.6.3",
     "prettier": "^2.7.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.8.3"
   }
 }

@@ -1,91 +1,92 @@
-import * as React from 'react';
-import { styled, Theme, CSSObject } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
+import { Hidden, Toolbar } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import { type CSSObject, type Theme, styled } from '@mui/material/styles';
+import * as React from 'react';
 import Header from '../Header/header';
 import SideMenu from '../Menu/menu';
-import { Hidden, Toolbar } from '@mui/material';
-import { AppBarProps } from './domain';
 import AppRoutes from '../routes';
+import { type AppBarProps } from './domain';
 
 const drawerWidth = 240;
 
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
+const openedMixin = (theme: Theme): CSSObject => {
+  return {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.sharp,
+    }),
+    width: drawerWidth,
+  };
+};
 
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+const closedMixin = (theme: Theme): CSSObject => {
+  return {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp,
+    }),
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+  };
+};
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-  }),
-  ...(!open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-  }),
-}));
+  shouldForwardProp: (property) => {
+    return property !== 'open';
+  },
+})<AppBarProps>(({ theme, open }) => {
+  return {
+    transition: theme.transitions.create(['width', 'margin'], {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp,
+    }),
+    zIndex: theme.zIndex.drawer + 1,
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+    }),
+    ...(!open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+    }),
+  };
+});
 
-const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
+const Drawer = styled(MuiDrawer)(({ theme, open }) => {
+  return {
+    boxSizing: 'border-box',
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
 
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
-}));
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  };
+});
 
-const MiniDrawer = () => {
+const MiniDrawer = (): JSX.Element => {
   const [open, setOpen] = React.useState(true);
 
   const toogleDrower = () => {
-    localStorage.setItem('openDrawer', '' + !open + '');
+    localStorage.setItem('openDrawer', String(!open) + '');
     setOpen(!open);
   };
 
   React.useEffect(() => {
-    let isOpen = localStorage.getItem('openDrawer');
+    const isOpen = localStorage.getItem('openDrawer');
     if (isOpen === 'false') {
       setOpen(false);
     } else {
@@ -94,27 +95,31 @@ const MiniDrawer = () => {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        display: 'flex',
+      }}
+    >
       <CssBaseline />
       <Toolbar>
-        <AppBar position="fixed" open={open}>
-          <Header toogleOpen={toogleDrower} />
+        <AppBar open={open} position="fixed">
+          <Header handleToggleOpen={toogleDrower} />
         </AppBar>
       </Toolbar>
       <Hidden smDown>
-        <Drawer variant="permanent" open={open}>
+        <Drawer open={open} variant="permanent">
           <SideMenu open={open} />
         </Drawer>
       </Hidden>
       <Hidden smUp>
         <Drawer
-          variant="temporary"
-          anchor="left"
-          onClose={toogleDrower}
           ModalProps={{
             keepMounted: true,
           }}
+          anchor="left"
+          onClose={toogleDrower}
           open={open}
+          variant="temporary"
         >
           <SideMenu open={open} />
         </Drawer>
@@ -138,4 +143,5 @@ const MiniDrawer = () => {
     </Box>
   );
 };
+
 export default MiniDrawer;
