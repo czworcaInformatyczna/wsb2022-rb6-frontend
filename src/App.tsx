@@ -2,24 +2,23 @@ import * as React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Drawer from './Components/Drawer/drawer';
-import { Box, CssBaseline, GlobalStyles } from "@mui/material";
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box, CssBaseline, GlobalStyles } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ThemeMode } from './domain';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-const App=()=>{
-  
+const App = () => {
   const [mode, setMode] = React.useState<ThemeMode>(ThemeMode.LIGHT);
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => {
           let darkMode: ThemeMode = prevMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
-          localStorage.setItem("darkMode", darkMode);
+          localStorage.setItem('darkMode', darkMode);
           return darkMode;
-        })
-      }
+        });
+      },
     }),
     [],
   );
@@ -33,11 +32,11 @@ const App=()=>{
             ? {
                 // palette values for light mode
                 primary: {
-                  main: '#67b3e6',
+                  main: '#0A7FB1',
                   contrastText: 'rgba(0,0,0,0.87)',
                 },
                 secondary: {
-                  main: '#dc0022',
+                  main: '#67b3e6',
                 },
                 background: {
                   paper: '#f1f1f1',
@@ -50,7 +49,7 @@ const App=()=>{
                   main: '#3f51b5',
                 },
                 secondary: {
-                  main: '#f50057',
+                  main: '#0A7FB1',
                 },
                 background: {
                   paper: '#121212',
@@ -61,22 +60,19 @@ const App=()=>{
       }),
     [mode],
   );
-  
-    
+
   React.useEffect(() => {
-    const themeMode = localStorage.getItem("darkMode")
-    if(themeMode==="light"){
-      setMode(ThemeMode.LIGHT)
+    const themeMode = localStorage.getItem('darkMode');
+    if (themeMode === 'light') {
+      setMode(ThemeMode.LIGHT);
+    } else {
+      setMode(ThemeMode.DARK);
     }
-    else{
-      setMode(ThemeMode.DARK)
-    }
-  },[]);
+  }, []);
 
   return (
-    
-   <Box>
-    <GlobalStyles
+    <Box>
+      <GlobalStyles
         styles={{
           h1: { color: 'grey' },
           '::-webkit-scrollbar': {
@@ -88,16 +84,15 @@ const App=()=>{
           },
         }}
       />
-    <CssBaseline/>
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Drawer/>
-      </BrowserRouter>
-      </ThemeProvider>
+      <CssBaseline />
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Drawer />
+          </BrowserRouter>
+        </ThemeProvider>
       </ColorModeContext.Provider>
-  </Box>
-
-  )
-}
+    </Box>
+  );
+};
 export default App;

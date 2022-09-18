@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { styled, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -34,13 +34,13 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  }));
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -57,81 +57,85 @@ const AppBar = styled(MuiAppBar, {
   ...(!open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-   
   }),
 }));
 
-const Drawer = styled(MuiDrawer)(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
-);
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}));
 
-
-
- const MiniDrawer=()=>{
-  const theme = useTheme();
+const MiniDrawer = () => {
   const [open, setOpen] = React.useState(true);
-  
+
   const toogleDrower = () => {
-    localStorage.setItem("openDrawer", ""+!open+"")
+    localStorage.setItem('openDrawer', '' + !open + '');
     setOpen(!open);
   };
-  
+
   React.useEffect(() => {
-    let isOpen = localStorage.getItem("openDrawer");
-    if(isOpen==="false"){
-      setOpen(false)
+    let isOpen = localStorage.getItem('openDrawer');
+    if (isOpen === 'false') {
+      setOpen(false);
+    } else {
+      setOpen(true);
     }
-    else{
-      setOpen(true)
-    }
-    
   }, []);
- 
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-        <Toolbar>
-      <AppBar position="fixed" open={open} >
-        <Header toogleOpen ={ toogleDrower}/>
-      </AppBar>
+      <Toolbar>
+        <AppBar position="fixed" open={open}>
+          <Header toogleOpen={toogleDrower} />
+        </AppBar>
       </Toolbar>
       <Hidden smDown>
-      <Drawer variant="permanent" open={open}>
-        <SideMenu open={open}/>
-      </Drawer>
+        <Drawer variant="permanent" open={open}>
+          <SideMenu open={open} />
+        </Drawer>
       </Hidden>
       <Hidden smUp>
-      <Drawer variant="temporary"
-            anchor='left'
-            onClose={toogleDrower}
-           
-            ModalProps={{
-              keepMounted: true, 
-            }} open={open}>
-        <SideMenu open={open}/>
-      </Drawer>
+        <Drawer
+          variant="temporary"
+          anchor="left"
+          onClose={toogleDrower}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          open={open}
+        >
+          <SideMenu open={open} />
+        </Drawer>
       </Hidden>
-      <Box sx={{width:"100%",mr:5 }}>
-      <DrawerHeader/>
-      <Box component="main" sx={{ flexGrow: 0,backgroundColor:'background.paper', width:"100%", boxShadow:1,borderRadius:1, marginTop:2 }}>
-        <AppRoutes/>
-      </Box>
+      <Box sx={{ width: '100%', mr: 5 }}>
+        <DrawerHeader />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 0,
+            backgroundColor: 'background.paper',
+            width: '100%',
+            boxShadow: 1,
+            borderRadius: 1,
+            marginTop: 2,
+          }}
+        >
+          <AppRoutes />
+        </Box>
       </Box>
     </Box>
   );
-}
-export default MiniDrawer
+};
+export default MiniDrawer;
