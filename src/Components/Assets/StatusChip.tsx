@@ -8,45 +8,45 @@ const StatusChip = (status: string) => {
           case 'Ready to deploy':
             return (
               <Chip
+                color="success"
                 label={
-                  <Box width="100px" textAlign="center">
+                  <Box textAlign="center" width="100px">
                     {status}
                   </Box>
                 }
-                color="success"
               />
             );
           case 'Deployed':
             return (
               <Chip
+                color="info"
                 label={
-                  <Box width="100px" textAlign="center">
+                  <Box textAlign="center" width="100px">
                     {status}
                   </Box>
                 }
-                color="info"
               />
             );
           case 'Maintenance':
             return (
               <Chip
+                color="warning"
                 label={
-                  <Box width="100px" textAlign="center">
+                  <Box textAlign="center" width="100px">
                     {status}
                   </Box>
                 }
-                color="warning"
               />
             );
           case 'Archived':
             return (
               <Chip
+                color="error"
                 label={
-                  <Box width="100px" textAlign="center">
+                  <Box textAlign="center" width="100px">
                     {status}
                   </Box>
                 }
-                color="error"
               />
             );
           default:

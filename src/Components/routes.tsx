@@ -4,7 +4,7 @@ import { DataProvider } from './Assets/dataProvider';
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="Assets" element={<DataProvider link="Assets" />} />
+      <Route element={<DataProvider link="Assets" />} path="Assets" />
     </Routes>
   );
 };

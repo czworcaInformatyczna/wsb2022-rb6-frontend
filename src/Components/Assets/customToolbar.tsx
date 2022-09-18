@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
+import { type SelectChangeEvent } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
@@ -17,7 +10,7 @@ import {
   GridPagination,
 } from '@mui/x-data-grid';
 import React from 'react';
-import { CustomToolbarProps } from './domain';
+import { type CustomToolbarProps } from './domain';
 
 export const CustomToolbar = (Props: CustomToolbarProps) => {
   const [action, setAction] = React.useState<string>('');
@@ -31,32 +24,32 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
         justifyContent: 'space-between',
       }}
     >
-      <Box display="flex" alignItems="left" justifyContent="flex-start" flexDirection="column">
+      <Box alignItems="left" display="flex" flexDirection="column" justifyContent="flex-start">
         <GridToolbarQuickFilter />
-        <Box display="flex" alignItems="center" justifyContent="flex-start" flexDirection="row">
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <Box alignItems="center" display="flex" flexDirection="row" justifyContent="flex-start">
+          <FormControl sx={{ m: 1, minWidth: 120 }} variant="standard">
             <InputLabel id="select-label">Action</InputLabel>
 
             <Select
-              labelId="select-label"
               id="action-select"
-              value={action}
               label="Action"
+              labelId="select-label"
               onChange={(event: SelectChangeEvent) => {
                 setAction(event.target.value);
               }}
+              value={action}
             >
-              <MenuItem value={'Clone'}>Clone</MenuItem>
-              <MenuItem value={'Edit'}>Edit</MenuItem>
-              <MenuItem value={'Generate Label'}>Generate Label</MenuItem>
+              <MenuItem value="Clone">Clone</MenuItem>
+              <MenuItem value="Edit">Edit</MenuItem>
+              <MenuItem value="Generate Label">Generate Label</MenuItem>
             </Select>
           </FormControl>
           <Button
-            variant="outlined"
             disabled={(action === '' ? true : false) || Props.selectedItems.length === 0}
             onClick={() => {
               alert('clicked');
             }}
+            variant="outlined"
           >
             Apply
           </Button>

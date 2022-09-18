@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItemButton, { listItemButtonClasses } from '@mui/material/ListItemButton';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
@@ -21,9 +21,112 @@ export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, childr
   return !condition ? wrapper(children) : <>{children}</>;
 };
 
+export const menuItemList = (
+  open: boolean,
+  openNested: Nested,
+  handleClick: (id: number) => void,
+) =>
+  menuItems.map((value) => {
+    return value.link != null ? (
+      <div key={value.id}>
+        <Wrap
+          if={open}
+          with={(children) => {
+            return (
+              <Tooltip placement="right" title={value.name}>
+                <Box>{children}</Box>
+              </Tooltip>
+            );
+          }}
+        >
+          <ListItemButton component={Link} to={value.link}>
+            <ListItemIcon>{value.icon}</ListItemIcon>
+
+            <ListItemText
+              primary={value.name}
+              sx={{
+                opacity: open ? 1 : 0,
+              }}
+            />
+          </ListItemButton>
+        </Wrap>
+        <Divider />
+      </div>
+    ) : (
+      <div key={value.id}>
+        <Wrap
+          if={open}
+          with={(children) => {
+            return (
+              <Tooltip placement="right" title={value.name}>
+                <Box>{children}</Box>
+              </Tooltip>
+            );
+          }}
+        >
+          <ListItemButton
+            onClick={() => {
+              handleClick(value.id);
+            }}
+          >
+            <ListItemIcon>{value.icon}</ListItemIcon>
+            <ListItemText
+              primary={value.name}
+              sx={{
+                opacity: open ? 1 : 0,
+              }}
+            />
+            {open && (openNested[value.id] ? <ExpandLess /> : <ExpandMore />)}
+          </ListItemButton>
+          <Divider />
+        </Wrap>
+        {openNested !== undefined && (
+          <Collapse in={openNested[value.id]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {value.nestedList.map((nestedValue) => {
+                return (
+                  <div key={nestedValue.id}>
+                    <Wrap
+                      if={open}
+                      with={(children) => {
+                        return (
+                          <Tooltip placement="right" title={nestedValue.name}>
+                            <Box>{children}</Box>
+                          </Tooltip>
+                        );
+                      }}
+                    >
+                      <ListItemButton
+                        component={Link}
+                        dense
+                        sx={{
+                          pl: open ? 4 : 3,
+                        }}
+                        to={nestedValue.link}
+                      >
+                        <ListItemIcon>{nestedValue.icon}</ListItemIcon>
+                        <ListItemText
+                          primary={nestedValue.name}
+                          sx={{
+                            opacity: open ? 1 : 0,
+                          }}
+                        />
+                      </ListItemButton>
+                    </Wrap>
+                    <Divider />
+                  </div>
+                );
+              })}
+            </List>
+          </Collapse>
+        )}
+      </div>
+    );
+  });
+
 const SideMenu = (props: myProps) => {
   const [openNested, setOpenNested] = React.useState<Nested>({});
-  const colorMode = React.useContext(ColorModeContext);
+  const handleColorMode = React.useContext(ColorModeContext);
 
   React.useEffect(() => {
     if (openNested === undefined) {
@@ -36,7 +139,7 @@ const SideMenu = (props: myProps) => {
         setOpenNested(object);
       }
     }
-  });
+  }, [openNested]);
 
   const handleClick = (id: number) => {
     setOpenNested({
@@ -72,14 +175,11 @@ const SideMenu = (props: myProps) => {
           <ListItemButton
             component={Link}
             disableRipple
-            style={{
-              color: 'primary',
-            }}
             sx={{
               '&:hover': {
                 bgcolor: 'primary.main',
               },
-
+              color: 'primary.main',
               backgroundColor: 'primary.main',
             }}
             to="/"
@@ -91,105 +191,7 @@ const SideMenu = (props: myProps) => {
           </ListItemButton>
 
           <Divider />
-          <Box>
-            {menuItems.map((value) => {
-              return value.link != null ? (
-                <div key={value.id}>
-                  <Wrap
-                    if={props.open}
-                    with={(children) => {
-                      return (
-                        <Tooltip placement="right" title={value.name}>
-                          <Box>{children}</Box>
-                        </Tooltip>
-                      );
-                    }}
-                  >
-                    <ListItemButton component={Link} to={value.link}>
-                      <ListItemIcon>{value.icon}</ListItemIcon>
-
-                      <ListItemText
-                        primary={value.name}
-                        sx={{
-                          opacity: props.open ? 1 : 0,
-                        }}
-                      />
-                    </ListItemButton>
-                  </Wrap>
-                  <Divider />
-                </div>
-              ) : (
-                <div key={value.id}>
-                  <Wrap
-                    if={props.open}
-                    with={(children) => {
-                      return (
-                        <Tooltip placement="right" title={value.name}>
-                          <Box>{children}</Box>
-                        </Tooltip>
-                      );
-                    }}
-                  >
-                    <ListItemButton
-                      onClick={() => {
-                        handleClick(value.id);
-                      }}
-                    >
-                      <ListItemIcon>{value.icon}</ListItemIcon>
-                      <ListItemText
-                        primary={value.name}
-                        sx={{
-                          opacity: props.open ? 1 : 0,
-                        }}
-                      />
-                      {props.open && (openNested[value.id] ? <ExpandLess /> : <ExpandMore />)}
-                    </ListItemButton>
-                    <Divider />
-                  </Wrap>
-                  {openNested !== undefined && (
-                    <Collapse in={openNested[value.id]} timeout="auto" unmountOnExit>
-                      <List component="div" disablePadding>
-                        {value.nestedList.map((nestedValue) => {
-                          return (
-                            <div key={nestedValue.id}>
-                              <Wrap
-                                if={props.open}
-                                with={(children) => {
-                                  return (
-                                    <Tooltip placement="right" title={nestedValue.name}>
-                                      <Box>{children}</Box>
-                                    </Tooltip>
-                                  );
-                                }}
-                              >
-                                <ListItemButton
-                                  component={Link}
-                                  dense
-                                  sx={{
-                                    pl: props.open ? 4 : 3,
-                                  }}
-                                  to={nestedValue.link}
-                                >
-                                  <ListItemIcon>{nestedValue.icon}</ListItemIcon>
-                                  <ListItemText
-                                    primary={nestedValue.name}
-                                    sx={{
-                                      opacity: props.open ? 1 : 0,
-                                    }}
-                                  />
-                                </ListItemButton>
-                              </Wrap>
-                              <Divider />
-                            </div>
-                          );
-                        })}
-                      </List>
-                    </Collapse>
-                  )}
-                </div>
-              );
-            })}
-          </Box>
+          <Box>{menuItemList(props.open, openNested, handleClick)}</Box>
         </>
       </List>
       <Box
@@ -203,7 +205,7 @@ const SideMenu = (props: myProps) => {
       >
         <Divider />
         <ListItemButton
-          onClick={colorMode.toggleColorMode}
+          onClick={handleColorMode.toggleColorMode}
           sx={{
             height: '48px',
           }}

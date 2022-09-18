@@ -5,10 +5,10 @@
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.10.2",
+    "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.10.2",
     "@mui/types": "^7.1.5",
-    "@mui/x-data-grid": "^5.17.2",
+    "@mui/x-data-grid": "^5.17.3",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -51,6 +51,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
     "@types/enzyme": "^3.10.12",
     "@types/react": "^18.0.17",
     "@types/react-redux": "^7.1.24",
@@ -58,6 +60,7 @@
     "@types/redux-mock-store": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.23.0",
     "eslint-config-canonical": "^37.0.3",
     "eslint-config-prettier": "^8.5.0",
@@ -73,6 +76,7 @@
     "eslint-plugin-testing-library": "^5.6.3",
     "prettier": "^2.7.1",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "webpack": "^5.74.0"
   }
 }

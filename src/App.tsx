@@ -4,8 +4,6 @@ import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Drawer from './Components/Drawer/drawer';
-import { Box, CssBaseline, GlobalStyles } from '@mui/material';
-import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import { ThemeMode } from './domain';
 
 export const ColorModeContext = React.createContext({
@@ -35,10 +33,15 @@ const App = (): JSX.Element => {
           ? {
               // palette values for light mode
               primary: {
-                main: '#00a2f5',
+                main: '#0A7FB1',
+                contrastText: 'rgba(0,0,0,0.87)',
               },
               secondary: {
-                main: '#f50057',
+                main: '#67b3e6',
+              },
+              background: {
+                paper: '#f1f1f1',
+                default: '#e0e0e0',
               },
             }
           : {
@@ -47,7 +50,11 @@ const App = (): JSX.Element => {
                 main: '#3f51b5',
               },
               secondary: {
-                main: '#f50057',
+                main: '#0A7FB1',
+              },
+              background: {
+                paper: '#121212',
+                default: '#2D2D2D',
               },
             }),
       },

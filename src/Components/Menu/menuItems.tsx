@@ -51,7 +51,7 @@ export const menuItems = [
       {
         icon: <AllInclusiveIcon />,
         id: 0,
-        link: '/Assets/All',
+        link: '/Assets',
         name: 'All assets',
       },
       {

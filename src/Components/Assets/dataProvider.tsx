@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Assets from './Assets';
-import { IDataProvider, DataProviderProps } from './domain';
+import { type IDataProvider, type DataProviderProps } from './domain';
 import StatusChip from './StatusChip';
 
 export const DataProvider = (Props: DataProviderProps) => {
@@ -24,12 +24,12 @@ export const DataProvider = (Props: DataProviderProps) => {
 
                   renderCell: (params) => (
                     <img
+                      alt="Asset"
+                      src={params.value}
                       style={{
                         width: '100%',
                         height: undefined,
                       }}
-                      src={params.value}
-                      alt="Asset"
                     />
                   ),
                 },
