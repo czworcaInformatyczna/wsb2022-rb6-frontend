@@ -4,19 +4,12 @@ export interface AssetsProps {
   data: IDataProvider;
 }
 
-export interface AssetsState {
-  assets: Asset[];
-  contextMenu: {
-    elementId: number;
-    mouseX: number;
-    mouseY: number;
-  } | null;
-  loading: boolean;
-  loadingData: boolean;
-  pageSize: number;
-  rowCountState: number;
-  selectionModel: GridSelectionModel;
+export interface ContextMenu {
+  elementId: number;
+  mouseX: number;
+  mouseY: number;
 }
+
 export interface Asset {
   category: string;
   id: number | string;
