@@ -1,7 +1,8 @@
 import { TextField, Button, Box } from '@mui/material';
-import { type FC } from 'react';
+import { type FC, useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import apiService from '../../shared/api/apiService';
+import AuthContext from '../../shared/context/AuthProvider';
 
 export interface ILogin {
   email: string;
@@ -15,12 +16,19 @@ export const Login: FC = (): JSX.Element => {
     formState: { errors },
     setError,
   } = useForm<ILogin>();
+  const appContext = useContext(AuthContext);
 
-  const onSubmit = async (data: ILogin) => {
-    const getTokenApi = await apiService.getToken(data);
-    if (getTokenApi?.data.access_token) {
+  const onSubmit = async (userData: ILogin) => {
+    const { email, password } = userData;
+    const { setAuth } = appContext ?? {};
+    const getTokenApiData = await apiService.getToken({ email, password });
+    const token: string = getTokenApiData?.data.access_token;
+
+    if (token) {
+      if (setAuth) setAuth({ email, token });
+      // if (setAuth) setAuth({ email, token });
       alert('Zalogowano!');
-      console.log(getTokenApi?.data.access_token);
+      console.log(token);
     } else {
       setError(
         'email',

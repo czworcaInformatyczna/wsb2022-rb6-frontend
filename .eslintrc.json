@@ -44,7 +44,8 @@
         "@typescript-eslint/triple-slash-reference": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
         "no-console": "warn",
-        "react/jsx-sort-props": "off"
+        "react/jsx-sort-props": "off",
+        "@typescript-eslint/naming-convention": "off"
       }
     },
 

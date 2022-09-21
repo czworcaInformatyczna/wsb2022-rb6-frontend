@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const base = 'http://137.74.158.36:81/api/';
-const apiClient = axios.create({
+const BASE_URL = 'http://137.74.158.36:81/api/';
+
+export const apiClient = axios.create({
   // Later read this URL from an environment variable
-  baseURL: base,
+  baseURL: BASE_URL,
 });
 
-export default apiClient;
+export const apiPrivateClient = axios.create({
+  // Later read this URLfrom an environment variable
+  baseURL: BASE_URL,
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+});
