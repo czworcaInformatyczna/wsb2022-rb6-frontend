@@ -24,7 +24,10 @@
       "parserOptions": {
         "project": "./tsconfig.json"
       },
-      "rules": { "@typescript-eslint/member-delimiter-style": "off" }
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/no-explicit-any": "warn"
+      }
     },
     {
       "extends": [

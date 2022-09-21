@@ -7,7 +7,7 @@ import { type CSSObject, type Theme, styled } from '@mui/material/styles';
 import * as React from 'react';
 import Header from '../Header/header';
 import SideMenu from '../Menu/menu';
-import AppRoutes from '../routes';
+// import AppRoutes from '../routes';
 import { type AppBarProps } from './domain';
 
 const drawerWidth = 240;
@@ -124,7 +124,7 @@ const MiniDrawer = (): JSX.Element => {
           <SideMenu open={open} />
         </Drawer>
       </Hidden>
-      <Box
+      {/* <Box
         component="main"
         sx={{
           flexGrow: 0,
@@ -132,7 +132,7 @@ const MiniDrawer = (): JSX.Element => {
         }}
       >
         <AppRoutes />
-      </Box>
+      </Box> */}
     </Box>
   );
 };
