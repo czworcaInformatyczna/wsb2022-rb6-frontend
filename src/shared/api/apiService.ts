@@ -3,14 +3,19 @@ import { apiClient } from './apiClient';
 
 // const urlNot = '/login?password=wrong&email=adam@user.pl';
 
-const getToken = async ({ email, password }: ILogin) => {
+const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
   const urlOk = `/login?password=${password}&email=${email}`;
   {
     try {
       return await apiClient.get(urlOk, { signal: controller.signal });
     } catch (e) {
-      console.error(e);
+      //   if (!e?.response) {
+      //     console.error('No response from server');
+      //   } else if (e.response?.status === 400) {
+      //     console.error('Missing email or password');
+      //   }
+      // }
     }
   }
 };
