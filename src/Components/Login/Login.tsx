@@ -2,7 +2,7 @@ import { TextField, Button, Box } from '@mui/material';
 import { type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import apiService from '../../shared/api/apiService';
+import apiService from '../../api/apiService';
 import useAuth from '../../shared/hooks/useAuth';
 export interface ILogin {
   email: string;
@@ -43,6 +43,7 @@ export const Login: FC = (): JSX.Element => {
     <Box
       sx={{
         backgroundColor: 'primary.dark',
+        padding: '1rem',
         position: 'fixed',
         top: '40%',
         left: '50%',
@@ -90,6 +91,7 @@ export const Login: FC = (): JSX.Element => {
                   size="small"
                   variant="outlined"
                   type="password"
+                  sx={{ marginTop: '5%' }}
                 />
               )}
             />
@@ -99,7 +101,7 @@ export const Login: FC = (): JSX.Element => {
               variant="contained"
               type="submit"
               color="success"
-              sx={{ marginTop: '5%', marginLeft: '50%' }}
+              sx={{ marginTop: '5%', marginLeft: '50%', color: 'white' }}
             >
               Zaloguj
             </Button>

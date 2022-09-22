@@ -1,7 +1,5 @@
-import { type ILogin } from '../../Components/Login/Login';
+import { type ILogin } from '../Components/Login/Login';
 import { apiClient } from './apiClient';
-
-// const urlNot = '/login?password=wrong&email=adam@user.pl';
 
 const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
@@ -23,5 +21,3 @@ const getToken = async ({ email, password }: ILogin): Promise<any> => {
 export default {
   getToken,
 };
-
-// abort controller
