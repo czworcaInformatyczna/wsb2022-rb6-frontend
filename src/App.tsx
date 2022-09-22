@@ -1,13 +1,9 @@
 import { Box, CssBaseline, GlobalStyles } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Layout from './Components/Layout/Layout';
-import { Login } from './Components/Login/Login';
-// import AppRoutes from './Components/routes';
 import { ThemeMode } from './domain';
-import Drawer from './Components/Drawer/drawer';
+import AppRoutes from './Components/routes';
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
@@ -83,15 +79,7 @@ const App = (): JSX.Element => {
       <CssBaseline />
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              {/* <AppRoutes /> */}
-              <Route path="login" element={<Login />} />
-              <Route path="main" element={<Drawer />} />
-              {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </Route>
-          </Routes>
+          <AppRoutes />
         </ThemeProvider>
       </ColorModeContext.Provider>
     </Box>

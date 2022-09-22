@@ -1,13 +1,22 @@
-import { Route, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { PageNotFound } from '../shared/components/PageNotFound.tsx/PageNotFound';
+import RequireAuth from '../shared/components/RequireAuth';
+import { Accessories } from './Accessories/Accessories';
+import { Dashboard } from './Dashboard/Dashboard';
 import Drawer from './Drawer/drawer';
 import { Login } from './Login/Login';
 
 const AppRoutes = (): JSX.Element => (
-  <>
+  <Routes>
     <Route path="login" element={<Login />} />
-    <Route path="main" element={<Drawer />} />
-    {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
-    <Route path="*" element={<Navigate to="/login" replace />} />
-  </>
+    <Route element={<RequireAuth />}>
+      <Route path="/" element={<Drawer />}>
+        {/* <AppRoutes /> */}
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="accessories" element={<Accessories />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
+    </Route>
+  </Routes>
 );
 export default AppRoutes;
