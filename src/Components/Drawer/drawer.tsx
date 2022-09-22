@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import { type CSSObject, type Theme, styled } from '@mui/material/styles';
 import * as React from 'react';
+import { Outlet } from 'react-router';
 import Header from '../Header/header';
 import SideMenu from '../Menu/menu';
 // import AppRoutes from '../routes';
@@ -124,15 +125,17 @@ const MiniDrawer = (): JSX.Element => {
           <SideMenu open={open} />
         </Drawer>
       </Hidden>
-      {/* <Box
+      <Box
         component="main"
         sx={{
+          mt: '48px',
           flexGrow: 0,
           pr: 3,
+          backgroundColor: 'blue',
         }}
       >
-        <AppRoutes />
-      </Box> */}
+        <Outlet />
+      </Box>
     </Box>
   );
 };
