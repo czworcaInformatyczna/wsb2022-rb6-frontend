@@ -2,9 +2,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, Box, IconButton, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import useAuth from '../../shared/hooks/useAuth';
 import { AccountMenu } from './accountMenu';
 
 const ProfilePanel = () => {
+  const { auth } = useAuth();
   return (
     <Box alignItems="center" display="flex" height="100%" justifyContent="flex-end">
       <IconButton
@@ -41,7 +43,7 @@ const ProfilePanel = () => {
           }}
         >
           {' '}
-          User
+          {auth.email}
         </Typography>
         <Avatar
           alt="Uemy Sharp"
