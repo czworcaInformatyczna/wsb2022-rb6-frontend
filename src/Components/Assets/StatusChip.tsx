@@ -1,11 +1,12 @@
 import { Box, Chip } from '@mui/material';
+import { Statuses } from './domain';
 
 const StatusChip = (status: string) => {
   return (
     <Box>
       {(() => {
         switch (status) {
-          case 'Ready to deploy':
+          case Statuses.ReadyToDeploy:
             return (
               <Chip
                 color="success"
@@ -16,7 +17,7 @@ const StatusChip = (status: string) => {
                 }
               />
             );
-          case 'Deployed':
+          case Statuses.Deployed:
             return (
               <Chip
                 color="info"
@@ -27,7 +28,7 @@ const StatusChip = (status: string) => {
                 }
               />
             );
-          case 'Maintenance':
+          case Statuses.Maintenance:
             return (
               <Chip
                 color="warning"
@@ -38,7 +39,7 @@ const StatusChip = (status: string) => {
                 }
               />
             );
-          case 'Archived':
+          case Statuses.Archived:
             return (
               <Chip
                 color="error"

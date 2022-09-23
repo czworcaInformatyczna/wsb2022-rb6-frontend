@@ -31,3 +31,9 @@ export interface IDataProvider {
   name: string;
   // Add APIs object that stores api calls
 }
+export enum Statuses {
+  Archived = 'Archived',
+  Deployed = 'Deployed',
+  Maintenance = 'Maintenance',
+  ReadyToDeploy = 'Ready to deploy',
+}
