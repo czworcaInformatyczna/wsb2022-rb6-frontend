@@ -86,7 +86,7 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => {
   };
 });
 
-const MiniDrawer = (): JSX.Element => {
+const Layout = (): JSX.Element => {
   const [open, setOpen] = React.useState(true);
 
   const toogleDrower = () => {
@@ -153,4 +153,4 @@ const MiniDrawer = (): JSX.Element => {
   );
 };
 
-export default MiniDrawer;
+export default Layout;
