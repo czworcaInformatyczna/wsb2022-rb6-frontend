@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 import { ThemeMode } from '../../domain';
 
-function CustomTheme(mode: ThemeMode) {
+const CustomTheme = (mode: ThemeMode) => {
   return createTheme({
     palette: {
       mode,
@@ -35,6 +35,6 @@ function CustomTheme(mode: ThemeMode) {
           }),
     },
   });
-}
+};
 
 export default CustomTheme;
