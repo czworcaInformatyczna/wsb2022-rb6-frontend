@@ -59,6 +59,15 @@ const AppBar = styled(MuiAppBar, {
   };
 });
 
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
 const Drawer = styled(MuiDrawer)(({ theme, open }) => {
   return {
     boxSizing: 'border-box',
@@ -77,7 +86,7 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => {
   };
 });
 
-const MiniDrawer = (): JSX.Element => {
+const Layout = (): JSX.Element => {
   const [open, setOpen] = React.useState(true);
 
   const toogleDrower = () => {
@@ -124,17 +133,24 @@ const MiniDrawer = (): JSX.Element => {
           <SideMenu open={open} />
         </Drawer>
       </Hidden>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 0,
-          pr: 3,
-        }}
-      >
-        <AppRoutes />
+      <Box sx={{ width: '100%', mr: 5 }}>
+        <DrawerHeader />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 0,
+            backgroundColor: 'background.paper',
+            width: '100%',
+            boxShadow: 1,
+            borderRadius: 1,
+            marginTop: 2,
+          }}
+        >
+          <AppRoutes />
+        </Box>
       </Box>
     </Box>
   );
 };
 
-export default MiniDrawer;
+export default Layout;
