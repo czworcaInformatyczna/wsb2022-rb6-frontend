@@ -124,7 +124,7 @@ const Assets = (Props: AssetsProps) => {
 
   return (
     <Box>
-      {loading && <LoadingScreen />}
+      {loading && <LoadingScreen displayText size={200} />}
       {!loading && (
         <Grid
           alignItems="center"

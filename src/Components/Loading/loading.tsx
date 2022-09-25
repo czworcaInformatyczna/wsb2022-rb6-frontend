@@ -1,6 +1,7 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { type LoadingProps } from './domain';
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ size = 200, displayText = false }: LoadingProps) => {
   return (
     <Box
       alignContent="center"
@@ -11,8 +12,8 @@ const LoadingScreen = () => {
       }}
     >
       <Box alignContent="center" display="flex" flexDirection="column">
-        <CircularProgress size={200} sx={{ alignSelf: 'center' }} />
-        <Typography variant="h4"> Loading... Please wait...</Typography>
+        <CircularProgress size={size} sx={{ alignSelf: 'center' }} />
+        {displayText && <Typography variant="h4"> Loading... Please wait...</Typography>}
       </Box>
     </Box>
   );
