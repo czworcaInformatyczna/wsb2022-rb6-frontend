@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { type Asset, type ContextMenu } from './domain';
 import { type AssetsProps } from './domain';
+import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
+import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
   type GridCallbackDetails,
@@ -27,11 +30,27 @@ const Assets = (Props: AssetsProps) => {
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
 
+  const [savedState, setSavedState] = React.useState<{
+    initialState: GridInitialState;
+  }>({
+    initialState: { columns: { columnVisibilityModel: {} } },
+  });
+
   React.useEffect(() => {
     setAssets(testData);
     setRowCountState(testData.length);
     setLoading(false);
     setLoadingData(false);
+  }, []);
+
+  const syncState = React.useCallback((newVisibilityModel: GridColumnVisibilityModel) => {
+    setSavedState((prev) => ({
+      ...prev,
+      initialState: {
+        ...prev.initialState,
+        columns: { columnVisibilityModel: newVisibilityModel },
+      },
+    }));
   }, []);
 
   const handlePageSizeChange = (newPageSize: number) => {
@@ -121,7 +140,7 @@ const Assets = (Props: AssetsProps) => {
     },
   ];
   const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
-
+  console.log('test' + JSON.stringify(savedState));
   return (
     <Box>
       {loading && <LoadingScreen displayText size={200} />}
@@ -167,8 +186,13 @@ const Assets = (Props: AssetsProps) => {
               disableColumnMenu
               disableSelectionOnClick
               filterMode="server"
+              initialState={savedState.initialState}
               keepNonExistentRowsSelected
               loading={loadingData}
+              onColumnVisibilityModelChange={(state) => {
+                console.log('-------------' + JSON.stringify(state));
+                syncState(state);
+              }}
               onFilterModelChange={handleFilterChange}
               onPageChange={(newPage) => handlePageChange(newPage)}
               onPageSizeChange={(newPageSize) => handlePageSizeChange(newPageSize)}
