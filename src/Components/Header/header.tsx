@@ -37,10 +37,8 @@ const Header = ({ handleToggleOpen }: headerProps) => {
             <ListItemButton
               component={Link}
               disableRipple
-              style={{
-                color: 'primary',
-              }}
               sx={{
+                color: 'text.primary',
                 '&:hover': {
                   bgcolor: 'primary.main',
                 },
