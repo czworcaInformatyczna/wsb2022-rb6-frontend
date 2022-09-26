@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { type Asset, type ContextMenu } from './domain';
@@ -36,26 +35,34 @@ const Assets = (Props: AssetsProps) => {
     initialState: { columns: { columnVisibilityModel: {} } },
   });
 
+  const getDataGridState = React.useCallback(() => {
+    const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
+    const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');
+    if (columnsVisibility)
+      setSavedState((prev) => ({
+        initialState: {
+          ...prev.initialState,
+          columns: { columnVisibilityModel: JSON.parse(columnsVisibility) },
+        },
+      }));
+    if (pageSizeStorage) setPageSize(Number(pageSizeStorage));
+  }, [Props.data.name]);
+
   React.useEffect(() => {
     setAssets(testData);
     setRowCountState(testData.length);
     setLoading(false);
     setLoadingData(false);
-  }, []);
+    getDataGridState();
+  }, [getDataGridState]);
 
-  const syncState = React.useCallback((newVisibilityModel: GridColumnVisibilityModel) => {
-    setSavedState((prev) => ({
-      ...prev,
-      initialState: {
-        ...prev.initialState,
-        columns: { columnVisibilityModel: newVisibilityModel },
-      },
-    }));
-  }, []);
+  const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
+    localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
+  };
 
   const handlePageSizeChange = (newPageSize: number) => {
     // API CALL GET DATA
-
+    localStorage.setItem(Props.data.name + 'PageSize', JSON.stringify(newPageSize));
     setPageSize(newPageSize);
   };
 
@@ -140,7 +147,6 @@ const Assets = (Props: AssetsProps) => {
     },
   ];
   const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
-  console.log('test' + JSON.stringify(savedState));
   return (
     <Box>
       {loading && <LoadingScreen displayText size={200} />}
@@ -189,10 +195,7 @@ const Assets = (Props: AssetsProps) => {
               initialState={savedState.initialState}
               keepNonExistentRowsSelected
               loading={loadingData}
-              onColumnVisibilityModelChange={(state) => {
-                console.log('-------------' + JSON.stringify(state));
-                syncState(state);
-              }}
+              onColumnVisibilityModelChange={saveColumnsVisibility}
               onFilterModelChange={handleFilterChange}
               onPageChange={(newPage) => handlePageChange(newPage)}
               onPageSizeChange={(newPageSize) => handlePageSizeChange(newPageSize)}
