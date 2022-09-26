@@ -18,6 +18,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { CustomToolbar } from './customToolbar';
 import LoadingScreen from '../Loading/loading';
+import { TextSize } from '../Loading/domain';
 const Assets = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [assets, setAssets] = React.useState<Asset[]>([]);
@@ -124,7 +125,7 @@ const Assets = (Props: AssetsProps) => {
 
   return (
     <Box>
-      {loading && <LoadingScreen displayText size={190} />}
+      {loading && <LoadingScreen displayText size={190} textSize={TextSize.H4} />}
       {!loading && (
         <Grid
           alignItems="center"
