@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Box, CssBaseline, GlobalStyles } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import CustomTheme from './Components/Theme/customTheme';
+import Drawer from './Components/Drawer/drawer';
+import { ThemeMode } from './domain';
+import { GetColorModeFromLocalStorage, GetColorMode } from './Components/Theme/colorMode';
 
-function App() {
+export const ColorModeContext = React.createContext({
+  toggleColorMode: () => {},
+});
+
+const App = (): JSX.Element => {
+  const [mode, setMode] = React.useState<ThemeMode>(ThemeMode.LIGHT);
+  const colorMode = React.useMemo(() => {
+    return {
+      toggleColorMode: () => {
+        setMode((previousMode) => {
+          return GetColorMode(previousMode);
+        });
+      },
+    };
+  }, []);
+
+  const theme = React.useMemo(() => CustomTheme(mode), [mode]);
+
+  React.useEffect(() => {
+    setMode(GetColorModeFromLocalStorage());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <GlobalStyles
+        styles={{
+          '::-webkit-scrollbar': {
+            width: '0.4em',
+          },
+          '::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0,0,0,.1)',
+            outline: '1px solid slategrey',
+          },
+          h1: {
+            color: 'grey',
+          },
+        }}
+      />
+      <CssBaseline />
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Drawer />
+          </BrowserRouter>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
+    </Box>
   );
-}
+};
 
 export default App;
