@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: deepakputhraya/action-branch-name@master
         with:
-          allowed_prefixes: 'feature/'
+          allowed_prefixes: 'feature/,fix'
   build:
     runs-on: ubuntu-latest
 
