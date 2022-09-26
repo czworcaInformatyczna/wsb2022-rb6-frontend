@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: deepakputhraya/action-branch-name@master
         with:
-          allowed_prefixes: 'develop'
+          allowed_prefixes: 'develop,fix'
 
   build:
     runs-on: ubuntu-latest
