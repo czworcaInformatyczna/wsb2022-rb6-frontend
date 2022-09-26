@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: deepakputhraya/action-branch-name@master
         with:
-          allowed_prefixes: 'feature/INZ-'
+          allowed_prefixes: 'feature/'
   build:
     runs-on: ubuntu-latest
 
