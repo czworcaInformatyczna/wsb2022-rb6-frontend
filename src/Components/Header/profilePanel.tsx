@@ -17,7 +17,7 @@ const ProfilePanel = () => {
           color: 'black',
         }}
       >
-        <Badge
+      <Badge
           anchorOrigin={{
             horizontal: 'left',
             vertical: 'top',
