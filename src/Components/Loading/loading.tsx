@@ -9,6 +9,7 @@ const LoadingScreen = ({
   return (
     <Box
       alignContent="center"
+      data-testid="loadingBox"
       display="flex"
       justifyContent="center"
       sx={{
