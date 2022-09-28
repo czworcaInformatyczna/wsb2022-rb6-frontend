@@ -6,7 +6,8 @@ const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const urlOk = `/login?password=${password}&email=${email}`;
   {
     try {
-      return await apiClient.get(urlOk, { signal: controller.signal });
+      const data = await apiClient.get(urlOk, { signal: controller.signal });
+      return data;
     } catch (e) {
       //   if (!e?.response) {
       //     console.error('No response from server');

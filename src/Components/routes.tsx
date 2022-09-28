@@ -5,6 +5,7 @@ import { Accessories } from './Accessories/Accessories';
 import { Dashboard } from './Dashboard/Dashboard';
 import Drawer from './Drawer/drawer';
 import { Login } from './Login/Login';
+import { DataProvider } from './Assets/dataProvider';
 
 const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -14,6 +15,7 @@ const AppRoutes = (): JSX.Element => (
         {/* <AppRoutes /> */}
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="accessories" element={<Accessories />} />
+        <Route element={<DataProvider link="Assets" />} path="Assets" />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Route>
