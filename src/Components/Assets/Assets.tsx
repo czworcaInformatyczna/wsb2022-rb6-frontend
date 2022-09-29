@@ -2,6 +2,8 @@ import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/mat
 import React from 'react';
 import { type Asset, type ContextMenu } from './domain';
 import { type AssetsProps } from './domain';
+import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
+import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
   type GridCallbackDetails,
@@ -18,7 +20,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { CustomToolbar } from './customToolbar';
 import LoadingScreen from '../Loading/loading';
-import { TextSize } from '../Loading/domain';
 const Assets = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [assets, setAssets] = React.useState<Asset[]>([]);
@@ -28,16 +29,40 @@ const Assets = (Props: AssetsProps) => {
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
 
+  const [savedState, setSavedState] = React.useState<{
+    initialState: GridInitialState;
+  }>({
+    initialState: { columns: { columnVisibilityModel: {} } },
+  });
+
+  const getDataGridState = React.useCallback(() => {
+    const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
+    const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');
+    if (columnsVisibility)
+      setSavedState((prev) => ({
+        initialState: {
+          ...prev.initialState,
+          columns: { columnVisibilityModel: JSON.parse(columnsVisibility) },
+        },
+      }));
+    if (pageSizeStorage) setPageSize(Number(pageSizeStorage));
+  }, [Props.data.name]);
+
   React.useEffect(() => {
     setAssets(testData);
     setRowCountState(testData.length);
     setLoading(false);
     setLoadingData(false);
-  }, []);
+    getDataGridState();
+  }, [getDataGridState]);
+
+  const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
+    localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
+  };
 
   const handlePageSizeChange = (newPageSize: number) => {
     // API CALL GET DATA
-
+    localStorage.setItem(Props.data.name + 'PageSize', JSON.stringify(newPageSize));
     setPageSize(newPageSize);
   };
 
@@ -122,10 +147,9 @@ const Assets = (Props: AssetsProps) => {
     },
   ];
   const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
-
   return (
     <Box>
-      {loading && <LoadingScreen displayText size={190} textSize={TextSize.H4} />}
+      {loading && <LoadingScreen displayText size={200} />}
       {!loading && (
         <Grid
           alignItems="center"
@@ -168,8 +192,10 @@ const Assets = (Props: AssetsProps) => {
               disableColumnMenu
               disableSelectionOnClick
               filterMode="server"
+              initialState={savedState.initialState}
               keepNonExistentRowsSelected
               loading={loadingData}
+              onColumnVisibilityModelChange={saveColumnsVisibility}
               onFilterModelChange={handleFilterChange}
               onPageChange={(newPage) => handlePageChange(newPage)}
               onPageSizeChange={(newPageSize) => handlePageSizeChange(newPageSize)}
