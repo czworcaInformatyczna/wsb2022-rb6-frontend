@@ -2,8 +2,8 @@ import { TextField, Button, Box } from '@mui/material';
 import { type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../../api/apiService';
 import useAuth from '../../shared/hooks/useAuth';
-import { useTodosQuery } from '../../shared/hooks/useTokenQuery';
 export interface ILogin {
   email: string;
   password: string;
@@ -15,18 +15,13 @@ export const Login: FC = (): JSX.Element => {
     control,
     formState: { errors },
     setError,
-    getValues,
   } = useForm<ILogin>();
-  const formValues = getValues();
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const { data: resp, refetch } = useTodosQuery(formValues);
 
   const onSubmit = async (userData: ILogin) => {
-    const { email } = userData;
-    await refetch();
-    // const getTokenApiData = await apiService.getToken({ email, password });
-    const getTokenApiData = resp?.data;
+    const { email, password } = userData;
+    const getTokenApiData = await apiService.getToken({ email, password });
     const token: string = getTokenApiData?.data.access_token;
 
     if (token) {
