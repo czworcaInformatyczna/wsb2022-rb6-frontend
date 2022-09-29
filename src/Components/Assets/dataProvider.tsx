@@ -7,7 +7,16 @@ export const DataProvider = (Props: DataProviderProps) => {
   let data: IDataProvider;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '100%',
+        flexGrow: 0,
+        backgroundColor: 'background.paper',
+        boxShadow: 1,
+        borderRadius: 1,
+        marginTop: 2,
+      }}
+    >
       {(() => {
         switch (Props.link) {
           case 'Assets':
