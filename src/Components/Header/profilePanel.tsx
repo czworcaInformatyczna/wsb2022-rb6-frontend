@@ -2,10 +2,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, Box, IconButton, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import useAuth from '../../shared/hooks/useAuth';
-import { AccountMenu } from './accountMenu';
+import useAuth from 'shared/hooks/useAuth';
+import { AccountMenu } from 'accountMenu';
 
-const ProfilePanel = () => {
+export const ProfilePanel = () => {
   const { auth } = useAuth();
   return (
     <Box alignItems="center" display="flex" height="100%" justifyContent="flex-end">
@@ -17,7 +17,7 @@ const ProfilePanel = () => {
           color: 'black',
         }}
       >
-      <Badge
+        <Badge
           anchorOrigin={{
             horizontal: 'left',
             vertical: 'top',
@@ -68,5 +68,3 @@ const ProfilePanel = () => {
     </Box>
   );
 };
-
-export default ProfilePanel;

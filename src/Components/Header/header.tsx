@@ -4,12 +4,16 @@ import { Hidden, IconButton, ListItemIcon, ListItemText, ListItemButton } from '
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
-import { AccountMenu } from './accountMenu';
-import { type headerProps } from './domain';
-import ProfilePanel from './profilePanel';
-import SearchInput from './searchInput';
+import { AccountMenu } from 'accountMenu';
+import { type headerProps } from 'domain';
+import ProfilePanel from 'profilePanel';
+import SearchInput from 'searchInput';
 
-const Header = ({ handleToggleOpen }: headerProps) => {
+export interface headerProps {
+  handleToggleOpen: () => void;
+}
+
+export const Header = ({ handleToggleOpen }: headerProps) => {
   return (
     <Box
       alignItems="center"
@@ -85,5 +89,3 @@ const Header = ({ handleToggleOpen }: headerProps) => {
     </Box>
   );
 };
-
-export default Header;

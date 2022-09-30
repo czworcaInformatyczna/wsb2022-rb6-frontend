@@ -1,5 +1,5 @@
-import { type ILogin } from '../Components/Login/Login';
-import { apiClient } from './apiClient';
+import { type ILogin } from 'Components/Login/Login';
+import { apiClient } from 'apiClient';
 
 const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
