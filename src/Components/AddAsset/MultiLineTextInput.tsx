@@ -1,24 +1,24 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
 import {
-  type FieldErrorsImpl,
   type Control,
   type FieldPath,
   type RegisterOptions,
+  type FieldError,
 } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { type IFormInput } from './domain';
 
 export const MultiLineTextInput = ({
   control,
-  errors,
+  error,
   label,
   name,
   rows,
   rules,
 }: {
   control: Control<IFormInput>;
-  errors: FieldErrorsImpl<IFormInput>;
+  error: FieldError | undefined;
   label: string;
   name: FieldPath<IFormInput>;
   rows: number;
@@ -47,9 +47,9 @@ export const MultiLineTextInput = ({
           render={({ field }) => (
             <TextField
               {...field}
-              error={Boolean(errors.AssetTag)}
+              error={Boolean(error)}
               fullWidth
-              helperText={errors.AssetTag ? errors.AssetTag.message?.toString() : ''}
+              helperText={error ? error.message?.toString() : ''}
               label={label}
               multiline
               rows={rows}

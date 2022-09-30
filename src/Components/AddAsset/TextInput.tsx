@@ -1,7 +1,7 @@
 import { Grid, TextField } from '@mui/material';
 import React from 'react';
 import {
-  type FieldErrorsImpl,
+  type FieldError,
   type Control,
   type FieldPath,
   type RegisterOptions,
@@ -11,18 +11,20 @@ import { type IFormInput } from './domain';
 
 export const TextInput = ({
   control,
-  errors,
+  error,
   label,
   name,
   rules,
   helperText = '',
+  type = 'text',
 }: {
   control: Control<IFormInput>;
-  errors: FieldErrorsImpl<IFormInput>;
+  error: FieldError | undefined;
   helperText?: string;
   label: string;
   name: FieldPath<IFormInput>;
   rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
+  type?: 'number' | 'text';
 }) => {
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
@@ -47,11 +49,12 @@ export const TextInput = ({
           render={({ field }) => (
             <TextField
               {...field}
-              error={Boolean(errors.AssetTag)}
+              error={Boolean(error)}
               fullWidth
-              helperText={errors.AssetTag ? errors.AssetTag.message?.toString() : helperText}
+              helperText={error ? error.message?.toString() : helperText}
               label={label}
               size="small"
+              type={type}
               variant="outlined"
             />
           )}

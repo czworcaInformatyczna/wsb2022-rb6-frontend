@@ -61,14 +61,14 @@ const AddAsset = () => {
         <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
           <TextInput
             control={control}
-            errors={errors}
+            error={errors.AssetTag}
             label="Asset Tag"
             name="AssetTag"
             rules={{ required: 'Required value' }}
           />
           <TextInput
             control={control}
-            errors={errors}
+            error={errors.Serial}
             label="Serial"
             name="Serial"
             rules={{ required: 'Required value' }}
@@ -95,7 +95,7 @@ const AddAsset = () => {
                 <Grid alignContent="center" container display="flex" spacing={2}>
                   <MultiLineTextInput
                     control={control}
-                    errors={errors}
+                    error={errors.Notes}
                     label="Notes"
                     name="Notes"
                     rows={4}
@@ -104,10 +104,19 @@ const AddAsset = () => {
                   <UploadImage name="Photo" register={register} setValue={setValue} />
                   <TextInput
                     control={control}
-                    errors={errors}
+                    error={errors.AssetName}
                     label="Asset Name"
                     name="AssetName"
                     rules={{}}
+                  />
+                  <TextInput
+                    control={control}
+                    error={errors.Waranty}
+                    helperText="No. of  Months"
+                    label="Waranty"
+                    name="Waranty"
+                    rules={{ min: 0 }}
+                    type="number"
                   />
                 </Grid>
               </AccordionDetails>

@@ -6,6 +6,7 @@ export interface IFormInput {
   Photo: File;
   Serial: string;
   Status: IStatus | null;
+  Waranty: number;
 }
 
 export interface IModel {
