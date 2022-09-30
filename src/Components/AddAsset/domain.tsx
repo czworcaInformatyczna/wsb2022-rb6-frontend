@@ -1,10 +1,11 @@
 export interface IFormInput {
+  AssetName: string;
   AssetTag: string;
   Model: IModel | null;
   Notes: string;
+  Photo: File;
   Serial: string;
   Status: IStatus | null;
-  photo: File;
 }
 
 export interface IModel {

@@ -15,9 +15,11 @@ export const TextInput = ({
   label,
   name,
   rules,
+  helperText = '',
 }: {
   control: Control<IFormInput>;
   errors: FieldErrorsImpl<IFormInput>;
+  helperText?: string;
   label: string;
   name: FieldPath<IFormInput>;
   rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
@@ -47,7 +49,7 @@ export const TextInput = ({
               {...field}
               error={Boolean(errors.AssetTag)}
               fullWidth
-              helperText={errors.AssetTag ? errors.AssetTag.message?.toString() : ''}
+              helperText={errors.AssetTag ? errors.AssetTag.message?.toString() : helperText}
               label={label}
               size="small"
               variant="outlined"

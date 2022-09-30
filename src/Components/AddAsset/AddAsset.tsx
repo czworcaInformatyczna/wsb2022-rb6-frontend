@@ -1,7 +1,15 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Grid,
+  Typography,
+} from '@mui/material';
 import Divider from '@mui/material/Divider';
 import React from 'react';
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useForm } from 'react-hook-form';
 import { type IFormInput } from './domain';
 import { MultiLineTextInput } from './MultiLineTextInput';
@@ -13,7 +21,6 @@ import { UploadImage } from './UploadImage';
 const AddAsset = () => {
   const {
     handleSubmit,
-    getValues,
     setValue,
     register,
     control,
@@ -22,11 +29,6 @@ const AddAsset = () => {
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
-  };
-
-  const testFunction = () => {
-    const x = getValues('photo');
-    console.log(x);
   };
 
   return (
@@ -49,6 +51,7 @@ const AddAsset = () => {
         </Grid>
       </Grid>
       <Divider />
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{
@@ -72,22 +75,44 @@ const AddAsset = () => {
           />
           <SelectModel control={control} errors={errors} />
           <SelectStatus control={control} errors={errors} />
-          <MultiLineTextInput
-            control={control}
-            errors={errors}
-            label="Notes"
-            name="Notes"
-            rows={4}
-            rules={{}}
-          />
-          <UploadImage
-            control={control}
-            errors={errors}
-            name="photo"
-            register={register}
-            setValue={setValue}
-          />
-          <Button onClick={testFunction}>asdasd</Button>
+          <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
+            <Accordion>
+              <AccordionSummary
+                aria-controls="panel1a-content"
+                expandIcon={<ExpandMoreIcon />}
+                id="panel1a-header"
+                sx={{
+                  backgroundColor: 'background.paper',
+                }}
+              >
+                <Typography>Not required</Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: 'background.paper',
+                }}
+              >
+                <Grid alignContent="center" container display="flex" spacing={2}>
+                  <MultiLineTextInput
+                    control={control}
+                    errors={errors}
+                    label="Notes"
+                    name="Notes"
+                    rows={4}
+                    rules={{}}
+                  />
+                  <UploadImage name="Photo" register={register} setValue={setValue} />
+                  <TextInput
+                    control={control}
+                    errors={errors}
+                    label="Asset Name"
+                    name="AssetName"
+                    rules={{}}
+                  />
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          </Grid>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
             <Button color="success" type="submit" variant="contained">
               Add
