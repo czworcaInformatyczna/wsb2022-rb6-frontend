@@ -81,9 +81,6 @@ const AddAsset = () => {
                 aria-controls="panel1a-content"
                 expandIcon={<ExpandMoreIcon />}
                 id="panel1a-header"
-                sx={{
-                  backgroundColor: 'background.paper',
-                }}
               >
                 <Typography>Not required</Typography>
               </AccordionSummary>
