@@ -55,7 +55,7 @@ const Assets = (Props: AssetsProps) => {
     setLoadingData(false);
     getDataGridState();
   }, [getDataGridState]);
-
+  const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
     localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
   };
