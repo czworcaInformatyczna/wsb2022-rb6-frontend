@@ -21,6 +21,7 @@ export const DataProvider = (Props: DataProviderProps) => {
         switch (Props.link) {
           case 'Assets':
             data = {
+              addNewLink: '/AddAsset',
               name: 'Assets',
               columns: [
                 { field: 'id', width: 90 },
