@@ -1,3 +1,3 @@
 export * from './MenuItems';
 export * from './Sidemenu';
-export * from './types';
+export * from './domain';

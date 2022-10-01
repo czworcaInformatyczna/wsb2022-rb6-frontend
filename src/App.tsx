@@ -1,11 +1,13 @@
 import { Box, CssBaseline, GlobalStyles } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
-import 'App.css';
-import CustomTheme from 'Components/Theme/customTheme';
-import { ThemeMode } from 'domain';
-import { GetColorModeFromLocalStorage, GetColorMode } from 'components/Theme/CustomTheme.utils';
-import AppRoutes from 'Components/routes';
+import {
+  CustomTheme,
+  ThemeMode,
+  GetColorModeFromLocalStorage,
+  GetColorMode,
+} from '@/components/CustomTheme';
+import { AppRoutes } from '@/routes';
 
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},

@@ -2,8 +2,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, Box, IconButton, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import useAuth from 'shared/hooks/useAuth';
-import { AccountMenu } from 'accountMenu';
+import { useAuth } from '@/hooks';
+import { AccountMenu } from '@/components/Header';
 
 export const ProfilePanel = () => {
   const { auth } = useAuth();

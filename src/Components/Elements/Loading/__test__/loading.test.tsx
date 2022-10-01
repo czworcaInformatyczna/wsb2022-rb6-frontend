@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { LoadingScreen, TextSize } from 'components/Elements/Loading';
+import { LoadingScreen, TextSize } from '@/components/Elements/Loading';
 
 describe('LoadingScreen', () => {
   it('should display LoadingScreen', () => {

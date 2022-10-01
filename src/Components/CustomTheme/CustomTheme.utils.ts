@@ -1,4 +1,4 @@
-import { ThemeMode } from 'components/CustomTheme';
+import { ThemeMode } from '@/components/CustomTheme';
 
 export const GetColorMode = (previousMode: ThemeMode) => {
   const mode: ThemeMode = previousMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;

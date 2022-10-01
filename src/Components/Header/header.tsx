@@ -4,10 +4,8 @@ import { Hidden, IconButton, ListItemIcon, ListItemText, ListItemButton } from '
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
-import { AccountMenu } from 'accountMenu';
-import { type headerProps } from 'domain';
-import ProfilePanel from 'profilePanel';
-import SearchInput from 'searchInput';
+import { AccountMenu, ProfilePanel } from '@/components/Header';
+import { SearchInput } from '@/components/Elements/SearchInput';
 
 export interface headerProps {
   handleToggleOpen: () => void;
