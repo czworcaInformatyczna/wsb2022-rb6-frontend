@@ -1,32 +1,23 @@
-import { Grid, InputAdornment, TextField } from '@mui/material';
+import { type TextFieldProps } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
 import React from 'react';
-import {
-  type FieldError,
-  type Control,
-  type FieldPath,
-  type RegisterOptions,
-} from 'react-hook-form';
+import { type FieldError, type Control, type FieldPath } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { type IFormInput } from '../domain';
 
-export const TextInput = ({
-  control,
+export const DatePickerInput = ({
   error,
+  helperText = '',
+  control,
   label,
   name,
-  rules,
-  helperText = '',
-  type = 'text',
-  endAdornment = '',
 }: {
   control: Control<IFormInput>;
-  endAdornment?: string;
   error: FieldError | undefined;
   helperText?: string;
   label: string;
   name: FieldPath<IFormInput>;
-  rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
-  type?: 'number' | 'text';
 }) => {
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
@@ -49,21 +40,22 @@ export const TextInput = ({
           defaultValue=""
           name={name}
           render={({ field }) => (
-            <TextField
+            <DatePicker
               {...field}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">{endAdornment}</InputAdornment>,
-              }}
-              error={Boolean(error)}
-              fullWidth
-              helperText={error ? error.message?.toString() : helperText}
+              disableFuture
               label={label}
-              size="small"
-              type={type}
-              variant="outlined"
+              openTo="year"
+              renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
+                <TextField
+                  {...params}
+                  error={Boolean(error)}
+                  helperText={error ? error.message?.toString() : helperText}
+                  size="small"
+                />
+              )}
+              views={['year', 'month', 'day']}
             />
           )}
-          rules={rules}
         />
       </Grid>
       <Grid item lg={3} md={3} sm={3} xl={3} xs={3}>

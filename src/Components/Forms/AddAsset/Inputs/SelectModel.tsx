@@ -98,7 +98,18 @@ export const SelectModel = ({
           }}
         />
       </Grid>
-      <Grid item lg={3} md={3} sm={3} xl={3} xs={3}>
+      <Grid
+        item
+        lg={3}
+        md={3}
+        sm={3}
+        sx={{
+          display: 'flex',
+          justifyContent: { xs: 'center', sm: 'start' },
+        }}
+        xl={3}
+        xs={12}
+      >
         <Button
           onClick={() => {
             setOpen(true);

@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Grid,
+  Stack,
   Typography,
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
@@ -17,6 +18,8 @@ import { SelectModel } from './Inputs/SelectModel';
 import { SelectStatus } from './Inputs/SelectStatus';
 import { TextInput } from './Inputs/TextInput';
 import { UploadImage } from './Inputs/UploadImage';
+import { useNavigate } from 'react-router-dom';
+import { DatePickerInput } from './Inputs/DatePicker';
 
 const AddAsset = () => {
   const {
@@ -26,6 +29,8 @@ const AddAsset = () => {
     control,
     formState: { errors },
   } = useForm<IFormInput>();
+
+  const navigate = useNavigate();
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
@@ -44,10 +49,30 @@ const AddAsset = () => {
       }}
     >
       <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
-        <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
+        <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
           <Typography ml={2} variant="h4">
             Add Asset
           </Typography>
+        </Grid>
+        <Grid
+          alignContent="center"
+          display="flex"
+          item
+          justifyContent="flex-end"
+          lg={6}
+          md={6}
+          sm={6}
+          xl={6}
+          xs={6}
+        >
+          <Stack direction="row" mb={1} mr={2} spacing={1}>
+            <Button color="error" onClick={() => navigate(-1)} variant="outlined">
+              Cancel
+            </Button>
+            <Button color="success" onClick={handleSubmit(onSubmit)} variant="contained">
+              Add
+            </Button>
+          </Stack>
         </Grid>
       </Grid>
       <Divider />
@@ -76,13 +101,13 @@ const AddAsset = () => {
           <SelectModel control={control} errors={errors} />
           <SelectStatus control={control} errors={errors} />
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-            <Accordion>
+            <Accordion disableGutters>
               <AccordionSummary
                 aria-controls="panel1a-content"
                 expandIcon={<ExpandMoreIcon />}
                 id="panel1a-header"
               >
-                <Typography>Not required</Typography>
+                <Typography>Additional informations</Typography>
               </AccordionSummary>
               <AccordionDetails
                 sx={{
@@ -98,7 +123,12 @@ const AddAsset = () => {
                     rows={4}
                     rules={{}}
                   />
-                  <UploadImage name="Photo" register={register} setValue={setValue} />
+                  <UploadImage
+                    buttonText="Upload photo"
+                    name="Photo"
+                    register={register}
+                    setValue={setValue}
+                  />
                   <TextInput
                     control={control}
                     error={errors.AssetName}
@@ -118,11 +148,72 @@ const AddAsset = () => {
                 </Grid>
               </AccordionDetails>
             </Accordion>
+            <Accordion disableGutters>
+              <AccordionSummary
+                aria-controls="panel1a-content"
+                expandIcon={<ExpandMoreIcon />}
+                id="panel1a-header"
+              >
+                <Typography>Order information</Typography>
+              </AccordionSummary>
+              <AccordionDetails
+                sx={{
+                  backgroundColor: 'background.paper',
+                }}
+              >
+                <Grid alignContent="center" container display="flex" spacing={2}>
+                  <TextInput
+                    control={control}
+                    error={errors.OrderNumber}
+                    label="Order Number"
+                    name="OrderNumber"
+                    rules={{}}
+                  />
+                  <DatePickerInput
+                    control={control}
+                    error={errors.DateOfPurchase}
+                    label="Date Of Purchase"
+                    name="DateOfPurchase"
+                  />
+                  <TextInput
+                    control={control}
+                    endAdornment="€"
+                    error={errors.PurchaseCost}
+                    label="Purchase Cost"
+                    name="PurchaseCost"
+                    rules={{}}
+                    type="number"
+                  />
+                  <UploadImage
+                    buttonText="Upload Receipt Image"
+                    name="Receipt"
+                    register={register}
+                    setValue={setValue}
+                  />
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
           </Grid>
-          <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-            <Button color="success" type="submit" variant="contained">
-              Add
-            </Button>
+          <Grid
+            alignContent="center"
+            display="flex"
+            item
+            justifyContent="flex-end"
+            lg={12}
+            mb={2}
+            md={12}
+            sm={12}
+            xl={12}
+            xs={12}
+          >
+            <Stack direction="row" mr={2} spacing={1}>
+              <Button color="error" onClick={() => navigate(-1)} variant="outlined">
+                Cancel
+              </Button>
+              <Button color="success" type="submit" variant="contained">
+                Add
+              </Button>
+            </Stack>
           </Grid>
         </Grid>
       </form>

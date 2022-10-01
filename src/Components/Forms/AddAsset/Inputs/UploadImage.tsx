@@ -7,7 +7,9 @@ export const UploadImage = ({
   name,
   setValue,
   register,
+  buttonText,
 }: {
+  buttonText: string;
   name: FieldPath<IFormInput>;
   register: UseFormRegister<IFormInput>;
   setValue: UseFormSetValue<IFormInput>;
@@ -32,7 +34,7 @@ export const UploadImage = ({
       <Grid alignContent="center" display="flex" item lg={6} md={6} sm={6} xl={6} xs={6}>
         <Box>
           <Button component="label" variant="contained">
-            Upload photo
+            {buttonText}
             <input
               {...register(name)}
               accept="image/*"

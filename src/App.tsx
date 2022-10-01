@@ -7,7 +7,8 @@ import CustomTheme from './Components/Theme/customTheme';
 import Drawer from './Components/Drawer/drawer';
 import { ThemeMode } from './domain';
 import { GetColorModeFromLocalStorage, GetColorMode } from './Components/Theme/colorMode';
-
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 });
@@ -49,9 +50,11 @@ const App = (): JSX.Element => {
       <CssBaseline />
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Drawer />
-          </BrowserRouter>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <BrowserRouter>
+              <Drawer />
+            </BrowserRouter>
+          </LocalizationProvider>
         </ThemeProvider>
       </ColorModeContext.Provider>
     </Box>

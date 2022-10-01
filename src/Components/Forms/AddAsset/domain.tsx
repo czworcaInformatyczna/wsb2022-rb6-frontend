@@ -1,9 +1,13 @@
 export interface IFormInput {
   AssetName: string;
   AssetTag: string;
+  DateOfPurchase: Date;
   Model: IModel | null;
   Notes: string;
+  OrderNumber: number | string;
   Photo: File;
+  PurchaseCost: number;
+  Receipt: File;
   Serial: string;
   Status: IStatus | null;
   Waranty: number;
