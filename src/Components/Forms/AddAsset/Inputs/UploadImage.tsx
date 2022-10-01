@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { type UseFormSetValue, type FieldPath, type UseFormRegister } from 'react-hook-form';
-import { type IFormInput } from './domain';
+import { type IFormInput } from '../domain';
 
 export const UploadImage = ({
   name,

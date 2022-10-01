@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import AddAsset from './AddAsset/AddAsset';
+import AddAsset from './Forms/AddAsset/AddAsset';
 import { DataProvider } from './Assets/dataProvider';
 
 const AppRoutes = () => {

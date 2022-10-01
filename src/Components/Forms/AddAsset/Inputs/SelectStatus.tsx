@@ -3,40 +3,28 @@ import React from 'react';
 import { type FieldErrorsImpl, type Control } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { CreateModal } from './CreateModal';
-import { type IModel } from './domain';
-import { type IFormInput } from './domain';
+import { type IStatus } from '../domain';
+import { type IFormInput } from '../domain';
 
-export const SelectModel = ({
+export const SelectStatus = ({
   control,
   errors,
 }: {
   control: Control<IFormInput>;
   errors: FieldErrorsImpl<IFormInput>;
 }) => {
-  const [modelsData, setModelsData] = React.useState<IModel[]>([]);
+  const [statusData, setStatusData] = React.useState<IStatus[]>([]);
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    setModelsData([
+    setStatusData([
       {
         id: '1',
-        name: 'laptop',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
+        name: 'Ready to deploy',
       },
       {
         id: '2',
-        name: 'zmywarki',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-      {
-        id: '3',
-        name: 'wiertarka',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-      {
-        id: '0',
-        name: 'złom',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
+        name: 'Maintance',
       },
     ]);
   }, []);
@@ -60,7 +48,7 @@ export const SelectModel = ({
         <Controller
           control={control}
           defaultValue={null}
-          name="Model"
+          name="Status"
           render={({ field }) => (
             <Autocomplete
               {...field}
@@ -70,24 +58,23 @@ export const SelectModel = ({
               id="country-select-demo"
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
-              options={modelsData}
+              options={statusData}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  error={Boolean(errors.Model)}
+                  error={Boolean(errors.Status)}
                   fullWidth
-                  helperText={errors.Model ? errors.Model.message?.toString() : ''}
+                  helperText={errors.Status ? errors.Status.message?.toString() : ''}
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
                   }}
-                  label="Select a model"
+                  label="Select status"
                   size="small"
                 />
               )}
               renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                  <img alt="" loading="lazy" src={option.img} width="20" />
                   {option.name}
                 </Box>
               )}

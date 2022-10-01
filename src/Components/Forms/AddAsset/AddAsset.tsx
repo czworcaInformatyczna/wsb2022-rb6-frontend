@@ -12,11 +12,11 @@ import React from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useForm } from 'react-hook-form';
 import { type IFormInput } from './domain';
-import { MultiLineTextInput } from './MultiLineTextInput';
-import { SelectModel } from './SelectModel';
-import { SelectStatus } from './SelectStatus';
-import { TextInput } from './TextInput';
-import { UploadImage } from './UploadImage';
+import { MultiLineTextInput } from './Inputs/MultiLineTextInput';
+import { SelectModel } from './Inputs/SelectModel';
+import { SelectStatus } from './Inputs/SelectStatus';
+import { TextInput } from './Inputs/TextInput';
+import { UploadImage } from './Inputs/UploadImage';
 
 const AddAsset = () => {
   const {
