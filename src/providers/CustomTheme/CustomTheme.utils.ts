@@ -1,4 +1,5 @@
-import { ThemeMode } from '@/components/CustomTheme';
+import { ThemeMode } from '@/providers/CustomTheme/CustomTheme';
+import { createContext } from 'react';
 
 export const GetColorMode = (previousMode: ThemeMode) => {
   const mode: ThemeMode = previousMode === ThemeMode.LIGHT ? ThemeMode.DARK : ThemeMode.LIGHT;
@@ -11,3 +12,7 @@ export const GetColorModeFromLocalStorage = () => {
   const themeMode = localStorage.getItem('mode');
   return themeMode === 'light' ? ThemeMode.LIGHT : ThemeMode.DARK;
 };
+
+export const ColorModeContext = createContext({
+  toggleColorMode: () => {},
+});

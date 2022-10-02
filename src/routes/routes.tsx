@@ -9,14 +9,14 @@ import { Login } from '@/features/login';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
-    <Route path="login" element={<Login />} />
+    <Route path="/login" element={<Login />} />
     <Route element={<RequireAuth />}>
       <Route path="/" element={<Layout />}>
         {/* <AppRoutes /> */}
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="accessories" element={<Accessories />} />
-        <Route element={<DataProvider link="Assets" />} path="Assets" />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/accessories" element={<Accessories />} />
+        <Route element={<DataProvider link="Assets" />} path="/Assets" />
+        <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>
   </Routes>

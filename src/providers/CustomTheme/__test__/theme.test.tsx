@@ -1,9 +1,9 @@
 import {
   CustomTheme,
-  ThemeMode,
   GetColorMode,
   GetColorModeFromLocalStorage,
-} from '@/components/CustomTheme';
+  ThemeMode,
+} from '@/providers/CustomTheme';
 
 describe('CustomTheme', () => {
   it('should be light mode', () => {
