@@ -2,7 +2,7 @@ import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import React from 'react';
 import { type FieldErrorsImpl, type Control } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { CreateModal } from './CreateModal';
+import { CreateModal } from '../CreateModal';
 import { type IStatus } from '../domain';
 import { type IFormInput } from '../domain';
 
@@ -55,7 +55,7 @@ export const SelectStatus = ({
               autoHighlight
               fullWidth
               getOptionLabel={(option) => (option.name ? option.name : '')}
-              id="country-select-demo"
+              id="select-Status"
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
               options={statusData}
