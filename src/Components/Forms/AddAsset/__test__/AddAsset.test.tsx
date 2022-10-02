@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -92,6 +92,10 @@ const getReceiptImage = async () => {
   });
 };
 
+const getAddButtons = () => {
+  return screen.getAllByRole('button', { name: /add/i });
+};
+
 describe('AddAsset form', () => {
   it('should render all inputs', async () => {
     render(
@@ -113,5 +117,19 @@ describe('AddAsset form', () => {
     expect(await getDateOfPurchase()).toBeInTheDocument();
     expect(await getPurchaseCost()).toBeInTheDocument();
     expect(await getReceiptImage()).toBeInTheDocument();
+  });
+
+  it('should display error messages', async () => {
+    render(
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <BrowserRouter>
+          <AddAsset />
+        </BrowserRouter>
+      </LocalizationProvider>,
+    );
+    const button = getAddButtons()[0];
+    fireEvent.click(button);
+    const errors = await screen.findAllByText(/required value/i);
+    expect(errors.length).toBe(4);
   });
 });
