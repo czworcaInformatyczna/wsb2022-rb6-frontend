@@ -29,6 +29,7 @@ export interface DataProviderProps {
   link: string;
 }
 export interface IDataProvider {
+  addNewLink: string;
   columns: GridColumns;
   name: string;
   // Add APIs object that stores api calls
