@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { PageNotFound } from '@/components/PageNotFound';
-import { RequireAuth } from '@/routes/RequireAuth';
-import { Accessories } from '@/features/accessories';
-import { Dashboard } from '@/features/dashboard';
-import { DataProvider } from '@/features/assets';
-import { Layout } from '@/components/Layout';
-import { Login } from '@/features/login';
+import { PageNotFound } from 'components/PageNotFound';
+import { RequireAuth } from 'routes/RequireAuth';
+import { Accessories } from 'features/accessories';
+import { Dashboard } from 'features/dashboard';
+import { DataProvider } from 'features/assets';
+import { Layout } from 'components/Layout';
+import { Login } from 'features/login';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>

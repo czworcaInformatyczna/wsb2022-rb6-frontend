@@ -18,8 +18,8 @@ import {
   type menuProps as myProps,
   type Nested,
   menuItems,
-} from '@/components/Sidemenu';
-import { ColorModeContext } from '@/providers/CustomTheme';
+} from 'components/Sidemenu';
+import { ColorModeContext } from 'providers/CustomTheme';
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
   return !condition ? wrapper(children) : <>{children}</>;

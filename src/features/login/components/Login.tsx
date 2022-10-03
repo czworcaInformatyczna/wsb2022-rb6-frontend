@@ -2,9 +2,9 @@ import { TextField, Button, Box } from '@mui/material';
 import { type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { getToken } from '@/features/login/api/getToken';
-import { useAuth } from '@/hooks/useAuth';
-import { type ILogin } from '@/features/login/types';
+import { getToken } from 'features/login/api/getToken';
+import { useAuth } from 'hooks/useAuth';
+import { type ILogin } from 'features/login/types';
 
 export const Login: FC = (): JSX.Element => {
   const {

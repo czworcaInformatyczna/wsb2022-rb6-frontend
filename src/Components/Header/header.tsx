@@ -4,8 +4,8 @@ import { Hidden, IconButton, ListItemIcon, ListItemText, ListItemButton } from '
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
-import { AccountMenu, ProfilePanel } from '@/components/Header';
-import { SearchInput } from '@/components/Elements/SearchInput';
+import { AccountMenu, ProfilePanel } from 'components/Header';
+import { SearchInput } from 'components/Elements/SearchInput';
 
 export interface headerProps {
   handleToggleOpen: () => void;
@@ -76,10 +76,12 @@ export const Header = ({ handleToggleOpen }: headerProps) => {
         <Grid item lg={3} md={3} sm={5} xl={2} xs={1}>
           <Box alignItems="center" display="flex" height="100%" justifyContent="flex-end">
             <Hidden smDown>
-              <ProfilePanel />
+              {' '}
+              <ProfilePanel />{' '}
             </Hidden>
             <Hidden smUp>
-              <AccountMenu />
+              {' '}
+              <AccountMenu />{' '}
             </Hidden>
           </Box>
         </Grid>

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { type IDataProvider, type DataProviderProps, StatusChip, Assets } from '@/features/assets';
+import { type IDataProvider, type DataProviderProps, StatusChip, Assets } from 'features/assets';
 
 export const DataProvider = (Props: DataProviderProps) => {
   let data: IDataProvider;

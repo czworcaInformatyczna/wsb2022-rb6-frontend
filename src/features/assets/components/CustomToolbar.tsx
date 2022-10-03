@@ -1,4 +1,4 @@
-import { type CustomToolbarProps } from '@/features/assets';
+import { type CustomToolbarProps } from 'features/assets';
 import { type SelectChangeEvent } from '@mui/material';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {

@@ -3,7 +3,7 @@ import {
   GetColorMode,
   GetColorModeFromLocalStorage,
   ThemeMode,
-} from '@/providers/CustomTheme';
+} from 'providers/CustomTheme';
 
 describe('CustomTheme', () => {
   it('should be light mode', () => {
