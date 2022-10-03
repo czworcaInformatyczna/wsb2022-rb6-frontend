@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from 'context/AuthProvider';
 import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
@@ -27,7 +29,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
               }}
             />
             <CssBaseline />
-            <CustomThemeProvider>{children}</CustomThemeProvider>
+            <CustomThemeProvider>
+              {' '}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>{children}</LocalizationProvider>
+            </CustomThemeProvider>
           </Box>
         </QueryClientProvider>
       </AuthProvider>
