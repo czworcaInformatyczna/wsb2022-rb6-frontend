@@ -14,7 +14,7 @@ import {
 } from '@mui/x-data-grid';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import testData from './testData.json';
-
+import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
@@ -55,7 +55,7 @@ const Assets = (Props: AssetsProps) => {
     setLoadingData(false);
     getDataGridState();
   }, [getDataGridState]);
-
+  const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
     localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
   };
@@ -167,7 +167,12 @@ const Assets = (Props: AssetsProps) => {
           </Grid>
           <Grid item lg={3} md={3} sm={6} xl={3} xs={6}>
             <Box display="flex" justifyContent="end" mr={2}>
-              <Button color="success" size="medium" variant="outlined">
+              <Button
+                color="success"
+                onClick={() => navigate(Props.data.addNewLink)}
+                size="medium"
+                variant="outlined"
+              >
                 Add new
               </Button>
             </Box>
