@@ -4,8 +4,8 @@ import {
   GetColorModeFromLocalStorage,
   ThemeMode,
   ColorModeContext,
-} from 'providers/CustomTheme';
-import { type AppProviderProps } from 'providers/types';
+} from '../CustomTheme';
+import { type AppProviderProps } from '../types';
 import { ThemeProvider } from '@mui/material';
 import { useEffect, useMemo, useState } from 'react';
 

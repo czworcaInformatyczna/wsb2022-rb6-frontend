@@ -13,13 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  type WrapProps,
-  type menuProps as myProps,
-  type Nested,
-  menuItems,
-} from 'components/Sidemenu';
-import { ColorModeContext } from 'providers/CustomTheme';
+import { type WrapProps, type menuProps as myProps, type Nested, menuItems } from './';
+import { ColorModeContext } from '../../providers/CustomTheme';
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
   return !condition ? wrapper(children) : <>{children}</>;

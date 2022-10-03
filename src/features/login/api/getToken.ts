@@ -1,5 +1,5 @@
-import { type ILogin } from 'features/login/types';
-import { apiClient } from 'lib/axios';
+import { type ILogin } from '../';
+import { apiClient } from '../../../lib/axios';
 
 export const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();

@@ -1,5 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Search, SearchIconWrapper, StyledInputBase } from 'components/Elements/SearchInput';
+import { Search, SearchIconWrapper, StyledInputBase } from './';
 
 export const SearchInput = () => {
   return (

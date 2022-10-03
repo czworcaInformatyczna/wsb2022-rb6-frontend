@@ -13,7 +13,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
-import { useAuth } from 'hooks';
+import { useAuth } from '../../hooks';
 
 export const AccountMenu = (): JSX.Element => {
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
