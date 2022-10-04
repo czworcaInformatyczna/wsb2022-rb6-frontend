@@ -24,7 +24,11 @@
       "parserOptions": {
         "project": "./tsconfig.json"
       },
-      "rules": { "@typescript-eslint/member-delimiter-style": "off" }
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/consistent-type-definitions": "off"
+      }
     },
     {
       "extends": [
@@ -43,6 +47,10 @@
         "@typescript-eslint/no-extra-parens": "off",
         "@typescript-eslint/triple-slash-reference": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
+        "no-console": "off",
+        "react/jsx-sort-props": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/explicit-member-accessibility": "off",
         "react/no-set-state": "off"
       }
