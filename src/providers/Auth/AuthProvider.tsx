@@ -1,4 +1,5 @@
 import { createContext, type SetStateAction, useState, type Dispatch } from 'react';
+import { type AppProviderProps } from '../types';
 
 export interface IAuth {
   email: string | null;
@@ -16,7 +17,7 @@ const useAuthContextValue = () => {
 
 const AuthContext = createContext<IAuthCtx>({} as ReturnType<typeof useAuthContextValue>);
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider = ({ children }: AppProviderProps) => {
   return <AuthContext.Provider value={useAuthContextValue()}>{children}</AuthContext.Provider>;
 };
 

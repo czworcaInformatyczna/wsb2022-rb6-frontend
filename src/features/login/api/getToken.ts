@@ -1,7 +1,7 @@
 import { type ILogin } from '../';
 import { apiClient } from '../../../lib/axios';
 
-export const getToken = async ({ email, password }: ILogin): Promise<any> => {
+export const getToken = async ({ email, password }: ILogin): Promise<unknown> => {
   const controller = new AbortController();
   const urlOk = `/login?password=${password}&email=${email}`;
   {
