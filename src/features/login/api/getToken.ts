@@ -4,10 +4,10 @@ import { apiClient } from 'lib/axios';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
-  const urlOk = `/login?password=${password}&email=${email}`;
+  const URL = `/login`;
   {
     try {
-      const data = await apiClient.post(urlOk, { signal: controller.signal });
+      const data = await apiClient.post(URL, { password, email }, { signal: controller.signal });
       return data;
     } catch (e) {
       //   if (!e?.response) {
