@@ -6,7 +6,7 @@ import { Dashboard } from 'features/dashboard';
 import { DataProvider } from 'features/assets';
 import { Layout } from 'components/Layout';
 import { Login } from 'features/login';
-import AddAsset from 'components/Forms/AddAsset/AddAsset';
+import AddAsset from 'features/Forms/AddAsset/AddAsset';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
