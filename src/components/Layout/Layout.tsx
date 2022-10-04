@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Outlet } from 'react-router';
 import { SideMenu } from 'components/Sidemenu';
 import { AppBar, Drawer, DrawerHeader } from 'components/Layout';
-import { Header } from 'components/Header/Header';
+import { Header } from 'components/Header';
 
 export const Layout = (): JSX.Element => {
   const [open, setOpen] = React.useState(true);
