@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { type Asset, type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';

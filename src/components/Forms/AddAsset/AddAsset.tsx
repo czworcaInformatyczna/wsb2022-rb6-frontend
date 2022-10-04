@@ -33,7 +33,6 @@ const AddAsset = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: IFormInput) => {
-    // eslint-disable-next-line no-console
     console.log(data);
   };
 
