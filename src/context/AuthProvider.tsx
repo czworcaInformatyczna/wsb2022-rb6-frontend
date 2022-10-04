@@ -1,5 +1,5 @@
+import { type AppProviderProps } from 'providers/types';
 import { createContext, type SetStateAction, useState, type Dispatch } from 'react';
-import { type AppProviderProps } from '../types';
 
 export interface IAuth {
   email: string | null;

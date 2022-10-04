@@ -24,7 +24,6 @@ export const Login: FC = (): JSX.Element => {
     if (token) {
       setAuth({ email, token });
       navigate('/dashboard', { replace: true });
-      console.log(token);
     } else {
       setError(
         'email',
