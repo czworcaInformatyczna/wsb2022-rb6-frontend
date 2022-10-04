@@ -19,7 +19,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { LoadingScreen } from 'components/Elements/Loading';
 
-export const Assets = (Props: AssetsProps) => {
+export const AssetsTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [assets, setAssets] = React.useState<Asset[]>([]);
   const [loadingData, setLoadingData] = React.useState<boolean>(true);
@@ -160,7 +160,7 @@ export const Assets = (Props: AssetsProps) => {
           sx={{ minHeight: '75px' }}
         >
           <Grid item lg={9} md={9} sm={6} xl={9} xs={6}>
-            <Typography ml={2} variant="h4">
+            <Typography ml={2} variant="h4" color="primary.main">
               {Props.data.name}
             </Typography>
           </Grid>
@@ -170,7 +170,7 @@ export const Assets = (Props: AssetsProps) => {
                 color="success"
                 onClick={() => navigate(Props.data.addNewLink)}
                 size="medium"
-                variant="outlined"
+                variant="contained"
               >
                 Add new
               </Button>

@@ -98,6 +98,9 @@ export const SelectStatus = ({
         xs={12}
       >
         <Button
+          sx={{
+            maxHeight: '40px',
+          }}
           onClick={() => {
             setOpen(true);
           }}

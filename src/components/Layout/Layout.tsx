@@ -57,14 +57,12 @@ export const Layout = (): JSX.Element => {
       <Box sx={{ width: '100%', mr: 5 }}>
         <DrawerHeader />
         <Box
+          alignContent="center"
           component="main"
+          display="flex"
+          justifyContent="center"
           sx={{
-            flexGrow: 0,
-            backgroundColor: 'background.paper',
             width: '100%',
-            boxShadow: 1,
-            borderRadius: 1,
-            marginTop: 2,
           }}
         >
           <Outlet />

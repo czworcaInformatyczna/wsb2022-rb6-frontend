@@ -1,4 +1,4 @@
-export * from './components/Assets';
+export * from './components/AssetsTemplate';
 export * from './components/CustomToolbar';
 export * from './components/DataProvider';
 export * from './types';
