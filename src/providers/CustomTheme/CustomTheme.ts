@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import { lightMode, darkMode } from './';
+import { lightMode, darkMode } from 'providers/CustomTheme';
 
 export enum ThemeMode {
   DARK = 'dark',

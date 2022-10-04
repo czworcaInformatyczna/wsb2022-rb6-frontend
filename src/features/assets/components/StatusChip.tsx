@@ -1,4 +1,4 @@
-import { Statuses } from '../';
+import { Statuses } from 'features/assets';
 import { Box, Chip } from '@mui/material';
 
 export const StatusChip = (status: string) => {

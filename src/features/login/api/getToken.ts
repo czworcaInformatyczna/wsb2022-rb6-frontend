@@ -1,5 +1,5 @@
-import { type ILogin } from '../';
-import { apiClient } from '../../../lib/axios';
+import { type ILogin } from 'features/login/types';
+import { apiClient } from 'lib/axios';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getToken = async ({ email, password }: ILogin): Promise<any> => {

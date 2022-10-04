@@ -1,4 +1,4 @@
-import { ThemeMode } from './';
+import { ThemeMode } from 'providers/CustomTheme/CustomTheme';
 import { createContext } from 'react';
 
 export const GetColorMode = (previousMode: ThemeMode) => {

@@ -1,13 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
-import AddAsset from '../components/Forms/AddAsset/AddAsset';
-import { Layout } from '../components/Layout';
-import { PageNotFound } from '../components/PageNotFound';
-import { Accessories } from '../features/accessories';
-import { DataProvider } from '../features/assets';
-import { Dashboard } from '../features/dashboard';
-import { Login } from '../features/login';
-
-import { RequireAuth } from './RequireAuth';
+import { PageNotFound } from 'components/PageNotFound';
+import { RequireAuth } from 'routes/RequireAuth';
+import { Accessories } from 'features/accessories';
+import { Dashboard } from 'features/dashboard';
+import { DataProvider } from 'features/assets';
+import { Layout } from 'components/Layout';
+import { Login } from 'features/login';
+import AddAsset from 'components/Forms/AddAsset/AddAsset';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>

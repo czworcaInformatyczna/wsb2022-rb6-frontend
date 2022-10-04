@@ -1,4 +1,9 @@
-import { CustomTheme, GetColorMode, GetColorModeFromLocalStorage, ThemeMode } from '../';
+import {
+  CustomTheme,
+  GetColorMode,
+  GetColorModeFromLocalStorage,
+  ThemeMode,
+} from 'providers/CustomTheme';
 
 describe('CustomTheme', () => {
   it('should be light mode', () => {

@@ -2,8 +2,9 @@ import { TextField, Button, Box } from '@mui/material';
 import { type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { getToken, type ILogin } from '../';
-import { useAuth } from '../../../hooks';
+import { getToken } from 'features/login/api/getToken';
+import { useAuth } from 'hooks/useAuth';
+import { type ILogin } from 'features/login/types';
 
 export const Login: FC = (): JSX.Element => {
   const {
@@ -23,6 +24,7 @@ export const Login: FC = (): JSX.Element => {
     if (token) {
       setAuth({ email, token });
       navigate('/dashboard', { replace: true });
+      console.log(token);
     } else {
       setError(
         'email',

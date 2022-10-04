@@ -1,12 +1,7 @@
 /* eslint-disable no-console */
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import {
-  type Asset,
-  type ContextMenu,
-  type AssetsProps,
-  CustomToolbar,
-} from '../../../features/assets';
+import { type Asset, type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
@@ -23,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
-import { LoadingScreen } from '../../../components/Elements/Loading';
+import { LoadingScreen } from 'components/Elements/Loading';
 
 export const Assets = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);

@@ -1,1 +1,1 @@
-export * from '../features/login/hooks/useAuth';
+export * from './useAuth';
