@@ -1,7 +1,8 @@
 import { type ILogin } from '../';
 import { apiClient } from '../../../lib/axios';
 
-export const getToken = async ({ email, password }: ILogin): Promise<unknown> => {
+// eslint-disable-next-line no-explicit-any
+export const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
   const urlOk = `/login?password=${password}&email=${email}`;
   {
