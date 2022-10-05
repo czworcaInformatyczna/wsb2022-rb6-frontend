@@ -96,7 +96,12 @@ export const SelectInput = ({ name, label, containsImg, options }: ISelectInput)
           Create
         </Button>
       </Grid>
-      <CreateModal open={open} setOpen={setOpen} />
+      <CreateModal
+        open={open}
+        setOpen={setOpen}
+        title="modal title"
+        textContent="Example modal text content"
+      />
     </Grid>
   );
 };
