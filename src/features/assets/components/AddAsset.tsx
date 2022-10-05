@@ -133,7 +133,7 @@ const AddAsset = () => {
                 >
                   <Grid alignContent="center" container display="flex" spacing={2}>
                     <MultiLineTextInput label="Notes" name="Notes" rows={4} />
-                    <UploadImage<IFormInput> buttonText="Upload photo" name="Photo" />
+                    <UploadImage buttonText="Upload photo" name="Photo" />
                     <TextInput label="Asset Name" name="AssetName" rules={{}} />
                     <TextInput
                       helperText="No. of  Months"
