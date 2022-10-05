@@ -11,7 +11,7 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type IFormInput } from 'features/assets';
+import { type IFormInput, getStatusOptions, getModelOptions } from 'features/assets';
 import { useNavigate } from 'react-router-dom';
 import {
   MultiLineTextInput,
@@ -20,50 +20,18 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
+import { useQuery } from 'react-query';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
   const { handleSubmit } = methods;
-
   const navigate = useNavigate();
+  const { data: statusOptions } = useQuery('SelectStatusOptions', getStatusOptions);
+  const { data: modelOptions } = useQuery('SelectModelOptions', getModelOptions);
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
   };
-
-  const statusOptions = [
-    {
-      id: '1',
-      name: 'Ready to deploy',
-    },
-    {
-      id: '2',
-      name: 'Maintance',
-    },
-  ];
-
-  const modelOptions = [
-    {
-      id: '1',
-      name: 'laptop',
-      img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-    },
-    {
-      id: '2',
-      name: 'zmywarki',
-      img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-    },
-    {
-      id: '3',
-      name: 'wiertarka',
-      img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-    },
-    {
-      id: '0',
-      name: 'złom',
-      img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-    },
-  ];
 
   return (
     <Box
@@ -115,8 +83,17 @@ const AddAsset = () => {
           <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
             <TextInput label="Asset Tag" name="AssetTag" rules={{ required: 'Required value' }} />
             <TextInput label="Serial" name="Serial" rules={{ required: 'Required value' }} />
-            <SelectInput label="Model" name="Model" containsImg options={modelOptions} />
-            <SelectInput label="Status" name="Status" options={statusOptions} />
+            <SelectInput
+              label="Model"
+              name="Model"
+              containsImg
+              options={modelOptions ? modelOptions : []}
+            />
+            <SelectInput
+              label="Status"
+              name="Status"
+              options={statusOptions ? statusOptions : []}
+            />
             <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
               <Accordion disableGutters>
                 <AccordionSummary
