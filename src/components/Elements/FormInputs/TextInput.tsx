@@ -1,33 +1,28 @@
 import { Grid, InputAdornment, TextField } from '@mui/material';
-import React from 'react';
-import {
-  type FieldError,
-  type Control,
-  type FieldPath,
-  type RegisterOptions,
-} from 'react-hook-form';
+import { type RegisterOptions, useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { type IFormInput } from '../domain';
+import { type IInputProps } from 'features/assets';
+
+export interface ITextInput extends IInputProps {
+  endAdornment?: string;
+  helperText?: string;
+  rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
+}
 
 export const TextInput = ({
-  control,
-  error,
   label,
   name,
   rules,
   helperText = '',
   type = 'text',
   endAdornment = '',
-}: {
-  control: Control<IFormInput>;
-  endAdornment?: string;
-  error: FieldError | undefined;
-  helperText?: string;
-  label: string;
-  name: FieldPath<IFormInput>;
-  rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
-  type?: 'number' | 'text';
-}) => {
+}: ITextInput) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name];
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid
@@ -56,7 +51,7 @@ export const TextInput = ({
               }}
               error={Boolean(error)}
               fullWidth
-              helperText={error ? error.message?.toString() : helperText}
+              helperText={error ? error?.message?.toString() : helperText}
               label={label}
               size="small"
               type={type}
