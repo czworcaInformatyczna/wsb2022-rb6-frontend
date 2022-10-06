@@ -1,10 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import user from '@testing-library/user-event';
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AddAsset from '../AddAsset';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { QueryClientProvider } from 'react-query';
+import { getQueryClient } from 'lib/react-query';
+import { type AppProviderProps } from 'providers/types';
 
 const getAssetTag = () => {
   return screen.getByRole('textbox', {
@@ -20,13 +22,13 @@ const getSerial = () => {
 
 const getSelectModel = () => {
   return screen.getByRole('combobox', {
-    name: /select a model/i,
+    name: /model/i,
   });
 };
 
 const getSelectStatus = () => {
   return screen.getByRole('combobox', {
-    name: /select status/i,
+    name: /status/i,
   });
 };
 
@@ -96,14 +98,22 @@ const getAddButtons = () => {
   return screen.getAllByRole('button', { name: /add/i });
 };
 
+const Provider = ({ children }: AppProviderProps) => {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <BrowserRouter>
+        <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
+      </BrowserRouter>
+    </LocalizationProvider>
+  );
+};
+
 describe('AddAsset form', () => {
   it('should render all inputs', async () => {
     render(
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <BrowserRouter>
-          <AddAsset />
-        </BrowserRouter>
-      </LocalizationProvider>,
+      <Provider>
+        <AddAsset />
+      </Provider>,
     );
     expect(getAssetTag()).toBeInTheDocument();
     expect(getSerial()).toBeInTheDocument();
@@ -121,11 +131,9 @@ describe('AddAsset form', () => {
 
   it('should display error messages', async () => {
     render(
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <BrowserRouter>
-          <AddAsset />
-        </BrowserRouter>
-      </LocalizationProvider>,
+      <Provider>
+        <AddAsset />
+      </Provider>,
     );
     const button = getAddButtons()[0];
     fireEvent.click(button);

@@ -1,21 +1,17 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import React from 'react';
-import { type UseFormSetValue, type FieldPath, type UseFormRegister } from 'react-hook-form';
-import { type IFormInput } from '../domain';
+import { type IFormInput } from 'features/assets';
+import { useState } from 'react';
+import { type FieldPath, useFormContext } from 'react-hook-form';
 
-export const UploadImage = ({
-  name,
-  setValue,
-  register,
-  buttonText,
-}: {
+export interface IUploadImage {
   buttonText: string;
   name: FieldPath<IFormInput>;
-  register: UseFormRegister<IFormInput>;
-  setValue: UseFormSetValue<IFormInput>;
-}) => {
-  const [img, setImg] = React.useState<string>();
-  const [fileName, setFileName] = React.useState<string>('');
+}
+export const UploadImage = ({ name, buttonText }: IUploadImage) => {
+  const [img, setImg] = useState<string>();
+  const [fileName, setFileName] = useState<string>('');
+
+  const { register, setValue } = useFormContext();
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid

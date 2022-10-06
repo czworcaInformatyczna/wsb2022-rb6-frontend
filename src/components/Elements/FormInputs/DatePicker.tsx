@@ -1,24 +1,17 @@
 import { type TextFieldProps } from '@mui/material';
 import { Grid, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
-import React from 'react';
-import { type FieldError, type Control, type FieldPath } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { type IFormInput } from '../domain';
+import { type IInputProps } from 'features/assets';
 
-export const DatePickerInput = ({
-  error,
-  helperText = '',
-  control,
-  label,
-  name,
-}: {
-  control: Control<IFormInput>;
-  error: FieldError | undefined;
-  helperText?: string;
-  label: string;
-  name: FieldPath<IFormInput>;
-}) => {
+export const DatePickerInput = ({ helperText = '', label, name }: IInputProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name];
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid

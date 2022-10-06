@@ -1,29 +1,19 @@
 import { Grid, TextField } from '@mui/material';
-import React from 'react';
-import {
-  type Control,
-  type FieldPath,
-  type RegisterOptions,
-  type FieldError,
-} from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { type IFormInput } from '../domain';
+import { type IInputProps } from 'features/assets';
 
-export const MultiLineTextInput = ({
-  control,
-  error,
-  label,
-  name,
-  rows,
-  rules,
-}: {
-  control: Control<IFormInput>;
-  error: FieldError | undefined;
-  label: string;
-  name: FieldPath<IFormInput>;
+export interface IMultiLineTextInput extends IInputProps {
   rows: number;
-  rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
-}) => {
+}
+
+export const MultiLineTextInput = ({ label, name, rows }: IMultiLineTextInput) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const { [name]: error } = errors;
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid
@@ -57,7 +47,6 @@ export const MultiLineTextInput = ({
               variant="outlined"
             />
           )}
-          rules={rules}
         />
       </Grid>
       <Grid item lg={3} md={3} sm={3} xl={3} xs={3}>
