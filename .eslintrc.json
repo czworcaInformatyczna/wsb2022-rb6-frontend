@@ -26,7 +26,7 @@
       },
       "rules": {
         "@typescript-eslint/member-delimiter-style": "off",
-        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/consistent-type-definitions": "off"
       }
     },
@@ -50,7 +50,7 @@
         "no-console": "off",
         "react/jsx-sort-props": "off",
         "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/explicit-member-accessibility": "off",
         "react/no-set-state": "off"
       }
