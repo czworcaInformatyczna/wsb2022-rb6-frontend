@@ -15,13 +15,13 @@ export const getSerial = () => {
 
 export const getSelectModel = () => {
   return screen.getByRole('combobox', {
-    name: /select a model/i,
+    name: /model/i,
   });
 };
 
 export const getSelectStatus = () => {
   return screen.getByRole('combobox', {
-    name: /select status/i,
+    name: /status/i,
   });
 };
 
