@@ -1,33 +1,22 @@
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
-import React from 'react';
-import { type FieldErrorsImpl, type Control } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { CreateModal } from '../CreateModal';
-import { type IStatus } from '../domain';
-import { type IFormInput } from '../domain';
+import { useState } from 'react';
+import { type IInputProps } from 'features/assets';
 
-export const SelectStatus = ({
-  control,
-  errors,
-}: {
-  control: Control<IFormInput>;
-  errors: FieldErrorsImpl<IFormInput>;
-}) => {
-  const [statusData, setStatusData] = React.useState<IStatus[]>([]);
-  const [open, setOpen] = React.useState(false);
+export interface ISelectInput extends IInputProps {
+  containsImg?: boolean;
+  options: any[];
+}
 
-  React.useEffect(() => {
-    setStatusData([
-      {
-        id: '1',
-        name: 'Ready to deploy',
-      },
-      {
-        id: '2',
-        name: 'Maintance',
-      },
-    ]);
-  }, []);
+export const SelectInput = ({ name, label, containsImg, options }: ISelectInput) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const [open, setOpen] = useState(false);
+  const error = errors[name];
 
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
@@ -48,33 +37,34 @@ export const SelectStatus = ({
         <Controller
           control={control}
           defaultValue={null}
-          name="Status"
+          name={name}
           render={({ field }) => (
             <Autocomplete
               {...field}
               autoHighlight
               fullWidth
               getOptionLabel={(option) => (option.name ? option.name : '')}
-              id="select-Status"
+              id={`select-${name}`}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
-              options={statusData}
+              options={options}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  error={Boolean(errors.Status)}
+                  error={Boolean(error)}
                   fullWidth
-                  helperText={errors.Status ? errors.Status.message?.toString() : ''}
+                  helperText={error ? error.message?.toString() : ''}
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
                   }}
-                  label="Select status"
+                  label={label}
                   size="small"
                 />
               )}
               renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  {containsImg && <img alt="" loading="lazy" src={option.img} width="20" />}
                   {option.name}
                 </Box>
               )}
@@ -109,7 +99,12 @@ export const SelectStatus = ({
           Create
         </Button>
       </Grid>
-      <CreateModal open={open} setOpen={setOpen} />
+      <CreateModal
+        open={open}
+        setOpen={setOpen}
+        title="modal title"
+        textContent="Example modal text content"
+      />
     </Grid>
   );
 };

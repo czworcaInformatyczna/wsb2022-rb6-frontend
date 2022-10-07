@@ -1,45 +1,22 @@
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
-import React from 'react';
-import { type FieldErrorsImpl, type Control } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { CreateModal } from '../CreateModal';
-import { type IModel } from '../domain';
-import { type IFormInput } from '../domain';
+import { useState } from 'react';
+import { type IInputProps } from 'features/assets';
 
-export const SelectModel = ({
-  control,
-  errors,
-}: {
-  control: Control<IFormInput>;
-  errors: FieldErrorsImpl<IFormInput>;
-}) => {
-  const [modelsData, setModelsData] = React.useState<IModel[]>([]);
-  const [open, setOpen] = React.useState(false);
+export interface ISelectInput extends IInputProps {
+  containsImg?: boolean;
+  options: any[];
+}
 
-  React.useEffect(() => {
-    setModelsData([
-      {
-        id: '1',
-        name: 'laptop',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-      {
-        id: '2',
-        name: 'zmywarki',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-      {
-        id: '3',
-        name: 'wiertarka',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-      {
-        id: '0',
-        name: 'złom',
-        img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
-      },
-    ]);
-  }, []);
+export const SelectInput = ({ name, label, containsImg, options }: ISelectInput) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  const [open, setOpen] = useState(false);
+  const error = errors[name];
 
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
@@ -60,34 +37,34 @@ export const SelectModel = ({
         <Controller
           control={control}
           defaultValue={null}
-          name="Model"
+          name={name}
           render={({ field }) => (
             <Autocomplete
               {...field}
               autoHighlight
               fullWidth
               getOptionLabel={(option) => (option.name ? option.name : '')}
-              id="selet-Model"
+              id={`select-${name}`}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
-              options={modelsData}
+              options={options}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  error={Boolean(errors.Model)}
+                  error={Boolean(error)}
                   fullWidth
-                  helperText={errors.Model ? errors.Model.message?.toString() : ''}
+                  helperText={error ? error.message?.toString() : ''}
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
                   }}
-                  label="Select a model"
+                  label={label}
                   size="small"
                 />
               )}
               renderOption={(props, option) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                  <img alt="" loading="lazy" src={option.img} width="20" />
+                  {containsImg && <img alt="" loading="lazy" src={option.img} width="20" />}
                   {option.name}
                 </Box>
               )}
@@ -122,7 +99,12 @@ export const SelectModel = ({
           Create
         </Button>
       </Grid>
-      <CreateModal open={open} setOpen={setOpen} />
+      <CreateModal
+        open={open}
+        setOpen={setOpen}
+        title="modal title"
+        textContent="Example modal text content"
+      />
     </Grid>
   );
 };
