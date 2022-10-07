@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
 import { type IFormInput, getStatusOptions, getModelOptions } from 'features/assets';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
   SelectInput,
@@ -21,6 +21,9 @@ import {
   TextInput,
 } from 'components/Elements/FormInputs';
 import { useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
+import testData from '../api/testData.json';
+import moment from 'moment';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
@@ -28,6 +31,45 @@ const AddAsset = () => {
   const navigate = useNavigate();
   const { data: statusOptions } = useQuery('SelectStatusOptions', getStatusOptions);
   const { data: modelOptions } = useQuery('SelectModelOptions', getModelOptions);
+  const location = useLocation();
+  const { id } = useParams();
+  const [action, setAction] = useState<'Add' | 'Edit'>('Add');
+
+  const getDateFormat = (dateString: string) => {
+    const dateMoment = moment(dateString, 'DD/MM/YYYY');
+    return dateMoment.toDate();
+  };
+
+  useEffect(() => {
+    const isEdit = location.pathname.includes('EditAsset');
+    if (isEdit && id === undefined) {
+      navigate('/PageNotFound');
+    } else {
+      methods.reset();
+    }
+
+    if (isEdit && id !== undefined) {
+      setAction('Edit');
+      // TEST - REPLACE BY API CALL
+      const asset = testData.find((x) => {
+        if (x.id === Number(id)) return x;
+      });
+      if (asset !== undefined) {
+        methods.setValue('AssetTag', asset.assetTag);
+        methods.setValue('Serial', asset.serial);
+        const modelObject = modelOptions?.find((x) => x.name === asset.model);
+        methods.setValue('Model', modelObject !== undefined ? modelObject : null);
+        const statusObject = statusOptions?.find((x) => x.name === asset.status);
+        methods.setValue('Status', statusObject !== undefined ? statusObject : null);
+        methods.setValue('Notes', asset.notes);
+        methods.setValue('AssetName', asset.name);
+        methods.setValue('Waranty', asset.waranty);
+        methods.setValue('OrderNumber', asset.orderNumber);
+        methods.setValue('DateOfPurchase', getDateFormat(asset.dateOfPurchase));
+        methods.setValue('PurchaseCost', asset.purchaseCost);
+      }
+    }
+  }, [id, location.pathname, methods, modelOptions, navigate, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
     console.log(data);
@@ -48,7 +90,7 @@ const AddAsset = () => {
       <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
           <Typography ml={2} variant="h4">
-            Add Asset
+            {action} Asset
           </Typography>
         </Grid>
         <Grid
@@ -67,7 +109,7 @@ const AddAsset = () => {
               Cancel
             </Button>
             <Button color="success" onClick={handleSubmit(onSubmit)} variant="contained">
-              Add
+              {action}
             </Button>
           </Stack>
         </Grid>
@@ -173,7 +215,7 @@ const AddAsset = () => {
                   Cancel
                 </Button>
                 <Button color="success" type="submit" variant="contained">
-                  Add
+                  {action}
                 </Button>
               </Stack>
             </Grid>
