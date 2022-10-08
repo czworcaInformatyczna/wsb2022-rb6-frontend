@@ -63,7 +63,7 @@ const AddAsset = () => {
           xs={6}
         >
           <Stack direction="row" mb={1} mr={2} spacing={1}>
-            <Button color="error" onClick={() => navigate(-1)} variant="outlined">
+            <Button color="error" onClick={() => navigate(-1)} variant="contained">
               Cancel
             </Button>
             <Button color="success" onClick={handleSubmit(onSubmit)} variant="contained">
@@ -100,6 +100,9 @@ const AddAsset = () => {
                   aria-controls="panel1a-content"
                   expandIcon={<ExpandMoreIcon />}
                   id="panel1a-header"
+                  sx={{
+                    backgroundColor: 'background.default',
+                  }}
                 >
                   <Typography>Additional informations</Typography>
                 </AccordionSummary>
@@ -127,6 +130,9 @@ const AddAsset = () => {
                   aria-controls="panel1a-content"
                   expandIcon={<ExpandMoreIcon />}
                   id="panel1a-header"
+                  sx={{
+                    backgroundColor: 'background.default',
+                  }}
                 >
                   <Typography>Order information</Typography>
                 </AccordionSummary>
@@ -163,7 +169,7 @@ const AddAsset = () => {
               xs={12}
             >
               <Stack direction="row" mr={2} spacing={1}>
-                <Button color="error" onClick={() => navigate(-1)} variant="outlined">
+                <Button color="error" onClick={() => navigate(-1)} variant="contained">
                   Cancel
                 </Button>
                 <Button color="success" type="submit" variant="contained">

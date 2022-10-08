@@ -88,6 +88,9 @@ export const SelectInput = ({ name, label, containsImg, options }: ISelectInput)
         xs={12}
       >
         <Button
+          sx={{
+            maxHeight: '40px',
+          }}
           onClick={() => {
             setOpen(true);
           }}
