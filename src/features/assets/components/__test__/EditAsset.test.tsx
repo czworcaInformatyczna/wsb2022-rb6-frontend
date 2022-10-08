@@ -44,7 +44,6 @@ describe('Edit form', () => {
         <AddAsset />
       </Provider>,
     );
-
     const el = element.getAssetTag();
     expect(el).toHaveValue('assetTag');
   });
