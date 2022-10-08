@@ -23,8 +23,8 @@ const Provider = ({ children }: AppProviderProps) => {
   );
 };
 
-describe('AddAsset form', () => {
-  it('should render all inputs', async () => {
+describe('Edit form', () => {
+  it('should render Edit Asset heading', async () => {
     render(
       <Provider>
         <AddAsset />
@@ -34,6 +34,17 @@ describe('AddAsset form', () => {
     await waitFor(() => {
       expect(screen.getByText(/edit asset/i)).toBeInTheDocument();
     });
+    const el = element.getAssetTag();
+    expect(el).toHaveValue('assetTag');
+  });
+
+  it('assetTag input should have value', async () => {
+    render(
+      <Provider>
+        <AddAsset />
+      </Provider>,
+    );
+
     const el = element.getAssetTag();
     expect(el).toHaveValue('assetTag');
   });
