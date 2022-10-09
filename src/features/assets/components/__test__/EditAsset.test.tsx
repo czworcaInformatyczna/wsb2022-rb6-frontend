@@ -25,7 +25,7 @@ const Provider = ({ children }: AppProviderProps) => {
 };
 
 describe('Edit form', () => {
-  it('should render Edit Asset heading', async () => {
+  it('should render Edit Asset heading and Edit Buttons', async () => {
     await act(async () => {
       render(
         <Provider>
@@ -42,7 +42,7 @@ describe('Edit form', () => {
     ).toBe(2);
   });
 
-  it('assetTag input should have value', async () => {
+  it('inputs should have value', async () => {
     await act(async () => {
       render(
         <Provider>
