@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -24,9 +25,7 @@ const Provider = ({ children }: AppProviderProps) => {
 };
 
 describe('Edit form', () => {
-  // eslint-disable-next-line jest/expect-expect
   it('should render Edit Asset heading', async () => {
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       render(
         <Provider>
@@ -36,10 +35,14 @@ describe('Edit form', () => {
     });
 
     expect(screen.getByText(/edit asset/i)).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('button', {
+        name: /edit/i,
+      }).length,
+    ).toBe(2);
   });
 
   it('assetTag input should have value', async () => {
-    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       render(
         <Provider>
@@ -47,7 +50,16 @@ describe('Edit form', () => {
         </Provider>,
       );
     });
-    const el = element.getAssetTag();
-    expect(el).toHaveValue('assetTag');
+
+    expect(element.getAssetTag()).toHaveValue();
+    expect(element.getSerial()).toHaveValue();
+    expect(element.getSelectModel()).toHaveValue();
+    expect(element.getSelectStatus()).toHaveValue();
+    expect(await element.getNotes()).toHaveValue();
+    expect(await element.getAssetName()).toHaveValue();
+    expect(await element.getWaranty()).toHaveValue();
+    expect(await element.getOrderNumber()).toHaveValue();
+    expect(await element.getDateOfPurchase()).toHaveValue();
+    expect(await element.getPurchaseCost()).toHaveValue();
   });
 });
