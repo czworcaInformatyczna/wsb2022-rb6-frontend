@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
 import { useAuth } from 'hooks';
+import Cookies from 'js-cookie';
+import { emailCookie, tokenCookie } from 'features/login';
 
 export const AccountMenu = (): JSX.Element => {
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
@@ -29,6 +31,8 @@ export const AccountMenu = (): JSX.Element => {
 
   const handleLogout = () => {
     setAuth({ email: '', token: '' });
+    Cookies.remove(tokenCookie);
+    Cookies.remove(emailCookie);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { TextField, Button, Box } from '@mui/material';
-import { useEffect, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from 'features/login/api/getToken';
@@ -7,7 +7,9 @@ import { useAuth } from 'hooks/useAuth';
 import { type ILogin } from 'features/login/types';
 import Cookies from 'js-cookie';
 
-const tokenCookie = 'inven_app_token';
+export const tokenCookie = 'inven_app_token';
+export const emailCookie = 'inven_app_email';
+
 export const Login: FC = (): JSX.Element => {
   const {
     handleSubmit,
@@ -17,17 +19,7 @@ export const Login: FC = (): JSX.Element => {
   } = useForm<ILogin>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setAuth, auth } = useAuth();
-
-  useEffect(() => {
-    const token = Cookies.get(tokenCookie);
-    const email = Cookies.get('email');
-    if (token && email) {
-      setAuth({ email, token });
-      navigate('/dashboard');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { setAuth } = useAuth();
 
   const onSubmit = async (userData: ILogin) => {
     const { email, password } = userData;
@@ -37,9 +29,8 @@ export const Login: FC = (): JSX.Element => {
 
     if (token) {
       Cookies.set(tokenCookie, token);
-      Cookies.set('email', email);
+      Cookies.set(emailCookie, email);
       setAuth({ email, token });
-      console.log(auth);
       navigate('/dashboard');
     } else {
       setError(
