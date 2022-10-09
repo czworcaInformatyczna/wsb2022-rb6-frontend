@@ -1,11 +1,13 @@
 import { TextField, Button, Box } from '@mui/material';
-import { type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from 'features/login/api/getToken';
 import { useAuth } from 'hooks/useAuth';
 import { type ILogin } from 'features/login/types';
+import Cookies from 'js-cookie';
 
+const tokenCookie = 'inven_app_token';
 export const Login: FC = (): JSX.Element => {
   const {
     handleSubmit,
@@ -13,17 +15,32 @@ export const Login: FC = (): JSX.Element => {
     formState: { errors },
     setError,
   } = useForm<ILogin>();
-  const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { setAuth, auth } = useAuth();
+
+  useEffect(() => {
+    const token = Cookies.get(tokenCookie);
+    const email = Cookies.get('email');
+    if (token && email) {
+      setAuth({ email, token });
+      navigate('/dashboard');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = async (userData: ILogin) => {
     const { email, password } = userData;
-    const getTokenApiData = await getToken({ email, password });
-    const token: string = getTokenApiData?.data.access_token;
+    setLoading(true);
+    const response = await getToken({ email, password });
+    const token: string = response?.data.access_token;
 
     if (token) {
+      Cookies.set(tokenCookie, token);
+      Cookies.set('email', email);
       setAuth({ email, token });
-      navigate('/dashboard', { replace: true });
+      console.log(auth);
+      navigate('/dashboard');
     } else {
       setError(
         'email',
@@ -97,6 +114,7 @@ export const Login: FC = (): JSX.Element => {
               type="submit"
               color="success"
               sx={{ marginTop: '5%', marginLeft: '50%', color: 'white' }}
+              disabled={loading}
             >
               Zaloguj
             </Button>
