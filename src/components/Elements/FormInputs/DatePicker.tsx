@@ -38,6 +38,7 @@ export const DatePickerInput = ({ helperText = '', label, name }: IInputProps) =
               disableFuture
               label={label}
               openTo="year"
+              inputFormat="dd.MM.yyyy"
               renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
                 <TextField
                   {...params}

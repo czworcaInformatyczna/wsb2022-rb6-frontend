@@ -18,6 +18,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route path="/accessories" element={<Accessories />} />
         <Route element={<DataProvider link="Assets" />} path="/Assets" />
         <Route element={<AddAsset />} path="AddAsset" />
+        <Route element={<AddAsset />} path="EditAsset/:id" />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

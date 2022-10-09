@@ -85,8 +85,6 @@ export const AssetsTemplate = (Props: AssetsProps) => {
 
   const handleContextMenu = (event: React.MouseEvent) => {
     event.preventDefault();
-    console.log(Number(event.currentTarget.getAttribute('data-id')));
-
     setContextMenu({
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
@@ -127,7 +125,9 @@ export const AssetsTemplate = (Props: AssetsProps) => {
           }
           key={params.id}
           label="Edit"
-          onClick={() => {}}
+          onClick={() => {
+            navigate(Props.data.editLink + '/' + params.id);
+          }}
         />,
         <GridActionsCellItem
           icon={
@@ -250,7 +250,13 @@ export const AssetsTemplate = (Props: AssetsProps) => {
             >
               <MenuItem onClick={() => {}}>Show details</MenuItem>
               <MenuItem onClick={() => {}}>Clone</MenuItem>
-              <MenuItem onClick={() => {}}>Edit</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate(Props.data.editLink + '/' + contextMenu?.elementId);
+                }}
+              >
+                Edit
+              </MenuItem>
               <MenuItem onClick={() => {}}>Delete</MenuItem>
             </Menu>
           </Grid>
