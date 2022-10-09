@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import AuthContext, { type IAuthCtx } from 'context/AuthProvider';
+import { type IAuthCtx, AuthContext } from 'providers/AuthProvider';
 
 export const useAuth = (): IAuthCtx => {
   return useContext(AuthContext);

@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from 'providers/AuthProvider/useAuth';
 import Cookies from 'js-cookie';
-import { emailCookie, tokenCookie } from 'features/login';
+import { emailCookie, tokenCookie } from 'providers/AuthProvider';
 
 export const RequireAuth = () => {
   const token = Cookies.get(tokenCookie);

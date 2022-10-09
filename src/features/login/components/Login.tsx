@@ -1,14 +1,9 @@
 import { TextField, Button, Box } from '@mui/material';
 import { useState, type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { getToken } from 'features/login/api/getToken';
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from 'providers/AuthProvider';
 import { type ILogin } from 'features/login/types';
-import Cookies from 'js-cookie';
-
-export const tokenCookie = 'inven_app_token';
-export const emailCookie = 'inven_app_email';
+import { getErrorMessage } from 'utils/getErrorMessage';
 
 export const Login: FC = (): JSX.Element => {
   const {
@@ -17,28 +12,20 @@ export const Login: FC = (): JSX.Element => {
     formState: { errors },
     setError,
   } = useForm<ILogin>();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setAuth } = useAuth();
+  const { handleLogin } = useAuth();
 
   const onSubmit = async (userData: ILogin) => {
-    const { email, password } = userData;
-    setLoading(true);
-    const response = await getToken({ email, password });
-    const token: string = response?.data.access_token;
-
-    if (token) {
-      Cookies.set(tokenCookie, token);
-      Cookies.set(emailCookie, email);
-      setAuth({ email, token });
-      navigate('/dashboard');
-    } else {
+    try {
+      await handleLogin(userData, setLoading);
+    } catch (error) {
+      setError('email', { type: 'focus' }, { shouldFocus: true });
       setError(
-        'email',
-        { type: 'focus', message: 'Niepoprawny email lub hasło' },
+        'password',
+        { type: 'focus', message: getErrorMessage(error) },
         { shouldFocus: true },
       );
-      setError('password', { type: 'focus' }, { shouldFocus: true });
+      setLoading(false);
     }
   };
 
@@ -62,10 +49,10 @@ export const Login: FC = (): JSX.Element => {
               defaultValue=""
               name="email"
               rules={{
-                required: 'Uzupełnij email',
+                required: 'Email is required',
                 pattern: {
                   value: /\S+@\S+\.\S+/,
-                  message: 'Podaj poprawny email',
+                  message: 'Wrong email format',
                 },
               }}
               render={({ field }) => (
@@ -90,7 +77,7 @@ export const Login: FC = (): JSX.Element => {
                   {...field}
                   error={Boolean(errors.password)}
                   helperText={errors.email ? errors?.password?.message : ''}
-                  label="Hasło"
+                  label="Password"
                   size="small"
                   variant="outlined"
                   type="password"
@@ -107,7 +94,7 @@ export const Login: FC = (): JSX.Element => {
               sx={{ marginTop: '5%', marginLeft: '50%', color: 'white' }}
               disabled={loading}
             >
-              Zaloguj
+              Log in
             </Button>
           </div>
         </form>

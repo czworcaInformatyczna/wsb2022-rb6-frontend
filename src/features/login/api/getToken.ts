@@ -1,7 +1,6 @@
 import { type ILogin } from 'features/login/types';
 import { apiClient } from 'lib/axios';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getToken = async ({ email, password }: ILogin): Promise<any> => {
   const controller = new AbortController();
   const URL = `/login`;
@@ -9,13 +8,9 @@ export const getToken = async ({ email, password }: ILogin): Promise<any> => {
     try {
       const data = await apiClient.post(URL, { password, email }, { signal: controller.signal });
       return data;
-    } catch (e) {
-      //   if (!e?.response) {
-      //     console.error('No response from server');
-      //   } else if (e.response?.status === 400) {
-      //     console.error('Missing email or password');
-      //   }
-      // }
+    } catch (e: any) {
+      if (e?.response?.status === 401) throw Error('Invalid credentials');
+      else throw Error('Something went wrong');
     }
   }
 };
