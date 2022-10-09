@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import AddAsset from '../AddAsset';
@@ -24,26 +24,29 @@ const Provider = ({ children }: AppProviderProps) => {
 };
 
 describe('Edit form', () => {
+  // eslint-disable-next-line jest/expect-expect
   it('should render Edit Asset heading', async () => {
-    render(
-      <Provider>
-        <AddAsset />
-      </Provider>,
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText(/edit asset/i)).toBeInTheDocument();
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      render(
+        <Provider>
+          <AddAsset />
+        </Provider>,
+      );
     });
-    const el = element.getAssetTag();
-    expect(el).toHaveValue('assetTag');
+
+    expect(screen.getByText(/edit asset/i)).toBeInTheDocument();
   });
 
   it('assetTag input should have value', async () => {
-    render(
-      <Provider>
-        <AddAsset />
-      </Provider>,
-    );
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      render(
+        <Provider>
+          <AddAsset />
+        </Provider>,
+      );
+    });
     const el = element.getAssetTag();
     expect(el).toHaveValue('assetTag');
   });
