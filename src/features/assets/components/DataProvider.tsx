@@ -26,6 +26,7 @@ export const DataProvider = (Props: DataProviderProps) => {
             data = {
               addNewLink: '/AddAsset',
               editLink: '/EditAsset',
+              detailsLink: '/AssetDetails',
               name: 'Assets',
               columns: [
                 { field: 'id', width: 90 },

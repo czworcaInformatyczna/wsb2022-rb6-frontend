@@ -248,7 +248,13 @@ export const AssetsTemplate = (Props: AssetsProps) => {
               onClose={handleClose}
               open={contextMenu !== null}
             >
-              <MenuItem onClick={() => {}}>Show details</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate(Props.data.detailsLink);
+                }}
+              >
+                Show details
+              </MenuItem>
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {
