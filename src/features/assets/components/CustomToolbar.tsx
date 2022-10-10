@@ -45,11 +45,12 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
             </Select>
           </FormControl>
           <Button
+            size="large"
             disabled={(action === '' ? true : false) || Props.selectedItems.length === 0}
             onClick={() => {
               alert('clicked');
             }}
-            variant="outlined"
+            variant="contained"
           >
             Apply
           </Button>

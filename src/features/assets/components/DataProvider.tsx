@@ -1,5 +1,10 @@
 import { Box } from '@mui/material';
-import { type IDataProvider, type DataProviderProps, StatusChip, Assets } from 'features/assets';
+import {
+  type IDataProvider,
+  type DataProviderProps,
+  StatusChip,
+  AssetsTemplate,
+} from 'features/assets';
 
 export const DataProvider = (Props: DataProviderProps) => {
   let data: IDataProvider;
@@ -20,6 +25,7 @@ export const DataProvider = (Props: DataProviderProps) => {
           case 'Assets':
             data = {
               addNewLink: '/AddAsset',
+              editLink: '/EditAsset',
               name: 'Assets',
               columns: [
                 { field: 'id', width: 90 },
@@ -53,7 +59,7 @@ export const DataProvider = (Props: DataProviderProps) => {
                 },
               ],
             };
-            return <Assets data={data} />;
+            return <AssetsTemplate data={data} />;
           default:
             return null;
         }

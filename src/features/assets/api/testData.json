@@ -7,7 +7,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Ready to deploy"
+    "status": "Ready to deploy",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 16,
@@ -17,7 +23,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Deployed"
+    "status": "Deployed",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 6,
@@ -27,7 +39,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Maintenance"
+    "status": "Maintenance",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 5,
@@ -37,7 +55,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Archived"
+    "status": "Archived",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 4,
@@ -47,7 +71,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Ready to deploy"
+    "status": "Ready to deploy",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 3,
@@ -57,7 +87,13 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Ready to deploy"
+    "status": "Ready to deploy",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   },
   {
     "id": 2,
@@ -67,6 +103,12 @@
     "model": "Model",
     "manufacturer": "Manufacturer",
     "category": "category",
-    "status": "Ready to deploy"
+    "status": "Ready to deploy",
+    "assetTag": "assetTag",
+    "notes": "some notes",
+    "waranty": 6,
+    "orderNumber": "123",
+    "dateOfPurchase": "22/02/2022",
+    "purchaseCost": 200
   }
 ]
