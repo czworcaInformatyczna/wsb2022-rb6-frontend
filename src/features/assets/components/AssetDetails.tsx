@@ -7,6 +7,7 @@ import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 import FolderIcon from '@mui/icons-material/Folder';
 import { TabPanel } from './detailsComponents/TabPanel';
+import { AssetInfo } from './detailsComponents/AssetInfo';
 
 export const AssetDetails = () => {
   const [tab, setTab] = useState(0);
@@ -55,7 +56,7 @@ export const AssetDetails = () => {
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <TabPanel tab={tab} index={0}>
-            1
+            <AssetInfo />
           </TabPanel>
           <TabPanel tab={tab} index={1}>
             2
