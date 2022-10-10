@@ -9,6 +9,10 @@ export const lightMode = {
   background: {
     paper: '#f1f1f1',
     default: '#e0e0e0',
+    dark: '#828282',
+  },
+  text: {
+    primary: '#000000',
   },
 };
 
@@ -21,6 +25,10 @@ export const darkMode = {
   },
   background: {
     paper: '#121212',
-    default: '#2D2D2D',
+    default: '#121212',
+    dark: '#2C387E',
+  },
+  text: {
+    primary: '#ffffff',
   },
 };
