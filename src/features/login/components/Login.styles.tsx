@@ -1,6 +1,6 @@
 import { Container, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
-import BackgroundImage from 'assets/login_background.jpg';
+import BackgroundImage from 'features/login/assets/login_background.jpg';
 
 export const BackgroundContainer = styled(Container)({
   background: `url(${BackgroundImage})`,
