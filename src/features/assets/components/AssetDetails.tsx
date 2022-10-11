@@ -50,7 +50,6 @@ export const AssetDetails = () => {
               <Tab icon={<HistoryToggleOffIcon />} label="History" />
               <Tab icon={<BuildCircleOutlinedIcon />} label="Maintenance" />
               <Tab icon={<FolderIcon />} label="Files" />
-              <Tab icon={<HistoryToggleOffIcon />} label="History" />
             </Tabs>
           </Box>
         </Grid>
