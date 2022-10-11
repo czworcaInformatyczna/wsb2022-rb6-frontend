@@ -2,6 +2,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { Login } from 'features/login';
 import { AppProvider } from 'providers/AppProvider';
 import userEvent from '@testing-library/user-event';
+import { useAuth } from 'providers/AuthProvider/useAuth';
+
+jest.mock('providers/AuthProvider/useAuth.ts', () => ({
+  useAuth: jest.fn().mockReturnValue({ handleLogin: jest.fn() }),
+}));
 
 const renderLogin = () => {
   const user = userEvent.setup();
@@ -53,14 +58,9 @@ test('should display error if email format is wrong', async () => {
 
 // TODO fix this test from failing
 // eslint-disable-next-line jest/no-disabled-tests
-test.skip('should login sucessfully', async () => {
+test('should login sucessfully', async () => {
   // given
-  const mockHandleLogin = jest.fn();
-  jest.mock('providers/AuthProvider/useAuth.ts', () => {
-    return jest.fn(() => ({
-      handleLogin: mockHandleLogin,
-    }));
-  });
+
   const { submitButton, emailInput, passwordInput, user } = renderLogin();
 
   // when
@@ -71,5 +71,5 @@ test.skip('should login sucessfully', async () => {
   await user.click(submitButton);
 
   // then
-  await waitFor(() => expect(mockHandleLogin).toHaveBeenCalled());
+  await waitFor(() => expect(useAuth).toHaveBeenCalled());
 });
