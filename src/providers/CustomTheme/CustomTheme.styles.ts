@@ -25,7 +25,7 @@ export const darkMode = {
   },
   background: {
     paper: '#121212',
-    default: '#121212',
+    default: '#2D2D2D',
     dark: '#2C387E',
   },
   text: {
