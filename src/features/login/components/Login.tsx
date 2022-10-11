@@ -64,6 +64,9 @@ export const Login: FC = (): JSX.Element => {
                 control={control}
                 defaultValue=""
                 name="password"
+                rules={{
+                  required: 'Password is required',
+                }}
                 render={({ field }) => (
                   <TextField
                     {...field}
