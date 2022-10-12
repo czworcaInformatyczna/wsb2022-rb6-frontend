@@ -7,10 +7,14 @@ import {
 import { useQuery } from 'react-query';
 import { StatusChip } from '../StatusChip';
 
-export const AssetInfo = () => {
-  const { data: assetDetails } = useQuery('AssetDetails', getAssetDetails);
-  const { data: assetImage } = useQuery('AssetImage', getAssetPhoto);
-  const { data: assetQRCode } = useQuery('AssetQRCode', getAssetQRCode);
+export const AssetInfo = ({ id }: { id: number }) => {
+  const { data: assetDetails } = useQuery(
+    ['AssetDetails', id],
+    async () => await getAssetDetails(id),
+  );
+
+  const { data: assetImage } = useQuery(['AssetImage', id], async () => await getAssetPhoto(id));
+  const { data: assetQRCode } = useQuery(['AssetQRCode', id], async () => await getAssetQRCode(id));
   return (
     <Box mb={4}>
       {assetDetails === undefined ? (

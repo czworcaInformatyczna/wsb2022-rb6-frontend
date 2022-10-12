@@ -55,7 +55,7 @@ export const AssetDetails = () => {
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <TabPanel tab={tab} index={0}>
-            <AssetInfo />
+            <AssetInfo id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={1}>
             2

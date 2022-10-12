@@ -1,4 +1,6 @@
-export const getAssetDetails = async () => {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+export const getAssetDetails = async (id: number) => {
   return {
     keys: [
       'Id',
@@ -41,13 +43,13 @@ export const getAssetDetails = async () => {
   };
 };
 
-export const getAssetPhoto = async () => {
+export const getAssetPhoto = async (id: number) => {
   return {
     image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
   };
 };
 
-export const getAssetQRCode = async () => {
+export const getAssetQRCode = async (id: number) => {
   return {
     QRCode:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Qr-witaj-w-wikiped.svg/1024px-Qr-witaj-w-wikiped.svg.png',
