@@ -12,12 +12,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import { useAuth } from 'providers/AuthProvider';
 import * as React from 'react';
-import { useAuth } from 'hooks';
 
 export const AccountMenu = (): JSX.Element => {
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
-  const { setAuth } = useAuth();
+  const { handleLogout } = useAuth();
   const open = Boolean(anchorElement);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElement(event.currentTarget);
@@ -25,10 +25,6 @@ export const AccountMenu = (): JSX.Element => {
 
   const handleClose = () => {
     setAnchorElement(null);
-  };
-
-  const handleLogout = () => {
-    setAuth({ email: '', token: '' });
   };
 
   return (

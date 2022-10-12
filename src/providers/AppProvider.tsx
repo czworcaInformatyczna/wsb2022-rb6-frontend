@@ -2,7 +2,7 @@ import { type AppProviderProps } from 'providers/types';
 import { CustomThemeProvider } from 'providers/CustomTheme';
 import { Box, CssBaseline, GlobalStyles } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from 'context/AuthProvider';
+import { AuthProvider } from 'providers/AuthProvider';
 import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
 import { LocalizationProvider } from '@mui/x-date-pickers';

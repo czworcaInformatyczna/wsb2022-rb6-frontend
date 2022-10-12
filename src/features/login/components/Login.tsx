@@ -1,10 +1,10 @@
-import { TextField, Button, Box } from '@mui/material';
-import { type FC } from 'react';
+import { TextField, Box } from '@mui/material';
+import { useState, type FC } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { getToken } from 'features/login/api/getToken';
-import { useAuth } from 'hooks/useAuth';
+import { useAuth } from 'providers/AuthProvider';
 import { type ILogin } from 'features/login/types';
+import { getErrorMessage } from 'utils/getErrorMessage';
+import { BackgroundContainer, LoginBox, ActionButton } from 'features/login';
 
 export const Login: FC = (): JSX.Element => {
   const {
@@ -13,96 +13,82 @@ export const Login: FC = (): JSX.Element => {
     formState: { errors },
     setError,
   } = useForm<ILogin>();
-  const { setAuth } = useAuth();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { handleLogin } = useAuth();
 
   const onSubmit = async (userData: ILogin) => {
-    const { email, password } = userData;
-    const getTokenApiData = await getToken({ email, password });
-    const token: string = getTokenApiData?.data.access_token;
-
-    if (token) {
-      setAuth({ email, token });
-      navigate('/dashboard', { replace: true });
-    } else {
+    try {
+      await handleLogin(userData, setLoading);
+    } catch (error) {
+      setError('email', { type: 'focus' }, { shouldFocus: true });
       setError(
-        'email',
-        { type: 'focus', message: 'Niepoprawny email lub hasło' },
+        'password',
+        { type: 'focus', message: getErrorMessage(error) },
         { shouldFocus: true },
       );
-      setError('password', { type: 'focus' }, { shouldFocus: true });
+      setLoading(false);
     }
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: 'primary.dark',
-        padding: '1rem',
-        position: 'fixed',
-        top: '40%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        height: '15rem',
-      }}
-    >
-      <Box sx={{ marginTop: '15%' }}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Controller
-              control={control}
-              defaultValue=""
-              name="email"
-              rules={{
-                required: 'Uzupełnij email',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Podaj poprawny email',
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  error={Boolean(errors.email)}
-                  helperText={errors.email ? errors.email.message : ''}
-                  label="Email"
-                  size="small"
-                  variant="outlined"
-                />
-              )}
-            />
-          </div>
-          <div>
-            <Controller
-              control={control}
-              defaultValue=""
-              name="password"
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  error={Boolean(errors.password)}
-                  helperText={errors.email ? errors?.password?.message : ''}
-                  label="Hasło"
-                  size="small"
-                  variant="outlined"
-                  type="password"
-                  sx={{ marginTop: '5%' }}
-                />
-              )}
-            />
-          </div>
-          <div>
-            <Button
-              variant="contained"
-              type="submit"
-              color="success"
-              sx={{ marginTop: '5%', marginLeft: '50%', color: 'white' }}
-            >
-              Zaloguj
-            </Button>
-          </div>
-        </form>
-      </Box>
-    </Box>
+    <BackgroundContainer>
+      <LoginBox>
+        <Box sx={{ marginTop: '15%' }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <Controller
+                control={control}
+                defaultValue=""
+                name="email"
+                rules={{
+                  required: 'Email is required',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Wrong email format',
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    error={Boolean(errors.email)}
+                    helperText={errors.email ? errors.email.message : ''}
+                    label="Email"
+                    size="small"
+                    variant="outlined"
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <Controller
+                control={control}
+                defaultValue=""
+                name="password"
+                rules={{
+                  required: 'Password is required',
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    error={Boolean(errors.password)}
+                    helperText={errors.email ? errors?.password?.message : ''}
+                    label="Password"
+                    size="small"
+                    variant="outlined"
+                    type="password"
+                    sx={{ marginTop: '5%' }}
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <ActionButton variant="contained" type="submit" color="primary" disabled={loading}>
+                Log in
+              </ActionButton>
+            </div>
+          </form>
+        </Box>
+      </LoginBox>
+    </BackgroundContainer>
   );
 };
