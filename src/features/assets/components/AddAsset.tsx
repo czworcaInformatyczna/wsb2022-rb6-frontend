@@ -39,7 +39,7 @@ const AddAsset = () => {
 
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
-    return dateMoment.toDate();
+    return dateMoment.toDate().toString();
   };
 
   const setValues = useCallback(
@@ -87,9 +87,9 @@ const AddAsset = () => {
   }, [id, location.pathname, methods, navigate, setValues, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
-    // let dataCopy = Object.assign({}, data);
-    // Object.keys(data).map((key, value) => {});
-    console.log(data);
+    const tempData = { ...data };
+    tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
+    console.log(tempData);
   };
 
   return (

@@ -49,7 +49,7 @@ export enum Statuses {
 export interface IFormInput extends FieldValues {
   AssetName: string;
   AssetTag: string;
-  DateOfPurchase: Date;
+  DateOfPurchase: string;
   Model: IModel | null;
   Notes: string;
   OrderNumber: number | string;
