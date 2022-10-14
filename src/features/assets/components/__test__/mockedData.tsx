@@ -10,3 +10,16 @@ export const AssetInfoData = {
   NotesMock: 'notesValue',
   WarantyMock: 'warantValue',
 };
+
+export const AssetLicensesMock = [
+  {
+    id: '1',
+    name: 'license1',
+    key: '123',
+  },
+  {
+    id: '2',
+    name: 'license2',
+    key: 'abc',
+  },
+];
