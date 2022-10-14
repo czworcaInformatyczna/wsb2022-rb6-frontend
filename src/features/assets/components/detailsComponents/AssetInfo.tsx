@@ -15,6 +15,14 @@ export const AssetInfo = ({ id }: { id: number }) => {
 
   const { data: assetImage } = useQuery(['AssetImage', id], async () => await getAssetPhoto(id));
   const { data: assetQRCode } = useQuery(['AssetQRCode', id], async () => await getAssetQRCode(id));
+
+  const formatObjectKey = (key: string) => {
+    let formatedKey = key.replaceAll('_', ' ');
+    formatedKey = formatedKey.charAt(0).toUpperCase() + formatedKey.slice(1);
+
+    return formatedKey;
+  };
+
   return (
     <Box mb={4}>
       {assetDetails === undefined ? (
@@ -28,7 +36,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
               }}
             >
               <TableBody>
-                {assetDetails.keys.map((row: any, i) => (
+                {Object.keys(assetDetails).map((row: any, i) => (
                   <TableRow
                     key={row}
                     sx={{
@@ -42,12 +50,12 @@ export const AssetInfo = ({ id }: { id: number }) => {
                     }}
                   >
                     <TableCell component="th" scope="row" sx={{ width: '35%' }}>
-                      <Typography fontWeight="bold">{row}</Typography>
+                      <Typography fontWeight="bold">{formatObjectKey(row)}</Typography>
                     </TableCell>
                     <TableCell align="left" sx={{ width: '65%' }}>
-                      {row === 'Status'
-                        ? StatusChip(assetDetails.values[i].toString())
-                        : assetDetails.values[i]}
+                      {row === ('Status' as keyof typeof assetDetails)
+                        ? StatusChip(assetDetails[row as keyof typeof assetDetails].toString())
+                        : assetDetails[row as keyof typeof assetDetails]}
                     </TableCell>
                   </TableRow>
                 ))}
