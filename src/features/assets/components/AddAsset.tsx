@@ -64,12 +64,11 @@ const AddAsset = () => {
     const isEdit = location.pathname.includes('EditAsset');
     if (isEdit && id === undefined) {
       navigate('/PageNotFound');
-    } else {
-      methods.reset();
     }
 
     if (isEdit && id !== undefined) {
       setLoading(true);
+      methods.reset();
       setAction('Edit');
       // TEST - REPLACE BY API CALL
       const asset = testData.find((x) => {
@@ -79,6 +78,11 @@ const AddAsset = () => {
         setValues(asset);
         setLoading(false);
       }
+    }
+
+    if (!isEdit) {
+      methods.reset();
+      setAction('Add');
     }
   }, [id, location.pathname, methods, navigate, setValues, statusOptions]);
 
