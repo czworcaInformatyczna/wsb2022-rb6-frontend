@@ -34,3 +34,18 @@ export const getAssetQRCode = async (id: number) => {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Qr-witaj-w-wikiped.svg/1024px-Qr-witaj-w-wikiped.svg.png',
   };
 };
+
+export const getAssetLicenses = async (id: number): Promise<any> => {
+  return [
+    {
+      id: '1',
+      name: 'Photoshop',
+      key: 'ba81-874f-3fbe-99b9-30624',
+    },
+    {
+      id: '2',
+      name: 'Photoshop',
+      key: 'saddasds-as-as-aa-ff',
+    },
+  ];
+};

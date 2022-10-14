@@ -2,25 +2,25 @@
 import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetInfo } from '../detailsComponents/AssetInfo';
-import { type AppProviderProps } from 'providers/types';
+
 import * as getDetails from 'features/assets/api/getAssetDetails';
 import { AssetInfoData } from '../__test__/mockedData';
 
-const callApi = jest.spyOn(getDetails, 'getAssetDetails');
+const callApiDetails = jest.spyOn(getDetails, 'getAssetDetails');
 
-const Provider = ({ children }: AppProviderProps) => {
-  return <AppProvider>{children}</AppProvider>;
+const Provider = () => {
+  return (
+    <AppProvider>
+      <AssetInfo id={1} />
+    </AppProvider>
+  );
 };
 
-describe('AssetInfo table', () => {
+describe('AssetInfo', () => {
   it('should display all data', async () => {
-    callApi.mockImplementation(async () => await Promise.resolve(AssetInfoData));
+    callApiDetails.mockImplementation(async () => await Promise.resolve(AssetInfoData));
     await act(async () => {
-      render(
-        <Provider>
-          <AssetInfo id={1} />
-        </Provider>,
-      );
+      render(<Provider />);
     });
 
     expect(await screen.findByText(/idmock/i)).toBeInTheDocument();

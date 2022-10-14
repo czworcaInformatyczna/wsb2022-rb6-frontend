@@ -8,6 +8,7 @@ import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 import FolderIcon from '@mui/icons-material/Folder';
 import { TabPanel } from './detailsComponents/TabPanel';
 import { AssetInfo } from './detailsComponents/AssetInfo';
+import { AssetLicenses } from './detailsComponents/AssetLicenses';
 
 export const AssetDetails = () => {
   const [tab, setTab] = useState(0);
@@ -58,7 +59,7 @@ export const AssetDetails = () => {
             <AssetInfo id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={1}>
-            2
+            <AssetLicenses id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={2}>
             3
