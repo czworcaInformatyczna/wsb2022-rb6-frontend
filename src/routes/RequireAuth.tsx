@@ -2,6 +2,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from 'providers/AuthProvider/useAuth';
 import Cookies from 'js-cookie';
 import { emailCookie, tokenCookie } from 'providers/AuthProvider';
+import { routePath } from 'routes';
 
 export const RequireAuth = () => {
   const token = Cookies.get(tokenCookie);
@@ -12,5 +13,9 @@ export const RequireAuth = () => {
 
   if (token && email) return <Outlet />;
 
-  return auth.email ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
+  return auth.email ? (
+    <Outlet />
+  ) : (
+    <Navigate to={routePath.login} state={{ from: location }} replace />
+  );
 };
