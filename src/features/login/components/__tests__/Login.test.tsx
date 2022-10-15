@@ -9,9 +9,9 @@ import { AuthContext, type IAuth } from 'providers/AuthProvider';
 import { getQueryClient } from 'lib/react-query';
 import { CustomThemeProvider } from 'providers/CustomTheme';
 
-const handleLoginMock = jest.fn();
+const mockHandleLogin = jest.fn();
 const auth: IAuth = { email: '', token: '' };
-const handleLogin = handleLoginMock;
+const handleLogin = mockHandleLogin;
 const setAuth = jest.fn();
 const handleLogout = jest.fn();
 
@@ -91,5 +91,5 @@ test('should login sucessfully', async () => {
   await user.click(submitButton);
 
   // then
-  await waitFor(() => expect(handleLoginMock).toHaveBeenCalled());
+  await waitFor(() => expect(mockHandleLogin).toHaveBeenCalled());
 });
