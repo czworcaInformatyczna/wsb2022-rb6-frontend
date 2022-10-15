@@ -9,6 +9,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { TabPanel } from './detailsComponents/TabPanel';
 import { AssetInfo } from './detailsComponents/AssetInfo';
 import { AssetLicenses } from './detailsComponents/AssetLicenses';
+import { AssetComponents } from './detailsComponents/AssetComponents';
 
 export const AssetDetails = () => {
   const [tab, setTab] = useState(0);
@@ -62,7 +63,7 @@ export const AssetDetails = () => {
             <AssetLicenses id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={2}>
-            3
+            <AssetComponents id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={3}>
             4

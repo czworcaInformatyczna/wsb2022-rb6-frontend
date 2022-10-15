@@ -9,13 +9,13 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import { getAssetLicenses } from 'features/assets/api/getAssetDetails';
+import { getAssetComponents } from 'features/assets/api/getAssetDetails';
 import { useQuery } from 'react-query';
 
-export const AssetLicenses = ({ id }: { id: number }) => {
-  const { data: licenses } = useQuery(
-    ['AssetLicenses', id],
-    async () => await getAssetLicenses(id),
+export const AssetComponents = ({ id }: { id: number }) => {
+  const { data: components } = useQuery(
+    ['AssetComponents', id],
+    async () => await getAssetComponents(id),
   );
 
   const removeLicense = (licenseId: number) => {
@@ -24,7 +24,7 @@ export const AssetLicenses = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {licenses === undefined || licenses.length === 0 ? (
+      {components === undefined || components.length === 0 ? (
         <Box
           m={3}
           sx={{
@@ -48,25 +48,24 @@ export const AssetLicenses = ({ id }: { id: number }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
-                  <TableCell>Key</TableCell>
-                  <TableCell>Expiration date</TableCell>
+                  <TableCell>Serial</TableCell>
                   <TableCell> </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {licenses.map((license: any) => {
+                {components.map((license: any) => {
                   return (
                     <TableRow key={license.id}>
                       <TableCell>{license.name}</TableCell>
-                      <TableCell>{license.key}</TableCell>
-                      <TableCell>{license.expiration_date}</TableCell>
+                      <TableCell>{license.serial}</TableCell>
+
                       <TableCell align="right">
                         <Button
                           color="error"
                           onClick={() => removeLicense(license.id)}
                           variant="contained"
                         >
-                          Remove
+                          Return
                         </Button>
                       </TableCell>
                     </TableRow>

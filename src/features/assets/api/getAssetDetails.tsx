@@ -41,11 +41,29 @@ export const getAssetLicenses = async (id: number): Promise<any> => {
       id: '1',
       name: 'Photoshop',
       key: 'ba81-874f-3fbe-99b9-30624',
+      expiration_date: '22.12.2032',
     },
     {
       id: '2',
       name: 'Photoshop',
       key: 'saddasds-as-as-aa-ff',
+      expiration_date: '22.12.2032',
+    },
+  ];
+};
+
+export const getAssetComponents = async (id: number): Promise<any> => {
+  return [
+    {
+      id: '1',
+      name: 'PNY XLR8 RGB 16GB 3200Mhz',
+      serial: 'ba81-874f-3fbe-99b9-30624',
+      category: 'RAM',
+    },
+    {
+      name: 'GOODRAM Irdm X 8GB 3200MHz',
+      serial: 'ba81-874f-3fbe-99b9-30624',
+      category: 'RAM',
     },
   ];
 };
