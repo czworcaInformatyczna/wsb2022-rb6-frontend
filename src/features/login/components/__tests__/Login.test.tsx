@@ -1,14 +1,39 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { Login } from 'features/login';
-import { AppProvider } from 'providers/AppProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import userEvent from '@testing-library/user-event';
+import { QueryClientProvider } from 'react-query';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContext, type IAuth } from 'providers/AuthProvider';
+import { getQueryClient } from 'lib/react-query';
+import { CustomThemeProvider } from 'providers/CustomTheme';
+
+const handleLoginMock = jest.fn();
+const auth: IAuth = { email: '', token: '' };
+const handleLogin = handleLoginMock;
+const setAuth = jest.fn();
+const handleLogout = jest.fn();
+
+const getProviderValue = () => {
+  return { auth, handleLogin, setAuth, handleLogout };
+};
 
 const renderLogin = () => {
   const user = userEvent.setup();
   render(
-    <AppProvider>
-      <Login />
-    </AppProvider>,
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <BrowserRouter>
+        {/* Wywaliłem AppProvider'a bo chciałem przekazać do AuthContext.Provider zmockowane dane */}
+        <AuthContext.Provider value={getProviderValue()}>
+          <QueryClientProvider client={getQueryClient()}>
+            <CustomThemeProvider>
+              <Login />
+            </CustomThemeProvider>
+          </QueryClientProvider>
+        </AuthContext.Provider>
+      </BrowserRouter>
+    </LocalizationProvider>,
   );
   const submitButton = screen.getByRole('button', { name: /Log in/i });
   const emailInput = screen.getByLabelText(/Email/i);
@@ -53,14 +78,9 @@ test('should display error if email format is wrong', async () => {
 
 // TODO fix this test from failing
 // eslint-disable-next-line jest/no-disabled-tests
-test.skip('should login sucessfully', async () => {
+test('should login sucessfully', async () => {
   // given
-  const mockHandleLogin = jest.fn();
-  jest.mock('providers/AuthProvider/useAuth.ts', () => {
-    return jest.fn(() => ({
-      handleLogin: mockHandleLogin,
-    }));
-  });
+
   const { submitButton, emailInput, passwordInput, user } = renderLogin();
 
   // when
@@ -71,5 +91,5 @@ test.skip('should login sucessfully', async () => {
   await user.click(submitButton);
 
   // then
-  await waitFor(() => expect(mockHandleLogin).toHaveBeenCalled());
+  await waitFor(() => expect(handleLoginMock).toHaveBeenCalled());
 });
