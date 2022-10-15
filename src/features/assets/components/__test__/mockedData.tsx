@@ -23,3 +23,18 @@ export const AssetLicensesMock = [
     key: 'abc',
   },
 ];
+
+export const AssetComponentsMock = [
+  {
+    id: 'idMock1',
+    name: 'namMock1',
+    serial: 'serMock1',
+    category: 'catMock1',
+  },
+  {
+    id: 'idMock2',
+    name: 'namMock2',
+    serial: 'serMock2',
+    category: 'catMock2',
+  },
+];

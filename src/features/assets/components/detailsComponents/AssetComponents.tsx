@@ -49,7 +49,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Serial</TableCell>
-                  <TableCell> </TableCell>
+                  <TableCell>Category </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -58,7 +58,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
                     <TableRow key={license.id}>
                       <TableCell>{license.name}</TableCell>
                       <TableCell>{license.serial}</TableCell>
-
+                      <TableCell>{license.category}</TableCell>
                       <TableCell align="right">
                         <Button
                           color="error"

@@ -61,6 +61,7 @@ export const getAssetComponents = async (id: number): Promise<any> => {
       category: 'RAM',
     },
     {
+      id: '2',
       name: 'GOODRAM Irdm X 8GB 3200MHz',
       serial: 'ba81-874f-3fbe-99b9-30624',
       category: 'RAM',
