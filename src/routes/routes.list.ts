@@ -1,4 +1,4 @@
-export const apiUrl = { login: `/login` };
+export const apiUrl = { login: `/login`, assetsCategory: '/assets/category' };
 
 export const routePath = {
   main: '/',
@@ -8,5 +8,4 @@ export const routePath = {
   assets: '/Assets',
   addAsset: 'AddAsset',
   editAsset: 'EditAsset/:id',
-  assetsCategory: '/assetsCategory',
 };

@@ -8,7 +8,8 @@ type QueryKey = [string, object | undefined];
 
 export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey>): Promise<T> => {
   const [url, params] = queryKey;
-  return await apiClient.get(url, params);
+  const response = await apiClient.get(url, params);
+  return response.data;
 };
 
 export const useFetch = <T>(url: string | null, params?: object) => {
