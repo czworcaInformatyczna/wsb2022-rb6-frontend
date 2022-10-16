@@ -8,4 +8,5 @@ export const routePath = {
   assets: '/Assets',
   addAsset: 'AddAsset',
   editAsset: 'EditAsset/:id',
+  assetsCategory: '/assetsCategory',
 };
