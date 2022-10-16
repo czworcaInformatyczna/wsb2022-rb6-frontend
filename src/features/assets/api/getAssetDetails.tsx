@@ -68,3 +68,24 @@ export const getAssetComponents = async (id: number): Promise<any> => {
     },
   ];
 };
+
+export const getAssetHistory = async (id: number): Promise<any> => {
+  return [
+    {
+      id: '1',
+      date: '22/09/2022',
+      user: 'Wojtek',
+      action: 'Request',
+      target: '',
+      notes: '',
+    },
+    {
+      id: '2',
+      date: '22/10/2022',
+      user: 'Admin',
+      action: 'Deploy',
+      target: 'Wojtek1',
+      notes: 'some info',
+    },
+  ];
+};

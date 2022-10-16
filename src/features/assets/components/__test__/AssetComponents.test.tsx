@@ -2,11 +2,10 @@
 import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetComponents } from '../detailsComponents/AssetComponents';
-
 import * as getDetails from 'features/assets/api/getAssetDetails';
 import { AssetComponentsMock } from './mockedData';
 
-const callApiLicenses = jest.spyOn(getDetails, 'getAssetComponents');
+const callApiComponents = jest.spyOn(getDetails, 'getAssetComponents');
 
 const Provider = () => {
   return (
@@ -16,9 +15,9 @@ const Provider = () => {
   );
 };
 
-describe('AssetLicenses', () => {
-  it('should display licenses', async () => {
-    callApiLicenses.mockImplementation(async () => await Promise.resolve(AssetComponentsMock));
+describe('AssetComponents', () => {
+  it('should display components', async () => {
+    callApiComponents.mockImplementation(async () => await Promise.resolve(AssetComponentsMock));
     await act(async () => {
       render(<Provider />);
     });
@@ -35,7 +34,7 @@ describe('AssetLicenses', () => {
   });
 
   it('should display no result', async () => {
-    callApiLicenses.mockImplementation(async () => await Promise.resolve([]));
+    callApiComponents.mockImplementation(async () => await Promise.resolve([]));
     await act(async () => {
       render(<Provider />);
     });

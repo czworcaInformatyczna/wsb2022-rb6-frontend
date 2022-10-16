@@ -10,6 +10,7 @@ import { TabPanel } from './detailsComponents/TabPanel';
 import { AssetInfo } from './detailsComponents/AssetInfo';
 import { AssetLicenses } from './detailsComponents/AssetLicenses';
 import { AssetComponents } from './detailsComponents/AssetComponents';
+import { AssetHistory } from './detailsComponents/AssetHistory';
 
 export const AssetDetails = () => {
   const [tab, setTab] = useState(0);
@@ -66,7 +67,7 @@ export const AssetDetails = () => {
             <AssetComponents id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={3}>
-            4
+            <AssetHistory id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={4}>
             5

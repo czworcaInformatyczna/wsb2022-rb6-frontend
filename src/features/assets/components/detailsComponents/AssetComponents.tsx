@@ -50,6 +50,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
                   <TableCell>Name</TableCell>
                   <TableCell>Serial</TableCell>
                   <TableCell>Category </TableCell>
+                  <TableCell> </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

@@ -38,3 +38,21 @@ export const AssetComponentsMock = [
     category: 'catMock2',
   },
 ];
+export const AssetHistoryMock = [
+  {
+    id: '1',
+    date: '10 10 2022',
+    user: 'Usr1',
+    action: 'Request',
+    target: '',
+    notes: '',
+  },
+  {
+    id: '2',
+    date: '11 10 2022',
+    user: 'Admin',
+    action: 'Deploy',
+    target: 'Usr2',
+    notes: 'some info',
+  },
+];
