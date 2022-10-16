@@ -12,9 +12,9 @@ export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey
 };
 
 export const useFetch = <T>(url: string | null, params?: object) => {
-  const query = useQuery<T, Error, T, QueryKey>(
+  const queryContext = useQuery<T, Error, T, QueryKey>(
     [url!, params],
     async ({ queryKey, meta }) => await handleFetch({ queryKey, meta }),
   );
-  return query;
+  return queryContext;
 };
