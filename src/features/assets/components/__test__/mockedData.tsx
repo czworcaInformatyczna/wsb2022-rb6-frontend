@@ -56,3 +56,24 @@ export const AssetHistoryMock = [
     notes: 'some info',
   },
 ];
+
+export const AssetMaintenanceMock = [
+  {
+    id: '1',
+    maintenanceType: 'upgrade',
+    title: 'Add ram',
+    startDate: '22/10/2022',
+    endDate: '30/10/2022',
+    notes: '',
+    user: 'usr1',
+  },
+  {
+    id: '2',
+    maintenanceType: 'repair',
+    title: 'broken graphic card',
+    startDate: '22/09/2022',
+    endDate: '30/09/2022',
+    notes: 'GPU stopped working',
+    user: 'usr2',
+  },
+];
