@@ -44,8 +44,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --fix .gitignore --ext .js,.ts,.tsx .",
-    "format": "prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc",
-    "server": "json-server -p 3001 --watch db.json"
+    "format": "prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   },
   "browserslist": {
     "production": [
@@ -82,9 +81,13 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^5.6.3",
     "json-server": "^0.17.0",
+    "msw": "^0.47.4",
     "prettier": "^2.7.1",
     "react-scripts": "^5.0.1",
     "typescript": "^4.8.3",
     "webpack": "^5.74.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
