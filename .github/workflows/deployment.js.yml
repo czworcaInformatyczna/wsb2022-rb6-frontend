@@ -4,6 +4,10 @@ on:
   push:
     branches: ['master']
 
+env:
+  REACT_APP_API_URL: ${{ secrets.API_URL }}
+  REACT_APP_MOCK_API: ${{ secrets.MOCK_API }}
+
 jobs:
   branch-naming-rules:
     runs-on: ubuntu-latest
