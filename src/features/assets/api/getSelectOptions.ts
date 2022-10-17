@@ -1,24 +1,3 @@
-export const getStatusOptions = async () => {
-  return [
-    {
-      id: '1',
-      name: 'Ready to deploy',
-    },
-    {
-      id: '2',
-      name: 'Maintance',
-    },
-    {
-      id: '3',
-      name: 'Deployed',
-    },
-    {
-      id: '4',
-      name: 'Archived',
-    },
-  ];
-};
-
 export const getModelOptions = async () => {
   return [
     {
