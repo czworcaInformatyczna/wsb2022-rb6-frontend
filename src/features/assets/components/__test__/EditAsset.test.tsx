@@ -1,6 +1,5 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
-import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import AddAsset from '../AddAsset';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -10,6 +9,8 @@ import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
 import { type AppProviderProps } from 'providers/types';
 import { routePath } from 'routes';
+import { fetchAssetsCategory } from './mockApiHandlers';
+import { mswServer } from 'mocks';
 
 const Provider = ({ children }: AppProviderProps) => {
   return (
@@ -44,6 +45,7 @@ describe('Edit form', () => {
   });
 
   it('inputs should have value', async () => {
+    mswServer.use(fetchAssetsCategory);
     await act(async () => {
       render(
         <Provider>
