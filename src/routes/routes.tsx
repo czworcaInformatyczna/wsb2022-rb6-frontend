@@ -7,18 +7,19 @@ import { DataProvider } from 'features/assets';
 import { Layout } from 'components/Layout';
 import { Login } from 'features/login';
 import AddAsset from 'features/assets/components/AddAsset';
+import { routePath } from 'routes';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
-    <Route path="/login" element={<Login />} />
+    <Route path={routePath.login} element={<Login />} />
     <Route element={<RequireAuth />}>
-      <Route path="/" element={<Layout />}>
+      <Route path={routePath.main} element={<Layout />}>
         {/* <AppRoutes /> */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/accessories" element={<Accessories />} />
-        <Route element={<DataProvider link="Assets" />} path="/Assets" />
-        <Route element={<AddAsset />} path="AddAsset" />
-        <Route element={<AddAsset />} path="EditAsset/:id" />
+        <Route path={routePath.dashboard} element={<Dashboard />} />
+        <Route path={routePath.accessories} element={<Accessories />} />
+        <Route element={<DataProvider link="Assets" />} path={routePath.assets} />
+        <Route element={<AddAsset />} path={routePath.addAsset} />
+        <Route element={<AddAsset />} path={routePath.editAsset} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

@@ -21,7 +21,6 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
-    "enzyme": "^3.11.0",
     "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -29,23 +28,20 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.35.0",
     "react-query": "^3.39.2",
-    "react-redux": "^8.0.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "redux-mock-store": "^1.5.4",
-    "redux-saga": "^1.2.1",
     "type-name": "^2.0.2",
     "web-vitals": "^3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node ./validateEnv.js && react-scripts start",
+    "build": "node ./validateEnv.js && react-scripts build",
     "test": "react-scripts test --watchAll=false",
+    "test:w": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --fix .gitignore --ext .js,.ts,.tsx .",
-    "format": "prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc",
-    "server": "json-server -p 3001 --watch db.json"
+    "format": "prettier --write ./**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   },
   "browserslist": {
     "production": [
@@ -60,12 +56,9 @@
     ]
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.12",
     "@types/js-cookie": "^3.0.2",
     "@types/react": "^18.0.20",
-    "@types/react-redux": "^7.1.24",
     "@types/react-router": "^5.1.18",
-    "@types/redux-mock-store": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "^8.23.0",
@@ -81,10 +74,13 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^5.6.3",
-    "json-server": "^0.17.0",
+    "msw": "^0.47.4",
     "prettier": "^2.7.1",
     "react-scripts": "^5.0.1",
     "typescript": "^4.8.3",
     "webpack": "^5.74.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
