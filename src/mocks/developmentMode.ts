@@ -8,7 +8,7 @@ export const developmentMode = (): void => {
       const { mswServer } = require('./');
       mswServer.listen();
     } else {
-      const { mswWorker } = require('./mswWorker');
+      const { mswWorker } = require('./');
       mswWorker.start();
     }
   }
