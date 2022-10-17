@@ -1,14 +1,31 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { Login } from 'features/login';
-import { AppProvider } from 'providers/AppProvider';
 import userEvent from '@testing-library/user-event';
+import { QueryClientProvider } from 'react-query';
+import { AuthContext, type IAuth } from 'providers/AuthProvider';
+import { getQueryClient } from 'lib/react-query';
+import { CustomThemeProvider } from 'providers/CustomTheme';
+
+const mockHandleLogin = jest.fn();
+
+const getProviderValue = () => {
+  const auth: IAuth = { email: '', token: '' };
+  const handleLogin = mockHandleLogin;
+  const setAuth = jest.fn();
+  const handleLogout = jest.fn();
+  return { auth, handleLogin, setAuth, handleLogout };
+};
 
 const renderLogin = () => {
   const user = userEvent.setup();
   render(
-    <AppProvider>
-      <Login />
-    </AppProvider>,
+    <AuthContext.Provider value={getProviderValue()}>
+      <QueryClientProvider client={getQueryClient()}>
+        <CustomThemeProvider>
+          <Login />
+        </CustomThemeProvider>
+      </QueryClientProvider>
+    </AuthContext.Provider>,
   );
   const submitButton = screen.getByRole('button', { name: /Log in/i });
   const emailInput = screen.getByLabelText(/Email/i);
@@ -21,6 +38,7 @@ test('should render form', () => {
   // given
   const { submitButton, emailInput, passwordInput } = renderLogin();
 
+  // then
   expect(submitButton).toBeInTheDocument();
   expect(emailInput).toBeInTheDocument();
   expect(passwordInput).toBeInTheDocument();
@@ -51,16 +69,8 @@ test('should display error if email format is wrong', async () => {
   expect(await screen.findByText(/Wrong email format/i)).toBeInTheDocument();
 });
 
-// TODO fix this test from failing
-// eslint-disable-next-line jest/no-disabled-tests
-test.skip('should login sucessfully', async () => {
+test('should login sucessfully', async () => {
   // given
-  const mockHandleLogin = jest.fn();
-  jest.mock('providers/AuthProvider/useAuth.ts', () => {
-    return jest.fn(() => ({
-      handleLogin: mockHandleLogin,
-    }));
-  });
   const { submitButton, emailInput, passwordInput, user } = renderLogin();
 
   // when

@@ -11,7 +11,7 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type IFormInput, getStatusOptions, getModelOptions } from 'features/assets';
+import { type IFormInput, useGetStatusOptions, getModelOptions } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
@@ -30,7 +30,7 @@ const AddAsset = () => {
   const methods = useForm<IFormInput>();
   const { handleSubmit } = methods;
   const navigate = useNavigate();
-  const { data: statusOptions } = useQuery('SelectStatusOptions', getStatusOptions);
+  const { data: statusOptions } = useGetStatusOptions();
   const { data: modelOptions } = useQuery('SelectModelOptions', getModelOptions);
   const location = useLocation();
   const { id } = useParams();
