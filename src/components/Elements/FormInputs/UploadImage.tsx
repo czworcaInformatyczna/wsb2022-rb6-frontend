@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { type FieldPath, useFormContext } from 'react-hook-form';
 
 export interface IUploadImage {
+  accept: string;
   buttonText: string;
   name: FieldPath<IFormInput>;
 }
-export const UploadImage = ({ name, buttonText }: IUploadImage) => {
+export const UploadImage = ({ name, buttonText, accept }: IUploadImage) => {
   const [img, setImg] = useState<string>();
   const [fileName, setFileName] = useState<string>('');
 
@@ -33,7 +34,7 @@ export const UploadImage = ({ name, buttonText }: IUploadImage) => {
             {buttonText}
             <input
               {...register(name)}
-              accept="image/*"
+              accept={accept}
               hidden
               onChange={(e) => {
                 const files = e.target.files;

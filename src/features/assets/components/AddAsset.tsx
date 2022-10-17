@@ -88,7 +88,8 @@ const AddAsset = () => {
 
   const onSubmit = (data: IFormInput) => {
     const tempData = { ...data };
-    tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
+    if (tempData.DateOfPurchase !== '')
+      tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
     console.log(tempData);
   };
 
@@ -180,7 +181,7 @@ const AddAsset = () => {
                     >
                       <Grid alignContent="center" container display="flex" spacing={2}>
                         <MultiLineTextInput label="Notes" name="Notes" rows={4} />
-                        <UploadImage buttonText="Upload photo" name="Photo" />
+                        <UploadImage buttonText="Upload photo" name="Photo" accept="image/*" />
                         <TextInput label="Asset Name" name="AssetName" rules={{}} />
                         <TextInput
                           helperText="No. of  Months"
@@ -218,7 +219,7 @@ const AddAsset = () => {
                           rules={{}}
                           type="number"
                         />
-                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" />
+                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" accept="*" />
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
