@@ -12,6 +12,7 @@ import { AssetLicenses } from './detailsComponents/AssetLicenses';
 import { AssetComponents } from './detailsComponents/AssetComponents';
 import { AssetHistory } from './detailsComponents/AssetHistory';
 import { AssetMaintenance } from './detailsComponents/AssetMaintenance';
+import { AssetFiles } from './detailsComponents/AssetFiles';
 
 export const AssetDetails = () => {
   const [tab, setTab] = useState(0);
@@ -74,10 +75,7 @@ export const AssetDetails = () => {
             <AssetMaintenance id={1} />
           </TabPanel>
           <TabPanel tab={tab} index={5}>
-            6
-          </TabPanel>
-          <TabPanel tab={tab} index={6}>
-            6
+            <AssetFiles id={1} />
           </TabPanel>
         </Grid>
       </Grid>

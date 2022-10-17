@@ -77,3 +77,13 @@ export const AssetMaintenanceMock = [
     user: 'usr2',
   },
 ];
+
+export const AssetFilesMock = [
+  {
+    id: '1',
+    name: 'file1',
+    extension: '.txt',
+    size: '5KB',
+    upload_date: '22/10/2022',
+  },
+];

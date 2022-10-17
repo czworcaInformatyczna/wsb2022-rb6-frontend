@@ -112,3 +112,15 @@ export const getAssetMaintenance = async (id: number): Promise<any> => {
     },
   ];
 };
+
+export const getAssetFiles = async (id: number): Promise<any> => {
+  return [
+    {
+      id: '1',
+      name: 'file1',
+      extension: '.txt',
+      size: '5KB',
+      upload_date: '22/10/2022',
+    },
+  ];
+};
