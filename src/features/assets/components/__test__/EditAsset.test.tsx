@@ -10,7 +10,7 @@ import { getQueryClient } from 'lib/react-query';
 import { type AppProviderProps } from 'providers/types';
 import { routePath } from 'routes';
 import { fetchAssetsCategory } from './mockApiHandlers';
-import { mswServer } from 'mocks';
+import { mswServer } from 'mocks/mswServer';
 
 const Provider = ({ children }: AppProviderProps) => {
   return (
