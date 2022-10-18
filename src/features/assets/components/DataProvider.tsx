@@ -4,6 +4,7 @@ import {
   type DataProviderProps,
   StatusChip,
   AssetsTemplate,
+  useGetAssets,
 } from 'features/assets';
 import { Link } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ export const DataProvider = (Props: DataProviderProps) => {
         switch (Props.link) {
           case 'Assets':
             data = {
+              getDataHook: useGetAssets,
               addNewLink: '/AddAsset',
               editLink: '/EditAsset',
               detailsLink: '/AssetDetails',

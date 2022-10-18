@@ -17,7 +17,7 @@ export interface ContextMenu {
   mouseY: number;
 }
 
-export interface Asset {
+export interface IAsset {
   category: string;
   id: number | string;
   image: string;
@@ -36,6 +36,7 @@ export interface IDataProvider {
   columns: GridColumns;
   detailsLink: string;
   editLink: string;
+  getDataHook: () => any;
   name: string;
   // Add APIs object that stores api calls
 }

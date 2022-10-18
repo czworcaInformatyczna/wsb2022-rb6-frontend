@@ -2,6 +2,7 @@ export const apiUrl = {
   login: `/login`,
   assetsCategory: '/assets/category',
   assetsModel: '/assets/model',
+  assets: '/assets',
 };
 
 export const routePath = {
