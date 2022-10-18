@@ -1,4 +1,8 @@
-export const apiUrl = { login: `/login`, assetsCategory: '/assets/category' };
+export const apiUrl = {
+  login: `/login`,
+  assetsCategory: '/assets/category',
+  assetsModel: '/assets/model',
+};
 
 export const routePath = {
   main: '/',

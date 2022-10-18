@@ -11,7 +11,7 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type IFormInput, useGetStatusOptions, getModelOptions } from 'features/assets';
+import { type IFormInput, useGetStatusOptions, useGetModelOptions } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
@@ -20,7 +20,7 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
-import { useQuery } from 'react-query';
+
 import { useCallback, useEffect, useState } from 'react';
 import testData from '../api/testData.json';
 import moment from 'moment';
@@ -31,7 +31,7 @@ const AddAsset = () => {
   const { handleSubmit } = methods;
   const navigate = useNavigate();
   const { data: statusOptions } = useGetStatusOptions();
-  const { data: modelOptions } = useQuery('SelectModelOptions', getModelOptions);
+  const { data: modelOptions } = useGetModelOptions();
   const location = useLocation();
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
