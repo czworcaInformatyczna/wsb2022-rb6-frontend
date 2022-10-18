@@ -40,7 +40,11 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
                 backgroundColor: 'background.default',
               }}
             >
-              <TableHead>
+              <TableHead
+                sx={{
+                  backgroundColor: 'secondary.main',
+                }}
+              >
                 <TableRow>
                   <TableCell width="20%">Title</TableCell>
                   <TableCell width="10%">Maintenance type</TableCell>

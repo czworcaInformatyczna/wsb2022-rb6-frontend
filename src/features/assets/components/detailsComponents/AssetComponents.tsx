@@ -45,7 +45,11 @@ export const AssetComponents = ({ id }: { id: number }) => {
                 backgroundColor: 'background.default',
               }}
             >
-              <TableHead>
+              <TableHead
+                sx={{
+                  backgroundColor: 'secondary.main',
+                }}
+              >
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Serial</TableCell>

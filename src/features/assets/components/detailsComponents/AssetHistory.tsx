@@ -37,7 +37,11 @@ export const AssetHistory = ({ id }: { id: number }) => {
                 backgroundColor: 'background.default',
               }}
             >
-              <TableHead>
+              <TableHead
+                sx={{
+                  backgroundColor: 'secondary.main',
+                }}
+              >
                 <TableRow>
                   <TableCell width="10%">Date</TableCell>
                   <TableCell width="10%">User</TableCell>

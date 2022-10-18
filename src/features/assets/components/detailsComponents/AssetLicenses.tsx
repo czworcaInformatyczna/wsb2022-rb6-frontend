@@ -45,7 +45,11 @@ export const AssetLicenses = ({ id }: { id: number }) => {
                 backgroundColor: 'background.default',
               }}
             >
-              <TableHead>
+              <TableHead
+                sx={{
+                  backgroundColor: 'secondary.main',
+                }}
+              >
                 <TableRow>
                   <TableCell>Name</TableCell>
                   <TableCell>Key</TableCell>
