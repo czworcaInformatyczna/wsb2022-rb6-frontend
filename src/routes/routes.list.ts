@@ -8,5 +8,5 @@ export const routePath = {
   assets: '/Assets',
   addAsset: 'AddAsset',
   editAsset: 'EditAsset/:id',
-  assetDetails: 'AssetDetails',
+  assetDetails: 'AssetDetails/:id',
 };

@@ -1,5 +1,5 @@
 import { Box, Grid, Tab, Tabs, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import WebAssetIcon from '@mui/icons-material/WebAsset';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
@@ -13,9 +13,18 @@ import { AssetComponents } from './detailsComponents/AssetComponents';
 import { AssetHistory } from './detailsComponents/AssetHistory';
 import { AssetMaintenance } from './detailsComponents/AssetMaintenance';
 import { AssetFiles } from './detailsComponents/AssetFiles';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const AssetDetails = () => {
+  const { id } = useParams();
   const [tab, setTab] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!Number(id)) {
+      navigate('/PageNotFound');
+    }
+  }, [id, navigate]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -34,7 +43,7 @@ export const AssetDetails = () => {
     >
       <Grid alignItems="center" container direction="row" justifyContent="left">
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-          <Typography ml={2} variant="h4" color="primary.main">
+          <Typography ml={2} mt={2} variant="h4" color="primary.main">
             Asset
           </Typography>
         </Grid>
@@ -60,22 +69,22 @@ export const AssetDetails = () => {
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <TabPanel tab={tab} index={0}>
-            <AssetInfo id={1} />
+            <AssetInfo id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={1}>
-            <AssetLicenses id={1} />
+            <AssetLicenses id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={2}>
-            <AssetComponents id={1} />
+            <AssetComponents id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={3}>
-            <AssetHistory id={1} />
+            <AssetHistory id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={4}>
-            <AssetMaintenance id={1} />
+            <AssetMaintenance id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={5}>
-            <AssetFiles id={1} />
+            <AssetFiles id={Number(id)} />
           </TabPanel>
         </Grid>
       </Grid>

@@ -250,7 +250,7 @@ export const AssetsTemplate = (Props: AssetsProps) => {
             >
               <MenuItem
                 onClick={() => {
-                  navigate(Props.data.detailsLink);
+                  navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
                 }}
               >
                 Show details
