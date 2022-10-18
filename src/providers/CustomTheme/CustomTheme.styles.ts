@@ -1,4 +1,4 @@
-import { ICustomTheme } from 'providers/types';
+import { type ICustomTheme } from 'providers/types';
 
 export const lightMode: ICustomTheme = {
   primary: {
