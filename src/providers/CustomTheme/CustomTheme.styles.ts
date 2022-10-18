@@ -1,4 +1,6 @@
-export const lightMode = {
+import { type ICustomTheme } from 'providers/types';
+
+export const lightMode: ICustomTheme = {
   primary: {
     main: '#0A7FB1',
     contrastText: 'rgba(0,0,0,0.87)',
@@ -16,9 +18,10 @@ export const lightMode = {
   },
 };
 
-export const darkMode = {
+export const darkMode: ICustomTheme = {
   primary: {
     main: '#3f51b5',
+    contrastText: '#FFFFFF',
   },
   secondary: {
     main: '#0A7FB1',
