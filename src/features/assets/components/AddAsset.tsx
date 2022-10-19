@@ -32,7 +32,7 @@ import { LoadingScreen } from 'components/Elements/Loading';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue } = methods;
   const navigate = useNavigate();
   const { data: statusOptions } = useGetStatusOptions();
   const { data: modelOptions } = useGetModelOptions();
@@ -48,20 +48,20 @@ const AddAsset = () => {
 
   const setValues = useCallback(
     (assetValues: any) => {
-      methods.setValue('AssetTag', assetValues.assetTag);
-      methods.setValue('Serial', assetValues.serial);
+      setValue('AssetTag', assetValues.assetTag);
+      setValue('Serial', assetValues.serial);
       const modelObject = modelOptions?.find((x) => x.name === assetValues.model);
-      methods.setValue('Model', modelObject !== undefined ? modelObject : null);
+      setValue('Model', modelObject !== undefined ? modelObject : null);
       const statusObject = statusOptions?.find((x) => x.name === assetValues.status);
-      methods.setValue('Status', statusObject !== undefined ? statusObject : null);
-      methods.setValue('Notes', assetValues.notes);
-      methods.setValue('AssetName', assetValues.name);
-      methods.setValue('Waranty', assetValues.waranty);
-      methods.setValue('OrderNumber', assetValues.orderNumber);
-      methods.setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
-      methods.setValue('PurchaseCost', assetValues.purchaseCost);
+      setValue('Status', statusObject !== undefined ? statusObject : null);
+      setValue('Notes', assetValues.notes);
+      setValue('AssetName', assetValues.name);
+      setValue('Waranty', assetValues.waranty);
+      setValue('OrderNumber', assetValues.orderNumber);
+      setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
+      setValue('PurchaseCost', assetValues.purchaseCost);
     },
-    [methods, modelOptions, statusOptions],
+    [modelOptions, setValue, statusOptions],
   );
 
   useEffect(() => {
