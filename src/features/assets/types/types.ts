@@ -28,13 +28,19 @@ export interface IAssets {
   status: string;
 }
 export interface IAsset {
+  assetTag: string;
   category: string;
+  date_of_purchase: string;
   id: number | string;
   manufacturer: string;
   model: string;
   name: string;
+  notes: string;
+  order_number: number | string;
+  purchase_cost: number;
   serial: string;
   status: string;
+  waranty: number;
 }
 export interface IAssetDetails {
   assetTag: string;

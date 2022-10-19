@@ -1,9 +1,11 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead, Button } from '@mui/material';
-import { useGetAssetFiles } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
+import { type IAssetFiles } from 'features/assets/types';
+import { apiUrl } from 'routes';
 import NoResult from './noResult';
 
 export const AssetFiles = ({ id }: { id: number }) => {
-  const { data: files } = useGetAssetFiles(Number(id));
+  const { data: files } = useGetAssetsDataById<IAssetFiles[]>(Number(id), apiUrl.assetFiles);
 
   return (
     <Box mb={4}>

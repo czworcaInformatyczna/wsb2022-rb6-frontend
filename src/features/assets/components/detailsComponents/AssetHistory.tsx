@@ -1,9 +1,11 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead } from '@mui/material';
-import { useGetAssetHistory } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
+import { type IAssetHistory } from 'features/assets/types';
+import { apiUrl } from 'routes';
 import NoResult from './noResult';
 
 export const AssetHistory = ({ id }: { id: number }) => {
-  const { data: history } = useGetAssetHistory(Number(id));
+  const { data: history } = useGetAssetsDataById<IAssetHistory[]>(Number(id), apiUrl.assetHistory);
 
   return (
     <Box mb={4}>

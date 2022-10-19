@@ -1,12 +1,20 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, Typography } from '@mui/material';
-import { useGetAssetDetails, useGetAssetImage, useGetAssetQRCode } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
+import { type IAssetDetails } from 'features/assets/types';
+import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
 
 export const AssetInfo = ({ id }: { id: number }) => {
-  const { data: assetDetails } = useGetAssetDetails(Number(id));
+  const { data: assetDetails } = useGetAssetsDataById<IAssetDetails>(Number(id), apiUrl.assetInfo);
 
-  const { data: assetImage } = useGetAssetImage(Number(id));
-  const { data: assetQRCode } = useGetAssetQRCode(Number(id));
+  const { data: assetImage } = useGetAssetsDataById<{ image: string }>(
+    Number(id),
+    apiUrl.assetImage,
+  );
+  const { data: assetQRCode } = useGetAssetsDataById<{ qrCode: string }>(
+    Number(id),
+    apiUrl.assetImage,
+  );
 
   const formatObjectKey = (key: string) => {
     let formatedKey = key.replaceAll('_', ' ');

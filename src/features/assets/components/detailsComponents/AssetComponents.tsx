@@ -1,8 +1,14 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead, Button } from '@mui/material';
-import { useGetAssetComponents } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
 import NoResult from './noResult';
+import { apiUrl } from 'routes';
+import { type IAssetComponents } from 'features/assets/types';
+
 export const AssetComponents = ({ id }: { id: number }) => {
-  const { data: components } = useGetAssetComponents(Number(id));
+  const { data: components } = useGetAssetsDataById<IAssetComponents[]>(
+    Number(id),
+    apiUrl.assetComponents,
+  );
 
   const removeLicense = (licenseId: number) => {
     console.log(licenseId);

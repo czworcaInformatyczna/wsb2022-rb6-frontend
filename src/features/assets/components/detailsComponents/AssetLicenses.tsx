@@ -1,9 +1,14 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead, Button } from '@mui/material';
-import { useGetAssetLicenses } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
+import { type IAssetLicenses } from 'features/assets/types';
+import { apiUrl } from 'routes';
 import NoResult from './noResult';
 
 export const AssetLicenses = ({ id }: { id: number }) => {
-  const { data: licenses } = useGetAssetLicenses(Number(id));
+  const { data: licenses } = useGetAssetsDataById<IAssetLicenses[]>(
+    Number(id),
+    apiUrl.assetLicenses,
+  );
   const removeLicense = (licenseId: number) => {
     console.log(licenseId);
   };

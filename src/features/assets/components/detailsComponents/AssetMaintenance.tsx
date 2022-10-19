@@ -1,9 +1,14 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead } from '@mui/material';
-import { useGetAssetMaintenances } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
+import { type IAssetMaintenances } from 'features/assets/types';
 import NoResult from './noResult';
+import { apiUrl } from 'routes';
 
 export const AssetMaintenance = ({ id }: { id: number }) => {
-  const { data: maintenances } = useGetAssetMaintenances(Number(id));
+  const { data: maintenances } = useGetAssetsDataById<IAssetMaintenances[]>(
+    Number(id),
+    apiUrl.assetMaintenances,
+  );
 
   return (
     <Box mb={4}>
