@@ -120,3 +120,12 @@ export interface IAssetComponents {
   name: string;
   serial: string;
 }
+
+export interface IAssetHistory {
+  action: string;
+  date: string;
+  id: number;
+  notes: string;
+  target: string;
+  user: string;
+}

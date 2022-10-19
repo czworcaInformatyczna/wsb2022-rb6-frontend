@@ -9,6 +9,7 @@ export const apiUrl = {
   assetQRCode: '/assets/QRCode',
   assetLicenses: '/assets/Licenses',
   assetComponents: '/assets/Components',
+  assetHistory: '/assets/History',
 };
 
 export const routePath = {

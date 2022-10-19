@@ -106,3 +106,14 @@ export const getAssetComponents = [
     category: 'RAM',
   },
 ];
+
+export const getAssetHistory = [
+  {
+    id: '2',
+    date: '22/10/2022',
+    user: 'Admin',
+    action: 'Deploy',
+    target: 'Wojtek1',
+    notes: 'some info',
+  },
+];

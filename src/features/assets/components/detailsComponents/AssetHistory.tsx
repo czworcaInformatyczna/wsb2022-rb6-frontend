@@ -8,11 +8,10 @@ import {
   TableHead,
   Typography,
 } from '@mui/material';
-import { getAssetHistory } from 'features/assets/api/getAssetDetails';
-import { useQuery } from 'react-query';
+import { useGetAssetHistory } from 'features/assets/api';
 
 export const AssetHistory = ({ id }: { id: number }) => {
-  const { data: history } = useQuery(['AssetHistory', id], async () => await getAssetHistory(id));
+  const { data: history } = useGetAssetHistory(Number(id));
 
   return (
     <Box mb={4}>

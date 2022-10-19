@@ -8,6 +8,7 @@ import {
   type IAssetDetails,
   type IAssetLicenses,
   type IAssetComponents,
+  type IAssetHistory,
 } from '../types';
 
 export const useGetStatusOptions = () => {
@@ -52,5 +53,10 @@ export const useGetAssetLicenses = (id: number) => {
 
 export const useGetAssetComponents = (id: number) => {
   const context = useFetch<IAssetComponents[]>(apiUrl.assetComponents, { id: id });
+  return context;
+};
+
+export const useGetAssetHistory = (id: number) => {
+  const context = useFetch<IAssetHistory[]>(apiUrl.assetHistory, { id: id });
   return context;
 };

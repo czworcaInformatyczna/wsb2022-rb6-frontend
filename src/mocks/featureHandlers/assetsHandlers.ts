@@ -3,6 +3,7 @@ import {
   getAssetComponents,
   getAssetDetails,
   getAssetDetailsEdit,
+  getAssetHistory,
   getAssetImage,
   getAssetLicenses,
   getAssetQRCode,
@@ -67,6 +68,12 @@ const assetComponents = [
   }),
 ];
 
+const assetHistory = [
+  rest.get(url(apiUrl.assetHistory), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetHistory));
+  }),
+];
+
 export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
@@ -77,4 +84,5 @@ export const assetHandlers = [
   ...assetQRCode,
   ...assetLicenses,
   ...assetComponents,
+  ...assetHistory,
 ];
