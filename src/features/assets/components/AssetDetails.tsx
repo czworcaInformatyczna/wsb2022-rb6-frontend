@@ -14,7 +14,7 @@ import { AssetHistory } from './detailsComponents/AssetHistory';
 import { AssetMaintenance } from './detailsComponents/AssetMaintenance';
 import { AssetFiles } from './detailsComponents/AssetFiles';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { routePath } from 'routes';
 export const AssetDetails = () => {
   const { id } = useParams();
   const [tab, setTab] = useState(0);
@@ -22,7 +22,7 @@ export const AssetDetails = () => {
 
   useEffect(() => {
     if (!Number(id)) {
-      navigate('/PageNotFound');
+      navigate(routePath.pageNotFound);
     }
   }, [id, navigate]);
 

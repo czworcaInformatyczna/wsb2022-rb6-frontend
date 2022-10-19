@@ -23,4 +23,5 @@ export const routePath = {
   addAsset: 'AddAsset',
   editAsset: 'EditAsset/:id',
   assetDetails: 'AssetDetails/:id',
+  pageNotFound: '/PageNotFound',
 };
