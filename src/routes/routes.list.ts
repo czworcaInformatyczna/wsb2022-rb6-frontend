@@ -11,6 +11,7 @@ export const apiUrl = {
   assetComponents: '/assets/Components',
   assetHistory: '/assets/History',
   assetMaintenances: '/asset/Maintenances',
+  assetFiles: '/asset/Files',
 };
 
 export const routePath = {

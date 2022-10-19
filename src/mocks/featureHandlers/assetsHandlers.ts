@@ -3,6 +3,7 @@ import {
   getAssetComponents,
   getAssetDetails,
   getAssetDetailsEdit,
+  getAssetFiles,
   getAssetHistory,
   getAssetImage,
   getAssetLicenses,
@@ -81,6 +82,12 @@ const assetMaintenances = [
   }),
 ];
 
+const assetFiles = [
+  rest.get(url(apiUrl.assetFiles), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetFiles));
+  }),
+];
+
 export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
@@ -93,4 +100,5 @@ export const assetHandlers = [
   ...assetComponents,
   ...assetHistory,
   ...assetMaintenances,
+  ...assetFiles,
 ];

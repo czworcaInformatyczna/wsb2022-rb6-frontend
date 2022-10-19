@@ -139,3 +139,12 @@ export interface IAssetMaintenances {
   title: string;
   user: string;
 }
+
+export interface IAssetFiles {
+  download_link: string;
+  extension: string;
+  id: number;
+  name: string;
+  size: string;
+  upload_date: string;
+}

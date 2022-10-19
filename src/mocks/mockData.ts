@@ -129,3 +129,14 @@ export const getAssetMaintenances = [
     user: 'usr1',
   },
 ];
+
+export const getAssetFiles = [
+  {
+    id: '1',
+    name: 'file1',
+    extension: '.txt',
+    size: '5KB',
+    upload_date: '22/10/2022',
+    download_link: 'link',
+  },
+];

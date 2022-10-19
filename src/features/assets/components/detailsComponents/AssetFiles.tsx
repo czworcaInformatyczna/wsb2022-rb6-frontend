@@ -9,11 +9,10 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { getAssetFiles } from 'features/assets/api/getAssetDetails';
-import { useQuery } from 'react-query';
+import { useGetAssetFiles } from 'features/assets/api';
 
 export const AssetFiles = ({ id }: { id: number }) => {
-  const { data: files } = useQuery(['AssetFiles', id], async () => await getAssetFiles(id));
+  const { data: files } = useGetAssetFiles(Number(id));
 
   return (
     <Box mb={4}>

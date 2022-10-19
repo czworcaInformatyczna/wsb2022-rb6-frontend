@@ -10,6 +10,7 @@ import {
   type IAssetComponents,
   type IAssetHistory,
   type IAssetMaintenances,
+  type IAssetFiles,
 } from '../types';
 
 export const useGetStatusOptions = () => {
@@ -64,5 +65,10 @@ export const useGetAssetHistory = (id: number) => {
 
 export const useGetAssetMaintenances = (id: number) => {
   const context = useFetch<IAssetMaintenances[]>(apiUrl.assetMaintenances, { id: id });
+  return context;
+};
+
+export const useGetAssetFiles = (id: number) => {
+  const context = useFetch<IAssetFiles[]>(apiUrl.assetFiles, { id: id });
   return context;
 };
