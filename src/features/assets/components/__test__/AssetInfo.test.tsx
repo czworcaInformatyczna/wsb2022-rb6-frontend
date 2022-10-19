@@ -3,11 +3,6 @@ import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetInfo } from '../detailsComponents/AssetInfo';
 
-import * as getDetails from 'features/assets/api/getAssetDetails';
-import { AssetInfoData } from '../__test__/mockedData';
-
-const callApiDetails = jest.spyOn(getDetails, 'getAssetDetails');
-
 const Provider = () => {
   return (
     <AppProvider>
@@ -18,7 +13,6 @@ const Provider = () => {
 
 describe('AssetInfo', () => {
   it('should display all data', async () => {
-    callApiDetails.mockImplementation(async () => await Promise.resolve(AssetInfoData));
     await act(async () => {
       render(<Provider />);
     });

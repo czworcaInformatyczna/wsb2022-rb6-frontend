@@ -3,11 +3,6 @@ import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetFiles } from '../detailsComponents/AssetFiles';
 
-import * as getDetails from 'features/assets/api/getAssetDetails';
-import { AssetFilesMock } from './mockedData';
-
-const callApiHistory = jest.spyOn(getDetails, 'getAssetFiles');
-
 const Provider = () => {
   return (
     <AppProvider>
@@ -18,7 +13,6 @@ const Provider = () => {
 
 describe('AssetFiles', () => {
   it('should display files', async () => {
-    callApiHistory.mockImplementation(async () => await Promise.resolve(AssetFilesMock));
     await act(async () => {
       render(<Provider />);
     });
@@ -36,7 +30,6 @@ describe('AssetFiles', () => {
   });
 
   it.skip('should display no result', async () => {
-    callApiHistory.mockImplementation(async () => await Promise.resolve([]));
     await act(async () => {
       render(<Provider />);
     });

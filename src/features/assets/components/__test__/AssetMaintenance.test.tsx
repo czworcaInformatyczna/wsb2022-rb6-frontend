@@ -3,11 +3,6 @@ import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetMaintenance } from '../detailsComponents/AssetMaintenance';
 
-import * as getDetails from 'features/assets/api/getAssetDetails';
-import { AssetMaintenanceMock } from '../__test__/mockedData';
-
-const callApiMaintenance = jest.spyOn(getDetails, 'getAssetMaintenance');
-
 const Provider = () => {
   return (
     <AppProvider>
@@ -18,7 +13,6 @@ const Provider = () => {
 
 describe('AssetMaintenance', () => {
   it('should display maintenances', async () => {
-    callApiMaintenance.mockImplementation(async () => await Promise.resolve(AssetMaintenanceMock));
     await act(async () => {
       render(<Provider />);
     });
@@ -40,7 +34,6 @@ describe('AssetMaintenance', () => {
   });
 
   it.skip('should display no result', async () => {
-    callApiMaintenance.mockImplementation(async () => await Promise.resolve([]));
     await act(async () => {
       render(<Provider />);
     });

@@ -3,11 +3,6 @@ import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetHistory } from '../detailsComponents/AssetHistory';
 
-import * as getDetails from 'features/assets/api/getAssetDetails';
-import { AssetHistoryMock } from './mockedData';
-
-const callApiHistory = jest.spyOn(getDetails, 'getAssetHistory');
-
 const Provider = () => {
   return (
     <AppProvider>
@@ -18,7 +13,6 @@ const Provider = () => {
 
 describe('AssetHistory', () => {
   it('should display history', async () => {
-    callApiHistory.mockImplementation(async () => await Promise.resolve(AssetHistoryMock));
     await act(async () => {
       render(<Provider />);
     });
@@ -38,7 +32,6 @@ describe('AssetHistory', () => {
   });
 
   it.skip('should display no result', async () => {
-    callApiHistory.mockImplementation(async () => await Promise.resolve([]));
     await act(async () => {
       render(<Provider />);
     });
