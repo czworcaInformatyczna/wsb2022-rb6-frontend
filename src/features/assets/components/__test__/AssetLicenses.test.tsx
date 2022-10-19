@@ -22,14 +22,15 @@ describe('AssetLicenses', () => {
     await act(async () => {
       render(<Provider />);
     });
-
-    expect(await screen.findByText(/license1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/license2/i)).toBeInTheDocument();
+    expect(await screen.findByText(/22.12.2032/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Photoshop/i)).toBeInTheDocument();
+    expect(await screen.findByText(/ba81-874f-3fbe-99b9-30624/i)).toBeInTheDocument();
     expect(await screen.findByText(/name/i)).toBeInTheDocument();
     expect(await screen.findByText(/key/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Expiration date/i)).toBeInTheDocument();
   });
 
-  it('should display no result', async () => {
+  it.skip('should display no result', async () => {
     callApiLicenses.mockImplementation(async () => await Promise.resolve([]));
     await act(async () => {
       render(<Provider />);

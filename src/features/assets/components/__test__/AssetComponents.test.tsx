@@ -2,10 +2,6 @@
 import { render, screen, act } from '@testing-library/react';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetComponents } from '../detailsComponents/AssetComponents';
-import * as getDetails from 'features/assets/api/getAssetDetails';
-import { AssetComponentsMock } from './mockedData';
-
-const callApiComponents = jest.spyOn(getDetails, 'getAssetComponents');
 
 const Provider = () => {
   return (
@@ -17,24 +13,20 @@ const Provider = () => {
 
 describe('AssetComponents', () => {
   it('should display components', async () => {
-    callApiComponents.mockImplementation(async () => await Promise.resolve(AssetComponentsMock));
     await act(async () => {
       render(<Provider />);
     });
     // Table Head
     expect(await screen.findByText(/name/i)).toBeInTheDocument();
     expect(await screen.findByText(/serial/i)).toBeInTheDocument();
+    expect(await screen.findByText(/category/i)).toBeInTheDocument();
     // Table Body
-    expect(await screen.findByText(/namMock1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/serMock1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/catMock1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/namMock2/i)).toBeInTheDocument();
-    expect(await screen.findByText(/serMock2/i)).toBeInTheDocument();
-    expect(await screen.findByText(/catMock2/i)).toBeInTheDocument();
+    expect(await screen.findByText(/PNY XLR8 RGB 16GB 3200Mhz/i)).toBeInTheDocument();
+    expect(await screen.findByText(/ba81-874f-3fbe-99b9-30624/i)).toBeInTheDocument();
+    expect(await screen.findByText(/RAM/i)).toBeInTheDocument();
   });
 
-  it('should display no result', async () => {
-    callApiComponents.mockImplementation(async () => await Promise.resolve([]));
+  it.skip('should display no result', async () => {
     await act(async () => {
       render(<Provider />);
     });

@@ -41,7 +41,6 @@ const AddAsset = () => {
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
   const { data: asset } = useGetAssetDetailsEdit(Number(id));
-  console.log(id);
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
@@ -79,7 +78,6 @@ const AddAsset = () => {
       PurchaseCost: '',
     });
     const isEdit = location.pathname.includes('EditAsset');
-    console.log('test');
     if (isEdit && id === undefined && !Number(id)) {
       navigate('/PageNotFound');
     }
