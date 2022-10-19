@@ -51,9 +51,9 @@ const AddAsset = () => {
     (assetValues: any) => {
       setValue('AssetTag', assetValues.assetTag);
       setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((x) => x.name === assetValues.model);
+      const modelObject = modelOptions?.find((option) => option.name === assetValues.model);
       setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((x) => x.name === assetValues.status);
+      const statusObject = statusOptions?.find((option) => option.name === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
       setValue('Notes', assetValues.notes);
       setValue('AssetName', assetValues.name);
