@@ -6,6 +6,7 @@ import {
   getAssetHistory,
   getAssetImage,
   getAssetLicenses,
+  getAssetMaintenances,
   getAssetQRCode,
   getModelOptions,
 } from 'mocks/mockData';
@@ -74,6 +75,12 @@ const assetHistory = [
   }),
 ];
 
+const assetMaintenances = [
+  rest.get(url(apiUrl.assetMaintenances), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetMaintenances));
+  }),
+];
+
 export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
@@ -85,4 +92,5 @@ export const assetHandlers = [
   ...assetLicenses,
   ...assetComponents,
   ...assetHistory,
+  ...assetMaintenances,
 ];

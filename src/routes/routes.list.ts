@@ -10,6 +10,7 @@ export const apiUrl = {
   assetLicenses: '/assets/Licenses',
   assetComponents: '/assets/Components',
   assetHistory: '/assets/History',
+  assetMaintenances: '/asset/Maintenances',
 };
 
 export const routePath = {

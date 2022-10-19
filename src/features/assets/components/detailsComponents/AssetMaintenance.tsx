@@ -8,14 +8,10 @@ import {
   TableHead,
   Typography,
 } from '@mui/material';
-import { getAssetMaintenance } from 'features/assets/api/getAssetDetails';
-import { useQuery } from 'react-query';
+import { useGetAssetMaintenances } from 'features/assets/api';
 
 export const AssetMaintenance = ({ id }: { id: number }) => {
-  const { data: maintenances } = useQuery(
-    ['AssetMaintenance', id],
-    async () => await getAssetMaintenance(id),
-  );
+  const { data: maintenances } = useGetAssetMaintenances(Number(id));
 
   return (
     <Box mb={4}>

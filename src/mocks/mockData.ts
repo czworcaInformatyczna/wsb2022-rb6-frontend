@@ -117,3 +117,15 @@ export const getAssetHistory = [
     notes: 'some info',
   },
 ];
+
+export const getAssetMaintenances = [
+  {
+    id: '1',
+    maintenanceType: 'upgrade',
+    title: 'Add ram',
+    startDate: '22/10/2022',
+    endDate: '30/10/2022',
+    notes: 'some notes',
+    user: 'usr1',
+  },
+];

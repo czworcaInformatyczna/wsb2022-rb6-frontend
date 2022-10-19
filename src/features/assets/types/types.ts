@@ -129,3 +129,13 @@ export interface IAssetHistory {
   target: string;
   user: string;
 }
+
+export interface IAssetMaintenances {
+  endDate: string;
+  id: number;
+  maintenanceType: string;
+  notes: string;
+  startDate: string;
+  title: string;
+  user: string;
+}
