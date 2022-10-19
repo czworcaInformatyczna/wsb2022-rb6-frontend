@@ -125,7 +125,7 @@ export const getAssetMaintenances = [
     title: 'Add ram',
     startDate: '22/10/2022',
     endDate: '30/10/2022',
-    notes: 'some notes',
+    notes: 'some info',
     user: 'usr1',
   },
 ];
