@@ -44,3 +44,20 @@ export const getModelOptions = [
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
 ];
+
+export const getAssetDetails = {
+  id: 1,
+  name: 'AssetName',
+  image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
+  serial: 'YYEz64GgdQ3M',
+  model: 'Model',
+  manufacturer: 'Manufacturer',
+  category: 'category',
+  status: 'Ready to deploy',
+  assetTag: 'assetTag',
+  notes: 'some notes',
+  waranty: 6,
+  orderNumber: '123',
+  dateOfPurchase: '22/02/2022',
+  purchaseCost: 200,
+};

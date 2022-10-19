@@ -3,6 +3,7 @@ export const apiUrl = {
   assetsCategory: '/assets/category',
   assetsModel: '/assets/model',
   assets: '/assets',
+  assetInfo: '/assetsDetails',
 };
 
 export const routePath = {

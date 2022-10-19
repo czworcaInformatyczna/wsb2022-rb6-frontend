@@ -11,7 +11,12 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type IFormInput, useGetStatusOptions, useGetModelOptions } from 'features/assets';
+import {
+  type IFormInput,
+  useGetStatusOptions,
+  useGetModelOptions,
+  useAssetDetails,
+} from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
@@ -22,7 +27,6 @@ import {
 } from 'components/Elements/FormInputs';
 
 import { useCallback, useEffect, useState } from 'react';
-import testData from '../api/testData.json';
 import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 
@@ -36,6 +40,7 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
+  const { data: asset } = useAssetDetails(Number(id));
 
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
@@ -43,26 +48,26 @@ const AddAsset = () => {
   };
 
   const setValues = useCallback(
-    (asset: any) => {
-      methods.setValue('AssetTag', asset.assetTag);
-      methods.setValue('Serial', asset.serial);
-      const modelObject = modelOptions?.find((x) => x.name === asset.model);
+    (assetValues: any) => {
+      methods.setValue('AssetTag', assetValues.assetTag);
+      methods.setValue('Serial', assetValues.serial);
+      const modelObject = modelOptions?.find((x) => x.name === assetValues.model);
       methods.setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((x) => x.name === asset.status);
+      const statusObject = statusOptions?.find((x) => x.name === assetValues.status);
       methods.setValue('Status', statusObject !== undefined ? statusObject : null);
-      methods.setValue('Notes', asset.notes);
-      methods.setValue('AssetName', asset.name);
-      methods.setValue('Waranty', asset.waranty);
-      methods.setValue('OrderNumber', asset.orderNumber);
-      methods.setValue('DateOfPurchase', getDateFormat(asset.dateOfPurchase));
-      methods.setValue('PurchaseCost', asset.purchaseCost);
+      methods.setValue('Notes', assetValues.notes);
+      methods.setValue('AssetName', assetValues.name);
+      methods.setValue('Waranty', assetValues.waranty);
+      methods.setValue('OrderNumber', assetValues.orderNumber);
+      methods.setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
+      methods.setValue('PurchaseCost', assetValues.purchaseCost);
     },
     [methods, modelOptions, statusOptions],
   );
 
   useEffect(() => {
     const isEdit = location.pathname.includes('EditAsset');
-    if (isEdit && id === undefined) {
+    if (isEdit && id === undefined && !Number(id)) {
       navigate('/PageNotFound');
     }
 
@@ -70,10 +75,6 @@ const AddAsset = () => {
       setLoading(true);
       methods.reset();
       setAction('Edit');
-      // TEST - REPLACE BY API CALL
-      const asset = testData.find((x) => {
-        if (x.id === Number(id)) return x;
-      });
       if (asset !== undefined) {
         setValues(asset);
         setLoading(false);
@@ -84,7 +85,7 @@ const AddAsset = () => {
       methods.reset();
       setAction('Add');
     }
-  }, [id, location.pathname, methods, navigate, setValues, statusOptions]);
+  }, [asset, id, location.pathname, methods, navigate, setValues, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
     const tempData = { ...data };

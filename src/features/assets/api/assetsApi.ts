@@ -16,3 +16,8 @@ export const useGetAssets = () => {
   const context = useFetch<IAsset[]>(apiUrl.assets);
   return context;
 };
+
+export const useAssetDetails = (id: number) => {
+  const context = useFetch<IAsset>(apiUrl.assetInfo, { id: id });
+  return context;
+};

@@ -1,4 +1,4 @@
-import { assetStatusOptions, getModelOptions } from 'mocks/mockData';
+import { assetStatusOptions, getAssetDetails, getModelOptions } from 'mocks/mockData';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
@@ -22,4 +22,10 @@ const assets = [
   }),
 ];
 
-export const assetHandlers = [...statusOptions, ...modelOptions, ...assets];
+const assetsDetails = [
+  rest.get(url(apiUrl.assetInfo), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetDetails));
+  }),
+];
+
+export const assetHandlers = [...statusOptions, ...modelOptions, ...assets, ...assetsDetails];
