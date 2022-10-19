@@ -1,6 +1,13 @@
 import { useFetch } from 'lib/react-query';
 import { apiUrl } from 'routes';
-import { type IAssets, type IAsset, type IModel, type IStatus, type IAssetDetails } from '../types';
+import {
+  type IAssets,
+  type IAsset,
+  type IModel,
+  type IStatus,
+  type IAssetDetails,
+  type IAssetLicenses,
+} from '../types';
 
 export const useGetStatusOptions = () => {
   const context = useFetch<IStatus[]>(apiUrl.assetsCategory);
@@ -34,5 +41,10 @@ export const useGetAssetImage = (id: number) => {
 
 export const useGetAssetQRCode = (id: number) => {
   const context = useFetch<{ qrCode: string }>(apiUrl.assetQRCode, { id: id });
+  return context;
+};
+
+export const useGetAssetLicenses = (id: number) => {
+  const context = useFetch<IAssetLicenses[]>(apiUrl.assetLicenses, { id: id });
   return context;
 };

@@ -3,6 +3,7 @@ import {
   getAssetDetails,
   getAssetDetailsEdit,
   getAssetImage,
+  getAssetLicenses,
   getAssetQRCode,
   getModelOptions,
 } from 'mocks/mockData';
@@ -53,6 +54,12 @@ const assetQRCode = [
   }),
 ];
 
+const assetLicenses = [
+  rest.get(url(apiUrl.assetLicenses), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetLicenses));
+  }),
+];
+
 export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
@@ -61,4 +68,5 @@ export const assetHandlers = [
   ...assetImage,
   ...assetsDetailsEdit,
   ...assetQRCode,
+  ...assetLicenses,
 ];

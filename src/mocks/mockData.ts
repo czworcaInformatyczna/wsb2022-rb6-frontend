@@ -88,3 +88,12 @@ export const getAssetImage = {
 export const getAssetQRCode = {
   qrCode: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };
+
+export const getAssetLicenses = [
+  {
+    id: '1',
+    name: 'Photoshop',
+    key: 'ba81-874f-3fbe-99b9-30624',
+    expiration_date: '22.12.2032',
+  },
+];

@@ -3,10 +3,11 @@ export const apiUrl = {
   assetsCategory: '/assets/category',
   assetsModel: '/assets/model',
   assets: '/assets',
-  assetInfo: '/assetDetails',
-  assetInfoEdit: '/assetDetailsEdit',
-  assetImage: '/assetImage',
-  assetQRCode: '/assetQRCode',
+  assetInfo: '/assets/Details',
+  assetInfoEdit: '/assets/DetailsEdit',
+  assetImage: '/assets/Image',
+  assetQRCode: '/assets/QRCode',
+  assetLicenses: '/assets/assetLicenses',
 };
 
 export const routePath = {

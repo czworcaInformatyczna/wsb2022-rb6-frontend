@@ -106,3 +106,10 @@ export interface IInputProps {
   name: string;
   type?: HTMLInputTypeAttribute;
 }
+
+export interface IAssetLicenses {
+  expiration_date: string;
+  id: number;
+  key: string;
+  name: string;
+}
