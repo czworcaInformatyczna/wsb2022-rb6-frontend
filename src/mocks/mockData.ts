@@ -17,7 +17,7 @@ export const assetStatusOptions = [
   },
 ];
 
-export const getModelOptions = [
+export const assetModelOptions = [
   {
     id: '1',
     name: 'laptop',
@@ -45,7 +45,7 @@ export const getModelOptions = [
   },
 ];
 
-export const getAssetDetailsEdit = {
+export const assetDetailsEdit = {
   id: 1,
   name: 'AssetName',
   serial: 'YYEz64GgdQ3M',
@@ -61,7 +61,7 @@ export const getAssetDetailsEdit = {
   purchaseCost: 200,
 };
 
-export const getAssetDetails = {
+export const assetDetails = {
   id: 16,
   name: 'asset1',
   Serial: '1234',
@@ -81,15 +81,15 @@ export const getAssetDetails = {
   Requests: 1,
 };
 
-export const getAssetImage = {
+export const assetImage = {
   image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };
 
-export const getAssetQRCode = {
+export const assetQRCode = {
   qrCode: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };
 
-export const getAssetLicenses = [
+export const assetLicenses = [
   {
     id: '1',
     name: 'Photoshop',
@@ -98,7 +98,7 @@ export const getAssetLicenses = [
   },
 ];
 
-export const getAssetComponents = [
+export const assetComponents = [
   {
     id: '1',
     name: 'PNY XLR8 RGB 16GB 3200Mhz',
@@ -107,7 +107,7 @@ export const getAssetComponents = [
   },
 ];
 
-export const getAssetHistory = [
+export const assetHistory = [
   {
     id: '2',
     date: '22/10/2022',
@@ -118,7 +118,7 @@ export const getAssetHistory = [
   },
 ];
 
-export const getAssetMaintenances = [
+export const assetMaintenances = [
   {
     id: '1',
     maintenanceType: 'upgrade',
@@ -130,7 +130,7 @@ export const getAssetMaintenances = [
   },
 ];
 
-export const getAssetFiles = [
+export const assetFiles = [
   {
     id: '1',
     name: 'file1',

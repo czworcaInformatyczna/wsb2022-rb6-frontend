@@ -1,15 +1,15 @@
 import {
   assetStatusOptions,
-  getAssetComponents,
-  getAssetDetails,
-  getAssetDetailsEdit,
-  getAssetFiles,
-  getAssetHistory,
-  getAssetImage,
-  getAssetLicenses,
-  getAssetMaintenances,
-  getAssetQRCode,
-  getModelOptions,
+  assetComponents,
+  assetDetails,
+  assetDetailsEdit,
+  assetFiles,
+  assetHistory,
+  assetImage,
+  assetLicenses,
+  assetMaintenances,
+  assetQRCode,
+  assetModelOptions,
 } from 'mocks/mockData';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
@@ -24,7 +24,7 @@ const statusOptions = [
 
 const modelOptions = [
   rest.get(url(apiUrl.assetsModel), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getModelOptions));
+    return res(ctx.status(200), ctx.json(assetModelOptions));
   }),
 ];
 
@@ -34,57 +34,57 @@ const assets = [
   }),
 ];
 
-const assetsDetails = [
+const details = [
   rest.get(url(apiUrl.assetInfo), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetDetails));
+    return res(ctx.status(200), ctx.json(assetDetails));
   }),
 ];
 
-const assetsDetailsEdit = [
+const detailsEdit = [
   rest.get(url(apiUrl.assetInfoEdit), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetDetailsEdit));
+    return res(ctx.status(200), ctx.json(assetDetailsEdit));
   }),
 ];
 
-const assetImage = [
+const image = [
   rest.get(url(apiUrl.assetImage), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetImage));
+    return res(ctx.status(200), ctx.json(assetImage));
   }),
 ];
 
-const assetQRCode = [
+const qRCode = [
   rest.get(url(apiUrl.assetQRCode), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetQRCode));
+    return res(ctx.status(200), ctx.json(assetQRCode));
   }),
 ];
 
-const assetLicenses = [
+const licenses = [
   rest.get(url(apiUrl.assetLicenses), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetLicenses));
+    return res(ctx.status(200), ctx.json(assetLicenses));
   }),
 ];
 
-const assetComponents = [
+const components = [
   rest.get(url(apiUrl.assetComponents), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetComponents));
+    return res(ctx.status(200), ctx.json(assetComponents));
   }),
 ];
 
-const assetHistory = [
+const history = [
   rest.get(url(apiUrl.assetHistory), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetHistory));
+    return res(ctx.status(200), ctx.json(assetHistory));
   }),
 ];
 
-const assetMaintenances = [
+const maintenances = [
   rest.get(url(apiUrl.assetMaintenances), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetMaintenances));
+    return res(ctx.status(200), ctx.json(assetMaintenances));
   }),
 ];
 
-const assetFiles = [
+const files = [
   rest.get(url(apiUrl.assetFiles), (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(getAssetFiles));
+    return res(ctx.status(200), ctx.json(assetFiles));
   }),
 ];
 
@@ -92,13 +92,13 @@ export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
   ...assets,
-  ...assetsDetails,
-  ...assetImage,
-  ...assetsDetailsEdit,
-  ...assetQRCode,
-  ...assetLicenses,
-  ...assetComponents,
-  ...assetHistory,
-  ...assetMaintenances,
-  ...assetFiles,
+  ...details,
+  ...image,
+  ...detailsEdit,
+  ...qRCode,
+  ...licenses,
+  ...components,
+  ...history,
+  ...maintenances,
+  ...files,
 ];
