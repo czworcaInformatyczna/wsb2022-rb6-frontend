@@ -64,6 +64,13 @@ const AddAsset = () => {
     [modelOptions, setValue, statusOptions],
   );
 
+  const isIdNotValid = useCallback(
+    (isEdit: boolean) => {
+      return isEdit && id === undefined && !Number(id);
+    },
+    [id],
+  );
+
   useEffect(() => {
     reset({
       AssetTag: '',
@@ -78,7 +85,7 @@ const AddAsset = () => {
       PurchaseCost: '',
     });
     const isEdit = location.pathname.includes('EditAsset');
-    if (isEdit && id === undefined && !Number(id)) {
+    if (isIdNotValid(isEdit)) {
       navigate('/PageNotFound');
     }
 
@@ -94,7 +101,7 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, location.pathname, navigate, reset, setValues, statusOptions]);
+  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
     const tempData = { ...data };
