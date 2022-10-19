@@ -32,7 +32,7 @@ import { LoadingScreen } from 'components/Elements/Loading';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit, setValue, reset } = methods;
   const navigate = useNavigate();
   const { data: statusOptions } = useGetStatusOptions();
   const { data: modelOptions } = useGetModelOptions();
@@ -65,7 +65,7 @@ const AddAsset = () => {
   );
 
   useEffect(() => {
-    methods.reset({
+    reset({
       AssetTag: '',
       Serial: '',
       Model: null,
@@ -94,7 +94,7 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, location.pathname, methods, navigate, setValues, statusOptions]);
+  }, [asset, id, location.pathname, navigate, reset, setValues, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
     const tempData = { ...data };
