@@ -1,17 +1,11 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, Typography } from '@mui/material';
-import {
-  getAssetDetails,
-  getAssetPhoto,
-  getAssetQRCode,
-} from 'features/assets/api/getAssetDetails';
+import { useGetAssetDetails } from 'features/assets/api';
+import { getAssetPhoto, getAssetQRCode } from 'features/assets/api/getAssetDetails';
 import { useQuery } from 'react-query';
 import { StatusChip } from '../StatusChip';
 
 export const AssetInfo = ({ id }: { id: number }) => {
-  const { data: assetDetails } = useQuery(
-    ['AssetDetails', id],
-    async () => await getAssetDetails(id),
-  );
+  const { data: assetDetails } = useGetAssetDetails(Number(id));
 
   const { data: assetImage } = useQuery(['AssetImage', id], async () => await getAssetPhoto(id));
   const { data: assetQRCode } = useQuery(['AssetQRCode', id], async () => await getAssetQRCode(id));

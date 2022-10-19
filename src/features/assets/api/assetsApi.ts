@@ -1,6 +1,6 @@
 import { useFetch } from 'lib/react-query';
 import { apiUrl } from 'routes';
-import { type IAsset, type IModel, type IStatus } from '../types';
+import { type IAssets, type IAsset, type IModel, type IStatus } from '../types';
 
 export const useGetStatusOptions = () => {
   const context = useFetch<IStatus[]>(apiUrl.assetsCategory);
@@ -13,11 +13,11 @@ export const useGetModelOptions = () => {
 };
 
 export const useGetAssets = () => {
-  const context = useFetch<IAsset[]>(apiUrl.assets);
+  const context = useFetch<IAssets[]>(apiUrl.assets);
   return context;
 };
 
-export const useAssetDetails = (id: number) => {
+export const useGetAssetDetails = (id: number) => {
   const context = useFetch<IAsset>(apiUrl.assetInfo, { id: id });
   return context;
 };

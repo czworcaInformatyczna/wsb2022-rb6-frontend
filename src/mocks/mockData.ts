@@ -48,7 +48,6 @@ export const getModelOptions = [
 export const getAssetDetails = {
   id: 1,
   name: 'AssetName',
-  image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
   serial: 'YYEz64GgdQ3M',
   model: 'Model',
   manufacturer: 'Manufacturer',

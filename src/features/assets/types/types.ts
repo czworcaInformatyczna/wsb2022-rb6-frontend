@@ -17,10 +17,19 @@ export interface ContextMenu {
   mouseY: number;
 }
 
-export interface IAsset {
+export interface IAssets {
   category: string;
   id: number | string;
   image: string;
+  manufacturer: string;
+  model: string;
+  name: string;
+  serial: string;
+  status: string;
+}
+export interface IAsset {
+  category: string;
+  id: number | string;
   manufacturer: string;
   model: string;
   name: string;

@@ -15,7 +15,7 @@ import {
   type IFormInput,
   useGetStatusOptions,
   useGetModelOptions,
-  useAssetDetails,
+  useGetAssetDetails,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -40,7 +40,7 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useAssetDetails(Number(id));
+  const { data: asset } = useGetAssetDetails(Number(id));
 
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
