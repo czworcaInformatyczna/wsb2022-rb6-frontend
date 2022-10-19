@@ -15,7 +15,7 @@ import {
   type IFormInput,
   useGetStatusOptions,
   useGetModelOptions,
-  useGetAssetDetails,
+  useGetAssetDetailsEdit,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -40,8 +40,8 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetDetails(Number(id));
-
+  const { data: asset } = useGetAssetDetailsEdit(Number(id));
+  console.log(id);
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
@@ -66,14 +66,26 @@ const AddAsset = () => {
   );
 
   useEffect(() => {
+    methods.reset({
+      AssetTag: '',
+      Serial: '',
+      Model: null,
+      Status: null,
+      Notes: '',
+      AssetName: '',
+      Waranty: '',
+      OrderNumber: '',
+      DateOfPurchase: '',
+      PurchaseCost: '',
+    });
     const isEdit = location.pathname.includes('EditAsset');
+    console.log('test');
     if (isEdit && id === undefined && !Number(id)) {
       navigate('/PageNotFound');
     }
 
     if (isEdit && id !== undefined) {
       setLoading(true);
-      methods.reset();
       setAction('Edit');
       if (asset !== undefined) {
         setValues(asset);
@@ -82,7 +94,6 @@ const AddAsset = () => {
     }
 
     if (!isEdit) {
-      methods.reset();
       setAction('Add');
     }
   }, [asset, id, location.pathname, methods, navigate, setValues, statusOptions]);

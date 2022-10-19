@@ -36,6 +36,25 @@ export interface IAsset {
   serial: string;
   status: string;
 }
+export interface IAssetDetails {
+  assetTag: string;
+  category: string;
+  checkins: number;
+  checkouts: number;
+  created_at: string;
+  date_of_purchase: string;
+  id: number | string;
+  manufacturer: string;
+  model: string;
+  name: string;
+  notes: string;
+  order_number: number | string;
+  purchase_cost: number;
+  requests: number;
+  serial: string;
+  status: string;
+  waranty: number;
+}
 
 export interface DataProviderProps {
   link: string;
@@ -64,11 +83,11 @@ export interface IFormInput extends FieldValues {
   Notes: string;
   OrderNumber: number | string;
   Photo: File;
-  PurchaseCost: number;
+  PurchaseCost: number | '';
   Receipt: File;
   Serial: string;
   Status: IStatus | null;
-  Waranty: number;
+  Waranty: number | '';
 }
 
 export interface IModel {

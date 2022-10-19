@@ -1,4 +1,11 @@
-import { assetStatusOptions, getAssetDetails, getModelOptions } from 'mocks/mockData';
+import {
+  assetStatusOptions,
+  getAssetDetails,
+  getAssetDetailsEdit,
+  getAssetImage,
+  getAssetQRCode,
+  getModelOptions,
+} from 'mocks/mockData';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
@@ -28,4 +35,30 @@ const assetsDetails = [
   }),
 ];
 
-export const assetHandlers = [...statusOptions, ...modelOptions, ...assets, ...assetsDetails];
+const assetsDetailsEdit = [
+  rest.get(url(apiUrl.assetInfoEdit), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetDetailsEdit));
+  }),
+];
+
+const assetImage = [
+  rest.get(url(apiUrl.assetImage), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetImage));
+  }),
+];
+
+const assetQRCode = [
+  rest.get(url(apiUrl.assetQRCode), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetQRCode));
+  }),
+];
+
+export const assetHandlers = [
+  ...statusOptions,
+  ...modelOptions,
+  ...assets,
+  ...assetsDetails,
+  ...assetImage,
+  ...assetsDetailsEdit,
+  ...assetQRCode,
+];

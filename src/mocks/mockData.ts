@@ -45,7 +45,7 @@ export const getModelOptions = [
   },
 ];
 
-export const getAssetDetails = {
+export const getAssetDetailsEdit = {
   id: 1,
   name: 'AssetName',
   serial: 'YYEz64GgdQ3M',
@@ -59,4 +59,32 @@ export const getAssetDetails = {
   orderNumber: '123',
   dateOfPurchase: '22/02/2022',
   purchaseCost: 200,
+};
+
+export const getAssetDetails = {
+  id: 1,
+  name: 'AssetName',
+  Serial: 'AssetName',
+  Model: 'YYEz64GgdQ3M',
+  Manufacturer: 'Manufacturer',
+  Category: 'category',
+  Status: 'Ready to deploy',
+  AssetTag: 'assetTag',
+  Notes: 'some notes',
+  Waranty: 6,
+  Order_number: '123',
+  Date_of_purchase: '22/02/2022',
+  Purchase_cost: 200,
+  Created_at: '22/02/2022',
+  Checkouts: 2,
+  Checkins: 2,
+  Requests: 1,
+};
+
+export const getAssetImage = {
+  image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
+};
+
+export const getAssetQRCode = {
+  qrCode: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };

@@ -30,7 +30,7 @@ export const DatePickerInput = ({ helperText = '', label, name }: IInputProps) =
       <Grid alignContent="center" display="flex" item lg={6} md={6} sm={6} xl={6} xs={6}>
         <Controller
           control={control}
-          defaultValue=""
+          defaultValue={null}
           name={name}
           render={({ field }) => (
             <DatePicker

@@ -1,14 +1,12 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, Typography } from '@mui/material';
-import { useGetAssetDetails } from 'features/assets/api';
-import { getAssetPhoto, getAssetQRCode } from 'features/assets/api/getAssetDetails';
-import { useQuery } from 'react-query';
+import { useGetAssetDetails, useGetAssetImage, useGetAssetQRCode } from 'features/assets/api';
 import { StatusChip } from '../StatusChip';
 
 export const AssetInfo = ({ id }: { id: number }) => {
   const { data: assetDetails } = useGetAssetDetails(Number(id));
 
-  const { data: assetImage } = useQuery(['AssetImage', id], async () => await getAssetPhoto(id));
-  const { data: assetQRCode } = useQuery(['AssetQRCode', id], async () => await getAssetQRCode(id));
+  const { data: assetImage } = useGetAssetImage(Number(id));
+  const { data: assetQRCode } = useGetAssetQRCode(Number(id));
 
   const formatObjectKey = (key: string) => {
     let formatedKey = key.replaceAll('_', ' ');
@@ -84,7 +82,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
                 direction="column"
                 alignItems="center"
               >
-                {assetQRCode && <img src={assetQRCode.QRCode} width="50%" alt="QRCode" />}
+                {assetQRCode && <img src={assetQRCode.qrCode} width="50%" alt="QRCode" />}
               </Grid>
             </Grid>
           </Grid>
