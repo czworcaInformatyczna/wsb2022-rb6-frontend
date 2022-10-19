@@ -1,5 +1,6 @@
 import {
   assetStatusOptions,
+  getAssetComponents,
   getAssetDetails,
   getAssetDetailsEdit,
   getAssetImage,
@@ -60,6 +61,12 @@ const assetLicenses = [
   }),
 ];
 
+const assetComponents = [
+  rest.get(url(apiUrl.assetComponents), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(getAssetComponents));
+  }),
+];
+
 export const assetHandlers = [
   ...statusOptions,
   ...modelOptions,
@@ -69,4 +76,5 @@ export const assetHandlers = [
   ...assetsDetailsEdit,
   ...assetQRCode,
   ...assetLicenses,
+  ...assetComponents,
 ];

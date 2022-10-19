@@ -9,14 +9,9 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import { getAssetComponents } from 'features/assets/api/getAssetDetails';
-import { useQuery } from 'react-query';
-
+import { useGetAssetComponents } from 'features/assets/api';
 export const AssetComponents = ({ id }: { id: number }) => {
-  const { data: components } = useQuery(
-    ['AssetComponents', id],
-    async () => await getAssetComponents(id),
-  );
+  const { data: components } = useGetAssetComponents(Number(id));
 
   const removeLicense = (licenseId: number) => {
     console.log(licenseId);

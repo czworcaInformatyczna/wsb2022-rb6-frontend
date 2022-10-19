@@ -7,6 +7,7 @@ import {
   type IStatus,
   type IAssetDetails,
   type IAssetLicenses,
+  type IAssetComponents,
 } from '../types';
 
 export const useGetStatusOptions = () => {
@@ -46,5 +47,10 @@ export const useGetAssetQRCode = (id: number) => {
 
 export const useGetAssetLicenses = (id: number) => {
   const context = useFetch<IAssetLicenses[]>(apiUrl.assetLicenses, { id: id });
+  return context;
+};
+
+export const useGetAssetComponents = (id: number) => {
+  const context = useFetch<IAssetComponents[]>(apiUrl.assetComponents, { id: id });
   return context;
 };

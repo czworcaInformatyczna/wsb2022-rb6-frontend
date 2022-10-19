@@ -97,3 +97,12 @@ export const getAssetLicenses = [
     expiration_date: '22.12.2032',
   },
 ];
+
+export const getAssetComponents = [
+  {
+    id: '1',
+    name: 'PNY XLR8 RGB 16GB 3200Mhz',
+    serial: 'ba81-874f-3fbe-99b9-30624',
+    category: 'RAM',
+  },
+];

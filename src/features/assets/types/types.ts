@@ -113,3 +113,10 @@ export interface IAssetLicenses {
   key: string;
   name: string;
 }
+
+export interface IAssetComponents {
+  category: string;
+  id: string;
+  name: string;
+  serial: string;
+}

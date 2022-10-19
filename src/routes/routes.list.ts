@@ -7,7 +7,8 @@ export const apiUrl = {
   assetInfoEdit: '/assets/DetailsEdit',
   assetImage: '/assets/Image',
   assetQRCode: '/assets/QRCode',
-  assetLicenses: '/assets/assetLicenses',
+  assetLicenses: '/assets/Licenses',
+  assetComponents: '/assets/Components',
 };
 
 export const routePath = {
