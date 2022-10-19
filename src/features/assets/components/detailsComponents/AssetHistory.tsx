@@ -1,14 +1,6 @@
-import {
-  Box,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-  Grid,
-  TableHead,
-  Typography,
-} from '@mui/material';
+import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead } from '@mui/material';
 import { useGetAssetHistory } from 'features/assets/api';
+import NoResult from './noResult';
 
 export const AssetHistory = ({ id }: { id: number }) => {
   const { data: history } = useGetAssetHistory(Number(id));
@@ -16,18 +8,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
   return (
     <Box mb={4}>
       {history === undefined || history.length === 0 ? (
-        <Box
-          m={3}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: 'secondary.main',
-            minHeight: '50px',
-            borderRadius: 1,
-          }}
-        >
-          <Typography m={2}>No Results</Typography>
-        </Box>
+        <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
