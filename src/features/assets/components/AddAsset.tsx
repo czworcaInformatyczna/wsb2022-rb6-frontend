@@ -29,6 +29,7 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
+import { routePath } from 'routes';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
@@ -86,7 +87,7 @@ const AddAsset = () => {
     });
     const isEdit = location.pathname.includes('EditAsset');
     if (isIdNotValid(isEdit)) {
-      navigate('/PageNotFound');
+      navigate(routePath.pageNotFound);
     }
 
     if (isEdit && id !== undefined) {
