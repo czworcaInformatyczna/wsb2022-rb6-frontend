@@ -1,7 +1,9 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetInfo } from '../detailsComponents/AssetInfo';
+import { fetchAssetsDetails } from './mockApiHandlers';
 
 const Provider = () => {
   return (
@@ -13,6 +15,7 @@ const Provider = () => {
 
 describe('AssetInfo', () => {
   it('should display all data', async () => {
+    mswServer.use(fetchAssetsDetails);
     await act(async () => {
       render(<Provider />);
     });

@@ -1,7 +1,10 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
+
 import { AssetComponents } from '../detailsComponents/AssetComponents';
+import { fetchAssetEmptyResponse, fetchAssetsComponents } from './mockApiHandlers';
 
 const Provider = () => {
   return (
@@ -13,6 +16,7 @@ const Provider = () => {
 
 describe('AssetComponents', () => {
   it('should display components', async () => {
+    mswServer.use(fetchAssetsComponents);
     await act(async () => {
       render(<Provider />);
     });
@@ -26,7 +30,9 @@ describe('AssetComponents', () => {
     expect(await screen.findByText(/RAM/i)).toBeInTheDocument();
   });
 
-  it.skip('should display no result', async () => {
+  it('should display no result', async () => {
+    mswServer.use(fetchAssetEmptyResponse);
+
     await act(async () => {
       render(<Provider />);
     });

@@ -1,7 +1,9 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
 import { AssetFiles } from '../detailsComponents/AssetFiles';
+import { fetchAssetEmptyResponse } from './mockApiHandlers';
 
 const Provider = () => {
   return (
@@ -29,7 +31,8 @@ describe('AssetFiles', () => {
     expect(await screen.findByText('22/10/2022')).toBeInTheDocument();
   });
 
-  it.skip('should display no result', async () => {
+  it('should display no result', async () => {
+    mswServer.use(fetchAssetEmptyResponse);
     await act(async () => {
       render(<Provider />);
     });
