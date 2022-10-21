@@ -1,16 +1,9 @@
 import { Box } from '@mui/material';
-import {
-  type IDataProvider,
-  type DataProviderProps,
-  StatusChip,
-  useGetAssets,
-} from 'features/assets';
+import { type DataProviderProps } from 'features/assets';
 import { DataGridTemplate } from 'components/Elements/DataGrid';
-import { Link } from 'react-router-dom';
+import * as columns from './columnsData';
 
 export const DataProvider = (Props: DataProviderProps) => {
-  let data: IDataProvider;
-
   return (
     <Box
       sx={{
@@ -25,81 +18,7 @@ export const DataProvider = (Props: DataProviderProps) => {
       {(() => {
         switch (Props.link) {
           case 'Assets':
-            data = {
-              getDataHook: useGetAssets,
-              addNewLink: '/AddAsset',
-              editLink: '/EditAsset',
-              detailsLink: '/AssetDetails',
-              name: 'Assets',
-              columns: [
-                {
-                  field: 'id',
-                  width: 90,
-                  renderCell: (params) => (
-                    <Box
-                      component={Link}
-                      sx={{ color: 'text.primary' }}
-                      to={'/AssetDetails/' + params.value}
-                    >
-                      {params.value}
-                    </Box>
-                  ),
-                },
-                {
-                  field: 'name',
-                  width: 200,
-                  renderCell: (params) => (
-                    <Box
-                      component={Link}
-                      sx={{ color: 'text.primary' }}
-                      to={'/AssetDetails/' + params.id}
-                    >
-                      {params.value}
-                    </Box>
-                  ),
-                },
-                {
-                  field: 'image',
-                  width: 150,
-                  sortable: false,
-                  disableExport: true,
-                  filterable: false,
-                  renderCell: (params) => (
-                    <img
-                      alt="Asset"
-                      src={params.value}
-                      style={{
-                        width: '100%',
-                        height: undefined,
-                      }}
-                    />
-                  ),
-                },
-                {
-                  field: 'serial',
-                  width: 200,
-                  renderCell: (params) => (
-                    <Box
-                      component={Link}
-                      sx={{ color: 'text.primary' }}
-                      to={'/AssetDetails/' + params.id}
-                    >
-                      {params.value}
-                    </Box>
-                  ),
-                },
-                { field: 'model', width: 200 },
-                { field: 'manufacturer', width: 200 },
-                { field: 'category', width: 200 },
-                {
-                  field: 'status',
-                  width: 150,
-
-                  renderCell: (params) => StatusChip(params.value),
-                },
-              ],
-            };
-            return <DataGridTemplate data={data} />;
+            return <DataGridTemplate data={columns.AssetsData} />;
           default:
             return null;
         }
