@@ -19,6 +19,8 @@ export const DataProvider = (Props: DataProviderProps) => {
         switch (Props.link) {
           case 'Assets':
             return <DataGridTemplate data={columns.AssetsData} />;
+          case 'Licenses':
+            return <DataGridTemplate data={columns.LicensesData} />;
           default:
             return null;
         }

@@ -19,6 +19,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route path={routePath.dashboard} element={<Dashboard />} />
         <Route path={routePath.accessories} element={<Accessories />} />
         <Route element={<DataProvider link="Assets" />} path={routePath.assets} />
+        <Route element={<DataProvider link="Licenses" />} path={routePath.licenses} />
         <Route element={<AddAsset />} path={routePath.addAsset} />
         <Route element={<AddAsset />} path={routePath.editAsset} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />

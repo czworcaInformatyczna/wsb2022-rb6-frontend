@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { type IDataProvider, useGetAssets, StatusChip } from 'features/assets';
+import { useGetLicenses } from 'features/licenses/api';
 import { Link } from 'react-router-dom';
 
 export const AssetsData: IDataProvider = {
@@ -61,6 +62,61 @@ export const AssetsData: IDataProvider = {
       width: 150,
 
       renderCell: (params) => StatusChip(params.value),
+    },
+  ],
+};
+
+export const LicensesData: IDataProvider = {
+  getDataHook: useGetLicenses,
+  addNewLink: '/AddLicense',
+  editLink: '/AddLicense',
+  detailsLink: '/LicenseDetails',
+  name: 'Licenses',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.value}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'key',
+      headerName: 'Key',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    { field: 'manufacturer', headerName: 'Manufacturer', width: 200 },
+    { field: 'expiration_date', headerName: 'Expiration date', width: 200 },
+    { field: 'licensed_to', headerName: 'Licensed to', width: 200 },
+    {
+      field: 'quantity',
+      align: 'center',
+      headerName: 'Quantity',
+      width: 100,
+    },
+    {
+      field: 'available',
+      align: 'center',
+      headerName: 'Available',
+      width: 100,
     },
   ],
 };

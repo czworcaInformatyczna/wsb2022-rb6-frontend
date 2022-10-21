@@ -12,6 +12,7 @@ export const apiUrl = {
   assetHistory: '/assets/History',
   assetMaintenances: '/asset/Maintenances',
   assetFiles: '/asset/Files',
+  licenses: '/licenses',
 };
 
 export const routePath = {
@@ -24,4 +25,5 @@ export const routePath = {
   editAsset: 'EditAsset/:id',
   assetDetails: 'AssetDetails/:id',
   pageNotFound: '/PageNotFound',
+  licenses: 'Licenses',
 };
