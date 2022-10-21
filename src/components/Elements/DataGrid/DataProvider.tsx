@@ -3,9 +3,9 @@ import {
   type IDataProvider,
   type DataProviderProps,
   StatusChip,
-  AssetsTemplate,
   useGetAssets,
 } from 'features/assets';
+import { DataGridTemplate } from 'components/Elements/DataGrid';
 import { Link } from 'react-router-dom';
 
 export const DataProvider = (Props: DataProviderProps) => {
@@ -63,7 +63,7 @@ export const DataProvider = (Props: DataProviderProps) => {
                   width: 150,
                   sortable: false,
                   disableExport: true,
-
+                  filterable: false,
                   renderCell: (params) => (
                     <img
                       alt="Asset"
@@ -99,7 +99,7 @@ export const DataProvider = (Props: DataProviderProps) => {
                 },
               ],
             };
-            return <AssetsTemplate data={data} />;
+            return <DataGridTemplate data={data} />;
           default:
             return null;
         }

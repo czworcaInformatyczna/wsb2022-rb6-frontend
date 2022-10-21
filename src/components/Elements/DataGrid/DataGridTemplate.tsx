@@ -19,7 +19,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { LoadingScreen } from 'components/Elements/Loading';
 
-export const AssetsTemplate = (Props: AssetsProps) => {
+export const DataGridTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [rowCountState, setRowCountState] = React.useState<number>(0);
