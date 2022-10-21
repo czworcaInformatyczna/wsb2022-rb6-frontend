@@ -12,7 +12,7 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import testData from '../api/testData.json';
+import testData from '../../../features/assets/api/testData.json';
 import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';

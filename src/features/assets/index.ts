@@ -1,6 +1,5 @@
-export * from './components/AssetsTemplate';
+export * from '../../components/Elements/DataGrid/DataGridTemplate';
 export * from './components/CustomToolbar';
-export * from './components/DataProvider';
 export * from './types';
 export * from './components/StatusChip';
 export * from './api';

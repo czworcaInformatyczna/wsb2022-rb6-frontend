@@ -3,7 +3,7 @@ import { PageNotFound } from 'components/PageNotFound';
 import { RequireAuth } from 'routes/RequireAuth';
 import { Accessories } from 'features/accessories';
 import { Dashboard } from 'features/dashboard';
-import { DataProvider } from 'features/assets';
+import { DataProvider } from 'components/Elements/DataGrid';
 import { Layout } from 'components/Layout';
 import { Login } from 'features/login';
 import AddAsset from 'features/assets/components/AddAsset';
