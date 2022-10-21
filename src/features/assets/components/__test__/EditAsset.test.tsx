@@ -9,7 +9,7 @@ import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
 import { type AppProviderProps } from 'providers/types';
 import { routePath } from 'routes';
-import { fetchAssetsCategory } from './mockApiHandlers';
+import { fetchAssetsCategory, fetchAssetsInfo, fetchAssetsModel } from './mockApiHandlers';
 import { mswServer } from 'mocks/mswServer';
 
 const Provider = ({ children }: AppProviderProps) => {
@@ -46,6 +46,8 @@ describe('Edit form', () => {
 
   it('inputs should have value', async () => {
     mswServer.use(fetchAssetsCategory);
+    mswServer.use(fetchAssetsModel);
+    mswServer.use(fetchAssetsInfo);
     await act(async () => {
       render(
         <Provider>

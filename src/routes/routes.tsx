@@ -8,6 +8,7 @@ import { Layout } from 'components/Layout';
 import { Login } from 'features/login';
 import AddAsset from 'features/assets/components/AddAsset';
 import { routePath } from 'routes';
+import { AssetDetails } from 'features/assets/components/AssetDetails';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -20,6 +21,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<DataProvider link="Assets" />} path={routePath.assets} />
         <Route element={<AddAsset />} path={routePath.addAsset} />
         <Route element={<AddAsset />} path={routePath.editAsset} />
+        <Route element={<AssetDetails />} path={routePath.assetDetails} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

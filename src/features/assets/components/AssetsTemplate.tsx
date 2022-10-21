@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { type Asset, type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
+import { type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
@@ -21,8 +21,6 @@ import { LoadingScreen } from 'components/Elements/Loading';
 
 export const AssetsTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [assets, setAssets] = React.useState<Asset[]>([]);
-  const [loadingData, setLoadingData] = React.useState<boolean>(true);
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [rowCountState, setRowCountState] = React.useState<number>(0);
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
@@ -33,6 +31,8 @@ export const AssetsTemplate = (Props: AssetsProps) => {
   }>({
     initialState: { columns: { columnVisibilityModel: {} } },
   });
+
+  const { data: assets, isLoading } = Props.data.getDataHook();
 
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
@@ -48,10 +48,9 @@ export const AssetsTemplate = (Props: AssetsProps) => {
   }, [Props.data.name]);
 
   React.useEffect(() => {
-    setAssets(testData);
     setRowCountState(testData.length);
     setLoading(false);
-    setLoadingData(false);
+
     getDataGridState();
   }, [getDataGridState]);
   const navigate = useNavigate();
@@ -149,7 +148,7 @@ export const AssetsTemplate = (Props: AssetsProps) => {
   return (
     <Box>
       {loading && <LoadingScreen displayText size={200} />}
-      {!loading && (
+      {!loading && assets !== undefined && (
         <Grid
           alignItems="center"
           container
@@ -198,7 +197,7 @@ export const AssetsTemplate = (Props: AssetsProps) => {
               filterMode="server"
               initialState={savedState.initialState}
               keepNonExistentRowsSelected
-              loading={loadingData}
+              loading={isLoading}
               onColumnVisibilityModelChange={saveColumnsVisibility}
               onFilterModelChange={handleFilterChange}
               onPageChange={(newPage) => handlePageChange(newPage)}
@@ -248,7 +247,13 @@ export const AssetsTemplate = (Props: AssetsProps) => {
               onClose={handleClose}
               open={contextMenu !== null}
             >
-              <MenuItem onClick={() => {}}>Show details</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
+                }}
+              >
+                Show details
+              </MenuItem>
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {

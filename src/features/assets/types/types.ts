@@ -17,7 +17,7 @@ export interface ContextMenu {
   mouseY: number;
 }
 
-export interface Asset {
+export interface IAssets {
   category: string;
   id: number | string;
   image: string;
@@ -27,6 +27,40 @@ export interface Asset {
   serial: string;
   status: string;
 }
+export interface IAsset {
+  assetTag: string;
+  category: string;
+  date_of_purchase: string;
+  id: number | string;
+  manufacturer: string;
+  model: string;
+  name: string;
+  notes: string;
+  order_number: number | string;
+  purchase_cost: number;
+  serial: string;
+  status: string;
+  waranty: number;
+}
+export interface IAssetDetails {
+  assetTag: string;
+  category: string;
+  checkins: number;
+  checkouts: number;
+  created_at: string;
+  date_of_purchase: string;
+  id: number | string;
+  manufacturer: string;
+  model: string;
+  name: string;
+  notes: string;
+  order_number: number | string;
+  purchase_cost: number;
+  requests: number;
+  serial: string;
+  status: string;
+  waranty: number;
+}
 
 export interface DataProviderProps {
   link: string;
@@ -34,7 +68,9 @@ export interface DataProviderProps {
 export interface IDataProvider {
   addNewLink: string;
   columns: GridColumns;
+  detailsLink: string;
   editLink: string;
+  getDataHook: () => any;
   name: string;
   // Add APIs object that stores api calls
 }
@@ -48,16 +84,16 @@ export enum Statuses {
 export interface IFormInput extends FieldValues {
   AssetName: string;
   AssetTag: string;
-  DateOfPurchase: Date;
+  DateOfPurchase: string;
   Model: IModel | null;
   Notes: string;
   OrderNumber: number | string;
   Photo: File;
-  PurchaseCost: number;
+  PurchaseCost: number | '';
   Receipt: File;
   Serial: string;
   Status: IStatus | null;
-  Waranty: number;
+  Waranty: number | '';
 }
 
 export interface IModel {
@@ -75,4 +111,46 @@ export interface IInputProps {
   label: string;
   name: string;
   type?: HTMLInputTypeAttribute;
+}
+
+export interface IAssetLicenses {
+  expiration_date: string;
+  id: number;
+  key: string;
+  name: string;
+}
+
+export interface IAssetComponents {
+  category: string;
+  id: string;
+  name: string;
+  serial: string;
+}
+
+export interface IAssetHistory {
+  action: string;
+  date: string;
+  id: number;
+  notes: string;
+  target: string;
+  user: string;
+}
+
+export interface IAssetMaintenances {
+  endDate: string;
+  id: number;
+  maintenanceType: string;
+  notes: string;
+  startDate: string;
+  title: string;
+  user: string;
+}
+
+export interface IAssetFiles {
+  download_link: string;
+  extension: string;
+  id: number;
+  name: string;
+  size: string;
+  upload_date: string;
 }

@@ -4,7 +4,9 @@ import {
   type DataProviderProps,
   StatusChip,
   AssetsTemplate,
+  useGetAssets,
 } from 'features/assets';
+import { Link } from 'react-router-dom';
 
 export const DataProvider = (Props: DataProviderProps) => {
   let data: IDataProvider;
@@ -24,12 +26,38 @@ export const DataProvider = (Props: DataProviderProps) => {
         switch (Props.link) {
           case 'Assets':
             data = {
+              getDataHook: useGetAssets,
               addNewLink: '/AddAsset',
               editLink: '/EditAsset',
+              detailsLink: '/AssetDetails',
               name: 'Assets',
               columns: [
-                { field: 'id', width: 90 },
-                { field: 'name', width: 200 },
+                {
+                  field: 'id',
+                  width: 90,
+                  renderCell: (params) => (
+                    <Box
+                      component={Link}
+                      sx={{ color: 'text.primary' }}
+                      to={'/AssetDetails/' + params.value}
+                    >
+                      {params.value}
+                    </Box>
+                  ),
+                },
+                {
+                  field: 'name',
+                  width: 200,
+                  renderCell: (params) => (
+                    <Box
+                      component={Link}
+                      sx={{ color: 'text.primary' }}
+                      to={'/AssetDetails/' + params.id}
+                    >
+                      {params.value}
+                    </Box>
+                  ),
+                },
                 {
                   field: 'image',
                   width: 150,
@@ -47,7 +75,19 @@ export const DataProvider = (Props: DataProviderProps) => {
                     />
                   ),
                 },
-                { field: 'serial', width: 200 },
+                {
+                  field: 'serial',
+                  width: 200,
+                  renderCell: (params) => (
+                    <Box
+                      component={Link}
+                      sx={{ color: 'text.primary' }}
+                      to={'/AssetDetails/' + params.id}
+                    >
+                      {params.value}
+                    </Box>
+                  ),
+                },
                 { field: 'model', width: 200 },
                 { field: 'manufacturer', width: 200 },
                 { field: 'category', width: 200 },

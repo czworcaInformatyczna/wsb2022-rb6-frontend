@@ -4,7 +4,7 @@ import { AppRoutes } from 'routes';
 const App = (): JSX.Element => {
   return (
     <AppProvider>
-      <AppRoutes />;
+      <AppRoutes />
     </AppProvider>
   );
 };

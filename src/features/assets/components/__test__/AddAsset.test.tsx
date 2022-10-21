@@ -1,4 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import user from '@testing-library/user-event';
+
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AddAsset from '../AddAsset';
@@ -47,7 +49,7 @@ describe('AddAsset form', () => {
       </Provider>,
     );
     const button = element.getAddButtons()[0];
-    fireEvent.click(button);
+    await user.click(button);
     const errors = await screen.findAllByText(/required value/i);
     expect(errors.length).toBeGreaterThan(0);
   });

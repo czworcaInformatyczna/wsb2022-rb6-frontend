@@ -11,7 +11,13 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import { type IFormInput, useGetStatusOptions, getModelOptions } from 'features/assets';
+import {
+  type IFormInput,
+  useGetStatusOptions,
+  useGetModelOptions,
+  useGetAssetsDataById,
+  type IAsset,
+} from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
@@ -20,70 +26,90 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
-import { useQuery } from 'react-query';
+
 import { useCallback, useEffect, useState } from 'react';
-import testData from '../api/testData.json';
 import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
+import { apiUrl, routePath } from 'routes';
 
 const AddAsset = () => {
   const methods = useForm<IFormInput>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, setValue, reset } = methods;
   const navigate = useNavigate();
   const { data: statusOptions } = useGetStatusOptions();
-  const { data: modelOptions } = useQuery('SelectModelOptions', getModelOptions);
+  const { data: modelOptions } = useGetModelOptions();
   const location = useLocation();
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-
+  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfoEdit);
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
-    return dateMoment.toDate();
+    return dateMoment.toDate().toString();
   };
 
   const setValues = useCallback(
-    (asset: any) => {
-      methods.setValue('AssetTag', asset.assetTag);
-      methods.setValue('Serial', asset.serial);
-      const modelObject = modelOptions?.find((x) => x.name === asset.model);
-      methods.setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((x) => x.name === asset.status);
-      methods.setValue('Status', statusObject !== undefined ? statusObject : null);
-      methods.setValue('Notes', asset.notes);
-      methods.setValue('AssetName', asset.name);
-      methods.setValue('Waranty', asset.waranty);
-      methods.setValue('OrderNumber', asset.orderNumber);
-      methods.setValue('DateOfPurchase', getDateFormat(asset.dateOfPurchase));
-      methods.setValue('PurchaseCost', asset.purchaseCost);
+    (assetValues: any) => {
+      setValue('AssetTag', assetValues.assetTag);
+      setValue('Serial', assetValues.serial);
+      const modelObject = modelOptions?.find((option) => option.name === assetValues.model);
+      setValue('Model', modelObject !== undefined ? modelObject : null);
+      const statusObject = statusOptions?.find((option) => option.name === assetValues.status);
+      setValue('Status', statusObject !== undefined ? statusObject : null);
+      setValue('Notes', assetValues.notes);
+      setValue('AssetName', assetValues.name);
+      setValue('Waranty', assetValues.waranty);
+      setValue('OrderNumber', assetValues.orderNumber);
+      setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
+      setValue('PurchaseCost', assetValues.purchaseCost);
     },
-    [methods, modelOptions, statusOptions],
+    [modelOptions, setValue, statusOptions],
+  );
+
+  const isIdNotValid = useCallback(
+    (isEdit: boolean) => {
+      return isEdit && id === undefined && !Number(id);
+    },
+    [id],
   );
 
   useEffect(() => {
+    reset({
+      AssetTag: '',
+      Serial: '',
+      Model: null,
+      Status: null,
+      Notes: '',
+      AssetName: '',
+      Waranty: '',
+      OrderNumber: '',
+      DateOfPurchase: '',
+      PurchaseCost: '',
+    });
     const isEdit = location.pathname.includes('EditAsset');
-    if (isEdit && id === undefined) {
-      navigate('/PageNotFound');
-    } else {
-      methods.reset();
+    if (isIdNotValid(isEdit)) {
+      navigate(routePath.pageNotFound);
     }
 
     if (isEdit && id !== undefined) {
       setLoading(true);
       setAction('Edit');
-      // TEST - REPLACE BY API CALL
-      const asset = testData.find((x) => {
-        if (x.id === Number(id)) return x;
-      });
       if (asset !== undefined) {
         setValues(asset);
         setLoading(false);
       }
     }
-  }, [id, location.pathname, methods, navigate, setValues, statusOptions]);
+
+    if (!isEdit) {
+      setAction('Add');
+    }
+  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
 
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
+    const tempData = { ...data };
+    if (tempData.DateOfPurchase !== '')
+      tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
+    console.log(tempData);
   };
 
   return (
@@ -174,7 +200,7 @@ const AddAsset = () => {
                     >
                       <Grid alignContent="center" container display="flex" spacing={2}>
                         <MultiLineTextInput label="Notes" name="Notes" rows={4} />
-                        <UploadImage buttonText="Upload photo" name="Photo" />
+                        <UploadImage buttonText="Upload photo" name="Photo" accept="image/*" />
                         <TextInput label="Asset Name" name="AssetName" rules={{}} />
                         <TextInput
                           helperText="No. of  Months"
@@ -212,7 +238,7 @@ const AddAsset = () => {
                           rules={{}}
                           type="number"
                         />
-                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" />
+                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" accept="*" />
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
