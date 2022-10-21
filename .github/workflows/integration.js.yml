@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: ['develop']
 
+env:
+  REACT_APP_API_URL: ${{ secrets.API_URL }}
+  REACT_APP_MOCK_API: ${{ secrets.MOCK_API }}
+
 jobs:
   branch-naming-rules:
     runs-on: ubuntu-latest
@@ -27,6 +31,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install all dependencies
         run: npm ci
