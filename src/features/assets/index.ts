@@ -1,4 +1,3 @@
-export * from '../../components/Elements/DataGrid/DataGridTemplate';
 export * from './components/CustomToolbar';
 export * from './types';
 export * from './components/StatusChip';
