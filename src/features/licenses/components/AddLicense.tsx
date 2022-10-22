@@ -196,7 +196,7 @@ const AddLicense = () => {
                         backgroundColor: 'background.default',
                       }}
                     >
-                      <Typography>Additional information</Typography>
+                      <Typography>Additional informations</Typography>
                     </AccordionSummary>
                     <AccordionDetails
                       sx={{
