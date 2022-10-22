@@ -81,7 +81,7 @@ export enum Statuses {
   ReadyToDeploy = 'Ready to deploy',
 }
 
-export interface IFormInput extends FieldValues {
+export interface IAssetFormInput extends FieldValues {
   AssetName: string;
   AssetTag: string;
   DateOfPurchase: string;
@@ -111,6 +111,10 @@ export interface IInputProps {
   label: string;
   name: string;
   type?: HTMLInputTypeAttribute;
+}
+export interface IDatePickerProps extends IInputProps {
+  disableFuture?: boolean;
+  disablePast?: boolean;
 }
 
 export interface IAssetLicenses {

@@ -140,3 +140,44 @@ export const assetFiles = [
     download_link: 'link',
   },
 ];
+
+export const licenseCategoryOptions = [
+  {
+    id: '1',
+    name: 'Graphic',
+  },
+  {
+    id: '2',
+    name: 'Office',
+  },
+  {
+    id: '3',
+    name: 'Video edditing',
+  },
+];
+
+export const licenseManufacturerOptions = [
+  {
+    id: '1',
+    name: 'Adobe',
+  },
+  {
+    id: '2',
+    name: 'Microsoft',
+  },
+];
+
+export const licenseEditMock = {
+  id: 14,
+  name: 'Photoshop',
+  key: 'ASD-ASD-343-SDF',
+  manufacturer: 'Adobe',
+  expiration_date: '22/10/2033',
+  licensed_to: 'user@user.com',
+  quantity: 8,
+  notes: 'some info',
+  category: 'Graphic',
+  dateOfPurchase: '22//09/2019',
+  purchaseCost: 200,
+  order_number: '12312sad',
+};

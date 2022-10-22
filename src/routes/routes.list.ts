@@ -13,6 +13,9 @@ export const apiUrl = {
   assetMaintenances: '/asset/Maintenances',
   assetFiles: '/asset/Files',
   licenses: '/licenses',
+  licensesCategory: '/licenses/category',
+  licensesManufacturers: '/licenses/manufacturers',
+  licenseInfoEdit: '/licenses/DetailsEdit',
 };
 
 export const routePath = {
@@ -26,4 +29,6 @@ export const routePath = {
   assetDetails: 'AssetDetails/:id',
   pageNotFound: '/PageNotFound',
   licenses: 'Licenses',
+  addLicense: 'AddLicense',
+  editLicense: 'EditLicense/:id',
 };

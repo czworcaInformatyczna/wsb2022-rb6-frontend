@@ -3,9 +3,15 @@ import { Grid, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { type IInputProps } from 'features/assets';
+import { type IDatePickerProps } from 'features/assets';
 
-export const DatePickerInput = ({ helperText = '', label, name }: IInputProps) => {
+export const DatePickerInput = ({
+  helperText = '',
+  label,
+  name,
+  disableFuture = false,
+  disablePast = false,
+}: IDatePickerProps) => {
   const {
     control,
     formState: { errors },
@@ -35,7 +41,8 @@ export const DatePickerInput = ({ helperText = '', label, name }: IInputProps) =
           render={({ field }) => (
             <DatePicker
               {...field}
-              disableFuture
+              disableFuture={disableFuture}
+              disablePast={disablePast}
               label={label}
               openTo="year"
               inputFormat="dd.MM.yyyy"

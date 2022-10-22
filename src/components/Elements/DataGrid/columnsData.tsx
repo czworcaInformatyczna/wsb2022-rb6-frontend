@@ -69,7 +69,7 @@ export const AssetsData: IDataProvider = {
 export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
   addNewLink: '/AddLicense',
-  editLink: '/AddLicense',
+  editLink: '/EditLicense',
   detailsLink: '/LicenseDetails',
   name: 'Licenses',
   columns: [

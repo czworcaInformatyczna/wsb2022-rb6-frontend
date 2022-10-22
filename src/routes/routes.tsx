@@ -9,6 +9,7 @@ import { Login } from 'features/login';
 import AddAsset from 'features/assets/components/AddAsset';
 import { routePath } from 'routes';
 import { AssetDetails } from 'features/assets/components/AssetDetails';
+import AddLicense from 'features/licenses/components/AddLicense';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -22,6 +23,8 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<DataProvider link="Licenses" />} path={routePath.licenses} />
         <Route element={<AddAsset />} path={routePath.addAsset} />
         <Route element={<AddAsset />} path={routePath.editAsset} />
+        <Route element={<AddLicense />} path={routePath.addLicense} />
+        <Route element={<AddLicense />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>

@@ -36,6 +36,12 @@ export const menuItems = [
       },
       {
         icon: <CableIcon />,
+        id: 2,
+        link: '/AddLicense',
+        name: 'License',
+      },
+      {
+        icon: <CableIcon />,
         id: 1,
         link: '/AddAccessories',
         name: 'Accessories',
