@@ -12,14 +12,14 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import testData from '../api/testData.json';
+import testData from '../../../features/assets/api/testData.json';
 import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { LoadingScreen } from 'components/Elements/Loading';
 
-export const AssetsTemplate = (Props: AssetsProps) => {
+export const DataGridTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [rowCountState, setRowCountState] = React.useState<number>(0);

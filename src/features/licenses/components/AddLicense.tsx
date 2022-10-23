@@ -11,19 +11,13 @@ import {
 import Divider from '@mui/material/Divider';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
-import {
-  type IAssetFormInput,
-  useGetStatusOptions,
-  useGetModelOptions,
-  useGetAssetsDataById,
-  type IAsset,
-} from 'features/assets';
+import { useGetAssetsDataById } from 'features/assets';
+import { type ILicense, type ILicenseFormInput } from 'features/licenses';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
   MultiLineTextInput,
   SelectInput,
   DatePickerInput,
-  UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
 
@@ -31,39 +25,45 @@ import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
+import { useGetCategoryOptions, useGetManufacturerOptions } from '../api';
 
-const AddAsset = () => {
-  const methods = useForm<IAssetFormInput>();
+const AddLicense = () => {
+  const methods = useForm<ILicenseFormInput>();
   const { handleSubmit, setValue, reset } = methods;
   const navigate = useNavigate();
-  const { data: statusOptions } = useGetStatusOptions();
-  const { data: modelOptions } = useGetModelOptions();
+  const { data: categoryOptions } = useGetCategoryOptions();
+  const { data: manufacturerOptions } = useGetManufacturerOptions();
   const location = useLocation();
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfoEdit);
+  const { data: license } = useGetAssetsDataById<ILicense>(Number(id), apiUrl.licenseInfoEdit);
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
   };
 
   const setValues = useCallback(
-    (assetValues: any) => {
-      setValue('AssetTag', assetValues.assetTag);
-      setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((option) => option.name === assetValues.model);
-      setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((option) => option.name === assetValues.status);
-      setValue('Status', statusObject !== undefined ? statusObject : null);
-      setValue('Notes', assetValues.notes);
-      setValue('AssetName', assetValues.name);
-      setValue('Waranty', assetValues.waranty);
-      setValue('OrderNumber', assetValues.orderNumber);
-      setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
-      setValue('PurchaseCost', assetValues.purchaseCost);
+    (LicenseValues: any) => {
+      setValue('Name', LicenseValues.name);
+      setValue('Key', LicenseValues.key);
+      const categoryObject = categoryOptions?.find(
+        (option) => option.name === LicenseValues.category,
+      );
+      setValue('Category', categoryObject !== undefined ? categoryObject : null);
+      const manufacturerObject = manufacturerOptions?.find(
+        (option) => option.name === LicenseValues.manufacturer,
+      );
+      setValue('Manufacturer', manufacturerObject !== undefined ? manufacturerObject : null);
+      setValue('Notes', LicenseValues.notes);
+      setValue('OrderNumber', LicenseValues.order_number);
+      setValue('DateOfPurchase', getDateFormat(LicenseValues.dateOfPurchase));
+      setValue('ExpirationDate', getDateFormat(LicenseValues.expiration_date));
+      setValue('PurchaseCost', LicenseValues.purchaseCost);
+      setValue('LicensedTo', LicenseValues.licensed_to);
+      setValue('Quantity', LicenseValues.quantity);
     },
-    [modelOptions, setValue, statusOptions],
+    [categoryOptions, manufacturerOptions, setValue],
   );
 
   const isIdNotValid = useCallback(
@@ -75,18 +75,19 @@ const AddAsset = () => {
 
   useEffect(() => {
     reset({
-      AssetTag: '',
-      Serial: '',
-      Model: null,
-      Status: null,
+      Name: '',
+      Key: '',
+      Category: null,
+      Manufacturer: null,
       Notes: '',
-      AssetName: '',
-      Waranty: '',
       OrderNumber: '',
+      ExpirationDate: '',
       DateOfPurchase: '',
       PurchaseCost: '',
+      LicensedTo: '',
+      Quantity: '',
     });
-    const isEdit = location.pathname.includes('EditAsset');
+    const isEdit = location.pathname.includes('EditLicense');
     if (isIdNotValid(isEdit)) {
       navigate(routePath.pageNotFound);
     }
@@ -94,8 +95,8 @@ const AddAsset = () => {
     if (isEdit && id !== undefined) {
       setLoading(true);
       setAction('Edit');
-      if (asset !== undefined) {
-        setValues(asset);
+      if (license !== undefined) {
+        setValues(license);
         setLoading(false);
       }
     }
@@ -103,12 +104,14 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
+  }, [license, id, isIdNotValid, location.pathname, navigate, reset, setValues]);
 
-  const onSubmit = (data: IAssetFormInput) => {
+  const onSubmit = (data: ILicenseFormInput) => {
     const tempData = { ...data };
     if (tempData.DateOfPurchase !== '')
       tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
+    if (tempData.ExpirationDate !== '')
+      tempData.ExpirationDate = new Date(tempData.ExpirationDate).toISOString();
     console.log(tempData);
   };
 
@@ -131,7 +134,7 @@ const AddAsset = () => {
           <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
             <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
               <Typography ml={2} variant="h4">
-                {action} Asset
+                {action} License
               </Typography>
             </Grid>
             <Grid
@@ -164,22 +167,24 @@ const AddAsset = () => {
               }}
             >
               <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
+                <TextInput label="Name" name="Name" rules={{ required: 'Required value' }} />
+                <TextInput label="Key" name="Key" rules={{ required: 'Required value' }} />
+                <SelectInput
+                  label="Category"
+                  name="Category"
+                  options={categoryOptions ? categoryOptions : []}
+                />
                 <TextInput
-                  label="Asset Tag"
-                  name="AssetTag"
-                  rules={{ required: 'Required value' }}
+                  label="Quantity"
+                  name="Quantity"
+                  rules={{ min: 1, required: 'Required value' }}
+                  type="number"
                 />
-                <TextInput label="Serial" name="Serial" rules={{ required: 'Required value' }} />
+
                 <SelectInput
-                  label="Model"
-                  name="Model"
-                  containsImg
-                  options={modelOptions ? modelOptions : []}
-                />
-                <SelectInput
-                  label="Status"
-                  name="Status"
-                  options={statusOptions ? statusOptions : []}
+                  label="Manufacturer"
+                  name="Manufacturer"
+                  options={manufacturerOptions ? manufacturerOptions : []}
                 />
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
@@ -199,41 +204,21 @@ const AddAsset = () => {
                       }}
                     >
                       <Grid alignContent="center" container display="flex" spacing={2}>
-                        <MultiLineTextInput label="Notes" name="Notes" rows={4} />
-                        <UploadImage buttonText="Upload photo" name="Photo" accept="image/*" />
-                        <TextInput label="Asset Name" name="AssetName" rules={{}} />
-                        <TextInput
-                          helperText="No. of  Months"
-                          label="Waranty"
-                          name="Waranty"
-                          rules={{ min: 0 }}
-                          type="number"
+                        <DatePickerInput
+                          label="Expiration Date"
+                          name="ExpirationDate"
+                          disablePast
                         />
-                      </Grid>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion disableGutters>
-                    <AccordionSummary
-                      aria-controls="panel1a-content"
-                      expandIcon={<ExpandMoreIcon />}
-                      id="panel1a-header"
-                      sx={{
-                        backgroundColor: 'background.default',
-                      }}
-                    >
-                      <Typography>Order information</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails
-                      sx={{
-                        backgroundColor: 'background.paper',
-                      }}
-                    >
-                      <Grid alignContent="center" container display="flex" spacing={2}>
-                        <TextInput label="Order Number" name="OrderNumber" rules={{}} />
+                        <TextInput label="Licensed to" name="LicensedTo" rules={{}} />
                         <DatePickerInput
                           label="Date Of Purchase"
                           name="DateOfPurchase"
                           disableFuture
+                        />
+                        <TextInput
+                          label="Order number"
+                          name="OrderNumber"
+                          rules={{ required: 'Required value' }}
                         />
                         <TextInput
                           endAdornment="€"
@@ -242,7 +227,7 @@ const AddAsset = () => {
                           rules={{}}
                           type="number"
                         />
-                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" accept="*" />
+                        <MultiLineTextInput label="Notes" name="Notes" rows={4} />
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
@@ -277,4 +262,4 @@ const AddAsset = () => {
   );
 };
 
-export default AddAsset;
+export default AddLicense;
