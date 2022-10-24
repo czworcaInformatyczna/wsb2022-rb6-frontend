@@ -28,6 +28,21 @@ export interface ILicense {
   purchaseCost: number;
   quantity: number;
 }
+export interface ILicenseDetails {
+  available: number;
+  category: string;
+  deployed: number;
+  expiration_date: string;
+  id: number;
+  key: string;
+  licensed_to: string;
+  manufacturer: string;
+  name: string;
+  notes: string;
+  order_number: number;
+  purchaseCost: number;
+  quantity: number;
+}
 
 export interface ILicenseFormInput extends FieldValues {
   Category: ILicenseCategory | null;

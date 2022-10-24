@@ -10,6 +10,7 @@ import AddAsset from 'features/assets/components/AddAsset';
 import { routePath } from 'routes';
 import { AssetDetails } from 'features/assets/components/AssetDetails';
 import AddLicense from 'features/licenses/components/AddLicense';
+import { LicenseDetails } from 'features/licenses/components/LicenseDetails';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -26,6 +27,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<AddLicense />} path={routePath.addLicense} />
         <Route element={<AddLicense />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
+        <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

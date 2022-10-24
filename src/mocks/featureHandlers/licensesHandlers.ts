@@ -6,6 +6,7 @@ import {
   licenseCategoryOptions,
   licenseManufacturerOptions,
   licenseEditMock,
+  licenseDetailsMock,
 } from 'mocks/mockData';
 const licenses = [
   rest.get(url(apiUrl.licenses), (req, res, ctx) => {
@@ -30,9 +31,16 @@ const licenseEdit = [
     return res(ctx.status(200), ctx.json(licenseEditMock));
   }),
 ];
+
+const licenseDetails = [
+  rest.get(url(apiUrl.licenseInfo), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(licenseDetailsMock));
+  }),
+];
 export const licensesHandlers = [
   ...licenses,
   ...categoryOptions,
   ...manufacturersOptions,
   ...licenseEdit,
+  ...licenseDetails,
 ];

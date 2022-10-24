@@ -181,3 +181,20 @@ export const licenseEditMock = {
   purchaseCost: 200,
   order_number: '12312sad',
 };
+
+export const licenseDetailsMock = {
+  available: 5,
+  deployed: 3,
+  id: 14,
+  name: 'Photoshop',
+  key: 'ASD-ASD-343-SDF',
+  manufacturer: 'Adobe',
+  expiration_date: '22/10/2033',
+  licensed_to: 'user@user.com',
+  quantity: 8,
+  notes: 'some info',
+  category: 'Graphic',
+  dateOfPurchase: '22//09/2019',
+  purchaseCost: 200,
+  order_number: '12312sad',
+};

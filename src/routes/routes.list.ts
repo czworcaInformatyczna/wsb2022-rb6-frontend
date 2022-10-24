@@ -16,6 +16,7 @@ export const apiUrl = {
   licensesCategory: '/licenses/category',
   licensesManufacturers: '/licenses/manufacturers',
   licenseInfoEdit: '/licenses/DetailsEdit',
+  licenseInfo: '/licenses/Details',
 };
 
 export const routePath = {
@@ -31,4 +32,5 @@ export const routePath = {
   licenses: 'Licenses',
   addLicense: 'AddLicense',
   editLicense: 'EditLicense/:id',
+  licenseDetails: 'LicenseDetails/:id',
 };
