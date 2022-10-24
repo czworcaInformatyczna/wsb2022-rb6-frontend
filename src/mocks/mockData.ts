@@ -184,7 +184,7 @@ export const licenseEditMock = {
 
 export const licenseDetailsMock = {
   available: 5,
-  deployed: 3,
+  deployed: 30,
   id: 14,
   name: 'Photoshop',
   key: 'ASD-ASD-343-SDF',

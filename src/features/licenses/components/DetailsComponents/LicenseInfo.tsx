@@ -80,7 +80,7 @@ export const LicenseInfo = ({ id }: { id: number }) => {
                   valueWidth="80%"
                 />
                 <TableRowTemplate
-                  name="Deployd"
+                  name="Deployed"
                   value={licenseDetails.deployed}
                   even={false}
                   keyWidth="20%"

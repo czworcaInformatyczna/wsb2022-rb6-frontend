@@ -6,7 +6,7 @@ import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routePath } from 'routes';
-import { LicenseInfo } from './DetailsComponents/LicenseInfo';
+import { LicenseInfo } from './detailsComponents/LicenseInfo';
 
 export const LicenseDetails = () => {
   const { id } = useParams();
