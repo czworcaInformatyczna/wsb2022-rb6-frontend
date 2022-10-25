@@ -7,8 +7,8 @@ const queryClient = new QueryClient();
 export const getQueryClient = () => queryClient;
 
 type QueryKey = [string, object | undefined];
-interface IUpdateMutation {
-  body: Object;
+interface IUpdateMutation<T> {
+  body: T;
   id: string;
 }
 
@@ -26,42 +26,36 @@ export const useFetch = <T>(url: string | null, params?: object) => {
   return queryContext;
 };
 
-const useGenericMutation = <T>(
-  func: (data: T) => Promise<AxiosResponse<T>>,
-  getUrl: string,
-  params?: object,
-) => {
+const useGenericMutation = <T>(func: (data: T) => Promise<AxiosResponse<T>>, getUrl: string) => {
   return useMutation<AxiosResponse, AxiosError, T>(func, {
     onMutate: async () => {
-      await queryClient.cancelQueries([getUrl!, params]);
+      await queryClient.cancelQueries([getUrl!]);
 
-      const previousData = queryClient.getQueryData([getUrl!, params]);
+      const previousData = queryClient.getQueryData([getUrl!]);
 
       return previousData;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries([getUrl!, params]);
+      await queryClient.invalidateQueries([getUrl!]);
     },
   });
 };
 
-export const usePost = <T>(url: string, params?: object) => {
-  return useGenericMutation<T>(async (data) => await apiClient.post(url, data), url, params);
+export const usePost = <T>(url: string) => {
+  return useGenericMutation<T>(async (data) => await apiClient.post(url, data), url);
 };
 
-export const useDelete = <String>(url: string, getUrl?: string, params?: object) => {
-  return useGenericMutation<String>(
-    async (id) => await apiClient.delete(convertUrl(url, { id })),
+export const useDelete = <T>(url: string, getUrl?: string) => {
+  return useGenericMutation<T>(
+    async (id: T) => await apiClient.delete(convertUrl(url, { id })),
     getUrl ?? url,
-    params,
   );
 };
 
-export const useUpdate = (url: string, getUrl?: string, params?: object) => {
-  return useGenericMutation<IUpdateMutation>(
-    async (data: IUpdateMutation) =>
-      await apiClient.patch<IUpdateMutation>(convertUrl(url, { id: data.id }), data.body),
+export const useUpdate = <T>(url: string, getUrl?: string) => {
+  return useGenericMutation<IUpdateMutation<T>>(
+    async (data: IUpdateMutation<T>) =>
+      await apiClient.patch<IUpdateMutation<T>>(convertUrl(url, { id: data.id }), data.body),
     getUrl ?? url,
-    params,
   );
 };

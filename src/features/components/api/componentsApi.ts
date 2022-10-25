@@ -11,8 +11,8 @@ export const useDeleteComponent = <String>() => {
   return context;
 };
 
-export const useUpdateComponent = () => {
-  const context = useUpdate(apiUrl.component, apiUrl.components);
+export const useUpdateComponent = <T>() => {
+  const context = useUpdate<T>(apiUrl.component, apiUrl.components);
   return context;
 };
 

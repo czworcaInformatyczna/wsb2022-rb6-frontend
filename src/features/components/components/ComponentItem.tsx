@@ -4,9 +4,9 @@ import { useDeleteComponent, useUpdateComponent } from 'features/components';
 import { useForm } from 'react-hook-form';
 import { type IComponents } from 'features/components';
 
-export const ComponentItem = ({ id, name }: any) => {
+export const ComponentItem = ({ id, name }: IComponents) => {
   const deleteComponent = useDeleteComponent();
-  const updateComponent = useUpdateComponent();
+  const updateComponent = useUpdateComponent<IComponents>();
   const { register, handleSubmit, watch } = useForm<IComponents>();
   const watchedInput = watch('name');
   return (
@@ -30,7 +30,9 @@ export const ComponentItem = ({ id, name }: any) => {
         Delete
       </Button>
       <Button
-        onClick={handleSubmit(() => updateComponent.mutate({ id, body: { name: watchedInput } }))}
+        onClick={handleSubmit(() => {
+          if (id) updateComponent.mutate({ id, body: { name: watchedInput } });
+        })}
         color="primary"
         variant="contained"
         sx={{ ml: 1 }}
