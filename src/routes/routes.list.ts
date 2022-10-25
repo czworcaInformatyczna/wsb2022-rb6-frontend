@@ -16,7 +16,7 @@ export const apiUrl = {
   licensesCategory: '/licenses/category',
   licensesManufacturers: '/licenses/manufacturers',
   licenseInfoEdit: '/licenses/DetailsEdit',
-  getAllComponents: '/components',
+  components: '/components',
   component: '/components/:id',
 };
 

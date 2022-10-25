@@ -7,6 +7,10 @@ const queryClient = new QueryClient();
 export const getQueryClient = () => queryClient;
 
 type QueryKey = [string, object | undefined];
+interface IUpdateMutation {
+  body: Object;
+  id: string;
+}
 
 export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey>): Promise<T> => {
   const [url, params] = queryKey;
@@ -45,14 +49,19 @@ export const usePost = <T>(url: string, params?: object) => {
   return useGenericMutation<T>(async (data) => await apiClient.post(url, data), url, params);
 };
 
-export const useDelete = <T>(url: string, getUrl?: string, params?: object) => {
-  return useGenericMutation<T>(
+export const useDelete = <String>(url: string, getUrl?: string, params?: object) => {
+  return useGenericMutation<String>(
     async (id) => await apiClient.delete(convertUrl(url, { id })),
     getUrl ?? url,
     params,
   );
 };
 
-export const useUpdate = <T>(url: string, params?: object) => {
-  return useGenericMutation<T>(async (data) => await apiClient.patch<T>(url, data), url, params);
+export const useUpdate = (url: string, getUrl?: string, params?: object) => {
+  return useGenericMutation<IUpdateMutation>(
+    async (data: IUpdateMutation) =>
+      await apiClient.patch<IUpdateMutation>(convertUrl(url, { id: data.id }), data.body),
+    getUrl ?? url,
+    params,
+  );
 };
