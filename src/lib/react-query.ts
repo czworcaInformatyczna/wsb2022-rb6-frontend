@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { type AxiosError, type AxiosResponse } from 'axios';
 import { QueryClient, useMutation, useQuery, type QueryFunctionContext } from 'react-query';
+import { convertUrl } from 'utils';
 import { apiClient } from './axios';
 const queryClient = new QueryClient();
 export const getQueryClient = () => queryClient;
@@ -23,20 +24,19 @@ export const useFetch = <T>(url: string | null, params?: object) => {
 
 const useGenericMutation = <T>(
   func: (data: T) => Promise<AxiosResponse<T>>,
-  url: string,
+  getUrl: string,
   params?: object,
 ) => {
   return useMutation<AxiosResponse, AxiosError, T>(func, {
     onMutate: async () => {
-      await queryClient.cancelQueries([url!, params]);
+      await queryClient.cancelQueries([getUrl!, params]);
 
-      const previousData = queryClient.getQueryData([url!, params]);
+      const previousData = queryClient.getQueryData([getUrl!, params]);
 
       return previousData;
     },
-
-    onSettled: async () => {
-      await queryClient.invalidateQueries([url!, params]);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([getUrl!, params]);
     },
   });
 };
@@ -45,8 +45,12 @@ export const usePost = <T>(url: string, params?: object) => {
   return useGenericMutation<T>(async (data) => await apiClient.post(url, data), url, params);
 };
 
-export const useDelete = <T>(url: string, params?: object) => {
-  return useGenericMutation<T>(async (id) => await apiClient.delete(`${url}/${id}`), url, params);
+export const useDelete = <T>(url: string, getUrl?: string, params?: object) => {
+  return useGenericMutation<T>(
+    async (id) => await apiClient.delete(convertUrl(url, { id })),
+    getUrl ?? url,
+    params,
+  );
 };
 
 export const useUpdate = <T>(url: string, params?: object) => {
