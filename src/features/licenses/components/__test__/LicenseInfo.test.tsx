@@ -2,7 +2,7 @@
 import { render, screen, act } from '@testing-library/react';
 import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
-import { LicenseInfo } from '../detailsComponents/LicenseInfo';
+import { LicenseInfo } from '../DetailsComponents/LicenseInfo';
 import { fetchLicenseDetails } from './mockApiHandlers';
 
 const Provider = () => {
