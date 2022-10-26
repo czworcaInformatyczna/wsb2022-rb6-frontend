@@ -8,6 +8,7 @@ import {
   licenseEditMock,
   licenseDetailsMock,
   licenseDeploysMock,
+  assetHistory,
 } from 'mocks/mockData';
 const licenses = [
   rest.get(url(apiUrl.licenses), (req, res, ctx) => {
@@ -45,6 +46,12 @@ const licenseDeploys = [
   }),
 ];
 
+const licenseHistory = [
+  rest.get(url(apiUrl.licenseHistory), (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(assetHistory));
+  }),
+];
+
 export const licensesHandlers = [
   ...licenses,
   ...categoryOptions,
@@ -52,4 +59,5 @@ export const licensesHandlers = [
   ...licenseEdit,
   ...licenseDetails,
   ...licenseDeploys,
+  ...licenseHistory,
 ];
