@@ -4,6 +4,7 @@ import {
   licenseEditMock,
   licenseDetailsMock,
   licenseDeploysMock,
+  assetHistory,
 } from 'mocks';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
@@ -32,8 +33,17 @@ export const fetchLicenseDeployment = rest.get(url(apiUrl.licenseDeploys), (req,
   return res(ctx.status(200), ctx.json(licenseDeploysMock));
 });
 
+export const fetchLicenseHistory = rest.get(url(apiUrl.licenseHistory), (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(assetHistory));
+});
+
 export const fetchAssetEmptyResponse = rest.get(url('*'), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json([]));
 });
 
-export const handlers = [fetchLicenseCategory, fetchLicenseEditInfo, fetchAssetEmptyResponse];
+export const handlers = [
+  fetchLicenseCategory,
+  fetchLicenseEditInfo,
+  fetchAssetEmptyResponse,
+  fetchLicenseHistory,
+];

@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { routePath } from 'routes';
 import { LicenseInfo } from './detailsComponents/LicenseInfo';
 import { LicenseDeployment } from './detailsComponents/LicenseDeployment';
+import { LicenseHistory } from './detailsComponents/LicenseHistory';
 
 export const LicenseDetails = () => {
   const { id } = useParams();
@@ -67,7 +68,7 @@ export const LicenseDetails = () => {
             <LicenseDeployment id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={2}>
-            3
+            <LicenseHistory id={Number(id)} />
           </TabPanel>
         </Grid>
       </Grid>
