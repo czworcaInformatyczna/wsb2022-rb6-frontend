@@ -198,3 +198,42 @@ export const licenseDetailsMock = {
   purchaseCost: 200,
   order_number: '12312sad',
 };
+
+export const licenseDeploysMock = [
+  {
+    id: 1,
+    deployed_to: {
+      type: '',
+      name: '',
+    },
+    notes: '',
+    is_deployed: false,
+  },
+  {
+    id: 2,
+    deployed_to: {
+      type: '',
+      name: '',
+    },
+    notes: '',
+    is_deployed: false,
+  },
+  {
+    id: 3,
+    deployed_to: {
+      type: 'user',
+      name: 'user67',
+    },
+    notes: 'some info76',
+    is_deployed: true,
+  },
+  {
+    id: 4,
+    deployed_to: {
+      type: 'user',
+      name: 'user98',
+    },
+    notes: 'some info89',
+    is_deployed: true,
+  },
+];

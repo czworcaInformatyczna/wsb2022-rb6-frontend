@@ -43,6 +43,16 @@ export interface ILicenseDetails {
   purchaseCost: number;
   quantity: number;
 }
+export interface IDeployedTo {
+  name: string;
+  type: string;
+}
+export interface ILicenseDeploys {
+  deployed_to: IDeployedTo;
+  id: number;
+  is_deployed: boolean;
+  notes: string;
+}
 
 export interface ILicenseFormInput extends FieldValues {
   Category: ILicenseCategory | null;

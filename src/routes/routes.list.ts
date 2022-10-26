@@ -17,6 +17,7 @@ export const apiUrl = {
   licensesManufacturers: '/licenses/manufacturers',
   licenseInfoEdit: '/licenses/DetailsEdit',
   licenseInfo: '/licenses/Details',
+  licenseDeploys: '/licenses/Deployes',
 };
 
 export const routePath = {
