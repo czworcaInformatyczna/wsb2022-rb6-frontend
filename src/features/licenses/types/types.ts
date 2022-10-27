@@ -28,6 +28,31 @@ export interface ILicense {
   purchaseCost: number;
   quantity: number;
 }
+export interface ILicenseDetails {
+  available: number;
+  category: string;
+  deployed: number;
+  expiration_date: string;
+  id: number;
+  key: string;
+  licensed_to: string;
+  manufacturer: string;
+  name: string;
+  notes: string;
+  order_number: number;
+  purchaseCost: number;
+  quantity: number;
+}
+export interface IDeployedTo {
+  name: string;
+  type: string;
+}
+export interface ILicenseDeploys {
+  deployed_to: IDeployedTo;
+  id: number;
+  is_deployed: boolean;
+  notes: string;
+}
 
 export interface ILicenseFormInput extends FieldValues {
   Category: ILicenseCategory | null;

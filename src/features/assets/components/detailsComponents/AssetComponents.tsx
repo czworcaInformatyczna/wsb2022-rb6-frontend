@@ -3,6 +3,7 @@ import { useGetAssetsDataById } from 'features/assets/api';
 import NoResult from './noResult';
 import { apiUrl } from 'routes';
 import { type IAssetComponents } from 'features/assets/types';
+import { isArrayEmpty } from 'utils';
 
 export const AssetComponents = ({ id }: { id: number }) => {
   const { data: components } = useGetAssetsDataById<IAssetComponents[]>(
@@ -16,7 +17,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {components === undefined || components.length === 0 ? (
+      {isArrayEmpty(components) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -39,7 +40,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {components.map((license: any) => {
+                {components?.map((license: any) => {
                   return (
                     <TableRow key={license.id}>
                       <TableCell>{license.name}</TableCell>

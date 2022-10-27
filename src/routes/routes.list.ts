@@ -18,6 +18,9 @@ export const apiUrl = {
   licenseInfoEdit: '/licenses/DetailsEdit',
   components: '/components',
   component: '/components/:id',
+  licenseInfo: '/licenses/Details',
+  licenseDeploys: '/licenses/Deployes',
+  licenseHistory: '/licenses/History',
 };
 
 export const routePath = {
@@ -34,4 +37,5 @@ export const routePath = {
   addLicense: 'AddLicense',
   editLicense: 'EditLicense/:id',
   components: '/Components',
+  licenseDetails: 'LicenseDetails/:id',
 };

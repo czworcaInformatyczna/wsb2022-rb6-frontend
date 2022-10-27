@@ -2,6 +2,7 @@ import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead, Button } f
 import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetLicenses } from 'features/assets/types';
 import { apiUrl } from 'routes';
+import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
 export const AssetLicenses = ({ id }: { id: number }) => {
@@ -15,7 +16,7 @@ export const AssetLicenses = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {licenses === undefined || licenses.length === 0 ? (
+      {isArrayEmpty(licenses) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -38,7 +39,7 @@ export const AssetLicenses = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {licenses.map((license: any) => {
+                {licenses?.map((license: any) => {
                   return (
                     <TableRow key={license.id}>
                       <TableCell>{license.name}</TableCell>

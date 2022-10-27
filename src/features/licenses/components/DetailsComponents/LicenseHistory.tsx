@@ -1,19 +1,18 @@
 import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead } from '@mui/material';
 import { useGetAssetsDataById } from 'features/assets/api';
-import { type IAssetMaintenances } from 'features/assets/types';
-import NoResult from './noResult';
+import NoResult from 'features/assets/components/detailsComponents/noResult';
+import { type IAssetHistory } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { isArrayEmpty } from 'utils';
-
-export const AssetMaintenance = ({ id }: { id: number }) => {
-  const { data: maintenances } = useGetAssetsDataById<IAssetMaintenances[]>(
+export const LicenseHistory = ({ id }: { id: number }) => {
+  const { data: history } = useGetAssetsDataById<IAssetHistory[]>(
     Number(id),
-    apiUrl.assetMaintenances,
+    apiUrl.licenseHistory,
   );
 
   return (
     <Box mb={4}>
-      {isArrayEmpty(maintenances) ? (
+      {isArrayEmpty(history) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -29,23 +28,21 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
                 }}
               >
                 <TableRow>
-                  <TableCell width="20%">Title</TableCell>
-                  <TableCell width="10%">Maintenance type</TableCell>
-                  <TableCell width="10%">Start date</TableCell>
-                  <TableCell width="10%">End date</TableCell>
-                  <TableCell>User</TableCell>
+                  <TableCell width="10%">Date</TableCell>
+                  <TableCell width="10%">User</TableCell>
+                  <TableCell width="15%">Action</TableCell>
+                  <TableCell>Target</TableCell>
                   <TableCell>Notes</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {maintenances?.map((action: any) => {
+                {history?.map((action: any) => {
                   return (
                     <TableRow key={action.id}>
-                      <TableCell>{action.title}</TableCell>
-                      <TableCell>{action.maintenanceType}</TableCell>
-                      <TableCell>{action.startDate}</TableCell>
-                      <TableCell>{action.endDate}</TableCell>
+                      <TableCell>{action.date}</TableCell>
                       <TableCell>{action.user}</TableCell>
+                      <TableCell>{action.action}</TableCell>
+                      <TableCell>{action.target}</TableCell>
                       <TableCell>{action.notes}</TableCell>
                     </TableRow>
                   );
