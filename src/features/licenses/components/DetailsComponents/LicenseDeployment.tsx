@@ -3,6 +3,7 @@ import { useGetAssetsDataById } from 'features/assets/api';
 import NoResult from 'features/assets/components/detailsComponents/noResult';
 import { type ILicenseDeploys } from 'features/licenses/types';
 import { apiUrl } from 'routes';
+import { isArrayEmpty } from 'utils';
 
 export const LicenseDeployment = ({ id }: { id: number }) => {
   const { data: licenseDeploys } = useGetAssetsDataById<ILicenseDeploys[]>(
@@ -12,7 +13,7 @@ export const LicenseDeployment = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {licenseDeploys === undefined || licenseDeploys.length === 0 ? (
+      {isArrayEmpty(licenseDeploys) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -35,7 +36,7 @@ export const LicenseDeployment = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {licenseDeploys.map((deploy) => {
+                {licenseDeploys?.map((deploy) => {
                   return (
                     <TableRow key={deploy.id}>
                       <TableCell>{deploy.id}</TableCell>

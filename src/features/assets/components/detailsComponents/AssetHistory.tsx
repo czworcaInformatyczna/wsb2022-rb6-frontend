@@ -2,6 +2,7 @@ import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead } from '@mu
 import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetHistory } from 'features/assets/types';
 import { apiUrl } from 'routes';
+import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
 export const AssetHistory = ({ id }: { id: number }) => {
@@ -9,7 +10,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {history === undefined || history.length === 0 ? (
+      {isArrayEmpty(history) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -33,7 +34,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {history.map((action: any) => {
+                {history?.map((action: any) => {
                   return (
                     <TableRow key={action.id}>
                       <TableCell>{action.date}</TableCell>

@@ -3,6 +3,7 @@ import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetMaintenances } from 'features/assets/types';
 import NoResult from './noResult';
 import { apiUrl } from 'routes';
+import { isArrayEmpty } from 'utils';
 
 export const AssetMaintenance = ({ id }: { id: number }) => {
   const { data: maintenances } = useGetAssetsDataById<IAssetMaintenances[]>(
@@ -12,7 +13,7 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {maintenances === undefined || maintenances.length === 0 ? (
+      {isArrayEmpty(maintenances) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -37,7 +38,7 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {maintenances.map((action: any) => {
+                {maintenances?.map((action: any) => {
                   return (
                     <TableRow key={action.id}>
                       <TableCell>{action.title}</TableCell>

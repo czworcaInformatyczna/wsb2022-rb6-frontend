@@ -3,7 +3,7 @@ import { useGetAssetsDataById } from 'features/assets/api';
 import NoResult from 'features/assets/components/detailsComponents/noResult';
 import { type IAssetHistory } from 'features/assets/types';
 import { apiUrl } from 'routes';
-
+import { isArrayEmpty } from 'utils';
 export const LicenseHistory = ({ id }: { id: number }) => {
   const { data: history } = useGetAssetsDataById<IAssetHistory[]>(
     Number(id),
@@ -12,7 +12,7 @@ export const LicenseHistory = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {history === undefined || history.length === 0 ? (
+      {isArrayEmpty(history) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -36,7 +36,7 @@ export const LicenseHistory = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {history.map((action: any) => {
+                {history?.map((action: any) => {
                   return (
                     <TableRow key={action.id}>
                       <TableCell>{action.date}</TableCell>
