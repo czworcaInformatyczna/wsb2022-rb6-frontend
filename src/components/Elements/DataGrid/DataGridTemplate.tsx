@@ -12,7 +12,6 @@ import {
   type GridSortModel,
 } from '@mui/x-data-grid';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import testData from '../../../features/assets/api/testData.json';
 import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -48,11 +47,13 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   }, [Props.data.name]);
 
   React.useEffect(() => {
-    setRowCountState(testData.length);
-    setLoading(false);
+    if (assets !== undefined) {
+      setRowCountState(assets.total);
+      setLoading(false);
+    }
 
     getDataGridState();
-  }, [getDataGridState]);
+  }, [assets, assets?.total, getDataGridState]);
   const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
     localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
@@ -211,7 +212,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               paginationMode="server"
               rowCount={rowCountState}
               rowHeight={75}
-              rows={assets}
+              rows={assets.data}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               selectionModel={selectionModel}
               sortingMode="server"

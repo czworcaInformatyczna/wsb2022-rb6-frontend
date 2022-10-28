@@ -43,23 +43,37 @@ export interface IAsset {
   waranty: number;
 }
 export interface IAssetDetails {
-  assetTag: string;
-  category: string;
+  asset_model: {
+    asset_category_id: number;
+    asset_manufacturer_id: number;
+    category: {
+      id: number;
+      name: string;
+    };
+    id: number;
+    manufacturer: {
+      id: string;
+      name: string;
+    };
+    name: string;
+  };
   checkins: number;
   checkouts: number;
   created_at: string;
-  date_of_purchase: string;
+  current_holder: string;
+  current_holder_id: number;
   id: number | string;
-  manufacturer: string;
-  model: string;
+  image: string;
   name: string;
   notes: string;
   order_number: number | string;
-  purchase_cost: number;
+  price: number;
+  purchase_date: string;
   requests: number;
   serial: string;
-  status: string;
-  waranty: number;
+  status: number;
+  tag: string;
+  warranty: number;
 }
 
 export interface DataProviderProps {
@@ -75,10 +89,10 @@ export interface IDataProvider {
   // Add APIs object that stores api calls
 }
 export enum Statuses {
-  Archived = 'Archived',
-  Deployed = 'Deployed',
-  Maintenance = 'Maintenance',
-  ReadyToDeploy = 'Ready to deploy',
+  Archived = 0,
+  Deployed = 100,
+  Maintenance = 25,
+  ReadyToDeploy = 50,
 }
 
 export interface IAssetFormInput extends FieldValues {
