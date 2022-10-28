@@ -28,7 +28,7 @@ const assets = rest.get(url(apiUrl.assets), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(testData));
 });
 
-const details = rest.get(url(apiUrl.assetInfo), (req, res, ctx) => {
+const details = rest.get(url(apiUrl.assetInfo + 2), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetDetails));
 });
 

@@ -62,25 +62,35 @@ export const assetDetailsEdit = {
 };
 
 export const assetDetails = {
+  asset_model: {
+    asset_category_id: 1,
+    asset_manufacturer_id: 1,
+    category: {
+      id: 1,
+      name: 'PC',
+    },
+    id: 1,
+    manufacturer: {
+      id: 1,
+      name: 'Dell',
+    },
+    name: 'YYEz64GgdQ3M',
+  },
+  created_at: '2022-10-27T18:09',
+  current_holder: '',
+  current_holder_id: 1,
   id: 16,
+  image: 'path',
   name: 'asset1',
-  Serial: '1234',
-  Model: 'YYEz64GgdQ3M',
-  Manufacturer: 'Dell',
-  Category: 'PC',
-  Status: 'Ready to deploy',
-  AssetTag: '890',
-  Notes: 'some info',
-  Waranty: 61,
-  Order_number: '123',
-  Date_of_purchase: '22/02/2022',
-  Purchase_cost: 200,
-  Created_at: '22/02/2022',
-  Checkouts: 2,
-  Checkins: 2,
-  Requests: 1,
+  notes: 'some info',
+  order_number: '123',
+  price: 200,
+  purchase_date: '2022-10-27T17:09',
+  serial: '1234',
+  status: 50,
+  tag: '4234',
+  warranty: 61,
 };
-
 export const assetImage = {
   image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };
