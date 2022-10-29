@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import { CreateModal } from 'components/Elements/CreateModal';
 import { SelectInput, TextInput } from 'components/Elements/FormInputs';

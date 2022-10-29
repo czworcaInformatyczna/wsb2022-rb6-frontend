@@ -31,6 +31,17 @@ export const AddCategory = ({ isModal = false }: IsModal) => {
   };
 
   const onSubmit = async (data: ICategory) => {
+    //   await addCategory.mutateAsync(data);
+    //   console.log(addCategory.isSuccess);
+    //   if (addCategory.isSuccess) {
+    //     const variant = getVariant('success');
+    //     enqueueSnackbar('Category has been added', { variant });
+    //     reset();
+    //   }
+
+    //   if (addCategory.isError) {
+    //     console.log(addCategory.error);
+    //   }
     await addCategory
       .mutateAsync(data)
       .then((res) => {
