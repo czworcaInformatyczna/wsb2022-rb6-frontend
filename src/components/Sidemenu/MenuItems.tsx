@@ -14,6 +14,8 @@ import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CategoryIcon from '@mui/icons-material/Category';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+
 export const menuItems = [
   {
     icon: <DashboardIcon />,
@@ -51,6 +53,12 @@ export const menuItems = [
         id: 4,
         link: '/Category/Add',
         name: 'Category',
+      },
+      {
+        icon: <DevicesOtherIcon />,
+        id: 5,
+        link: '/Model/Add',
+        name: 'Model',
       },
     ],
   },

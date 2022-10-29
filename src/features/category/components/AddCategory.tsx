@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { TextInput } from 'components/Elements/FormInputs';
+import { type IsModal } from 'features/manufacturer/types';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -19,18 +20,18 @@ import { getVariant } from 'utils';
 import { useAddCategory } from '../api';
 import { type ICategory } from '../types';
 
-export const AddCategory = () => {
+export const AddCategory = ({ isModal = false }: IsModal) => {
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm<ICategory>();
   const { handleSubmit, setError, reset } = methods;
   const [url, setUrl] = useState<string>(apiUrl.addAssetCategory);
-  const addManufacturer = useAddCategory<ICategory>(url);
+  const addCategory = useAddCategory<ICategory>(url);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl((event.target as HTMLInputElement).value);
   };
 
   const onSubmit = async (data: ICategory) => {
-    await addManufacturer
+    await addCategory
       .mutateAsync(data)
       .then((res) => {
         if (res.status === 200) {
@@ -57,7 +58,7 @@ export const AddCategory = () => {
     <Box
       alignSelf="center"
       sx={{
-        width: { lg: '60%', xs: '100%' },
+        width: isModal ? '100%' : { lg: '60%', xs: '100%' },
         flexGrow: 0,
         backgroundColor: 'background.paper',
         boxShadow: 1,

@@ -14,6 +14,7 @@ import { Components } from 'features/components';
 import { LicenseDetails } from 'features/licenses/components/LicenseDetails';
 import { AddManufacturer } from 'features/manufacturer/components/AddManufacturer';
 import { AddCategory } from 'features/category/components/AddCategory';
+import { AddModel } from 'features/model/components/AddModel';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -34,6 +35,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
         <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
         <Route element={<AddCategory />} path={routePath.addCategory} />
+        <Route element={<AddModel />} path={routePath.addModel} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

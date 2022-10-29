@@ -1,43 +1,46 @@
-import {
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
-
-import { TextInput } from 'components/Elements/FormInputs';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
+import { CreateModal } from 'components/Elements/CreateModal';
+import { SelectInput, TextInput } from 'components/Elements/FormInputs';
+import { AddCategory } from 'features/category/components/AddCategory';
+import { AddManufacturer } from 'features/manufacturer/components/AddManufacturer';
+import { type IsModal } from 'features/manufacturer/types';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { apiUrl } from 'routes';
 import { getVariant } from 'utils';
-import { useAddManufacturer } from '../api';
-import { type IsModal, type IManufacturer } from '../types';
+import { useAddModel, useGetCategory, useGetManufacturer } from '../api';
+import { type IModelForm, type IModel } from '../types';
 
-export const AddManufacturer = ({ isModal = false }: IsModal) => {
+export const AddModel = ({ isModal = false }: IsModal) => {
   const { enqueueSnackbar } = useSnackbar();
-  const methods = useForm<IManufacturer>();
+  const methods = useForm<IModelForm>();
   const { handleSubmit, setError, reset } = methods;
-  const [url, setUrl] = useState<string>(apiUrl.addAssetManufacturer);
-  const addManufacturer = useAddManufacturer<IManufacturer>(url);
+  const addModel = useAddModel<IModel>(apiUrl.addAssetModel);
+  const { data: manufacturerOptions } = useGetManufacturer();
+  const { data: categoryOptions } = useGetCategory();
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl((event.target as HTMLInputElement).value);
+  const openModal = (content: JSX.Element) => {
+    setModalContent(content);
+    setOpen(true);
   };
 
-  const onSubmit = async (data: IManufacturer) => {
-    await addManufacturer
-      .mutateAsync(data)
+  const onSubmit = async (data: IModelForm) => {
+    const tempData = {
+      ...data,
+      asset_manufacturer_id: data.asset_manufacturer_id.id,
+      asset_category_id: data.asset_category_id.id,
+    };
+
+    await addModel
+      .mutateAsync(tempData)
       .then((res) => {
         if (res.status === 200) {
           const variant = getVariant('success');
-          enqueueSnackbar('Manufacturer has been added', { variant });
+          enqueueSnackbar('Model has been added', { variant });
           reset();
         }
 
@@ -67,10 +70,11 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
         marginTop: 2,
       }}
     >
+      <CreateModal open={open} setOpen={setOpen} content={modalContent} />
       <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <Typography ml={2} variant="h4">
-            Add manufacturer
+            Add Model
           </Typography>
         </Grid>
       </Grid>
@@ -83,35 +87,21 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
           }}
         >
           <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
-            <Grid
-              item
-              lg={12}
-              md={12}
-              sm={12}
-              xl={12}
-              xs={12}
-              display="flex"
-              justifyContent="center"
-            >
-              <FormControl>
-                <FormLabel id="manufacturer-radio-group">Type</FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={url}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value={apiUrl.addAssetManufacturer}
-                    control={<Radio />}
-                    label="Asset"
-                  />
-                  <FormControlLabel disabled value="License" control={<Radio />} label="License" />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
             <TextInput label="Name" name="name" rules={{ required: 'Required value' }} />
+            <SelectInput
+              label="Manufacturer"
+              name="asset_manufacturer_id"
+              options={manufacturerOptions ? manufacturerOptions : []}
+              modalContent={<AddManufacturer isModal />}
+              openModal={openModal}
+            />
+            <SelectInput
+              label="Category"
+              name="asset_category_id"
+              options={categoryOptions ? categoryOptions : []}
+              modalContent={<AddCategory isModal />}
+              openModal={openModal}
+            />
             <Grid
               alignContent="center"
               display="flex"

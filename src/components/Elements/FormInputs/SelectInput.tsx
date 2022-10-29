@@ -1,21 +1,29 @@
 import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-import { CreateModal } from '../CreateModal';
-import { useState } from 'react';
+
 import { type IInputProps } from 'features/assets';
 
 export interface ISelectInput extends IInputProps {
   containsImg?: boolean;
+  modalContent: JSX.Element;
+  openModal: (content: JSX.Element) => void;
   options: any[];
 }
 
-export const SelectInput = ({ name, label, containsImg, options }: ISelectInput) => {
+export const SelectInput = ({
+  name,
+  label,
+  containsImg,
+  options,
+  modalContent,
+  openModal,
+}: ISelectInput) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
-  const [open, setOpen] = useState(false);
+
   const error = errors[name];
 
   return (
@@ -92,19 +100,13 @@ export const SelectInput = ({ name, label, containsImg, options }: ISelectInput)
             maxHeight: '40px',
           }}
           onClick={() => {
-            setOpen(true);
+            openModal(modalContent);
           }}
           variant="contained"
         >
           Create
         </Button>
       </Grid>
-      <CreateModal
-        open={open}
-        setOpen={setOpen}
-        title="modal title"
-        textContent="Example modal text content"
-      />
     </Grid>
   );
 };

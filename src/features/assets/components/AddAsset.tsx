@@ -31,6 +31,8 @@ import { useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
+import { AddModel } from 'features/model/components/AddModel';
+import { CreateModal } from 'components/Elements/CreateModal';
 
 const AddAsset = () => {
   const methods = useForm<IAssetFormInput>();
@@ -46,6 +48,14 @@ const AddAsset = () => {
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
+  };
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
+
+  const openModal = (content: JSX.Element) => {
+    setModalContent(content);
+    setOpen(true);
   };
 
   const setValues = useCallback(
@@ -127,7 +137,7 @@ const AddAsset = () => {
       {loading && <LoadingScreen displayText />}
       {!loading && (
         <Box>
-          {' '}
+          <CreateModal open={open} setOpen={setOpen} content={modalContent} />
           <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
             <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
               <Typography ml={2} variant="h4">
@@ -175,11 +185,15 @@ const AddAsset = () => {
                   name="Model"
                   containsImg
                   options={modelOptions ? modelOptions : []}
+                  modalContent={<AddModel isModal />}
+                  openModal={openModal}
                 />
                 <SelectInput
                   label="Status"
                   name="Status"
                   options={statusOptions ? statusOptions : []}
+                  modalContent={<div>Placeholder</div>}
+                  openModal={openModal}
                 />
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
