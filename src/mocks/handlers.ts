@@ -3,6 +3,7 @@ import {
   loginHandlers,
   licensesHandlers,
   componentsHandlers,
+  manufacturerHandlers,
 } from 'mocks/featureHandlers';
 
 export const handlers = [
@@ -10,4 +11,5 @@ export const handlers = [
   ...loginHandlers,
   ...licensesHandlers,
   ...componentsHandlers,
+  ...manufacturerHandlers,
 ];

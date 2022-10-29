@@ -3,7 +3,6 @@ import AddIcon from '@mui/icons-material/Add';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
-import CableIcon from '@mui/icons-material/Cable';
 import CableOutlinedIcon from '@mui/icons-material/CableOutlined';
 import CheckIcon from '@mui/icons-material/Check';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,6 +12,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined';
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
+import ConstructionIcon from '@mui/icons-material/Construction';
 
 export const menuItems = [
   {
@@ -35,16 +35,16 @@ export const menuItems = [
         name: 'Asset',
       },
       {
-        icon: <CableIcon />,
+        icon: <StickyNote2OutlinedIcon />,
         id: 2,
         link: '/AddLicense',
         name: 'License',
       },
       {
-        icon: <CableIcon />,
-        id: 1,
-        link: '/AddAccessories',
-        name: 'Accessories',
+        icon: <ConstructionIcon />,
+        id: 3,
+        link: '/Manufacturer/Add',
+        name: 'Manufacturer',
       },
     ],
   },
