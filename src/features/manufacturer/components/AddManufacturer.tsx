@@ -11,24 +11,46 @@ import {
   Typography,
 } from '@mui/material';
 import { TextInput } from 'components/Elements/FormInputs';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { apiUrl } from 'routes';
+import { getVariant } from 'utils';
 import { useAddManufacturer } from '../api';
 import { type IManufacturer } from '../types';
 
 export const AddManufacturer = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm<IManufacturer>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, setError, reset } = methods;
   const [url, setUrl] = useState<string>(apiUrl.addAssetManufacturer);
   const addManufacturer = useAddManufacturer<IManufacturer>(url);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl((event.target as HTMLInputElement).value);
   };
 
-  const onSubmit = (data: IManufacturer) => {
-    addManufacturer.mutate(data);
+  const onSubmit = async (data: IManufacturer) => {
+    await addManufacturer
+      .mutateAsync(data)
+      .then((res) => {
+        if (res.status === 200) {
+          const variant = getVariant('success');
+          enqueueSnackbar('Manufacturer has been added', { variant });
+          reset();
+        }
+
+        return null;
+      })
+      .catch((err) => {
+        setError(
+          'name',
+          {
+            type: 'server',
+            message: err.response.data.message,
+          },
+          { shouldFocus: false },
+        );
+      });
   };
 
   return (
