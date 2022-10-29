@@ -13,7 +13,7 @@ import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined';
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
-
+import CategoryIcon from '@mui/icons-material/Category';
 export const menuItems = [
   {
     icon: <DashboardIcon />,
@@ -45,6 +45,12 @@ export const menuItems = [
         id: 3,
         link: '/Manufacturer/Add',
         name: 'Manufacturer',
+      },
+      {
+        icon: <CategoryIcon />,
+        id: 4,
+        link: '/Category/Add',
+        name: 'Category',
       },
     ],
   },

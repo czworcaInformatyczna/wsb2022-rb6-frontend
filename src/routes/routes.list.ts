@@ -22,6 +22,7 @@ export const apiUrl = {
   licenseDeploys: '/licenses/Deployes',
   licenseHistory: '/licenses/History',
   addAssetManufacturer: '/asset_manufacturer',
+  addAssetCategory: '/asset_category',
 };
 
 export const routePath = {
@@ -40,4 +41,5 @@ export const routePath = {
   components: '/Components',
   licenseDetails: 'LicenseDetails/:id',
   addManufacturer: '/Manufacturer/Add',
+  addCategory: '/Category/Add',
 };
