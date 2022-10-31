@@ -18,6 +18,7 @@ export const apiUrl = {
   licenseInfoEdit: '/licenses/DetailsEdit',
   components: '/components',
   component: '/components/:id',
+  statistics: '/statistics',
 };
 
 export const routePath = {
