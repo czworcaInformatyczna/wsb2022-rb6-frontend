@@ -2,7 +2,6 @@
 import { Bar } from '@ant-design/plots';
 
 export const BarChart = ({ data }) => {
-  console.log(data);
   const config = {
     data,
     xField: 'value',
