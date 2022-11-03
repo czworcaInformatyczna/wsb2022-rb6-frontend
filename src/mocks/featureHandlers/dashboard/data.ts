@@ -1,209 +1,134 @@
 const barData = [
   {
-    country: 'Asia',
-    year: '1750',
-    value: 502,
-  },
-  {
-    country: 'Asia',
-    year: '1800',
-    value: 635,
-  },
-  {
-    country: 'Asia',
-    year: '1850',
-    value: 809,
-  },
-  {
-    country: 'Asia',
-    year: '1900',
+    country: 'Warsaw',
+    year: '2018',
     value: 947,
   },
   {
-    country: 'Asia',
-    year: '1950',
+    country: 'Warsaw',
+    year: '2019',
     value: 1402,
   },
   {
-    country: 'Asia',
-    year: '1999',
+    country: 'Warsaw',
+    year: '2020',
     value: 3634,
   },
   {
-    country: 'Asia',
-    year: '2050',
+    country: 'Warsaw',
+    year: '2021',
     value: 5268,
   },
+
   {
-    country: 'Africa',
-    year: '1750',
-    value: 106,
-  },
-  {
-    country: 'Africa',
-    year: '1800',
-    value: 107,
-  },
-  {
-    country: 'Africa',
-    year: '1850',
-    value: 111,
-  },
-  {
-    country: 'Africa',
-    year: '1900',
+    country: 'Wroclaw',
+    year: '2018',
     value: 133,
   },
   {
-    country: 'Africa',
-    year: '1950',
+    country: 'Wroclaw',
+    year: '2019',
     value: 221,
   },
   {
-    country: 'Africa',
-    year: '1999',
+    country: 'Wroclaw',
+    year: '2020',
     value: 767,
   },
   {
-    country: 'Africa',
-    year: '2050',
+    country: 'Wroclaw',
+    year: '2021',
     value: 1766,
   },
+
   {
-    country: 'Europe',
-    year: '1750',
-    value: 163,
-  },
-  {
-    country: 'Europe',
-    year: '1800',
-    value: 203,
-  },
-  {
-    country: 'Europe',
-    year: '1850',
-    value: 276,
-  },
-  {
-    country: 'Europe',
-    year: '1900',
+    country: 'Poznan',
+    year: '2018',
     value: 408,
   },
   {
-    country: 'Europe',
-    year: '1950',
+    country: 'Poznan',
+    year: '2019',
     value: 547,
   },
   {
-    country: 'Europe',
-    year: '1999',
+    country: 'Poznan',
+    year: '2020',
     value: 729,
   },
   {
-    country: 'Europe',
-    year: '2050',
+    country: 'Poznan',
+    year: '2021',
     value: 628,
   },
 ];
 
 const donutData = [
   {
-    type: '分类一',
+    type: 'Ready to deploy',
     value: 27,
   },
   {
-    type: '分类二',
+    type: 'Deployed',
     value: 25,
   },
   {
-    type: '分类三',
+    type: 'Maintenance',
     value: 18,
   },
   {
-    type: '分类四',
+    type: 'Archived',
     value: 15,
-  },
-  {
-    type: '分类五',
-    value: 10,
-  },
-  {
-    type: '其他',
-    value: 5,
   },
 ];
 
 const lineData = [
   {
-    year: '1991',
-    value: 3,
+    year: '2018',
+    value: 40,
   },
   {
-    year: '1992',
-    value: 4,
+    year: '2019',
+    value: 70,
   },
   {
-    year: '1993',
-    value: 3.5,
+    year: '2020',
+    value: 120,
   },
   {
-    year: '1994',
-    value: 5,
-  },
-  {
-    year: '1995',
-    value: 4.9,
-  },
-  {
-    year: '1996',
-    value: 6,
-  },
-  {
-    year: '1997',
-    value: 7,
-  },
-  {
-    year: '1998',
-    value: 9,
-  },
-  {
-    year: '1999',
-    value: 13,
+    year: '2021',
+    value: 200,
   },
 ];
 
 const columnData = [
   {
-    type: '家具家电',
-    sales: 38,
+    type: 'Laptops',
+    sales: 400,
   },
   {
-    type: '粮油副食',
+    type: 'Desktops',
     sales: 52,
   },
   {
-    type: '生鲜水果',
+    type: 'Mobile Phones',
     sales: 61,
   },
   {
-    type: '美容洗护',
+    type: 'Displays',
     sales: 145,
   },
   {
-    type: '母婴用品',
+    type: 'Tablets',
     sales: 48,
   },
   {
-    type: '进口食品',
-    sales: 38,
+    type: 'Keyboards',
+    sales: 350,
   },
   {
-    type: '食品饮料',
-    sales: 38,
-  },
-  {
-    type: '家庭清洁',
-    sales: 38,
+    type: 'Mouse',
+    sales: 380,
   },
 ];
 export const statisticsData = { barData, donutData, lineData, columnData };

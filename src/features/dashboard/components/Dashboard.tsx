@@ -18,10 +18,10 @@ export const Dashboard = () => {
 
   if (data) {
     dashboardItems = [
-      { title: 'Donut', chart: <DonutChart data={data.donutData} /> },
-      { title: 'Bar', chart: <BarChart data={data.barData} /> },
-      { title: 'Linechart', chart: <LineChart data={data.lineData} /> },
-      { title: 'ColumnChart', chart: <ColumnChart data={data.columnData} /> },
+      { title: 'Statuses', chart: <DonutChart data={data.donutData} /> },
+      { title: 'Asset location', chart: <BarChart data={data.barData} /> },
+      { title: 'Number of active users', chart: <LineChart data={data.lineData} /> },
+      { title: 'Asset Categories', chart: <ColumnChart data={data.columnData} /> },
     ];
   }
 
