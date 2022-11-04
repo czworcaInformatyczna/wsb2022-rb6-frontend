@@ -21,6 +21,11 @@ export const apiUrl = {
   licenseInfo: '/licenses/Details',
   licenseDeploys: '/licenses/Deployes',
   licenseHistory: '/licenses/History',
+  addAssetManufacturer: '/asset_manufacturer',
+  addAssetCategory: '/asset_category',
+  addAssetModel: '/asset_model',
+  manufacturerList: '/asset_manufacturer',
+  categoryList: '/asset_category',
 };
 
 export const routePath = {
@@ -38,4 +43,7 @@ export const routePath = {
   editLicense: 'EditLicense/:id',
   components: '/Components',
   licenseDetails: 'LicenseDetails/:id',
+  addManufacturer: '/Manufacturer/Add',
+  addCategory: '/Category/Add',
+  addModel: '/Model/Add',
 };

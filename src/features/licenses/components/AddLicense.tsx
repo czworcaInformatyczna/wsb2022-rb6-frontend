@@ -26,6 +26,9 @@ import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
 import { useGetCategoryOptions, useGetManufacturerOptions } from '../api';
+import { AddCategory } from 'features/category/components/AddCategory';
+import { AddManufacturer } from 'features/manufacturer/components/AddManufacturer';
+import { CreateModal } from 'components/Elements/CreateModal';
 
 const AddLicense = () => {
   const methods = useForm<ILicenseFormInput>();
@@ -41,6 +44,14 @@ const AddLicense = () => {
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
+  };
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
+
+  const openModal = (content: JSX.Element) => {
+    setModalContent(content);
+    setOpen(true);
   };
 
   const setValues = useCallback(
@@ -130,7 +141,7 @@ const AddLicense = () => {
       {loading && <LoadingScreen displayText />}
       {!loading && (
         <Box>
-          {' '}
+          <CreateModal open={open} setOpen={setOpen} content={modalContent} />
           <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
             <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
               <Typography ml={2} variant="h4">
@@ -173,6 +184,8 @@ const AddLicense = () => {
                   label="Category"
                   name="Category"
                   options={categoryOptions ? categoryOptions : []}
+                  modalContent={<AddCategory isModal />}
+                  openModal={openModal}
                 />
                 <TextInput
                   label="Quantity"
@@ -185,6 +198,8 @@ const AddLicense = () => {
                   label="Manufacturer"
                   name="Manufacturer"
                   options={manufacturerOptions ? manufacturerOptions : []}
+                  modalContent={<AddManufacturer isModal />}
+                  openModal={openModal}
                 />
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
