@@ -26,6 +26,7 @@ export const apiUrl = {
   addAssetModel: '/asset_model',
   manufacturerList: '/asset_manufacturer',
   categoryList: '/asset_category',
+  statistics: '/statistics',
 };
 
 export const routePath = {

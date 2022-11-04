@@ -3,6 +3,7 @@ import {
   loginHandlers,
   licensesHandlers,
   componentsHandlers,
+  dashboardHandlers,
   manufacturerHandlers,
   categoryHandlers,
   modelHandlers,
@@ -16,4 +17,5 @@ export const handlers = [
   ...manufacturerHandlers,
   ...categoryHandlers,
   ...modelHandlers,
+  ...dashboardHandlers,
 ];
