@@ -1,12 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { Grid } from '@mui/material';
-import { ColumnChart } from 'components/Charts/Column/ColumnChart';
-import { LineChart } from 'components/Charts/Line/LineChart';
-import { BarChart } from 'components/Charts/Bar/BarChart';
-import { DonutChart } from 'components/Charts/Donut/DonutChart';
-import { useGetStatistics } from 'features/dashboard';
-import { DashboardItem } from 'features/dashboard';
-
+import { ColumnChart, LineChart, BarChart, DonutChart } from 'components/Charts';
+import { DashboardItem, statutChartConfig, useGetStatistics } from 'features/dashboard';
 interface IDashboardItems {
   chart: JSX.Element;
   title: string;
@@ -18,7 +13,10 @@ export const Dashboard = () => {
 
   if (data) {
     dashboardItems = [
-      { title: 'Statuses', chart: <DonutChart data={data.donutData} /> },
+      {
+        title: 'Statuses',
+        chart: <DonutChart data={data.donutData} config={statutChartConfig} />,
+      },
       { title: 'Asset location', chart: <BarChart data={data.barData} /> },
       { title: 'Number of active users', chart: <LineChart data={data.lineData} /> },
       { title: 'Asset Categories', chart: <ColumnChart data={data.columnData} /> },

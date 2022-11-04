@@ -1,14 +1,12 @@
+import { type LineConfig } from '@ant-design/charts';
 import { Line } from '@ant-design/plots';
-import { type LineData } from 'features/dashboard';
+import { type ChartData } from 'features/dashboard';
+import { type IChart } from 'components/Charts';
 
-interface LineChartData {
-  data?: LineData[];
-}
-
-export const LineChart = ({ data = [] }: LineChartData) => {
-  const config = {
+export const LineChart = ({ data = [], config = {} }: IChart<ChartData, LineConfig>) => {
+  const defaultConfig = {
     data,
-    xField: 'year',
+    xField: 'label',
     yField: 'value',
     label: {},
     point: {
@@ -38,5 +36,5 @@ export const LineChart = ({ data = [] }: LineChartData) => {
       },
     ],
   };
-  return <Line {...config} />;
+  return <Line {...{ ...defaultConfig, ...config }} />;
 };

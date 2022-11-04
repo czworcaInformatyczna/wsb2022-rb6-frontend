@@ -1,14 +1,13 @@
+import { type ColumnConfig } from '@ant-design/charts';
 import { Column } from '@ant-design/plots';
-import { type ColumnData } from 'features/dashboard';
+import { type ChartData } from 'features/dashboard';
+import { type IChart } from 'components/Charts';
 
-interface ColumnChartData {
-  data: ColumnData[];
-}
-export const ColumnChart = ({ data }: ColumnChartData) => {
-  const config = {
+export const ColumnChart = ({ data, config = {} }: IChart<ChartData, ColumnConfig>) => {
+  const defaultConfig = {
     data,
-    xField: 'type',
-    yField: 'sales',
+    xField: 'label',
+    yField: 'value',
     label: {
       style: {
         fill: '#FFFFFF',
@@ -25,10 +24,10 @@ export const ColumnChart = ({ data }: ColumnChartData) => {
       type: {
         alias: 'type',
       },
-      sales: {
-        alias: 'sales',
+      value: {
+        alias: 'value',
       },
     },
   };
-  return <Column {...config} />;
+  return <Column {...{ ...defaultConfig, ...config }} />;
 };

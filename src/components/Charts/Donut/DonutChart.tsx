@@ -1,7 +1,9 @@
+import { type PieConfig } from '@ant-design/charts';
 import { Pie, measureTextWidth } from '@ant-design/plots';
-// import { type IDonutData } from 'features/dashboard';
+import { type ChartData } from 'features/dashboard';
+import { type IChart } from 'components/Charts';
 
-export const DonutChart = ({ data }: any) => {
+export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) => {
   function renderStatistic(containerWidth: any, text: any, style: any) {
     const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
     const R = containerWidth / 2; // r^2 = (w / 2)^2 + (h - offsetY)^2
@@ -23,11 +25,12 @@ export const DonutChart = ({ data }: any) => {
     };">${text}</div>`;
   }
 
-  const config = {
+  const defaultConfig = {
     appendPadding: 10,
     data,
     angleField: 'value',
-    colorField: 'type',
+    colorField: 'label',
+
     radius: 1,
     innerRadius: 0.64,
     meta: {
@@ -85,5 +88,6 @@ export const DonutChart = ({ data }: any) => {
       },
     ],
   };
-  return <Pie {...config} />;
+
+  return <Pie {...{ ...defaultConfig, ...config }} />;
 };

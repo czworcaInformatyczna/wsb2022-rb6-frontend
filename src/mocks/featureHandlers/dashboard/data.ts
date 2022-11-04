@@ -1,134 +1,134 @@
 const barData = [
   {
-    country: 'Warsaw',
-    year: '2018',
+    secondLabel: 'Warsaw',
+    label: '2018',
     value: 947,
   },
   {
-    country: 'Warsaw',
-    year: '2019',
+    secondLabel: 'Warsaw',
+    label: '2019',
     value: 1402,
   },
   {
-    country: 'Warsaw',
-    year: '2020',
+    secondLabel: 'Warsaw',
+    label: '2020',
     value: 3634,
   },
   {
-    country: 'Warsaw',
-    year: '2021',
+    secondLabel: 'Warsaw',
+    label: '2021',
     value: 5268,
   },
 
   {
-    country: 'Wroclaw',
-    year: '2018',
+    secondLabel: 'Wroclaw',
+    label: '2018',
     value: 133,
   },
   {
-    country: 'Wroclaw',
-    year: '2019',
+    secondLabel: 'Wroclaw',
+    label: '2019',
     value: 221,
   },
   {
-    country: 'Wroclaw',
-    year: '2020',
+    secondLabel: 'Wroclaw',
+    label: '2020',
     value: 767,
   },
   {
-    country: 'Wroclaw',
-    year: '2021',
+    secondLabel: 'Wroclaw',
+    label: '2021',
     value: 1766,
   },
 
   {
-    country: 'Poznan',
-    year: '2018',
+    secondLabel: 'Poznan',
+    label: '2018',
     value: 408,
   },
   {
-    country: 'Poznan',
-    year: '2019',
+    secondLabel: 'Poznan',
+    label: '2019',
     value: 547,
   },
   {
-    country: 'Poznan',
-    year: '2020',
+    secondLabel: 'Poznan',
+    label: '2020',
     value: 729,
   },
   {
-    country: 'Poznan',
-    year: '2021',
+    secondLabel: 'Poznan',
+    label: '2021',
     value: 628,
   },
 ];
 
 const donutData = [
   {
-    type: 'Ready to deploy',
+    label: 'Ready to deploy',
     value: 27,
   },
   {
-    type: 'Deployed',
+    label: 'Deployed',
     value: 25,
   },
   {
-    type: 'Maintenance',
+    label: 'Maintenance',
     value: 18,
   },
   {
-    type: 'Archived',
+    label: 'Archived',
     value: 15,
   },
 ];
 
 const lineData = [
   {
-    year: '2018',
+    label: '2018',
     value: 40,
   },
   {
-    year: '2019',
+    label: '2019',
     value: 70,
   },
   {
-    year: '2020',
+    label: '2020',
     value: 120,
   },
   {
-    year: '2021',
+    label: '2021',
     value: 200,
   },
 ];
 
 const columnData = [
   {
-    type: 'Laptops',
-    sales: 400,
+    label: 'Laptops',
+    value: 400,
   },
   {
-    type: 'Desktops',
-    sales: 52,
+    label: 'Desktops',
+    value: 52,
   },
   {
-    type: 'Mobile Phones',
-    sales: 61,
+    label: 'Mobile Phones',
+    value: 61,
   },
   {
-    type: 'Displays',
-    sales: 145,
+    label: 'Displays',
+    value: 145,
   },
   {
-    type: 'Tablets',
-    sales: 48,
+    label: 'Tablets',
+    value: 48,
   },
   {
-    type: 'Keyboards',
-    sales: 350,
+    label: 'Keyboards',
+    value: 350,
   },
   {
-    type: 'Mouse',
-    sales: 380,
+    label: 'Mouse',
+    value: 380,
   },
 ];
 export const statisticsData = { barData, donutData, lineData, columnData };
