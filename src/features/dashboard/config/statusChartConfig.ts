@@ -1,6 +1,6 @@
 import { Statuses } from 'features/assets';
 
-export const statutChartConfig = {
+export const statusChartConfig = {
   color: ({ label }: any) => {
     switch (label) {
       case Statuses.Archived:

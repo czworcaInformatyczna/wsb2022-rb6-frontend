@@ -11,7 +11,6 @@ export const BarChart = ({ data, config = {} }: IChart<ExtendedChartData, BarCon
     seriesField: 'secondLabel',
     isPercent: true,
     isStack: true,
-
     label: {
       position: 'middle',
       content: (item: any) => {

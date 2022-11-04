@@ -1,7 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import { Grid } from '@mui/material';
 import { ColumnChart, LineChart, BarChart, DonutChart } from 'components/Charts';
-import { DashboardItem, statutChartConfig, useGetStatistics } from 'features/dashboard';
+import {
+  DashboardItem,
+  statusChartConfig,
+  useGetStatistics,
+  assetCategoriesConfig,
+  activeUsersConfig,
+} from 'features/dashboard';
 interface IDashboardItems {
   chart: JSX.Element;
   title: string;
@@ -15,11 +21,17 @@ export const Dashboard = () => {
     dashboardItems = [
       {
         title: 'Statuses',
-        chart: <DonutChart data={data.donutData} config={statutChartConfig} />,
+        chart: <DonutChart data={data.donutData} config={statusChartConfig} />,
       },
       { title: 'Asset location', chart: <BarChart data={data.barData} /> },
-      { title: 'Number of active users', chart: <LineChart data={data.lineData} /> },
-      { title: 'Asset Categories', chart: <ColumnChart data={data.columnData} /> },
+      {
+        title: 'Number of active users',
+        chart: <LineChart data={data.lineData} config={activeUsersConfig} />,
+      },
+      {
+        title: 'Asset Categories',
+        chart: <ColumnChart data={data.columnData} config={assetCategoriesConfig} />,
+      },
     ];
   }
 

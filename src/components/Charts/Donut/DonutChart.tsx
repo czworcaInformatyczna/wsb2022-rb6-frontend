@@ -2,9 +2,11 @@ import { type PieConfig } from '@ant-design/charts';
 import { Pie, measureTextWidth } from '@ant-design/plots';
 import { type ChartData } from 'features/dashboard';
 import { type IChart } from 'components/Charts';
+import { useTheme } from '@mui/material/styles';
 
 export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) => {
-  function renderStatistic(containerWidth: any, text: any, style: any) {
+  const theme = useTheme();
+  const renderStatistic = (containerWidth: any, text: any, style: any) => {
     const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
     const R = containerWidth / 2; // r^2 = (w / 2)^2 + (h - offsetY)^2
 
@@ -19,11 +21,13 @@ export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) 
       );
     }
 
-    const textStyleStr = `width:${containerWidth}px; color:white`;
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    const textStyleStr = `width:${containerWidth}px; color:${theme.palette.text.primary}`;
+
     return `<div style="${textStyleStr};font-size:${scale}em;line-height:${
       scale < 1 ? 1 : 'inherit'
     };">${text}</div>`;
-  }
+  };
 
   const defaultConfig = {
     appendPadding: 10,
@@ -50,10 +54,10 @@ export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) 
     statistic: {
       title: {
         offsetY: -4,
-        customHtml: (container: any, view: any, datum: any) => {
+        customHtml: (container: any, view: any, datum: ChartData | undefined) => {
           const { width, height } = container.getBoundingClientRect();
           const d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
-          const text = datum ? datum.type : 'All';
+          const text = datum ? datum.label : 'All';
           return renderStatistic(d, text, {
             fontSize: 28,
           });
@@ -64,7 +68,7 @@ export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) 
         style: {
           fontSize: '32px',
         },
-        customHtml: (container: any, view: any, datum: any, dataT: any) => {
+        customHtml: (container: HTMLElement, view: any, datum: any, dataT: any) => {
           const { width } = container.getBoundingClientRect();
           const text = datum
             ? `${datum.value}`
@@ -89,5 +93,5 @@ export const DonutChart = ({ data, config = {} }: IChart<ChartData, PieConfig>) 
     ],
   };
 
-  return <Pie {...{ ...defaultConfig, ...config }} />;
+  return <Pie {...{ ...(defaultConfig as PieConfig), ...config }} />;
 };
