@@ -4,6 +4,9 @@ import {
   licensesHandlers,
   componentsHandlers,
   dashboardHandlers,
+  manufacturerHandlers,
+  categoryHandlers,
+  modelHandlers,
 } from 'mocks/featureHandlers';
 
 export const handlers = [
@@ -11,5 +14,8 @@ export const handlers = [
   ...loginHandlers,
   ...licensesHandlers,
   ...componentsHandlers,
+  ...manufacturerHandlers,
+  ...categoryHandlers,
+  ...modelHandlers,
   ...dashboardHandlers,
 ];

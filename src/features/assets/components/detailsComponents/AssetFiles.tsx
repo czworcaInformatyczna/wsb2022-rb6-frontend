@@ -2,6 +2,7 @@ import { Box, Table, TableBody, TableRow, TableCell, Grid, TableHead, Button } f
 import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetFiles } from 'features/assets/types';
 import { apiUrl } from 'routes';
+import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
 export const AssetFiles = ({ id }: { id: number }) => {
@@ -9,7 +10,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      {files === undefined || files.length === 0 ? (
+      {isArrayEmpty(files) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -33,7 +34,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {files.map((file: any) => {
+                {files?.map((file: any) => {
                   return (
                     <TableRow key={file.id}>
                       <TableCell width="30%">{file.name}</TableCell>

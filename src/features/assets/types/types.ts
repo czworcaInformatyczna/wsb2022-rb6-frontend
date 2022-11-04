@@ -58,7 +58,7 @@ export interface IAssetDetails {
   purchase_cost: number;
   requests: number;
   serial: string;
-  status: string;
+  status: number;
   waranty: number;
 }
 

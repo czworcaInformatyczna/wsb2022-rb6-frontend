@@ -13,7 +13,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
   );
   const { data: assetQRCode } = useGetAssetsDataById<{ qrCode: string }>(
     Number(id),
-    apiUrl.assetImage,
+    apiUrl.assetQRCode,
   );
 
   const formatObjectKey = (key: string) => {
