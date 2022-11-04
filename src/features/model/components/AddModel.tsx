@@ -34,27 +34,17 @@ export const AddModel = ({ isModal = false }: IsModal) => {
       asset_category_id: data.asset_category_id.id,
     };
 
-    await addModel
-      .mutateAsync(tempData)
-      .then((res) => {
-        if (res.status === 200) {
-          const variant = getVariant('success');
-          enqueueSnackbar('Model has been added', { variant });
-          reset();
-        }
-
-        return null;
-      })
-      .catch((err) => {
-        setError(
-          'name',
-          {
-            type: 'server',
-            message: err.response.data.message,
-          },
-          { shouldFocus: false },
-        );
-      });
+    addModel.mutate(tempData, {
+      onSuccess: () => {
+        const variant = getVariant('success');
+        enqueueSnackbar('Model has been added', { variant });
+        reset();
+      },
+      onError(error) {
+        const e: { message: string } = error.response?.data as { message: string };
+        setError('name', { type: 'server', message: e.message }, { shouldFocus: false });
+      },
+    });
   };
 
   return (

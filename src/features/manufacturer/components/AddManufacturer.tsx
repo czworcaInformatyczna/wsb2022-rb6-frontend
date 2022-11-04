@@ -32,27 +32,17 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
   };
 
   const onSubmit = async (data: IManufacturer) => {
-    await addManufacturer
-      .mutateAsync(data)
-      .then((res) => {
-        if (res.status === 200) {
-          const variant = getVariant('success');
-          enqueueSnackbar('Manufacturer has been added', { variant });
-          reset();
-        }
-
-        return null;
-      })
-      .catch((err) => {
-        setError(
-          'name',
-          {
-            type: 'server',
-            message: err.response.data.message,
-          },
-          { shouldFocus: false },
-        );
-      });
+    addManufacturer.mutate(data, {
+      onSuccess: () => {
+        const variant = getVariant('success');
+        enqueueSnackbar('Manufacturer has been added', { variant });
+        reset();
+      },
+      onError(error) {
+        const e: { message: string } = error.response?.data as { message: string };
+        setError('name', { type: 'server', message: e.message }, { shouldFocus: false });
+      },
+    });
   };
 
   return (
