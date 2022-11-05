@@ -20,6 +20,7 @@ import { LoadingScreen } from 'components/Elements/Loading';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState<number>(1);
   const [rowCountState, setRowCountState] = React.useState<number>(0);
@@ -35,6 +36,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const { data: assets, isLoading } = Props.data.getDataHook({
     per_page: pageSize,
     page: page + 1,
+    search: filter,
   });
 
   const getDataGridState = React.useCallback(() => {
@@ -82,8 +84,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handleFilterChange = (filterModel: GridFilterModel) => {
-    // Here you save the data you need from the filter model
-    console.log(filterModel);
+    setFilter(filterModel?.quickFilterValues === undefined ? '' : filterModel.quickFilterValues[0]);
   };
 
   const handleContextMenu = (event: React.MouseEvent) => {

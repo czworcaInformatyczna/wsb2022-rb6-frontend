@@ -104,6 +104,7 @@ export interface IDataProvider {
 export interface IDataProviderSettings {
   page?: number;
   per_page?: number;
+  search?: string;
 }
 export enum Statuses {
   Archived = 0,

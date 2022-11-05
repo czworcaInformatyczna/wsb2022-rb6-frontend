@@ -6,7 +6,7 @@ import {
   GridToolbarContainer,
   GridToolbarDensitySelector,
   GridToolbarExport,
-  GridToolbarFilterButton,
+  // GridToolbarFilterButton,
   GridToolbarQuickFilter,
   GridPagination,
 } from '@mui/x-data-grid';
@@ -39,8 +39,7 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
               }}
               value={action}
             >
-              <MenuItem value="Clone">Clone</MenuItem>
-              <MenuItem value="Edit">Edit</MenuItem>
+              <MenuItem value="Delete">Delete</MenuItem>
               <MenuItem value="Generate Label">Generate Label</MenuItem>
             </Select>
           </FormControl>
@@ -59,7 +58,7 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
       <Box>
         <GridPagination />
         <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
+        {/* <GridToolbarFilterButton /> */}
         <GridToolbarDensitySelector sx={{ justifySelf: 'flex-end' }} />
         <GridToolbarExport sx={{ justifySelf: 'flex-end' }} />
       </Box>
