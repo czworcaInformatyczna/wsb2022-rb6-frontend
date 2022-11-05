@@ -36,10 +36,10 @@ export interface IAsset {
   model: string;
   name: string;
   notes: string;
-  order_number: number | string;
+  order_number: string;
   purchase_cost: number;
   serial: string;
-  status: string;
+  status: number;
   waranty: number;
 }
 export interface IAssetDetails {
@@ -66,7 +66,7 @@ export interface IAssetDetails {
   image: string;
   name: string;
   notes: string;
-  order_number: number | string;
+  order_number: string;
   price: number;
   purchase_date: string;
   requests: number;
@@ -75,7 +75,19 @@ export interface IAssetDetails {
   tag: string;
   warranty: number;
 }
-
+export interface IAssetCreate {
+  asset_model_id: number | undefined;
+  image: string | null;
+  name: string;
+  notes: string;
+  order_number: string;
+  price: number | '';
+  purchase_date: string;
+  serial: string;
+  status: Statuses | undefined;
+  tag: string;
+  warranty: number | '';
+}
 export interface DataProviderProps {
   link: string;
 }
@@ -101,22 +113,21 @@ export interface IAssetFormInput extends FieldValues {
   DateOfPurchase: string;
   Model: IModel | null;
   Notes: string;
-  OrderNumber: number | string;
+  OrderNumber: string;
   Photo: File;
   PurchaseCost: number | '';
-  Receipt: File;
   Serial: string;
   Status: IStatus | null;
   Waranty: number | '';
 }
 
 export interface IModel {
-  id: string;
+  id: number;
   img: string;
   name: string;
 }
 export interface IStatus {
-  id: string;
+  id: Statuses;
   name: string;
 }
 

@@ -1,7 +1,7 @@
 export const apiUrl = {
   login: `/login`,
   assetsCategory: '/assets/category',
-  assetsModel: '/assets/model',
+  assetsModel: '/asset_model',
   assets: '/asset',
   assetInfo: '/asset/',
   assetInfoEdit: '/assets/DetailsEdit',

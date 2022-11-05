@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Accordion,
   AccordionDetails,
@@ -13,10 +14,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   type IAssetFormInput,
-  useGetStatusOptions,
   useGetModelOptions,
   useGetAssetsDataById,
   type IAsset,
+  type IAssetCreate,
+  useAddAsset,
+  Statuses,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -33,12 +36,16 @@ import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
 import { AddModel } from 'features/model/components/AddModel';
 import { CreateModal } from 'components/Elements/CreateModal';
+import { StatusesList } from '../api/statuses';
+import { getBase64 } from 'utils/getBase64';
+import { getVariant } from 'utils';
+import { useSnackbar } from 'notistack';
 
 const AddAsset = () => {
   const methods = useForm<IAssetFormInput>();
-  const { handleSubmit, setValue, reset } = methods;
+  const { handleSubmit, setValue, reset, setError } = methods;
   const navigate = useNavigate();
-  const { data: statusOptions } = useGetStatusOptions();
+  const statusOptions = StatusesList;
   const { data: modelOptions } = useGetModelOptions();
   const location = useLocation();
   const { id } = useParams();
@@ -50,6 +57,8 @@ const AddAsset = () => {
     return dateMoment.toDate().toString();
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+  const addAsset = useAddAsset<IAssetCreate>(apiUrl.assets);
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -115,11 +124,34 @@ const AddAsset = () => {
     }
   }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
 
-  const onSubmit = (data: IAssetFormInput) => {
-    const tempData = { ...data };
-    if (tempData.DateOfPurchase !== '')
-      tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
+  const onSubmit = async (data: IAssetFormInput) => {
+    const tempData: IAssetCreate = {
+      name: data.AssetName,
+      tag: data.AssetTag,
+      asset_model_id: data.Model?.id,
+      serial: data.Serial,
+      status: data.Status?.id,
+      notes: data.Notes,
+      warranty: data.Waranty,
+      purchase_date:
+        data.DateOfPurchase !== '' ? new Date(data.DateOfPurchase).toISOString().split('T')[0] : '',
+      order_number: data.OrderNumber,
+      price: data.PurchaseCost,
+      image: data.Photo instanceof File ? ((await getBase64(data.Photo)) as string) : null,
+    };
     console.log(tempData);
+    addAsset.mutate(tempData, {
+      onSuccess: () => {
+        const variant = getVariant('success');
+        enqueueSnackbar('Asset has been added', { variant });
+        reset();
+      },
+      onError(error) {
+        console.log(error);
+        const e: { message: string } = error.response?.data as { message: string };
+        setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
+      },
+    });
   };
 
   return (
@@ -179,6 +211,11 @@ const AddAsset = () => {
                   name="AssetTag"
                   rules={{ required: 'Required value' }}
                 />
+                <TextInput
+                  label="Asset Name"
+                  name="AssetName"
+                  rules={{ required: 'Required value' }}
+                />
                 <TextInput label="Serial" name="Serial" rules={{ required: 'Required value' }} />
                 <SelectInput
                   label="Model"
@@ -215,7 +252,7 @@ const AddAsset = () => {
                       <Grid alignContent="center" container display="flex" spacing={2}>
                         <MultiLineTextInput label="Notes" name="Notes" rows={4} />
                         <UploadImage buttonText="Upload photo" name="Photo" accept="image/*" />
-                        <TextInput label="Asset Name" name="AssetName" rules={{}} />
+
                         <TextInput
                           helperText="No. of  Months"
                           label="Waranty"
@@ -256,7 +293,6 @@ const AddAsset = () => {
                           rules={{}}
                           type="number"
                         />
-                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" accept="*" />
                       </Grid>
                     </AccordionDetails>
                   </Accordion>
