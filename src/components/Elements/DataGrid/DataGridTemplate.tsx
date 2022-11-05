@@ -16,10 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
-import { LoadingScreen } from 'components/Elements/Loading';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
-  const [loading, setLoading] = React.useState<boolean>(true);
   const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState<number>(1);
@@ -55,7 +53,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   React.useEffect(() => {
     if (assets !== undefined) {
       setRowCountState(assets.total);
-      setLoading(false);
     }
 
     getDataGridState();
@@ -151,9 +148,17 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   ];
   const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
   return (
-    <Box>
-      {loading && <LoadingScreen displayText size={200} />}
-      {!loading && assets !== undefined && (
+    <Box
+      sx={{
+        width: '100%',
+        flexGrow: 0,
+        backgroundColor: 'background.paper',
+        boxShadow: 1,
+        borderRadius: 1,
+        marginTop: 2,
+      }}
+    >
+      {Props.data !== undefined && (
         <Grid
           alignItems="center"
           container
@@ -217,7 +222,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               paginationMode="server"
               rowCount={rowCountState}
               rowHeight={75}
-              rows={assets.data}
+              rows={assets === undefined ? [] : assets.data}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               selectionModel={selectionModel}
               sortingMode="server"
