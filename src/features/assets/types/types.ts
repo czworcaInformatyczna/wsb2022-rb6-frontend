@@ -96,9 +96,14 @@ export interface IDataProvider {
   columns: GridColumns;
   detailsLink: string;
   editLink: string;
-  getDataHook: () => any;
+  getDataHook: (params: IDataProviderSettings) => any;
   name: string;
   // Add APIs object that stores api calls
+}
+
+export interface IDataProviderSettings {
+  page?: number;
+  per_page?: number;
 }
 export enum Statuses {
   Archived = 0,

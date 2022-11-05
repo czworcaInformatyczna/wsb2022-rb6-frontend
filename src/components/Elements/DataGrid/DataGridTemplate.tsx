@@ -21,6 +21,7 @@ import { LoadingScreen } from 'components/Elements/Loading';
 export const DataGridTemplate = (Props: AssetsProps) => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [pageSize, setPageSize] = React.useState<number>(10);
+  const [page, setPage] = React.useState<number>(1);
   const [rowCountState, setRowCountState] = React.useState<number>(0);
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
@@ -31,7 +32,10 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     initialState: { columns: { columnVisibilityModel: {} } },
   });
 
-  const { data: assets, isLoading } = Props.data.getDataHook();
+  const { data: assets, isLoading } = Props.data.getDataHook({
+    per_page: pageSize,
+    page: page + 1,
+  });
 
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
@@ -66,8 +70,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handlePageChange = (newPage: number) => {
-    // API CALL GET NEW PAGE DATA
-    console.log(newPage);
+    setPage(newPage);
   };
 
   const handleSortModelChange = (model: GridSortModel, details: GridCallbackDetails) => {
@@ -207,6 +210,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 handleSelectionModelChange(newSelectionModel);
               }}
               onSortModelChange={handleSortModelChange}
+              page={page}
               pageSize={pageSize}
               pagination
               paginationMode="server"
