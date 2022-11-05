@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
+import { type ContextMenu, type AssetsProps, CustomToolbar, useDeleteAsset } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
@@ -16,15 +16,18 @@ import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
+import { getVariant } from 'utils';
+import { useSnackbar } from 'notistack';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
-  const [page, setPage] = React.useState<number>(1);
+  const [page, setPage] = React.useState<number>(0);
   const [rowCountState, setRowCountState] = React.useState<number>(0);
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
-
+  const deleteAsset = useDeleteAsset();
   const [savedState, setSavedState] = React.useState<{
     initialState: GridInitialState;
   }>({
@@ -93,6 +96,16 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     });
   };
 
+  const handleDelete = (id: number) => {
+    console.log(id);
+    deleteAsset.mutate(id, {
+      onSuccess: () => {
+        const variant = getVariant('success');
+        enqueueSnackbar('Asset has been deleted', { variant });
+      },
+    });
+  };
+
   const handleClose = () => {
     setContextMenu(null);
   };
@@ -140,7 +153,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           }
           key={params.id}
           label="Delete"
-          onClick={() => {}}
+          onClick={() => {
+            handleDelete(Number(params.id));
+          }}
         />,
       ],
       width: 150,
@@ -273,7 +288,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               >
                 Edit
               </MenuItem>
-              <MenuItem onClick={() => {}}>Delete</MenuItem>
+              <MenuItem onClick={() => handleDelete(Number(contextMenu?.elementId))}>
+                Delete
+              </MenuItem>
             </Menu>
           </Grid>
         </Grid>

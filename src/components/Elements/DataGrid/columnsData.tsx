@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { type IDataProvider, useGetAssets, StatusChip } from 'features/assets';
+import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
 import { useGetLicenses } from 'features/licenses/api';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
   addNewLink: '/AddAsset',
   editLink: '/EditAsset',
+  deleteHook: useDeleteAsset,
   detailsLink: '/AssetDetails',
   name: 'Assets',
   columns: [
@@ -107,6 +108,7 @@ export const AssetsData: IDataProvider = {
 
 export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
+  deleteHook: () => {},
   addNewLink: '/AddLicense',
   editLink: '/EditLicense',
   detailsLink: '/LicenseDetails',

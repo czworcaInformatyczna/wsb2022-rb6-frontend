@@ -94,6 +94,7 @@ export interface DataProviderProps {
 export interface IDataProvider {
   addNewLink: string;
   columns: GridColumns;
+  deleteHook: () => any;
   detailsLink: string;
   editLink: string;
   getDataHook: (params: IDataProviderSettings) => any;
