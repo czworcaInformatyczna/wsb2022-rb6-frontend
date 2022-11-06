@@ -1,4 +1,4 @@
-import { useDelete, useFetch, usePost } from 'lib/react-query';
+import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type IDataProviderSettings, type IAssets, type IModel, type IStatus } from '../types';
 
@@ -24,6 +24,11 @@ export const useGetAssetsDataById = <T>(id: number, url: string) => {
 
 export const useAddAsset = <T>(url: string) => {
   const context = usePost<T>(url);
+  return context;
+};
+
+export const useUpdateAsset = <T>() => {
+  const context = useUpdate<T>(apiUrl.assetsUpdate);
   return context;
 };
 

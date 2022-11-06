@@ -34,6 +34,7 @@ export interface IAsset {
   category: string;
   date_of_purchase: string;
   id: number | string;
+  image: string;
   manufacturer: string;
   model: string;
   name: string;
@@ -79,7 +80,8 @@ export interface IAssetDetails {
 }
 export interface IAssetCreate {
   asset_model_id: number | undefined;
-  image: string | null;
+  id?: number;
+  image?: string | undefined;
   name: string;
   notes: string;
   order_number: string;

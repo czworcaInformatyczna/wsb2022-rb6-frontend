@@ -20,6 +20,7 @@ import {
   type IAssetCreate,
   useAddAsset,
   Statuses,
+  useUpdateAsset,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -51,7 +52,7 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfoEdit);
+  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfo + id);
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
@@ -59,6 +60,7 @@ const AddAsset = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const addAsset = useAddAsset<IAssetCreate>(apiUrl.assets);
+  const updateAsset = useUpdateAsset<IAssetCreate>();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -69,18 +71,21 @@ const AddAsset = () => {
 
   const setValues = useCallback(
     (assetValues: any) => {
-      setValue('AssetTag', assetValues.assetTag);
+      setValue('AssetTag', assetValues.tag);
       setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((option) => option.name === assetValues.model);
+      const modelObject = modelOptions?.find((option) => option.id === assetValues.asset_model_id);
       setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((option) => option.name === assetValues.status);
+      const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
-      setValue('Notes', assetValues.notes);
+      setValue('Notes', assetValues.notes === null ? '' : assetValues.notes);
       setValue('AssetName', assetValues.name);
-      setValue('Waranty', assetValues.waranty);
-      setValue('OrderNumber', assetValues.orderNumber);
-      setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
-      setValue('PurchaseCost', assetValues.purchaseCost);
+      setValue('Waranty', assetValues.warranty === null ? '' : assetValues.warranty);
+      setValue('OrderNumber', assetValues.order_number === null ? '' : assetValues.order_number);
+      setValue(
+        'DateOfPurchase',
+        assetValues.purchase_date === null ? '' : assetValues.purchase_date,
+      );
+      setValue('PurchaseCost', assetValues.price === null ? '' : assetValues.price);
     },
     [modelOptions, setValue, statusOptions],
   );
@@ -125,33 +130,73 @@ const AddAsset = () => {
   }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
 
   const onSubmit = async (data: IAssetFormInput) => {
-    const tempData: IAssetCreate = {
-      name: data.AssetName,
-      tag: data.AssetTag,
-      asset_model_id: data.Model?.id,
-      serial: data.Serial,
-      status: data.Status?.id,
-      notes: data.Notes,
-      warranty: data.Waranty,
-      purchase_date:
-        data.DateOfPurchase !== '' ? new Date(data.DateOfPurchase).toISOString().split('T')[0] : '',
-      order_number: data.OrderNumber,
-      price: data.PurchaseCost,
-      image: data.Photo instanceof File ? ((await getBase64(data.Photo)) as string) : null,
-    };
-    console.log(tempData);
-    addAsset.mutate(tempData, {
-      onSuccess: () => {
-        const variant = getVariant('success');
-        enqueueSnackbar('Asset has been added', { variant });
-        reset();
-      },
-      onError(error) {
-        console.log(error);
-        const e: { message: string } = error.response?.data as { message: string };
-        setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
-      },
-    });
+    if (action === 'Add') {
+      const tempData: IAssetCreate = {
+        name: data.AssetName,
+        tag: data.AssetTag,
+        asset_model_id: data.Model?.id,
+        serial: data.Serial,
+        status: data.Status?.id,
+        notes: data.Notes,
+        warranty: data.Waranty,
+        purchase_date:
+          data.DateOfPurchase !== ''
+            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
+            : '',
+        order_number: data.OrderNumber,
+        price: data.PurchaseCost,
+        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
+      };
+      console.log(tempData);
+      addAsset.mutate(tempData, {
+        onSuccess: () => {
+          const variant = getVariant('success');
+          enqueueSnackbar('Asset has been added', { variant });
+          reset();
+        },
+        onError(error) {
+          console.log(error);
+          const e: { message: string } = error.response?.data as { message: string };
+          setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
+        },
+      });
+    }
+
+    if (action === 'Edit') {
+      const tempData: IAssetCreate = {
+        name: data.AssetName,
+        tag: data.AssetTag,
+        asset_model_id: data.Model?.id,
+        serial: data.Serial,
+        status: data.Status?.id,
+        notes: data.Notes,
+        warranty: data.Waranty,
+        purchase_date:
+          data.DateOfPurchase !== ''
+            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
+            : '',
+        order_number: data.OrderNumber,
+        price: data.PurchaseCost,
+        image:
+          data.Photo instanceof File ? ((await getBase64(data.Photo)) as string) : asset?.image,
+      };
+      if (id !== undefined)
+        updateAsset.mutate(
+          { id: id, body: tempData },
+          {
+            onSuccess: () => {
+              const variant = getVariant('success');
+              enqueueSnackbar('Asset has been edited', { variant });
+              reset();
+            },
+            onError(error) {
+              console.log(error);
+              const e: { message: string } = error.response?.data as { message: string };
+              setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
+            },
+          },
+        );
+    }
   };
 
   return (
