@@ -1,4 +1,4 @@
-import { type CustomToolbarProps } from 'features/assets';
+import { useDeleteAsset, type CustomToolbarProps } from 'features/assets';
 import { type SelectChangeEvent } from '@mui/material';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {
@@ -11,9 +11,26 @@ import {
   GridPagination,
 } from '@mui/x-data-grid';
 import { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { getVariant } from 'utils';
 
 export const CustomToolbar = (Props: CustomToolbarProps) => {
   const [action, setAction] = useState<string>('');
+  const deleteAsset = useDeleteAsset();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClick = () => {
+    if (action === 'Delete')
+      Props.selectedItems.map((item) =>
+        deleteAsset.mutate(item, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar('Assets has been deleted', { variant });
+            Props.resetSelection();
+          },
+        }),
+      );
+  };
 
   return (
     <GridToolbarContainer
@@ -46,9 +63,7 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
           <Button
             size="large"
             disabled={(action === '' ? true : false) || Props.selectedItems.length === 0}
-            onClick={() => {
-              alert('clicked');
-            }}
+            onClick={handleClick}
             variant="contained"
           >
             Apply

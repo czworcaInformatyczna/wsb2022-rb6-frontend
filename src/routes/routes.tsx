@@ -16,6 +16,7 @@ import { AddManufacturer } from 'features/manufacturer/components/AddManufacture
 import { AddCategory } from 'features/category/components/AddCategory';
 import { AddModel } from 'features/model/components/AddModel';
 import * as columns from 'components/Elements/DataGrid/columnsData';
+import { Statuses } from 'features/assets';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -26,6 +27,22 @@ export const AppRoutes = (): JSX.Element => (
         <Route path={routePath.dashboard} element={<Dashboard />} />
         <Route path={routePath.accessories} element={<Accessories />} />
         <Route element={<DataGridTemplate data={columns.AssetsData} />} path={routePath.assets} />
+        <Route
+          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Archived} />}
+          path={routePath.assetsArchived}
+        />
+        <Route
+          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Deployed} />}
+          path={routePath.assetsDeployed}
+        />
+        <Route
+          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Maintenance} />}
+          path={routePath.assetsMaintenance}
+        />
+        <Route
+          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.ReadyToDeploy} />}
+          path={routePath.assetsReadyToDeploy}
+        />
         <Route
           element={<DataGridTemplate data={columns.LicensesData} />}
           path={routePath.licenses}

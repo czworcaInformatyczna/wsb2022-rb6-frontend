@@ -4,11 +4,13 @@ import { type GridSelectionModel, type GridColumns } from '@mui/x-data-grid';
 import { type FieldValues } from 'react-hook-form';
 
 export interface CustomToolbarProps {
+  resetSelection: () => {};
   selectedItems: GridSelectionModel;
 }
 
 export interface AssetsProps {
   data: IDataProvider;
+  status?: number;
 }
 
 export interface ContextMenu {
@@ -106,6 +108,7 @@ export interface IDataProviderSettings {
   page?: number;
   per_page?: number;
   search?: string;
+  status?: number;
 }
 export enum Statuses {
   Archived = 0,

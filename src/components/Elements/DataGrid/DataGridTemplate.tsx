@@ -38,6 +38,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     per_page: pageSize,
     page: page + 1,
     search: filter,
+    ...(Props.status && { status: Props.status }),
   });
 
   const getDataGridState = React.useCallback(() => {
@@ -108,6 +109,10 @@ export const DataGridTemplate = (Props: AssetsProps) => {
 
   const handleClose = () => {
     setContextMenu(null);
+  };
+
+  const resetSelection = () => {
+    setSelectionModel([]);
   };
 
   const actions: GridColumns = [
@@ -215,6 +220,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 },
                 toolbar: {
                   selectedItems: selectionModel,
+                  resetSelection: resetSelection,
                 },
               }}
               disableColumnMenu
