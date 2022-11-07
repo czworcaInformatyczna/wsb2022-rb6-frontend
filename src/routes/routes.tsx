@@ -28,23 +28,39 @@ export const AppRoutes = (): JSX.Element => (
         <Route path={routePath.accessories} element={<Accessories />} />
         <Route element={<DataGridTemplate data={columns.AssetsData} />} path={routePath.assets} />
         <Route
-          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Archived} />}
+          element={
+            <DataGridTemplate data={columns.AssetsData} key="Assets" status={Statuses.Archived} />
+          }
           path={routePath.assetsArchived}
         />
         <Route
-          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Deployed} />}
+          element={
+            <DataGridTemplate data={columns.AssetsData} key="Assets" status={Statuses.Deployed} />
+          }
           path={routePath.assetsDeployed}
         />
         <Route
-          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.Maintenance} />}
+          element={
+            <DataGridTemplate
+              data={columns.AssetsData}
+              key="Assets"
+              status={Statuses.Maintenance}
+            />
+          }
           path={routePath.assetsMaintenance}
         />
         <Route
-          element={<DataGridTemplate data={columns.AssetsData} status={Statuses.ReadyToDeploy} />}
+          element={
+            <DataGridTemplate
+              data={columns.AssetsData}
+              key="Assets"
+              status={Statuses.ReadyToDeploy}
+            />
+          }
           path={routePath.assetsReadyToDeploy}
         />
         <Route
-          element={<DataGridTemplate data={columns.LicensesData} />}
+          element={<DataGridTemplate key="Licenses" data={columns.LicensesData} />}
           path={routePath.licenses}
         />
         <Route element={<AddAsset />} path={routePath.addAsset} />

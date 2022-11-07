@@ -1,4 +1,4 @@
-import { useDeleteAsset, type CustomToolbarProps } from 'features/assets';
+import { type CustomToolbarProps } from 'features/assets';
 import { type SelectChangeEvent } from '@mui/material';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {
@@ -16,7 +16,7 @@ import { getVariant } from 'utils';
 
 export const CustomToolbar = (Props: CustomToolbarProps) => {
   const [action, setAction] = useState<string>('');
-  const deleteAsset = useDeleteAsset();
+  const deleteAsset = Props.deleteHook();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
         deleteAsset.mutate(item, {
           onSuccess: () => {
             const variant = getVariant('success');
-            enqueueSnackbar('Assets has been deleted', { variant });
+            enqueueSnackbar('Elements has been deleted', { variant });
             Props.resetSelection();
           },
         }),

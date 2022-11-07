@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { type ContextMenu, type AssetsProps, CustomToolbar, useDeleteAsset } from 'features/assets';
+import { type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
@@ -28,10 +28,10 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState<number>(0);
-  const [rowCountState, setRowCountState] = React.useState<number>(0);
+
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
-  const deleteAsset = useDeleteAsset();
+  const deleteAsset = Props.data.deleteHook();
   const [savedState, setSavedState] = React.useState<{
     initialState: GridInitialState;
   }>({
@@ -59,12 +59,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   }, [Props.data.name]);
 
   React.useEffect(() => {
-    if (assets !== undefined) {
-      setRowCountState(assets.total);
-    }
-
     getDataGridState();
-  }, [assets, assets?.total, getDataGridState]);
+  }, [getDataGridState]);
+
   const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
     localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
@@ -246,6 +243,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 toolbar: {
                   selectedItems: selectionModel,
                   resetSelection: resetSelection,
+                  deleteHook: Props.data.deleteHook,
                 },
               }}
               disableColumnMenu
@@ -266,7 +264,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               pageSize={pageSize}
               pagination
               paginationMode="server"
-              rowCount={rowCountState}
+              rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
               rows={assets === undefined ? [] : assets.data}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}

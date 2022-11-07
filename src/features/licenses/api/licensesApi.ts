@@ -1,5 +1,5 @@
 import { type IDataProviderSettings } from 'features/assets';
-import { useFetch } from 'lib/react-query';
+import { useDelete, useFetch } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type ILicenseManufacturer, type ILicenseCategory, type ILicenses } from '../types';
 
@@ -15,5 +15,10 @@ export const useGetCategoryOptions = () => {
 
 export const useGetManufacturerOptions = () => {
   const context = useFetch<ILicenseManufacturer[]>(apiUrl.licensesManufacturers);
+  return context;
+};
+
+export const useDeleteLicense = <Number>() => {
+  const context = useDelete<Number>(apiUrl.licenseDelete, apiUrl.licenses);
   return context;
 };

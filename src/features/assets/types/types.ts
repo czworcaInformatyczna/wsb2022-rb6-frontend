@@ -2,8 +2,16 @@ import { type HTMLInputTypeAttribute } from 'react';
 
 import { type GridSelectionModel, type GridColumns } from '@mui/x-data-grid';
 import { type FieldValues } from 'react-hook-form';
+import { type UseMutationResult } from 'react-query';
+import { type AxiosError, type AxiosResponse } from 'axios';
 
 export interface CustomToolbarProps {
+  deleteHook: <Number>() => UseMutationResult<
+    AxiosResponse<any, any>,
+    AxiosError<unknown, any>,
+    Number,
+    unknown
+  >;
   resetSelection: () => {};
   selectedItems: GridSelectionModel;
 }
@@ -98,7 +106,12 @@ export interface DataProviderProps {
 export interface IDataProvider {
   addNewLink: string;
   columns: GridColumns;
-  deleteHook: () => any;
+  deleteHook: <Number>() => UseMutationResult<
+    AxiosResponse<any, any>,
+    AxiosError<unknown, any>,
+    Number,
+    unknown
+  >;
   detailsLink: string;
   editLink: string;
   getDataHook: (params: IDataProviderSettings) => any;

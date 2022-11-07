@@ -23,6 +23,7 @@ export const apiUrl = {
   licenseInfo: '/licenses/Details',
   licenseDeploys: '/licenses/Deployes',
   licenseHistory: '/licenses/History',
+  licenseDelete: '/license/Delete',
   addAssetManufacturer: '/asset_manufacturer',
   addAssetCategory: '/asset_category',
   addAssetModel: '/asset_model',
