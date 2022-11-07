@@ -42,9 +42,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     per_page: pageSize,
     page: page + 1,
     search: filter,
-    ...(Props.status && { status: Props.status }),
+    ...((Props.status || Props.status === 0) && { status: Props.status }),
   });
-
+  console.log(Props.status);
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
     const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');
