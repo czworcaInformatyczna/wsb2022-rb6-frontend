@@ -147,7 +147,7 @@ const AddAsset = () => {
         price: data.PurchaseCost,
         ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
       };
-      console.log(tempData);
+
       addAsset.mutate(tempData, {
         onSuccess: () => {
           const variant = getVariant('success');
@@ -190,7 +190,6 @@ const AddAsset = () => {
               reset();
             },
             onError(error) {
-              console.log(error);
               const e: { message: string } = error.response?.data as { message: string };
               setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
             },

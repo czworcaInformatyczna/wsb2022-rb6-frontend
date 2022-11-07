@@ -26,7 +26,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Ready to deploy",
+      "status": 0,
       "tag": "assetTag",
       "notes": "some notes",
       "waranty": 6,
@@ -59,7 +59,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Deployed",
+      "status": 25,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,
@@ -92,7 +92,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Maintenance",
+      "status": 50,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,
@@ -125,7 +125,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Archived",
+      "status": 25,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,
@@ -158,7 +158,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Ready to deploy",
+      "status": 0,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,
@@ -191,7 +191,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Ready to deploy",
+      "status": 0,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,
@@ -224,7 +224,7 @@
           "updated_at": "2022-10-17T20:25:38.000000Z"
         }
       },
-      "status": "Ready to deploy",
+      "status": 25,
       "tag": "tag",
       "notes": "some notes",
       "waranty": 6,

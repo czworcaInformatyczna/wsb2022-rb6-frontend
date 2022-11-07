@@ -29,7 +29,7 @@ const assets = rest.get(url(apiUrl.assets), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(testData));
 });
 
-const details = rest.get(url(apiUrl.assetInfo + 2), (req, res, ctx) => {
+const details = rest.get(url(apiUrl.assetInfo + '*'), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetDetails));
 });
 
@@ -69,6 +69,14 @@ const addAsset = rest.post<IAssetCreate>(url(apiUrl.assets), async (req, res, ct
   return await res(ctx.status(200));
 });
 
+const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsDelete), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const editAsset = rest.patch(url(apiUrl.assetsUpdate + '*'), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
 export const assetHandlers = [
   statusOptions,
   modelOptions,
@@ -83,4 +91,6 @@ export const assetHandlers = [
   maintenances,
   files,
   addAsset,
+  deleteAsset,
+  editAsset,
 ];

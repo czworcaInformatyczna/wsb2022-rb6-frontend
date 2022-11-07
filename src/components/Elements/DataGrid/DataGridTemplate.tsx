@@ -104,8 +104,16 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const handleDelete = (id: number) => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
     confirm({
-      title: <Box sx={{ color: 'error.main' }}>Are you sure?</Box>,
-      description: <Box sx={{ color: theme.palette.text.primary }}>This action is permanent!</Box>,
+      title: (
+        <Box component="span" sx={{ color: 'error.main' }}>
+          Are you sure?
+        </Box>
+      ),
+      description: (
+        <Box component="span" sx={{ color: theme.palette.text.primary }}>
+          This action is permanent!
+        </Box>
+      ),
       contentProps: bgColor,
       titleProps: bgColor,
       dialogActionsProps: bgColor,

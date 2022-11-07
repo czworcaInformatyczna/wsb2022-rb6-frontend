@@ -10,13 +10,19 @@ import * as element from './getElemetns';
 import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
 import { type AppProviderProps } from 'providers/types';
+import { SnackbarProvider } from 'notistack';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 const Provider = ({ children }: AppProviderProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <BrowserRouter>
-        <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
-      </BrowserRouter>
+      <ConfirmProvider>
+        <SnackbarProvider maxSnack={3}>
+          <BrowserRouter>
+            <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
+          </BrowserRouter>
+        </SnackbarProvider>
+      </ConfirmProvider>
     </LocalizationProvider>
   );
 };
@@ -39,7 +45,6 @@ describe('AddAsset form', () => {
     expect(await element.getOrderNumber()).toBeInTheDocument();
     expect(await element.getDateOfPurchase()).toBeInTheDocument();
     expect(await element.getPurchaseCost()).toBeInTheDocument();
-    expect(await element.getReceiptImage()).toBeInTheDocument();
   });
 
   it('should display error messages', async () => {
