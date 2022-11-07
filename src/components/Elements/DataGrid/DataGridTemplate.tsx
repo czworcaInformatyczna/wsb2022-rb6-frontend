@@ -18,9 +18,13 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
+import { useConfirm } from 'material-ui-confirm';
+import { useTheme } from '@mui/material/styles';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
+  const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
+  const confirm = useConfirm();
   const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState<number>(0);
@@ -98,13 +102,26 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handleDelete = (id: number) => {
-    console.log(id);
-    deleteAsset.mutate(id, {
-      onSuccess: () => {
-        const variant = getVariant('success');
-        enqueueSnackbar('Asset has been deleted', { variant });
-      },
-    });
+    const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
+    confirm({
+      title: <Box sx={{ color: 'error.main' }}>Are you sure?</Box>,
+      description: <Box sx={{ color: theme.palette.text.primary }}>This action is permanent!</Box>,
+      contentProps: bgColor,
+      titleProps: bgColor,
+      dialogActionsProps: bgColor,
+      confirmationButtonProps: { variant: 'contained', color: 'success' },
+      cancellationButtonProps: { variant: 'contained', color: 'error' },
+    })
+      .then(() => {
+        deleteAsset.mutate(id, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar(Props.data.name + ' has been deleted', { variant });
+          },
+        });
+        return null;
+      })
+      .catch(() => {});
   };
 
   const handleClose = () => {

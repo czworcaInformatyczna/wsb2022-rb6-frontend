@@ -8,6 +8,7 @@ import { getQueryClient } from 'lib/react-query';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { SnackbarProvider } from 'notistack';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
@@ -15,27 +16,31 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <AuthProvider>
         <QueryClientProvider client={getQueryClient()}>
           <Box>
-            <SnackbarProvider maxSnack={3}>
-              <GlobalStyles
-                styles={{
-                  '::-webkit-scrollbar': {
-                    width: '0.4em',
-                  },
-                  '::-webkit-scrollbar-thumb': {
-                    backgroundColor: 'rgba(0,0,0,.1)',
-                    outline: '1px solid slategrey',
-                  },
-                  h1: {
-                    color: 'grey',
-                  },
-                }}
-              />
-              <CssBaseline />
-              <CustomThemeProvider>
-                {' '}
-                <LocalizationProvider dateAdapter={AdapterDateFns}>{children}</LocalizationProvider>
-              </CustomThemeProvider>
-            </SnackbarProvider>
+            <ConfirmProvider>
+              <SnackbarProvider maxSnack={3}>
+                <GlobalStyles
+                  styles={{
+                    '::-webkit-scrollbar': {
+                      width: '0.4em',
+                    },
+                    '::-webkit-scrollbar-thumb': {
+                      backgroundColor: 'rgba(0,0,0,.1)',
+                      outline: '1px solid slategrey',
+                    },
+                    h1: {
+                      color: 'grey',
+                    },
+                  }}
+                />
+                <CssBaseline />
+                <CustomThemeProvider>
+                  {' '}
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    {children}
+                  </LocalizationProvider>
+                </CustomThemeProvider>
+              </SnackbarProvider>
+            </ConfirmProvider>
           </Box>
         </QueryClientProvider>
       </AuthProvider>
