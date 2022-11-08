@@ -272,7 +272,11 @@ const AddAsset = () => {
                 <SelectInput
                   label="Status"
                   name="Status"
-                  options={statusOptions ? statusOptions : []}
+                  options={
+                    statusOptions
+                      ? statusOptions.filter((status) => status.id !== Statuses.Deployed)
+                      : []
+                  }
                   modalContent={<div>Placeholder</div>}
                   openModal={openModal}
                 />
