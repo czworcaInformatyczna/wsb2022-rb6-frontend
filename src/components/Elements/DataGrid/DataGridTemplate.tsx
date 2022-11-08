@@ -44,7 +44,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     search: filter,
     ...((Props.status || Props.status === 0) && { status: Props.status }),
   });
-  console.log(Props.status);
+
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
     const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');

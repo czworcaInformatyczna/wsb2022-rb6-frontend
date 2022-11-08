@@ -15,7 +15,7 @@ import {
   fetchLicenseEditInfo,
 } from './mockApiHandlers';
 import { mswServer } from 'mocks/mswServer';
-
+jest.setTimeout(10000);
 const Provider = ({ children }: AppProviderProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
