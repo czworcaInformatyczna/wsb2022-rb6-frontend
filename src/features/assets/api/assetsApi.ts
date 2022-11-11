@@ -28,11 +28,11 @@ export const useAddAsset = <T>(url: string) => {
 };
 
 export const useUpdateAsset = <T>() => {
-  const context = useUpdate<T>(apiUrl.assetsUpdate);
+  const context = useUpdate<T>(apiUrl.assetsById);
   return context;
 };
 
 export const useDeleteAsset = <Number>() => {
-  const context = useDelete<Number>(apiUrl.assetsDelete, apiUrl.assets);
+  const context = useDelete<Number>(apiUrl.assetsById, apiUrl.assets);
   return context;
 };

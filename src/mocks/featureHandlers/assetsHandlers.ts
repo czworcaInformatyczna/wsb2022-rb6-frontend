@@ -69,11 +69,11 @@ const addAsset = rest.post<IAssetCreate>(url(apiUrl.assets), async (req, res, ct
   return await res(ctx.status(200));
 });
 
-const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsDelete), async (req, res, ctx) => {
+const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsById), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
 
-const editAsset = rest.patch(url(apiUrl.assetsUpdate + '*'), async (req, res, ctx) => {
+const editAsset = rest.patch(url(apiUrl.assetsById + '*'), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
 
