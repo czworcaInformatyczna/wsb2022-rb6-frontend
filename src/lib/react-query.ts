@@ -14,7 +14,7 @@ interface IUpdateMutation<T> {
 
 export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey>): Promise<T> => {
   const [url, params] = queryKey;
-  const response = await apiClient.get(url, params);
+  const response = await apiClient.get(url, { params });
   return response.data;
 };
 

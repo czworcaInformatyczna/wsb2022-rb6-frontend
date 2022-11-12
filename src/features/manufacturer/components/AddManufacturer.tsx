@@ -1,19 +1,7 @@
-import {
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 
 import { TextInput } from 'components/Elements/FormInputs';
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { apiUrl } from 'routes';
 import { getVariant } from 'utils';
@@ -24,12 +12,7 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm<IManufacturer>();
   const { handleSubmit, setError, reset } = methods;
-  const [url, setUrl] = useState<string>(apiUrl.addAssetManufacturer);
-  const addManufacturer = useAddManufacturer<IManufacturer>(url);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl((event.target as HTMLInputElement).value);
-  };
+  const addManufacturer = useAddManufacturer<IManufacturer>(apiUrl.addManufacturer);
 
   const onSubmit = async (data: IManufacturer) => {
     addManufacturer.mutate(data, {
@@ -73,34 +56,6 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
           }}
         >
           <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
-            <Grid
-              item
-              lg={12}
-              md={12}
-              sm={12}
-              xl={12}
-              xs={12}
-              display="flex"
-              justifyContent="center"
-            >
-              <FormControl>
-                <FormLabel id="manufacturer-radio-group">Type</FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={url}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value={apiUrl.addAssetManufacturer}
-                    control={<Radio />}
-                    label="Asset"
-                  />
-                  <FormControlLabel disabled value="License" control={<Radio />} label="License" />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
             <TextInput label="Name" name="name" rules={{ required: 'Required value' }} />
             <Grid
               alignContent="center"

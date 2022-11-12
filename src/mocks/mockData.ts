@@ -19,27 +19,27 @@ export const assetStatusOptions = [
 
 export const assetModelOptions = [
   {
-    id: '1',
+    id: 1,
     name: 'laptop',
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
   {
-    id: '2',
+    id: 2,
     name: 'zmywarki',
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
   {
-    id: '3',
+    id: 3,
     name: 'wiertarka',
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
   {
-    id: '0',
+    id: 0,
     name: 'złom',
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
   {
-    id: '4',
+    id: 4,
     name: 'Model',
     img: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RWWkOk?ver=01fe&q=90&m=6&h=454&w=808&b=%23FFFFFFFF&l=f&o=t&aim=true',
   },
@@ -62,25 +62,36 @@ export const assetDetailsEdit = {
 };
 
 export const assetDetails = {
+  asset_model: {
+    asset_category_id: 1,
+    asset_manufacturer_id: 1,
+    category: {
+      id: 1,
+      name: 'PC',
+    },
+    id: 1,
+    manufacturer: {
+      id: 1,
+      name: 'Dell',
+    },
+    name: 'YYEz64GgdQ3M',
+  },
+  asset_model_id: 1,
+  created_at: '2022-10-27T18:09',
+  current_holder: '',
+  current_holder_id: 1,
   id: 16,
+  image: 'path',
   name: 'asset1',
-  Serial: '1234',
-  Model: 'YYEz64GgdQ3M',
-  Manufacturer: 'Dell',
-  Category: 'PC',
-  Status: 'Ready to deploy',
-  AssetTag: '890',
-  Notes: 'some info',
-  Waranty: 61,
-  Order_number: '123',
-  Date_of_purchase: '22/02/2022',
-  Purchase_cost: 200,
-  Created_at: '22/02/2022',
-  Checkouts: 2,
-  Checkins: 2,
-  Requests: 1,
+  notes: 'some info',
+  order_number: '123',
+  price: 200,
+  purchase_date: '2022-10-27T17:09',
+  serial: '1234',
+  status: 50,
+  tag: '4234',
+  warranty: 61,
 };
-
 export const assetImage = {
   image: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };

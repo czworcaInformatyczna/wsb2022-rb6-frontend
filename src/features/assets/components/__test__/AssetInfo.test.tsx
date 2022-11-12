@@ -8,7 +8,7 @@ import { fetchAssetsDetails } from './mockApiHandlers';
 const Provider = () => {
   return (
     <AppProvider>
-      <AssetInfo id={1} />
+      <AssetInfo id={2} />
     </AppProvider>
   );
 };
@@ -34,8 +34,8 @@ describe('AssetInfo', () => {
     expect(await screen.findByText(/PC/i)).toBeInTheDocument();
     expect(await screen.findByText(/Status/i)).toBeInTheDocument();
     expect(await screen.findByText(/Ready to deploy/i)).toBeInTheDocument();
-    expect(await screen.findByText(/AssetTag/i)).toBeInTheDocument();
-    expect(await screen.findByText(/890/i)).toBeInTheDocument();
+    expect(await screen.findByText(/tag/i)).toBeInTheDocument();
+    expect(await screen.findByText(/4234/i)).toBeInTheDocument();
     expect(await screen.findByText(/Notes/i)).toBeInTheDocument();
     expect(await screen.findByText(/some info/i)).toBeInTheDocument();
     expect(await screen.findByText(/Waranty/i)).toBeInTheDocument();

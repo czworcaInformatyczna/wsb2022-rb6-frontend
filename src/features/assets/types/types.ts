@@ -1,14 +1,32 @@
 import { type HTMLInputTypeAttribute } from 'react';
 
-import { type GridSelectionModel, type GridColumns } from '@mui/x-data-grid';
+import {
+  type GridSelectionModel,
+  type GridColumns,
+  type GridSortDirection,
+} from '@mui/x-data-grid';
 import { type FieldValues } from 'react-hook-form';
+import { type UseMutationResult } from 'react-query';
+import { type AxiosError, type AxiosResponse } from 'axios';
 
 export interface CustomToolbarProps {
+  deleteHook: <Number>() => UseMutationResult<
+    AxiosResponse<any, any>,
+    AxiosError<unknown, any>,
+    Number,
+    unknown
+  >;
+  resetSelection: () => {};
   selectedItems: GridSelectionModel;
 }
 
 export interface AssetsProps {
   data: IDataProvider;
+  status?: number;
+}
+export interface ISort {
+  order: GridSortDirection;
+  sort: number | string;
 }
 
 export interface ContextMenu {
@@ -32,53 +50,94 @@ export interface IAsset {
   category: string;
   date_of_purchase: string;
   id: number | string;
+  image: string;
   manufacturer: string;
   model: string;
   name: string;
   notes: string;
-  order_number: number | string;
+  order_number: string;
   purchase_cost: number;
-  serial: string;
-  status: string;
-  waranty: number;
-}
-export interface IAssetDetails {
-  assetTag: string;
-  category: string;
-  checkins: number;
-  checkouts: number;
-  created_at: string;
-  date_of_purchase: string;
-  id: number | string;
-  manufacturer: string;
-  model: string;
-  name: string;
-  notes: string;
-  order_number: number | string;
-  purchase_cost: number;
-  requests: number;
   serial: string;
   status: number;
   waranty: number;
 }
-
+export interface IAssetDetails {
+  asset_model: {
+    asset_category_id: number;
+    asset_manufacturer_id: number;
+    category: {
+      id: number;
+      name: string;
+    };
+    id: number;
+    manufacturer: {
+      id: string;
+      name: string;
+    };
+    name: string;
+  };
+  checkins: number;
+  checkouts: number;
+  created_at: string;
+  current_holder: string;
+  current_holder_id: number;
+  id: number | string;
+  image: string;
+  name: string;
+  notes: string;
+  order_number: string;
+  price: number;
+  purchase_date: string;
+  requests: number;
+  serial: string;
+  status: number;
+  tag: string;
+  warranty: number;
+}
+export interface IAssetCreate {
+  asset_model_id: number | undefined;
+  id?: number;
+  image?: string | undefined;
+  name: string;
+  notes: string;
+  order_number: string;
+  price: number | '';
+  purchase_date: string;
+  serial: string;
+  status: Statuses | undefined;
+  tag: string;
+  warranty: number | '';
+}
 export interface DataProviderProps {
   link: string;
 }
 export interface IDataProvider {
   addNewLink: string;
   columns: GridColumns;
+  deleteHook: <Number>() => UseMutationResult<
+    AxiosResponse<any, any>,
+    AxiosError<unknown, any>,
+    Number,
+    unknown
+  >;
   detailsLink: string;
   editLink: string;
-  getDataHook: () => any;
+  getDataHook: (params: IDataProviderSettings) => any;
   name: string;
   // Add APIs object that stores api calls
 }
+
+export interface IDataProviderSettings {
+  page?: number;
+  per_page?: number;
+  search?: string;
+  status?: number;
+}
 export enum Statuses {
-  Archived = 'Archived',
-  Deployed = 'Deployed',
-  Maintenance = 'Maintenance',
-  ReadyToDeploy = 'Ready to deploy',
+  Archived = 0,
+  Deployed = 100,
+  Maintenance = 25,
+  ReadyToDeploy = 50,
 }
 
 export interface IAssetFormInput extends FieldValues {
@@ -87,22 +146,21 @@ export interface IAssetFormInput extends FieldValues {
   DateOfPurchase: string;
   Model: IModel | null;
   Notes: string;
-  OrderNumber: number | string;
+  OrderNumber: string;
   Photo: File;
   PurchaseCost: number | '';
-  Receipt: File;
   Serial: string;
   Status: IStatus | null;
   Waranty: number | '';
 }
 
 export interface IModel {
-  id: string;
+  id: number;
   img: string;
   name: string;
 }
 export interface IStatus {
-  id: string;
+  id: Statuses;
   name: string;
 }
 

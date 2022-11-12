@@ -15,6 +15,7 @@ import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
 import testData from 'features/assets/api/testData.json';
+import { type IAssetCreate } from 'features/assets';
 
 const statusOptions = rest.get(url(apiUrl.assetsCategory), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetStatusOptions));
@@ -28,7 +29,7 @@ const assets = rest.get(url(apiUrl.assets), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(testData));
 });
 
-const details = rest.get(url(apiUrl.assetInfo), (req, res, ctx) => {
+const details = rest.get(url(apiUrl.assetInfo + '*'), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetDetails));
 });
 
@@ -64,6 +65,18 @@ const files = rest.get(url(apiUrl.assetFiles), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetFiles));
 });
 
+const addAsset = rest.post<IAssetCreate>(url(apiUrl.assets), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsById), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const editAsset = rest.patch(url(apiUrl.assetsById + '*'), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
 export const assetHandlers = [
   statusOptions,
   modelOptions,
@@ -77,4 +90,7 @@ export const assetHandlers = [
   history,
   maintenances,
   files,
+  addAsset,
+  deleteAsset,
+  editAsset,
 ];

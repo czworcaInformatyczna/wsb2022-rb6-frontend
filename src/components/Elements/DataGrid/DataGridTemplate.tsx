@@ -1,38 +1,49 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
+import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
-  type GridCallbackDetails,
   type GridFilterModel,
   type GridRowParams,
   type GridSelectionModel,
   type GridSortModel,
 } from '@mui/x-data-grid';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import testData from '../../../features/assets/api/testData.json';
 import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
-import { LoadingScreen } from 'components/Elements/Loading';
+import { getVariant } from 'utils';
+import { useSnackbar } from 'notistack';
+import { useConfirm } from 'material-ui-confirm';
+import { useTheme } from '@mui/material/styles';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
+  const confirm = useConfirm();
+  const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
-  const [rowCountState, setRowCountState] = React.useState<number>(0);
+  const [page, setPage] = React.useState<number>(0);
+  const [sort, setSort] = React.useState<ISort | null>(null);
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
-
+  const deleteAsset = Props.data.deleteHook();
   const [savedState, setSavedState] = React.useState<{
     initialState: GridInitialState;
   }>({
     initialState: { columns: { columnVisibilityModel: {} } },
   });
 
-  const { data: assets, isLoading } = Props.data.getDataHook();
+  const { data: assets, isLoading } = Props.data.getDataHook({
+    per_page: pageSize,
+    page: page + 1,
+    search: filter,
+    ...((Props.status || Props.status === 0) && { status: Props.status }),
+    ...(sort !== null && sort),
+  });
 
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
@@ -48,11 +59,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   }, [Props.data.name]);
 
   React.useEffect(() => {
-    setRowCountState(testData.length);
-    setLoading(false);
-
     getDataGridState();
   }, [getDataGridState]);
+
   const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
     localStorage.setItem(Props.data.name + 'ColumnsVisibility', JSON.stringify(newVisibilityModel));
@@ -65,12 +74,12 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handlePageChange = (newPage: number) => {
-    // API CALL GET NEW PAGE DATA
-    console.log(newPage);
+    setPage(newPage);
   };
 
-  const handleSortModelChange = (model: GridSortModel, details: GridCallbackDetails) => {
-    console.log(JSON.stringify(model) + '  =====   ' + JSON.stringify(details)); // API CALL HERE
+  const handleSortModelChange = (model: GridSortModel) => {
+    if (model.length === 0) setSort(null);
+    else setSort({ order: model[0].sort, sort: model[0].field });
   };
 
   const handleSelectionModelChange = (newSelectionModel: GridSelectionModel) => {
@@ -78,8 +87,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handleFilterChange = (filterModel: GridFilterModel) => {
-    // Here you save the data you need from the filter model
-    console.log(filterModel);
+    setFilter(filterModel?.quickFilterValues === undefined ? '' : filterModel.quickFilterValues[0]);
   };
 
   const handleContextMenu = (event: React.MouseEvent) => {
@@ -91,8 +99,43 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     });
   };
 
+  const handleDelete = (id: number) => {
+    const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
+    confirm({
+      title: (
+        <Box component="span" sx={{ color: 'error.main' }}>
+          Are you sure?
+        </Box>
+      ),
+      description: (
+        <Box component="span" sx={{ color: theme.palette.text.primary }}>
+          This action is permanent!
+        </Box>
+      ),
+      contentProps: bgColor,
+      titleProps: bgColor,
+      dialogActionsProps: bgColor,
+      confirmationButtonProps: { variant: 'contained', color: 'success' },
+      cancellationButtonProps: { variant: 'contained', color: 'error' },
+    })
+      .then(() => {
+        deleteAsset.mutate(id, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar(Props.data.name + ' has been deleted', { variant });
+          },
+        });
+        return null;
+      })
+      .catch(() => {});
+  };
+
   const handleClose = () => {
     setContextMenu(null);
+  };
+
+  const resetSelection = () => {
+    setSelectionModel([]);
   };
 
   const actions: GridColumns = [
@@ -138,7 +181,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           }
           key={params.id}
           label="Delete"
-          onClick={() => {}}
+          onClick={() => {
+            handleDelete(Number(params.id));
+          }}
         />,
       ],
       width: 150,
@@ -146,9 +191,17 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   ];
   const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
   return (
-    <Box>
-      {loading && <LoadingScreen displayText size={200} />}
-      {!loading && assets !== undefined && (
+    <Box
+      sx={{
+        width: '100%',
+        flexGrow: 0,
+        backgroundColor: 'background.paper',
+        boxShadow: 1,
+        borderRadius: 1,
+        marginTop: 2,
+      }}
+    >
+      {Props.data !== undefined && (
         <Grid
           alignItems="center"
           container
@@ -190,6 +243,8 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 },
                 toolbar: {
                   selectedItems: selectionModel,
+                  resetSelection: resetSelection,
+                  deleteHook: Props.data.deleteHook,
                 },
               }}
               disableColumnMenu
@@ -206,12 +261,13 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 handleSelectionModelChange(newSelectionModel);
               }}
               onSortModelChange={handleSortModelChange}
+              page={page}
               pageSize={pageSize}
               pagination
               paginationMode="server"
-              rowCount={rowCountState}
+              rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
-              rows={assets}
+              rows={assets === undefined ? [] : assets.data}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
               selectionModel={selectionModel}
               sortingMode="server"
@@ -262,7 +318,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               >
                 Edit
               </MenuItem>
-              <MenuItem onClick={() => {}}>Delete</MenuItem>
+              <MenuItem onClick={() => handleDelete(Number(contextMenu?.elementId))}>
+                Delete
+              </MenuItem>
             </Menu>
           </Grid>
         </Grid>

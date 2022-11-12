@@ -9,10 +9,17 @@ export interface IUploadImage {
   name: FieldPath<IAssetFormInput>;
 }
 export const UploadImage = ({ name, buttonText, accept }: IUploadImage) => {
-  const [img, setImg] = useState<string>();
+  const [img, setImg] = useState<string | null>();
   const [fileName, setFileName] = useState<string>('');
 
-  const { register, setValue } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
+
+  const val = getValues(name);
+  if (val instanceof FileList && img) {
+    setFileName('');
+    setImg(null);
+  }
+
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid

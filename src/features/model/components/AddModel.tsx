@@ -30,7 +30,7 @@ export const AddModel = ({ isModal = false }: IsModal) => {
   const onSubmit = async (data: IModelForm) => {
     const tempData = {
       ...data,
-      asset_manufacturer_id: data.asset_manufacturer_id.id,
+      manufacturer_id: data.manufacturer_id.id,
       asset_category_id: data.asset_category_id.id,
     };
 
@@ -79,7 +79,7 @@ export const AddModel = ({ isModal = false }: IsModal) => {
             <TextInput label="Name" name="name" rules={{ required: 'Required value' }} />
             <SelectInput
               label="Manufacturer"
-              name="asset_manufacturer_id"
+              name="manufacturer_id"
               options={manufacturerOptions ? manufacturerOptions : []}
               modalContent={<AddManufacturer isModal />}
               openModal={openModal}

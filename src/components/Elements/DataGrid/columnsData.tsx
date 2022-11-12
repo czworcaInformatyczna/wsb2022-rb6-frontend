@@ -1,17 +1,19 @@
 import { Box } from '@mui/material';
-import { type IDataProvider, useGetAssets, StatusChip } from 'features/assets';
-import { useGetLicenses } from 'features/licenses/api';
+import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
+import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
 import { Link } from 'react-router-dom';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
   addNewLink: '/AddAsset',
   editLink: '/EditAsset',
+  deleteHook: useDeleteAsset,
   detailsLink: '/AssetDetails',
   name: 'Assets',
   columns: [
     {
       field: 'id',
+      headerName: 'Id',
       width: 90,
       renderCell: (params) => (
         <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.value}>
@@ -21,6 +23,17 @@ export const AssetsData: IDataProvider = {
     },
     {
       field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'tag',
+      headerName: 'Tag',
       width: 200,
       renderCell: (params) => (
         <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.id}>
@@ -30,23 +43,27 @@ export const AssetsData: IDataProvider = {
     },
     {
       field: 'image',
+      headerName: 'Image',
       width: 150,
       sortable: false,
       disableExport: true,
       filterable: false,
-      renderCell: (params) => (
-        <img
-          alt="Asset"
-          src={params.value}
-          style={{
-            width: '100%',
-            height: undefined,
-          }}
-        />
-      ),
+      renderCell: (params) => {
+        return (
+          <img
+            alt="Asset"
+            src={'http://137.74.158.36:81/storage/' + params.value}
+            style={{
+              width: '100%',
+              height: undefined,
+            }}
+          />
+        );
+      },
     },
     {
       field: 'serial',
+      headerName: 'Serial',
       width: 200,
       renderCell: (params) => (
         <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.id}>
@@ -54,11 +71,37 @@ export const AssetsData: IDataProvider = {
         </Box>
       ),
     },
-    { field: 'model', width: 200 },
-    { field: 'manufacturer', width: 200 },
-    { field: 'category', width: 200 },
+    {
+      field: 'asset_model',
+      headerName: 'Model',
+      sortable: false,
+      width: 200,
+
+      valueGetter: (params) => {
+        return params.row.asset_model.name;
+      },
+    },
+    {
+      field: 'manufacturer',
+      headerName: 'Manufacturer',
+      sortable: false,
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.asset_model.manufacturer.name;
+      },
+    },
+    {
+      field: 'category',
+      headerName: 'Category',
+      sortable: false,
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.asset_model.category.name;
+      },
+    },
     {
       field: 'status',
+      headerName: 'Status',
       width: 150,
 
       renderCell: (params) => StatusChip(params.value),
@@ -68,6 +111,7 @@ export const AssetsData: IDataProvider = {
 
 export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
+  deleteHook: useDeleteLicense,
   addNewLink: '/AddLicense',
   editLink: '/EditLicense',
   detailsLink: '/LicenseDetails',
