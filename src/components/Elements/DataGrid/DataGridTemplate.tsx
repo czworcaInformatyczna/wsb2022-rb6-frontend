@@ -1,11 +1,10 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { type ContextMenu, type AssetsProps, CustomToolbar } from 'features/assets';
+import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
-  type GridCallbackDetails,
   type GridFilterModel,
   type GridRowParams,
   type GridSelectionModel,
@@ -28,7 +27,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const [filter, setFilter] = React.useState<string>('');
   const [pageSize, setPageSize] = React.useState<number>(10);
   const [page, setPage] = React.useState<number>(0);
-
+  const [sort, setSort] = React.useState<ISort | null>(null);
   const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
   const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
   const deleteAsset = Props.data.deleteHook();
@@ -43,6 +42,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     page: page + 1,
     search: filter,
     ...((Props.status || Props.status === 0) && { status: Props.status }),
+    ...(sort !== null && sort),
   });
 
   const getDataGridState = React.useCallback(() => {
@@ -77,8 +77,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     setPage(newPage);
   };
 
-  const handleSortModelChange = (model: GridSortModel, details: GridCallbackDetails) => {
-    console.log(JSON.stringify(model) + '  =====   ' + JSON.stringify(details)); // API CALL HERE
+  const handleSortModelChange = (model: GridSortModel) => {
+    if (model.length === 0) setSort(null);
+    else setSort({ order: model[0].sort, sort: model[0].field });
   };
 
   const handleSelectionModelChange = (newSelectionModel: GridSelectionModel) => {

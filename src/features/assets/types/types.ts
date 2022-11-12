@@ -1,6 +1,10 @@
 import { type HTMLInputTypeAttribute } from 'react';
 
-import { type GridSelectionModel, type GridColumns } from '@mui/x-data-grid';
+import {
+  type GridSelectionModel,
+  type GridColumns,
+  type GridSortDirection,
+} from '@mui/x-data-grid';
 import { type FieldValues } from 'react-hook-form';
 import { type UseMutationResult } from 'react-query';
 import { type AxiosError, type AxiosResponse } from 'axios';
@@ -19,6 +23,10 @@ export interface CustomToolbarProps {
 export interface AssetsProps {
   data: IDataProvider;
   status?: number;
+}
+export interface ISort {
+  order: GridSortDirection;
+  sort: number | string;
 }
 
 export interface ContextMenu {

@@ -74,6 +74,7 @@ export const AssetsData: IDataProvider = {
     {
       field: 'asset_model',
       headerName: 'Model',
+      sortable: false,
       width: 200,
 
       valueGetter: (params) => {
@@ -83,6 +84,7 @@ export const AssetsData: IDataProvider = {
     {
       field: 'manufacturer',
       headerName: 'Manufacturer',
+      sortable: false,
       width: 200,
       valueGetter: (params) => {
         return params.row.asset_model.manufacturer.name;
@@ -91,6 +93,7 @@ export const AssetsData: IDataProvider = {
     {
       field: 'category',
       headerName: 'Category',
+      sortable: false,
       width: 200,
       valueGetter: (params) => {
         return params.row.asset_model.category.name;
