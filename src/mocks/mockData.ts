@@ -141,16 +141,19 @@ export const assetMaintenances = [
   },
 ];
 
-export const assetFiles = [
-  {
-    id: '1',
-    name: 'file1',
-    extension: '.txt',
-    size: '5KB',
-    upload_date: '22/10/2022',
-    download_link: 'link',
-  },
-];
+export const assetFiles = {
+  data: [
+    {
+      id: '1',
+      name: 'file1',
+      extension: '.txt',
+      size: '5KB',
+      created_at: '2022-11-27T18:09',
+      uploader: { email: 'email@email.com' },
+    },
+  ],
+  total: 1,
+};
 
 export const licenseCategoryOptions = [
   {

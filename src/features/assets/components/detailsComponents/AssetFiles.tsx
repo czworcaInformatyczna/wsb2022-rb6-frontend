@@ -113,6 +113,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
                 </TableHead>
                 <TableBody>
                   {files?.data.map((file: any) => {
+                    console.log(file);
                     return (
                       <TableRow key={file.id}>
                         <TableCell width="30%">{file.name}</TableCell>
