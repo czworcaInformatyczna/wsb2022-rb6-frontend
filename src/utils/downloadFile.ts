@@ -15,7 +15,6 @@ const downloadFile = (downloadUrl: string, fileName: string) => {
     })
     .then((blobby) => {
       const objectUrl = window.URL.createObjectURL(blobby);
-      console.log(objectUrl);
       anchor.href = objectUrl;
       anchor.download = fileName;
       anchor.click();

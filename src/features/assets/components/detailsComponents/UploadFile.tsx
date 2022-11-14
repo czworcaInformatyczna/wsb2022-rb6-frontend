@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
-import { MultiLineTextInput, UploadImage } from 'components/Elements/FormInputs';
+import { UploadImage } from 'components/Elements/FormInputs';
 import { useAddAsset } from 'features/assets/api';
 import { type IUploadFile } from 'features/assets/types';
 import { useSnackbar } from 'notistack';
@@ -22,8 +22,6 @@ const UploadFile = (props: IProps) => {
     const formData = new FormData();
     formData.append('file', data.file);
     formData.append('asset_id', props.assetId.toString());
-    formData.append('notes', data.notes);
-    console.log(data.notes);
     uploadFile.mutate(formData, {
       onSuccess: () => {
         const variant = getVariant('success');
@@ -57,7 +55,6 @@ const UploadFile = (props: IProps) => {
         >
           <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
             <UploadImage buttonText="Upload file" name="file" accept="*" />
-            <MultiLineTextInput label="Notes" name="notes" rows={4} />
           </Grid>
           <Grid
             alignContent="center"
@@ -72,9 +69,6 @@ const UploadFile = (props: IProps) => {
             xs={12}
           >
             <Stack direction="row" mr={2} spacing={1}>
-              {/* <Button color="error" onClick={() => setOpen} variant="contained">
-                Cancel
-              </Button> */}
               <Button color="success" type="submit" variant="contained">
                 Upload
               </Button>

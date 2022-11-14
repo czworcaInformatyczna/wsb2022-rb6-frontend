@@ -41,3 +41,8 @@ export const useDeleteAsset = <Number>() => {
   const context = useDelete<Number>(apiUrl.assetsById, apiUrl.assets);
   return context;
 };
+
+export const useDeleteAssetFile = <Number>() => {
+  const context = useDelete<Number>(apiUrl.assetFilesById, apiUrl.assetFiles);
+  return context;
+};

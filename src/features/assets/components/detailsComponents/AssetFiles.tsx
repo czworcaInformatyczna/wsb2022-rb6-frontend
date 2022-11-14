@@ -10,7 +10,7 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
-import { useGetAssetFile } from 'features/assets/api';
+import { useDeleteAssetFile, useGetAssetFile } from 'features/assets/api';
 import { type IAssetFiles } from 'features/assets/types';
 import { useState } from 'react';
 import downloadFile from 'utils/downloadFile';
@@ -19,8 +19,15 @@ import { changeDateTimeFormat, isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 import { CreateModal } from 'components/Elements/CreateModal';
 import UploadFile from './UploadFile';
+import { useConfirm } from 'material-ui-confirm';
+import { useTheme } from '@mui/material/styles';
+import { getVariant } from 'utils';
+import { useSnackbar } from 'notistack';
 
 export const AssetFiles = ({ id }: { id: number }) => {
+  const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
+  const confirm = useConfirm();
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
@@ -29,6 +36,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
     per_page: pageSize,
     page: page,
   });
+  const deleteFile = useDeleteAssetFile();
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -42,21 +50,47 @@ export const AssetFiles = ({ id }: { id: number }) => {
     setOpen(false);
   };
 
+  const handleDelete = (file_id: number) => {
+    const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
+    confirm({
+      title: (
+        <Box component="span" sx={{ color: 'error.main' }}>
+          Are you sure?
+        </Box>
+      ),
+      description: (
+        <Box component="span" sx={{ color: theme.palette.text.primary }}>
+          This action is permanent!
+        </Box>
+      ),
+      contentProps: bgColor,
+      titleProps: bgColor,
+      dialogActionsProps: bgColor,
+      confirmationButtonProps: { variant: 'contained', color: 'success' },
+      cancellationButtonProps: { variant: 'contained', color: 'error' },
+    })
+      .then(() => {
+        deleteFile.mutate(file_id, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar('File has been deleted', { variant });
+          },
+        });
+        return null;
+      })
+      .catch(() => {});
+  };
+
   return (
     <Box mb={4}>
+      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ margin: 1 }}>
+        Upload file
+      </Button>
       {isArrayEmpty(files?.data) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => setOpen(true)}
-              sx={{ margin: 1 }}
-            >
-              Upload file
-            </Button>
             <TableContainer sx={{ maxHeight: 440 }}>
               <Table
                 sx={{
@@ -73,7 +107,6 @@ export const AssetFiles = ({ id }: { id: number }) => {
                     <TableCell>Extension</TableCell>
                     <TableCell>Size (Kb)</TableCell>
                     <TableCell>Upload date</TableCell>
-                    <TableCell>Notes</TableCell>
                     <TableCell>Uploaded by</TableCell>
                     <TableCell align="right"> </TableCell>
                   </TableRow>
@@ -86,7 +119,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
                         <TableCell>{file.extension}</TableCell>
                         <TableCell>{file.size}</TableCell>
                         <TableCell>{changeDateTimeFormat(file.created_at)}</TableCell>
-                        <TableCell>{file.notes}</TableCell>
+
                         <TableCell>{file.uploader.email}</TableCell>
                         <TableCell align="right">
                           <Button
@@ -102,7 +135,12 @@ export const AssetFiles = ({ id }: { id: number }) => {
                           >
                             Download
                           </Button>
-                          <Button variant="contained" sx={{ margin: 1 }} color="error">
+                          <Button
+                            variant="contained"
+                            sx={{ margin: 1 }}
+                            onClick={() => handleDelete(file.id)}
+                            color="error"
+                          >
                             Delete
                           </Button>
                         </TableCell>
