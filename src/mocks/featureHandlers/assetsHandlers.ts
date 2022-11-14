@@ -76,6 +76,18 @@ const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsById), async (req
 const editAsset = rest.patch(url(apiUrl.assetsById + '*'), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
+const downloadAssetFile = rest.get(
+  url(apiUrl.assetFiles + '/*/download'),
+  async (req, res, ctx) => {
+    return await res(ctx.status(200));
+  },
+);
+const deleteAssetFile = rest.delete(url(apiUrl.assetFilesById), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+const uploadFile = rest.post(url(apiUrl.assetFiles), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
 
 export const assetHandlers = [
   statusOptions,
@@ -93,4 +105,7 @@ export const assetHandlers = [
   addAsset,
   deleteAsset,
   editAsset,
+  downloadAssetFile,
+  deleteAssetFile,
+  uploadFile,
 ];
