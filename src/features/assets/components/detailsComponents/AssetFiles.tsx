@@ -19,13 +19,11 @@ import { changeDateTimeFormat, isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 import { CreateModal } from 'components/Elements/CreateModal';
 import UploadFile from './UploadFile';
-import { useAuth } from 'providers/AuthProvider';
 
 export const AssetFiles = ({ id }: { id: number }) => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
-  const { auth } = useAuth();
   const { data: files } = useGetAssetFile<IAssetFiles>(apiUrl.assetFiles, {
     asset_id: id,
     per_page: pageSize,
@@ -99,7 +97,6 @@ export const AssetFiles = ({ id }: { id: number }) => {
                               downloadFile(
                                 apiUrl.assetFiles + '/' + file.id + '/download',
                                 file.name,
-                                auth.token ? auth.token : '',
                               );
                             }}
                           >
