@@ -10,4 +10,5 @@ export const style = {
   display: 'flex',
   alignContent: 'center',
   justifyContent: 'center',
+  overflow: 'auto',
 };

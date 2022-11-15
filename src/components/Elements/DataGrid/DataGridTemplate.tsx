@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridInitialState } from '@mui/x-data-grid';
@@ -19,19 +19,24 @@ import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 import { useTheme } from '@mui/material/styles';
+import Labels from 'features/assets/components/Labels';
+import { CreateModal } from '../CreateModal';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
-  const [filter, setFilter] = React.useState<string>('');
-  const [pageSize, setPageSize] = React.useState<number>(10);
-  const [page, setPage] = React.useState<number>(0);
-  const [sort, setSort] = React.useState<ISort | null>(null);
-  const [selectionModel, setSelectionModel] = React.useState<GridSelectionModel>([]);
-  const [contextMenu, setContextMenu] = React.useState<ContextMenu | null>(null);
+  const [filter, setFilter] = useState<string>('');
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [page, setPage] = useState<number>(0);
+  const [sort, setSort] = useState<ISort | null>(null);
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
+  const [contextMenu, setContextMenu] = useState<ContextMenu | null>(null);
   const deleteAsset = Props.data.deleteHook();
-  const [savedState, setSavedState] = React.useState<{
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
+
+  const [savedState, setSavedState] = useState<{
     initialState: GridInitialState;
   }>({
     initialState: { columns: { columnVisibilityModel: {} } },
@@ -44,6 +49,13 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     ...((Props.status || Props.status === 0) && { status: Props.status }),
     ...(sort !== null && sort),
   });
+
+  const handleOpenModal = (id: GridSelectionModel | number | null) => {
+    if (id !== null) {
+      setModalContent(<Labels id={id} />);
+      setOpen(true);
+    }
+  };
 
   const getDataGridState = React.useCallback(() => {
     const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
@@ -200,6 +212,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
         marginTop: 2,
       }}
     >
+      <CreateModal open={open} content={modalContent} setOpen={setOpen} />
       {Props.data !== undefined && (
         <Grid
           alignItems="center"
@@ -244,6 +257,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   selectedItems: selectionModel,
                   resetSelection: resetSelection,
                   deleteHook: Props.data.deleteHook,
+                  handleModal: handleOpenModal,
                 },
               }}
               disableColumnMenu
@@ -308,6 +322,13 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 }}
               >
                 Show details
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleOpenModal(contextMenu?.elementId ? contextMenu.elementId : null);
+                }}
+              >
+                Generate Label
               </MenuItem>
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
