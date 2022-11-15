@@ -128,6 +128,7 @@ export interface IDataProvider {
 }
 
 export interface IDataProviderSettings {
+  asset_id?: number;
   page?: number;
   per_page?: number;
   search?: string;
@@ -154,6 +155,10 @@ export interface IAssetFormInput extends FieldValues {
   Waranty: number | '';
 }
 
+export interface IUploadFile {
+  file: File;
+  notes: string;
+}
 export interface IModel {
   id: number;
   img: string;
@@ -209,6 +214,11 @@ export interface IAssetMaintenances {
 }
 
 export interface IAssetFiles {
+  data: IAssetFile[];
+  total: number;
+}
+
+export interface IAssetFile {
   download_link: string;
   extension: string;
   id: number;

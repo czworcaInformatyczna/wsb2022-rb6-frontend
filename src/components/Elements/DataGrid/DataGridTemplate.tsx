@@ -68,7 +68,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   };
 
   const handlePageSizeChange = (newPageSize: number) => {
-    // API CALL GET DATA
     localStorage.setItem(Props.data.name + 'PageSize', JSON.stringify(newPageSize));
     setPageSize(newPageSize);
   };

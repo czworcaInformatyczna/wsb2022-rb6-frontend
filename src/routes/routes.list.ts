@@ -4,6 +4,7 @@ export const apiUrl = {
   assetsModel: '/asset_model',
   assets: '/asset',
   assetsById: '/asset/:id',
+  assetFilesById: '/asset_file/:id',
   assetInfo: '/asset/',
   assetInfoEdit: '/assets/DetailsEdit',
   assetImage: '/assets/Image',

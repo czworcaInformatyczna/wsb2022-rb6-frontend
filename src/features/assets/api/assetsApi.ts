@@ -22,6 +22,11 @@ export const useGetAssetsDataById = <T>(id: number, url: string) => {
   return context;
 };
 
+export const useGetAssetFile = <T>(url: string, params: IDataProviderSettings) => {
+  const context = useFetch<T>(url, params);
+  return context;
+};
+
 export const useAddAsset = <T>(url: string) => {
   const context = usePost<T>(url);
   return context;
@@ -34,5 +39,10 @@ export const useUpdateAsset = <T>() => {
 
 export const useDeleteAsset = <Number>() => {
   const context = useDelete<Number>(apiUrl.assetsById, apiUrl.assets);
+  return context;
+};
+
+export const useDeleteAssetFile = <Number>() => {
+  const context = useDelete<Number>(apiUrl.assetFilesById, apiUrl.assetFiles);
   return context;
 };
