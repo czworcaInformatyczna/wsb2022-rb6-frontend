@@ -302,13 +302,15 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               onClose={handleClose}
               open={contextMenu !== null}
             >
-              <MenuItem
-                onClick={() => {
-                  navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
-                }}
-              >
-                Show details
-              </MenuItem>
+              {Props.data.detailsLink !== null && (
+                <MenuItem
+                  onClick={() => {
+                    navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
+                  }}
+                >
+                  Show details
+                </MenuItem>
+              )}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {

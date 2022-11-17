@@ -120,7 +120,7 @@ export interface IDataProvider {
     Number,
     unknown
   >;
-  detailsLink: string;
+  detailsLink: string | null;
   editLink: string;
   getDataHook: (params: IDataProviderSettings) => any;
   name: string;

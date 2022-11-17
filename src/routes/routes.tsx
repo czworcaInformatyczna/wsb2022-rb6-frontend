@@ -73,6 +73,10 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
         <Route element={<AddCategory />} path={routePath.addCategory} />
         <Route element={<AddModel />} path={routePath.addModel} />
+        <Route
+          element={<DataGridTemplate key="Models" data={columns.ModelsData} />}
+          path={routePath.models}
+        />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

@@ -18,3 +18,16 @@ export interface ICategory {
   id: number;
   name: string;
 }
+
+export interface IModelList {
+  data: [
+    {
+      category: { id: number; name: string };
+      created_at: string;
+      id: number;
+      manufacturer: { id: number; name: string };
+      name: string;
+    },
+  ];
+  total: number;
+}
