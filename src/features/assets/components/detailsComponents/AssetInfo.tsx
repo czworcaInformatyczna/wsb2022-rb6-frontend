@@ -170,6 +170,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
               >
                 {assetQRCode && (
                   <img
+                    style={{ border: '2px solid white' }}
                     src={`data:image/svg+xml;utf8,${encodeURIComponent(assetQRCode)}`}
                     width="50%"
                     alt="QRCode"

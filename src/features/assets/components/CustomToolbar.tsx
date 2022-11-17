@@ -30,6 +30,9 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
           },
         }),
       );
+    if (action === 'Generate Label') {
+      Props.handleModal(Props.selectedItems);
+    }
   };
 
   return (
