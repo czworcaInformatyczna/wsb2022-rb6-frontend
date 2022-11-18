@@ -16,6 +16,7 @@ export interface CustomToolbarProps {
     Number,
     unknown
   >;
+  handleModal: (id: GridSelectionModel) => void;
   resetSelection: () => {};
   selectedItems: GridSelectionModel;
 }
