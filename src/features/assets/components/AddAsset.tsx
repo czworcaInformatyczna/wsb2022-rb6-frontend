@@ -205,7 +205,7 @@ const AddAsset = () => {
             onSuccess: () => {
               const variant = getVariant('success');
               enqueueSnackbar('Asset has been edited', { variant });
-              reset();
+              navigate(routePath.assets);
             },
             onError(error) {
               const e: { message: string } = error.response?.data as { message: string };

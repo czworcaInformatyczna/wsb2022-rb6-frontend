@@ -1,5 +1,5 @@
 import { type IDataProviderSettings } from 'features/assets';
-import { useDelete, useFetch, usePost } from 'lib/react-query';
+import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type IManufacturer, type ICategory, type IModelList } from '../types';
 
@@ -25,5 +25,10 @@ export const useGetModels = (params: IDataProviderSettings) => {
 
 export const useDeleteModel = <Number>() => {
   const context = useDelete<Number>(apiUrl.modelsById, apiUrl.models);
+  return context;
+};
+
+export const useUpdateModel = <T>() => {
+  const context = useUpdate<T>(apiUrl.modelsById);
   return context;
 };

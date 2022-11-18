@@ -28,6 +28,7 @@ export const apiUrl = {
   addAssetCategory: '/asset_category',
   models: '/asset_model',
   modelsById: '/asset_model/:id',
+
   addAssetModel: '/asset_model',
   manufacturerList: '/manufacturer',
   categoryList: '/asset_category',
@@ -55,6 +56,6 @@ export const routePath = {
   addManufacturer: '/Manufacturer/Add',
   addCategory: '/Category/Add',
   addModel: '/Model/Add',
-  editModel: '/Model/Edit',
+  editModel: '/Model/Edit/:id',
   models: '/Models',
 };

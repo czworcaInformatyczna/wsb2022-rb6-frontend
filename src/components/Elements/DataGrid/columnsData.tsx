@@ -169,8 +169,8 @@ export const LicensesData: IDataProvider = {
 
 export const ModelsData: IDataProvider = {
   getDataHook: useGetModels,
-  addNewLink: '/AddModel',
-  editLink: '/EditModel',
+  addNewLink: '/Model/Add',
+  editLink: '/Model/Edit',
   deleteHook: useDeleteModel,
   detailsLink: null,
   name: 'Models',

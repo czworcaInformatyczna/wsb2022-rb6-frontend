@@ -1,12 +1,12 @@
 export interface IModelForm {
-  asset_category_id: ICategory;
-  manufacturer_id: IManufacturer;
+  asset_category_id: ICategory | null;
+  manufacturer_id: IManufacturer | null;
   name: string;
 }
 
 export interface IModel {
-  asset_category_id: number;
-  manufacturer_id: number;
+  asset_category_id: number | null;
+  manufacturer_id: number | null;
   name: string;
 }
 
