@@ -99,7 +99,7 @@ export interface IAssetDetails {
 export interface IAssetCreate {
   asset_model_id: number | undefined;
   id?: number;
-  image?: string | undefined;
+  image?: string | null | undefined;
   name: string;
   notes: string;
   order_number: string;

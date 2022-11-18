@@ -195,9 +195,9 @@ const AddAsset = () => {
             : '',
         order_number: data.OrderNumber,
         price: data.PurchaseCost,
-        image:
-          data.Photo instanceof File ? ((await getBase64(data.Photo)) as string) : asset?.image,
+        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
       };
+
       if (id !== undefined)
         updateAsset.mutate(
           { id: id, body: tempData },
