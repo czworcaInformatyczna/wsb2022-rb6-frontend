@@ -24,6 +24,6 @@ export const useGetModels = (params: IDataProviderSettings) => {
 };
 
 export const useDeleteModel = <Number>() => {
-  const context = useDelete<Number>(apiUrl.assetsById, apiUrl.models);
+  const context = useDelete<Number>(apiUrl.modelsById, apiUrl.models);
   return context;
 };

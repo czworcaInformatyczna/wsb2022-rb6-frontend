@@ -161,7 +161,7 @@ export interface IUploadFile {
 }
 export interface IModel {
   id: number;
-  img: string;
+  img?: string;
   name: string;
 }
 export interface IStatus {

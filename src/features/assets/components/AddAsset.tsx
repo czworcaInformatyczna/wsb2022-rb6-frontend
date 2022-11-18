@@ -73,7 +73,9 @@ const AddAsset = () => {
     (assetValues: any) => {
       setValue('AssetTag', assetValues.tag);
       setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((option) => option.id === assetValues.asset_model_id);
+      const modelObject = modelOptions?.data?.find(
+        (option) => option.id === assetValues.asset_model_id,
+      );
       setValue('Model', modelObject !== undefined ? modelObject : null);
       const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
@@ -265,7 +267,7 @@ const AddAsset = () => {
                   label="Model"
                   name="Model"
                   containsImg
-                  options={modelOptions ? modelOptions : []}
+                  options={modelOptions?.data ? modelOptions.data : []}
                   modalContent={<AddModel isModal />}
                   openModal={openModal}
                 />

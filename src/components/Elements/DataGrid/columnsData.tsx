@@ -214,7 +214,7 @@ export const ModelsData: IDataProvider = {
       headerName: 'Create date',
       width: 200,
       valueGetter: (params) => {
-        return params.row.asset_model.category.name;
+        return params.row.created_at;
       },
       renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
     },
