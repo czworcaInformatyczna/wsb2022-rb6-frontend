@@ -52,7 +52,12 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfo + id);
+
+  const { data: asset, refetch } = useGetAssetsDataById<IAsset>(
+    Number(id),
+    apiUrl.assetInfo + id,
+    action === 'Add' ? false : true,
+  );
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
@@ -121,6 +126,7 @@ const AddAsset = () => {
       setLoading(true);
       setAction('Edit');
       if (asset !== undefined) {
+        void refetch();
         setValues(asset);
         setLoading(false);
       }
@@ -129,7 +135,17 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
+  }, [
+    asset,
+    id,
+    isIdNotValid,
+    location.pathname,
+    navigate,
+    refetch,
+    reset,
+    setValues,
+    statusOptions,
+  ]);
 
   const onSubmit = async (data: IAssetFormInput) => {
     if (action === 'Add') {

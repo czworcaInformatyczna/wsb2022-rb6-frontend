@@ -18,8 +18,8 @@ export const useGetAssets = (params: IDataProviderSettings) => {
   return context;
 };
 
-export const useGetAssetsDataById = <T>(id: number, url: string) => {
-  const context = useFetch<T>(url, { id });
+export const useGetAssetsDataById = <T>(id: number, url: string, enable: boolean = true) => {
+  const context = useFetch<T>(url, { id }, enable);
   return context;
 };
 

@@ -55,5 +55,6 @@ export const routePath = {
   addManufacturer: '/Manufacturer/Add',
   addCategory: '/Category/Add',
   addModel: '/Model/Add',
+  editModel: '/Model/Edit',
   models: '/Models',
 };

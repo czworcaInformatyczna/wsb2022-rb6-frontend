@@ -137,7 +137,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     setSelectionModel([]);
   };
 
-  console.log(assets);
   const actions: GridColumns = [
     {
       field: 'actions',
