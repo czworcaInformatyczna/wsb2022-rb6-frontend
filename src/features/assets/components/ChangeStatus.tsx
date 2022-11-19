@@ -35,9 +35,11 @@ const ChangeStatus = () => {
     if (id === undefined) navigate(routePath.assets);
     else {
       const statusObject = statusOptions?.find((option) => option.id === assetDetails?.status);
-      reset({ Status: statusObject });
+      if (isFetched) {
+        reset({ Status: statusObject, current_holder_id: assetDetails?.current_holder });
+      }
     }
-  }, [assetDetails?.status, id, navigate, reset, statusOptions]);
+  }, [assetDetails, assetDetails?.status, id, isFetched, navigate, reset, statusOptions]);
 
   const onSubmit = async (data: IAssetFormInput) => {
     const tempData: IChangeStatus = {
