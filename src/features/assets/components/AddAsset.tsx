@@ -52,7 +52,12 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfo + id);
+
+  const { data: asset, refetch } = useGetAssetsDataById<IAsset>(
+    Number(id),
+    apiUrl.assetInfo + id,
+    action === 'Add' ? false : true,
+  );
   const getDateFormat = (dateString: string) => {
     const dateMoment = moment(dateString, 'DD/MM/YYYY');
     return dateMoment.toDate().toString();
@@ -73,7 +78,9 @@ const AddAsset = () => {
     (assetValues: any) => {
       setValue('AssetTag', assetValues.tag);
       setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((option) => option.id === assetValues.asset_model_id);
+      const modelObject = modelOptions?.data?.find(
+        (option) => option.id === assetValues.asset_model_id,
+      );
       setValue('Model', modelObject !== undefined ? modelObject : null);
       const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
@@ -119,6 +126,7 @@ const AddAsset = () => {
       setLoading(true);
       setAction('Edit');
       if (asset !== undefined) {
+        void refetch();
         setValues(asset);
         setLoading(false);
       }
@@ -127,7 +135,17 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
+  }, [
+    asset,
+    id,
+    isIdNotValid,
+    location.pathname,
+    navigate,
+    refetch,
+    reset,
+    setValues,
+    statusOptions,
+  ]);
 
   const onSubmit = async (data: IAssetFormInput) => {
     if (action === 'Add') {
@@ -177,9 +195,9 @@ const AddAsset = () => {
             : '',
         order_number: data.OrderNumber,
         price: data.PurchaseCost,
-        image:
-          data.Photo instanceof File ? ((await getBase64(data.Photo)) as string) : asset?.image,
+        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
       };
+
       if (id !== undefined)
         updateAsset.mutate(
           { id: id, body: tempData },
@@ -187,7 +205,7 @@ const AddAsset = () => {
             onSuccess: () => {
               const variant = getVariant('success');
               enqueueSnackbar('Asset has been edited', { variant });
-              reset();
+              navigate(routePath.assets);
             },
             onError(error) {
               const e: { message: string } = error.response?.data as { message: string };
@@ -265,7 +283,7 @@ const AddAsset = () => {
                   label="Model"
                   name="Model"
                   containsImg
-                  options={modelOptions ? modelOptions : []}
+                  options={modelOptions?.data ? modelOptions.data : []}
                   modalContent={<AddModel isModal />}
                   openModal={openModal}
                 />

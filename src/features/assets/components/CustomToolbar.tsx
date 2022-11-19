@@ -60,7 +60,9 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
               value={action}
             >
               <MenuItem value="Delete">Delete</MenuItem>
-              <MenuItem value="Generate Label">Generate Label</MenuItem>
+              {Props.name === 'Assets' && (
+                <MenuItem value="Generate Label">Generate Label</MenuItem>
+              )}
             </Select>
           </FormControl>
           <Button

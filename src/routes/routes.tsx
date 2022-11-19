@@ -63,8 +63,8 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Licenses" data={columns.LicensesData} />}
           path={routePath.licenses}
         />
-        <Route element={<AddAsset />} path={routePath.addAsset} />
-        <Route element={<AddAsset />} path={routePath.editAsset} />
+        <Route element={<AddAsset key="AddAsset" />} path={routePath.addAsset} />
+        <Route element={<AddAsset key="EditAsset" />} path={routePath.editAsset} />
         <Route element={<AddLicense />} path={routePath.addLicense} />
         <Route element={<AddLicense />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
@@ -72,7 +72,12 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
         <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
         <Route element={<AddCategory />} path={routePath.addCategory} />
-        <Route element={<AddModel />} path={routePath.addModel} />
+        <Route element={<AddModel key="AddModel" />} path={routePath.addModel} />
+        <Route element={<AddModel key="EditModel" />} path={routePath.editModel} />
+        <Route
+          element={<DataGridTemplate key="Models" data={columns.ModelsData} />}
+          path={routePath.models}
+        />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

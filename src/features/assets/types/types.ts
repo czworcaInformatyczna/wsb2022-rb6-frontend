@@ -17,6 +17,7 @@ export interface CustomToolbarProps {
     unknown
   >;
   handleModal: (id: GridSelectionModel) => void;
+  name: string;
   resetSelection: () => {};
   selectedItems: GridSelectionModel;
 }
@@ -98,7 +99,7 @@ export interface IAssetDetails {
 export interface IAssetCreate {
   asset_model_id: number | undefined;
   id?: number;
-  image?: string | undefined;
+  image?: string | null | undefined;
   name: string;
   notes: string;
   order_number: string;
@@ -121,7 +122,7 @@ export interface IDataProvider {
     Number,
     unknown
   >;
-  detailsLink: string;
+  detailsLink: string | null;
   editLink: string;
   getDataHook: (params: IDataProviderSettings) => any;
   name: string;
@@ -162,7 +163,7 @@ export interface IUploadFile {
 }
 export interface IModel {
   id: number;
-  img: string;
+  img?: string;
   name: string;
 }
 export interface IStatus {
