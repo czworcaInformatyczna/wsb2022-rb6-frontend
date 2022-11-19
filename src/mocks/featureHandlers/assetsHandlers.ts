@@ -9,7 +9,7 @@ import {
   assetLicenses,
   assetMaintenances,
   assetQRCode,
-  assetModelOptions,
+  modelList,
 } from 'mocks/mockData';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
@@ -22,7 +22,7 @@ const statusOptions = rest.get(url(apiUrl.assetsCategory), (req, res, ctx) => {
 });
 
 const modelOptions = rest.get(url(apiUrl.assetsModel), (req, res, ctx) => {
-  return res(ctx.status(200), ctx.json(assetModelOptions));
+  return res(ctx.status(200), ctx.json(modelList));
 });
 
 const assets = rest.get(url(apiUrl.assets), (req, res, ctx) => {
