@@ -311,7 +311,7 @@ export const modelList = {
   total: 2,
   data: [
     {
-      id: 31,
+      id: 1,
       name: 'Corrupti amet',
       created_at: '2022-10-17T20:25:38.000000Z',
       updated_at: '2022-10-17T20:25:38.000000Z',
@@ -331,7 +331,7 @@ export const modelList = {
       },
     },
     {
-      id: 43,
+      id: 0,
       name: 'Ipsa beatae',
       created_at: '2022-10-19T19:41:03.000000Z',
       updated_at: '2022-10-19T19:41:03.000000Z',
@@ -344,7 +344,7 @@ export const modelList = {
         updated_at: '2022-10-19T19:41:03.000000Z',
       },
       manufacturer: {
-        id: 224,
+        id: 1,
         name: 'Repellendus illum',
         created_at: '2022-10-17T20:24:42.000000Z',
         updated_at: '2022-10-17T20:24:42.000000Z',
