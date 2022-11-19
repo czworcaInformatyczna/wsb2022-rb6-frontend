@@ -45,7 +45,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
 
   const handleOpenModal = (id: GridSelectionModel | number | null) => {
     if (id !== null) {
-      setModalContent(<Labels id={id} />);
+      setModalContent(<Labels id={id} handleClose={() => setOpen(false)} />);
       setOpen(true);
     }
   };
@@ -278,7 +278,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
               rows={assets === undefined ? [] : assets.data}
-              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               selectionModel={selectionModel}
               sortingMode="server"
               sx={{
@@ -322,15 +322,24 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   Show details
                 </MenuItem>
               )}
-              {Props.data.name === 'Assets' && (
+              {Props.data.name === 'Assets' && [
                 <MenuItem
+                  key="ChangeStatus"
+                  onClick={() => {
+                    navigate('/Asset/' + contextMenu?.elementId + '/Status');
+                  }}
+                >
+                  Change status
+                </MenuItem>,
+                <MenuItem
+                  key="GenerateLabels"
                   onClick={() => {
                     handleOpenModal(contextMenu?.elementId ? contextMenu.elementId : null);
                   }}
                 >
                   Generate Label
-                </MenuItem>
-              )}
+                </MenuItem>,
+              ]}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {

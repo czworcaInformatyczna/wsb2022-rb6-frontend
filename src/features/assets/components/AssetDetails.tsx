@@ -20,6 +20,8 @@ import { useDeleteAsset } from '../api';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 import { getVariant } from 'utils';
+import { CreateModal } from 'components/Elements/CreateModal';
+import Labels from './Labels';
 
 export const AssetDetails = () => {
   const { id } = useParams();
@@ -29,6 +31,8 @@ export const AssetDetails = () => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
   useEffect(() => {
     if (!Number(id)) {
@@ -38,6 +42,13 @@ export const AssetDetails = () => {
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
+  };
+
+  const handleOpenModal = () => {
+    if (id && id !== null) {
+      setModalContent(<Labels id={Number(id)} handleClose={() => setOpen(false)} />);
+      setOpen(true);
+    }
   };
 
   const handleDelete = () => {
@@ -83,6 +94,7 @@ export const AssetDetails = () => {
         marginTop: 2,
       }}
     >
+      <CreateModal open={open} content={modalContent} setOpen={setOpen} />
       <Grid alignItems="center" container direction="row" justifyContent="left">
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
           <Typography ml={2} mt={2} variant="h4" color="primary.main">
@@ -91,17 +103,13 @@ export const AssetDetails = () => {
         </Grid>
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
           <ActionMenu>
-            <MenuItem disabled onClick={() => {}}>
-              Change status
-            </MenuItem>
+            <MenuItem onClick={() => navigate('/Asset/' + id + '/Status')}>Change status</MenuItem>
             <MenuItem onClick={() => navigate('/EditAsset/' + id)}>Edit</MenuItem>
             <MenuItem disabled onClick={() => {}}>
               Clone
             </MenuItem>
             <MenuItem onClick={handleDelete}>Delete</MenuItem>
-            <MenuItem disabled onClick={() => console.log('click')}>
-              Generate label
-            </MenuItem>
+            <MenuItem onClick={() => handleOpenModal()}>Generate label</MenuItem>
           </ActionMenu>
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
