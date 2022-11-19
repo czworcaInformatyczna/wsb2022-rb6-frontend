@@ -142,4 +142,11 @@ export const menuItems = [
     name: 'Roles',
     nestedList: null,
   },
+  {
+    icon: <DevicesOtherIcon />,
+    id: 9,
+    link: '/Models',
+    name: 'Models',
+    nestedList: null,
+  },
 ];

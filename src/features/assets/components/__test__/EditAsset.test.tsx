@@ -13,6 +13,7 @@ import { fetchAssetsCategory, fetchAssetsInfo, fetchAssetsModel } from './mockAp
 import { mswServer } from 'mocks/mswServer';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { SnackbarProvider } from 'notistack';
+jest.setTimeout(10000);
 
 const Provider = ({ children }: AppProviderProps) => {
   return (

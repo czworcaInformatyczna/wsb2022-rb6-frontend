@@ -1,7 +1,9 @@
 import { Box } from '@mui/material';
 import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
 import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
+import { useDeleteModel, useGetModels } from 'features/model/api';
 import { Link } from 'react-router-dom';
+import { changeDateTimeFormat } from 'utils';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -161,6 +163,60 @@ export const LicensesData: IDataProvider = {
       align: 'center',
       headerName: 'Available',
       width: 100,
+    },
+  ],
+};
+
+export const ModelsData: IDataProvider = {
+  getDataHook: useGetModels,
+  addNewLink: '/Model/Add',
+  editLink: '/Model/Edit',
+  deleteHook: useDeleteModel,
+  detailsLink: null,
+  name: 'Models',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.value}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'category',
+      headerName: 'Category',
+
+      width: 200,
+
+      valueGetter: (params) => {
+        return params.row.category.name;
+      },
+    },
+    {
+      field: 'manufacturer',
+      headerName: 'Manufacturer',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.manufacturer.name;
+      },
+    },
+    {
+      field: 'created_at',
+      headerName: 'Create date',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.created_at;
+      },
+      renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
     },
   ],
 };

@@ -1,6 +1,7 @@
+import { type IModelList } from 'features/model/types';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
-import { type IDataProviderSettings, type IAssets, type IModel, type IStatus } from '../types';
+import { type IDataProviderSettings, type IAssets, type IStatus } from '../types';
 
 export const useGetStatusOptions = () => {
   const context = useFetch<IStatus[]>(apiUrl.assetsCategory);
@@ -8,7 +9,7 @@ export const useGetStatusOptions = () => {
 };
 
 export const useGetModelOptions = () => {
-  const context = useFetch<IModel[]>(apiUrl.assetsModel);
+  const context = useFetch<IModelList>(apiUrl.assetsModel);
   return context;
 };
 
@@ -17,8 +18,8 @@ export const useGetAssets = (params: IDataProviderSettings) => {
   return context;
 };
 
-export const useGetAssetsDataById = <T>(id: number, url: string) => {
-  const context = useFetch<T>(url, { id });
+export const useGetAssetsDataById = <T>(id: number, url: string, enable: boolean = true) => {
+  const context = useFetch<T>(url, { id }, enable);
   return context;
 };
 

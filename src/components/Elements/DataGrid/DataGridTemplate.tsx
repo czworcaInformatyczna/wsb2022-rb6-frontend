@@ -250,6 +250,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   resetSelection: resetSelection,
                   deleteHook: Props.data.deleteHook,
                   handleModal: handleOpenModal,
+                  name: Props.data.name,
                 },
               }}
               disableColumnMenu
@@ -312,20 +313,24 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               onClose={handleClose}
               open={contextMenu !== null}
             >
-              <MenuItem
-                onClick={() => {
-                  navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
-                }}
-              >
-                Show details
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleOpenModal(contextMenu?.elementId ? contextMenu.elementId : null);
-                }}
-              >
-                Generate Label
-              </MenuItem>
+              {Props.data.detailsLink !== null && (
+                <MenuItem
+                  onClick={() => {
+                    navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
+                  }}
+                >
+                  Show details
+                </MenuItem>
+              )}
+              {Props.data.name === 'Assets' && (
+                <MenuItem
+                  onClick={() => {
+                    handleOpenModal(contextMenu?.elementId ? contextMenu.elementId : null);
+                  }}
+                >
+                  Generate Label
+                </MenuItem>
+              )}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {
