@@ -80,7 +80,7 @@ export interface IAssetDetails {
   checkins: number;
   checkouts: number;
   created_at: string;
-  current_holder: string;
+  current_holder: { email: string; id: number };
   current_holder_id: number;
   id: number | string;
   image: string;
@@ -108,6 +108,10 @@ export interface IAssetCreate {
   status: Statuses | undefined;
   tag: string;
   warranty: number | '';
+}
+export interface IChangeStatus {
+  current_holder_id?: number | undefined;
+  status: Statuses | undefined;
 }
 export interface DataProviderProps {
   link: string;

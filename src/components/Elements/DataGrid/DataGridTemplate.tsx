@@ -2,7 +2,6 @@ import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/mat
 import React, { useState } from 'react';
 import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
-import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
   type GridFilterModel,
@@ -36,12 +35,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
-  const [savedState, setSavedState] = useState<{
-    initialState: GridInitialState;
-  }>({
-    initialState: { columns: { columnVisibilityModel: {} } },
-  });
-
   const { data: assets, isLoading } = Props.data.getDataHook({
     per_page: pageSize,
     page: page + 1,
@@ -57,16 +50,15 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     }
   };
 
+  const getColumnsState = () => {
+    const columnsState = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
+    if (columnsState) return JSON.parse(columnsState);
+    return null;
+  };
+
   const getDataGridState = React.useCallback(() => {
-    const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
     const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');
-    if (columnsVisibility)
-      setSavedState((prev) => ({
-        initialState: {
-          ...prev.initialState,
-          columns: { columnVisibilityModel: JSON.parse(columnsVisibility) },
-        },
-      }));
+
     if (pageSizeStorage) setPageSize(Number(pageSizeStorage));
   }, [Props.data.name]);
 
@@ -263,7 +255,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               disableColumnMenu
               disableSelectionOnClick
               filterMode="server"
-              initialState={savedState.initialState}
+              initialState={{
+                columns: {
+                  columnVisibilityModel: getColumnsState(),
+                },
+              }}
               keepNonExistentRowsSelected
               loading={isLoading}
               onColumnVisibilityModelChange={saveColumnsVisibility}

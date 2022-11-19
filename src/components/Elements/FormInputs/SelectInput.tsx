@@ -6,12 +6,14 @@ import { type IInputProps } from 'features/assets';
 
 export interface ISelectInput extends IInputProps {
   containsImg?: boolean;
-  modalContent: JSX.Element;
-  openModal: (content: JSX.Element) => void;
+  createButton?: boolean;
+  modalContent?: JSX.Element;
+  openModal?: (content: JSX.Element) => void;
   options: any[];
 }
 
 export const SelectInput = ({
+  createButton = true,
   name,
   label,
   containsImg,
@@ -71,9 +73,14 @@ export const SelectInput = ({
                 />
               )}
               renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                <Box
+                  component="li"
+                  sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                  key={option.id}
+                >
                   {containsImg && <img alt="" loading="lazy" src={option.img} width="20" />}
-                  {option.name}
+                  {option.email ? option.email : option.name}
                 </Box>
               )}
             />
@@ -95,17 +102,19 @@ export const SelectInput = ({
         xl={3}
         xs={12}
       >
-        <Button
-          sx={{
-            maxHeight: '40px',
-          }}
-          onClick={() => {
-            openModal(modalContent);
-          }}
-          variant="contained"
-        >
-          Create
-        </Button>
+        {createButton && (
+          <Button
+            sx={{
+              maxHeight: '40px',
+            }}
+            onClick={() => {
+              if (openModal !== undefined) openModal(modalContent ? modalContent : <div />);
+            }}
+            variant="contained"
+          >
+            Create
+          </Button>
+        )}
       </Grid>
     </Grid>
   );
