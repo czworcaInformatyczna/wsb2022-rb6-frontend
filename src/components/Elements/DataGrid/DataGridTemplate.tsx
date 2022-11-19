@@ -14,12 +14,13 @@ import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
-import { getVariant } from 'utils';
+import { convertUrl, getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 import { useTheme } from '@mui/material/styles';
 import Labels from 'features/assets/components/Labels';
 import { CreateModal } from '../CreateModal';
+import { routePath } from 'routes';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const theme = useTheme();
@@ -316,7 +317,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               {Props.data.detailsLink !== null && (
                 <MenuItem
                   onClick={() => {
-                    navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
+                    navigate(
+                      convertUrl(Props.data.detailsLink !== null ? Props.data.detailsLink : '', {
+                        id: contextMenu?.elementId,
+                      }),
+                    );
                   }}
                 >
                   Show details
@@ -326,7 +331,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 <MenuItem
                   key="ChangeStatus"
                   onClick={() => {
-                    navigate('/Asset/' + contextMenu?.elementId + '/Status');
+                    navigate(
+                      convertUrl(routePath.assetChangeStatus, { id: contextMenu?.elementId }),
+                    );
                   }}
                 >
                   Change status
@@ -343,7 +350,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {
-                  navigate(Props.data.editLink + '/' + contextMenu?.elementId);
+                  navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
                 }}
               >
                 Edit

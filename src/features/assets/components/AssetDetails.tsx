@@ -19,7 +19,7 @@ import { ActionMenu } from 'components/Elements/DetailsActionMenu/ActionMenu';
 import { useDeleteAsset } from '../api';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
-import { getVariant } from 'utils';
+import { convertUrl, getVariant } from 'utils';
 import { CreateModal } from 'components/Elements/CreateModal';
 import Labels from './Labels';
 
@@ -103,8 +103,12 @@ export const AssetDetails = () => {
         </Grid>
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
           <ActionMenu>
-            <MenuItem onClick={() => navigate('/Asset/' + id + '/Status')}>Change status</MenuItem>
-            <MenuItem onClick={() => navigate('/EditAsset/' + id)}>Edit</MenuItem>
+            <MenuItem onClick={() => navigate(convertUrl(routePath.assetChangeStatus, { id: id }))}>
+              Change status
+            </MenuItem>
+            <MenuItem onClick={() => navigate(convertUrl(routePath.editAsset, { id: id }))}>
+              Edit
+            </MenuItem>
             <MenuItem disabled onClick={() => {}}>
               Clone
             </MenuItem>
