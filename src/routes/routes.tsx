@@ -17,6 +17,8 @@ import { AddCategory } from 'features/category/components/AddCategory';
 import { AddModel } from 'features/model/components/AddModel';
 import * as columns from 'components/Elements/DataGrid/columnsData';
 import { Statuses } from 'features/assets';
+import { AddRole } from 'features/roles/components/AddRole';
+import { RoleDetails } from 'features/roles/components/RoleDetails';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -78,6 +80,13 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Models" data={columns.ModelsData} />}
           path={routePath.models}
         />
+        <Route
+          element={<DataGridTemplate key="Roles" data={columns.RolesData} />}
+          path={routePath.roles}
+        />
+        <Route element={<AddRole key="AddRole" />} path={routePath.addRole} />
+        <Route element={<AddRole key="EditRole" />} path={routePath.editRole} />
+        <Route element={<RoleDetails />} path={routePath.roleDetails} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

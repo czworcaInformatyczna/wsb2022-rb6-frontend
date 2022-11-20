@@ -28,10 +28,12 @@ export const apiUrl = {
   addAssetCategory: '/asset_category',
   models: '/asset_model',
   modelsById: '/asset_model/:id',
-
   addAssetModel: '/asset_model',
   manufacturerList: '/manufacturer',
   categoryList: '/asset_category',
+  roles: '/role',
+  rolesById: '/role/:id',
+  permissions: '/permission',
 };
 
 export const routePath = {
@@ -58,4 +60,8 @@ export const routePath = {
   addModel: '/Model/Add',
   editModel: '/Model/Edit/:id',
   models: '/Models',
+  roles: '/Roles',
+  addRole: '/Roles/Add',
+  editRole: '/Roles/Edit/:id',
+  roleDetails: '/Roles/Details/:id',
 };

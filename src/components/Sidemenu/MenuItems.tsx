@@ -60,6 +60,12 @@ export const menuItems = [
         link: '/Model/Add',
         name: 'Model',
       },
+      {
+        icon: <AdminPanelSettingsIcon />,
+        id: 6,
+        link: '/Roles/Add',
+        name: 'Role',
+      },
     ],
   },
   {

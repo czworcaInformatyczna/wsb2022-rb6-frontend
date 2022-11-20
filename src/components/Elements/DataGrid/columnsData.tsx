@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
 import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
 import { useDeleteModel, useGetModels } from 'features/model/api';
+import { useDeleteRole, useGetRoles } from 'features/roles/api';
 import { Link } from 'react-router-dom';
 import { changeDateTimeFormat } from 'utils';
 
@@ -179,11 +180,7 @@ export const ModelsData: IDataProvider = {
       field: 'id',
       headerName: 'Id',
       width: 90,
-      renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.value}>
-          {params.value}
-        </Box>
-      ),
+      renderCell: (params) => <Box>{params.value}</Box>,
     },
     {
       field: 'name',
@@ -212,11 +209,55 @@ export const ModelsData: IDataProvider = {
     {
       field: 'created_at',
       headerName: 'Create date',
-      width: 200,
+      flex: 1,
       valueGetter: (params) => {
         return params.row.created_at;
       },
       renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
+    },
+  ],
+};
+
+export const RolesData: IDataProvider = {
+  getDataHook: useGetRoles,
+  addNewLink: '/Roles/Add',
+  editLink: '/Roles/Edit',
+  deleteHook: useDeleteRole,
+  detailsLink: '/Roles/Details',
+  name: 'Roles',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Roles/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Roles/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'permissions',
+      headerName: 'Permissions',
+      flex: 1,
+
+      valueGetter: (params) => {
+        let permissions = '';
+        params.row.permissions.map(
+          (permission: { name: string }) => (permissions += permission.name + ', '),
+        );
+        return permissions;
+      },
     },
   ],
 };
