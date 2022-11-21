@@ -3,6 +3,7 @@ import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'fe
 import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
 import { useDeleteModel, useGetModels } from 'features/model/api';
 import { useDeleteRole, useGetRoles } from 'features/roles/api';
+import { useDeleteUser, useGetUsers } from 'features/users/api';
 import { Link } from 'react-router-dom';
 import { changeDateTimeFormat } from 'utils';
 
@@ -257,6 +258,70 @@ export const RolesData: IDataProvider = {
           (permission: { name: string }) => (permissions += permission.name + ', '),
         );
         return permissions;
+      },
+    },
+  ],
+};
+
+export const UsersData: IDataProvider = {
+  getDataHook: useGetUsers,
+  addNewLink: '/Users/Add',
+  editLink: '/Users/Edit',
+  deleteHook: useDeleteUser,
+  detailsLink: '/Users/Details',
+  name: 'Users',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'surname',
+      headerName: 'Surname',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone number',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'roles',
+      headerName: 'Roles',
+      width: 200,
+
+      valueGetter: (params) => {
+        let roles = '';
+        params.row.roles.map((role: { name: string }) => (roles += role.name + ', '));
+        return roles;
       },
     },
   ],

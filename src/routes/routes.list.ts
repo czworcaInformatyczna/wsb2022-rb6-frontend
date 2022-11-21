@@ -34,6 +34,8 @@ export const apiUrl = {
   roles: '/role',
   rolesById: '/role/:id',
   permissions: '/permission',
+  users: '/user',
+  usersById: '/user/:id',
 };
 
 export const routePath = {
@@ -64,4 +66,7 @@ export const routePath = {
   addRole: '/Roles/Add',
   editRole: '/Roles/Edit/:id',
   roleDetails: '/Roles/Details/:id',
+  users: '/Users',
+  addUser: '/Users/Add',
+  editUser: '/Users/Edit/:id',
 };

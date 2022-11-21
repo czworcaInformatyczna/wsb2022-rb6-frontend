@@ -3,7 +3,7 @@ import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type TPermissions, type IRoles } from '../types';
 
-export const useGetRoles = (params: IDataProviderSettings) => {
+export const useGetRoles = (params?: IDataProviderSettings) => {
   const context = useFetch<IRoles>(apiUrl.roles, params);
   return context;
 };
