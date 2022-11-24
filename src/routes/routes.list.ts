@@ -32,6 +32,7 @@ export const apiUrl = {
   addAssetModel: '/asset_model',
   manufacturerList: '/manufacturer',
   categoryList: '/asset_category',
+  users: '/user',
 };
 
 export const routePath = {
@@ -40,6 +41,7 @@ export const routePath = {
   dashboard: '/dashboard',
   accessories: '/accessories',
   assets: '/Assets',
+  assetChangeStatus: '/Asset/:id/Status',
   assetsArchived: '/Assets/Archived',
   assetsMaintenance: '/Assets/Maintenance',
   assetsReadyToDeploy: '/Assets/ReadyToDeploy',

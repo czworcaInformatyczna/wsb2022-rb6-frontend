@@ -2,7 +2,6 @@ import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/mat
 import React, { useState } from 'react';
 import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
-import { type GridInitialState } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
 import {
   type GridFilterModel,
@@ -15,12 +14,13 @@ import { useNavigate } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import EditIcon from '@mui/icons-material/Edit';
-import { getVariant } from 'utils';
+import { convertUrl, getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 import { useTheme } from '@mui/material/styles';
 import Labels from 'features/assets/components/Labels';
 import { CreateModal } from '../CreateModal';
+import { routePath } from 'routes';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const theme = useTheme();
@@ -36,12 +36,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
-  const [savedState, setSavedState] = useState<{
-    initialState: GridInitialState;
-  }>({
-    initialState: { columns: { columnVisibilityModel: {} } },
-  });
-
   const { data: assets, isLoading } = Props.data.getDataHook({
     per_page: pageSize,
     page: page + 1,
@@ -52,21 +46,20 @@ export const DataGridTemplate = (Props: AssetsProps) => {
 
   const handleOpenModal = (id: GridSelectionModel | number | null) => {
     if (id !== null) {
-      setModalContent(<Labels id={id} />);
+      setModalContent(<Labels id={id} handleClose={() => setOpen(false)} />);
       setOpen(true);
     }
   };
 
+  const getColumnsState = () => {
+    const columnsState = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
+    if (columnsState) return JSON.parse(columnsState);
+    return null;
+  };
+
   const getDataGridState = React.useCallback(() => {
-    const columnsVisibility = localStorage.getItem(Props.data.name + 'ColumnsVisibility');
     const pageSizeStorage = localStorage.getItem(Props.data.name + 'PageSize');
-    if (columnsVisibility)
-      setSavedState((prev) => ({
-        initialState: {
-          ...prev.initialState,
-          columns: { columnVisibilityModel: JSON.parse(columnsVisibility) },
-        },
-      }));
+
     if (pageSizeStorage) setPageSize(Number(pageSizeStorage));
   }, [Props.data.name]);
 
@@ -264,7 +257,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               disableColumnMenu
               disableSelectionOnClick
               filterMode="server"
-              initialState={savedState.initialState}
+              initialState={{
+                columns: {
+                  columnVisibilityModel: getColumnsState(),
+                },
+              }}
               keepNonExistentRowsSelected
               loading={isLoading}
               onColumnVisibilityModelChange={saveColumnsVisibility}
@@ -282,7 +279,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
               rows={assets === undefined ? [] : assets.data}
-              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               selectionModel={selectionModel}
               sortingMode="server"
               sx={{
@@ -320,25 +317,40 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               {Props.data.detailsLink !== null && (
                 <MenuItem
                   onClick={() => {
-                    navigate(Props.data.detailsLink + '/' + contextMenu?.elementId);
+                    navigate(
+                      convertUrl(Props.data.detailsLink !== null ? Props.data.detailsLink : '', {
+                        id: contextMenu?.elementId,
+                      }),
+                    );
                   }}
                 >
                   Show details
                 </MenuItem>
               )}
-              {Props.data.name === 'Assets' && (
+              {Props.data.name === 'Assets' && [
                 <MenuItem
+                  key="ChangeStatus"
+                  onClick={() => {
+                    navigate(
+                      convertUrl(routePath.assetChangeStatus, { id: contextMenu?.elementId }),
+                    );
+                  }}
+                >
+                  Change status
+                </MenuItem>,
+                <MenuItem
+                  key="GenerateLabels"
                   onClick={() => {
                     handleOpenModal(contextMenu?.elementId ? contextMenu.elementId : null);
                   }}
                 >
                   Generate Label
-                </MenuItem>
-              )}
+                </MenuItem>,
+              ]}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
               <MenuItem
                 onClick={() => {
-                  navigate(Props.data.editLink + '/' + contextMenu?.elementId);
+                  navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
                 }}
               >
                 Edit

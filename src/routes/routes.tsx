@@ -17,6 +17,7 @@ import { AddCategory } from 'features/category/components/AddCategory';
 import { AddModel } from 'features/model/components/AddModel';
 import * as columns from 'components/Elements/DataGrid/columnsData';
 import { Statuses } from 'features/assets';
+import ChangeStatus from 'features/assets/components/ChangeStatus';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -78,6 +79,7 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Models" data={columns.ModelsData} />}
           path={routePath.models}
         />
+        <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

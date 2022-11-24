@@ -58,6 +58,7 @@ export const assetDetailsEdit = {
   status: 'Ready to deploy',
   assetTag: 'assetTag',
   notes: 'some notes',
+  current_holder: null,
   waranty: 6,
   orderNumber: '123',
   dateOfPurchase: '22/02/2022',
@@ -283,3 +284,71 @@ export const categoryList = [
     id: 3,
   },
 ];
+
+export const usersList = {
+  total: 2,
+  data: [
+    {
+      id: 1,
+      name: 'Jan',
+      surname: 'Kowalski',
+      email: 'Jan@kowalski@gmail.com',
+      phone_number: '123123123',
+      roles: [],
+    },
+    {
+      id: 2,
+      name: 'Maciej',
+      surname: 'Nowak',
+      email: 'Maciej.N@wp.pl',
+      phone_number: '123123123',
+      roles: [],
+    },
+  ],
+};
+
+export const modelList = {
+  total: 2,
+  data: [
+    {
+      id: 1,
+      name: 'Corrupti amet',
+      created_at: '2022-10-17T20:25:38.000000Z',
+      updated_at: '2022-10-17T20:25:38.000000Z',
+      asset_category_id: 15,
+      asset_manufacturer_id: 196,
+      category: {
+        id: 15,
+        name: 'Magni nobis',
+        created_at: '2022-10-17T20:24:42.000000Z',
+        updated_at: '2022-10-17T20:24:42.000000Z',
+      },
+      manufacturer: {
+        id: 196,
+        name: 'atque aut',
+        created_at: '2022-10-06T19:08:39.000000Z',
+        updated_at: '2022-10-06T19:08:39.000000Z',
+      },
+    },
+    {
+      id: 0,
+      name: 'Ipsa beatae',
+      created_at: '2022-10-19T19:41:03.000000Z',
+      updated_at: '2022-10-19T19:41:03.000000Z',
+      asset_category_id: 44,
+      asset_manufacturer_id: 224,
+      category: {
+        id: 44,
+        name: 'Atque nobis',
+        created_at: '2022-10-19T19:41:03.000000Z',
+        updated_at: '2022-10-19T19:41:03.000000Z',
+      },
+      manufacturer: {
+        id: 1,
+        name: 'Repellendus illum',
+        created_at: '2022-10-17T20:24:42.000000Z',
+        updated_at: '2022-10-17T20:24:42.000000Z',
+      },
+    },
+  ],
+};
