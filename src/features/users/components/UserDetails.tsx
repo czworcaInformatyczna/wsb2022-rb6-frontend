@@ -4,29 +4,30 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
 import { ActionMenu } from 'components/Elements/DetailsActionMenu/ActionMenu';
-import { useDeleteRole } from '../api';
+import { useDeleteUser } from '../api';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 import { getVariant } from 'utils';
 import { useGetAssetsDataById } from 'features/assets';
-import { type IRole } from '../types';
+import { type IUser } from '../types';
 import { LoadingScreen } from 'components/Elements/Loading';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import GroupIcon from '@mui/icons-material/Group';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
-import Permissions from './Permissions';
+import UserInformations from './UserInformations';
+import NoResult from 'features/assets/components/detailsComponents/noResult';
+import PersonIcon from '@mui/icons-material/Person';
 
-export const RoleDetails = () => {
+export const UserDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const deleteRole = useDeleteRole();
+  const deleteUser = useDeleteUser();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
   const [tab, setTab] = useState(0);
-  const { data: role, isLoading } = useGetAssetsDataById<IRole>(
+  const { data: user, isLoading } = useGetAssetsDataById<IUser>(
     Number(id),
-    apiUrl.roles + '/' + id,
+    apiUrl.users + '/' + id,
   );
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -39,7 +40,7 @@ export const RoleDetails = () => {
     }
   }, [id, navigate]);
 
-  const handleDeleteRole = () => {
+  const handleDeleteUser = () => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
     confirm({
       title: (
@@ -59,11 +60,11 @@ export const RoleDetails = () => {
       cancellationButtonProps: { variant: 'contained', color: 'error' },
     })
       .then(() => {
-        deleteRole.mutate(id, {
+        deleteUser.mutate(id, {
           onSuccess: () => {
             const variant = getVariant('success');
-            enqueueSnackbar('Role has been deleted', { variant });
-            navigate(routePath.roles);
+            enqueueSnackbar('User has been deleted', { variant });
+            navigate(routePath.users);
           },
         });
         return null;
@@ -88,13 +89,13 @@ export const RoleDetails = () => {
         <Grid alignItems="center" container direction="row" justifyContent="left">
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
             <Typography ml={2} mt={2} variant="h4" color="primary.main">
-              Role - {role?.role.name}
+              Role - {user?.name} {user?.surname}
             </Typography>
           </Grid>
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
             <ActionMenu>
-              <MenuItem onClick={() => navigate('/Roles/Edit/' + id)}>Edit</MenuItem>
-              <MenuItem onClick={handleDeleteRole}>Delete</MenuItem>
+              <MenuItem onClick={() => navigate('/Users/Edit/' + id)}>Edit</MenuItem>
+              <MenuItem onClick={handleDeleteUser}>Delete</MenuItem>
             </ActionMenu>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
@@ -107,14 +108,14 @@ export const RoleDetails = () => {
                 allowScrollButtonsMobile
                 aria-label="Asset details tabs"
               >
-                <Tab icon={<AdminPanelSettingsIcon />} label="Permissions" />
-                <Tab icon={<GroupIcon />} label="Users" />
+                <Tab icon={<PersonIcon />} label="Informations" />
+                <Tab icon={<FormatListBulletedIcon />} label="Assets" />
               </Tabs>
             </Box>
           </Grid>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
             <TabPanel tab={tab} index={0}>
-              <Permissions role={role?.rolePermissions ? role.rolePermissions : []} />
+              {user ? <UserInformations user={user} /> : <NoResult />}
             </TabPanel>
             {/* <TabPanel tab={tab} index={1}>
               <AssetLicenses id={Number(id)} />

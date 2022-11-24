@@ -73,7 +73,7 @@ export const AddUser = ({ isModal = false }: IsModal) => {
       setAction('Add');
     }
   }, [user, id, isIdNotValid, location.pathname, navigate, refetch, reset, setValues]);
-  console.log(user);
+
   const onSubmit = async (data: IAddUserForm) => {
     const tempData = {
       name: data.name,
@@ -82,7 +82,6 @@ export const AddUser = ({ isModal = false }: IsModal) => {
       surname: data.surname,
       phone_number: data.phone_number,
     };
-    console.log(tempData);
     if (action === 'Add')
       addUser.mutate(tempData, {
         onSuccess: () => {
@@ -103,7 +102,7 @@ export const AddUser = ({ isModal = false }: IsModal) => {
           onSuccess: () => {
             const variant = getVariant('success');
             enqueueSnackbar('User has been updated', { variant });
-            navigate(routePath.roles);
+            navigate(routePath.users);
           },
           onError(error) {
             const e: { message: string } = error.response?.data as { message: string };

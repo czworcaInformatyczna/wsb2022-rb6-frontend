@@ -20,6 +20,7 @@ import { Statuses } from 'features/assets';
 import { AddRole } from 'features/roles/components/AddRole';
 import { RoleDetails } from 'features/roles/components/RoleDetails';
 import { AddUser } from 'features/users/components/AddUser';
+import { UserDetails } from 'features/users/components/UserDetails';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -94,6 +95,7 @@ export const AppRoutes = (): JSX.Element => (
         />
         <Route element={<AddUser key="AddUser" />} path={routePath.addUser} />
         <Route element={<AddUser key="EditUser" />} path={routePath.editUser} />
+        <Route element={<UserDetails />} path={routePath.userDetails} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

@@ -69,4 +69,5 @@ export const routePath = {
   users: '/Users',
   addUser: '/Users/Add',
   editUser: '/Users/Edit/:id',
+  userDetails: '/Users/Details/:id',
 };

@@ -15,6 +15,7 @@ import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CategoryIcon from '@mui/icons-material/Category';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const menuItems = [
   {
@@ -65,6 +66,12 @@ export const menuItems = [
         id: 6,
         link: '/Roles/Add',
         name: 'Role',
+      },
+      {
+        icon: <PersonIcon />,
+        id: 7,
+        link: '/Users/Add',
+        name: 'User',
       },
     ],
   },
