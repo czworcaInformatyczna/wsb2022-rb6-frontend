@@ -128,7 +128,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
                 />
                 <TableRowTemplate
                   name="Assigned to"
-                  value={assetDetails.current_holder}
+                  value={assetDetails.current_holder ? assetDetails.current_holder.email : ''}
                   even={false}
                   keyWidth="35%"
                   valueWidth="65%"

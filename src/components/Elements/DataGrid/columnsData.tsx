@@ -10,9 +10,9 @@ import { changeDateTimeFormat } from 'utils';
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
   addNewLink: '/AddAsset',
-  editLink: '/EditAsset',
+  editLink: '/EditAsset/:id',
   deleteHook: useDeleteAsset,
-  detailsLink: '/AssetDetails',
+  detailsLink: '/AssetDetails/:id',
   name: 'Assets',
   columns: [
     {
@@ -117,8 +117,8 @@ export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
   deleteHook: useDeleteLicense,
   addNewLink: '/AddLicense',
-  editLink: '/EditLicense',
-  detailsLink: '/LicenseDetails',
+  editLink: '/EditLicense/:id',
+  detailsLink: '/LicenseDetails/:id',
   name: 'Licenses',
   columns: [
     {
@@ -172,7 +172,7 @@ export const LicensesData: IDataProvider = {
 export const ModelsData: IDataProvider = {
   getDataHook: useGetModels,
   addNewLink: '/Model/Add',
-  editLink: '/Model/Edit',
+  editLink: '/Model/Edit/:id',
   deleteHook: useDeleteModel,
   detailsLink: null,
   name: 'Models',

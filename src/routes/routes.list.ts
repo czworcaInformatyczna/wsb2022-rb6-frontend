@@ -44,6 +44,7 @@ export const routePath = {
   dashboard: '/dashboard',
   accessories: '/accessories',
   assets: '/Assets',
+  assetChangeStatus: '/Asset/:id/Status',
   assetsArchived: '/Assets/Archived',
   assetsMaintenance: '/Assets/Maintenance',
   assetsReadyToDeploy: '/Assets/ReadyToDeploy',

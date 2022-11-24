@@ -6,3 +6,4 @@ export * from './manufacturerHandlers';
 export * from './categoryHandlers';
 export * from './modelHandlers';
 export * from './rolesHandlers';
+export * from './userHandlers';

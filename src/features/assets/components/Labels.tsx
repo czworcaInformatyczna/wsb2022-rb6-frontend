@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Box, Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 
 import { apiClient } from 'lib/axios';
 import { useRef, useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ import { useReactToPrint } from 'react-to-print';
 import { type GridSelectionModel } from '@mui/x-data-grid';
 
 interface IProps {
+  handleClose: () => void;
   id: GridSelectionModel | number;
 }
 
@@ -35,9 +36,14 @@ const Labels = (props: IProps) => {
   return (
     <Box height="600px" width="420px">
       <Box mt={1} height="50px">
-        <Button variant="contained" onClick={handlePrint}>
-          Print labels
-        </Button>
+        <Stack spacing={2} direction="row">
+          <Button variant="contained" onClick={handlePrint}>
+            Print labels
+          </Button>
+          <Button variant="contained" color="error" onClick={props.handleClose}>
+            Close
+          </Button>
+        </Stack>
       </Box>
       <Box ref={componentRef} height="500px" width="420px">
         {labels.map((lab, index) => {

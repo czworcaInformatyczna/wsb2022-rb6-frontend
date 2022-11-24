@@ -7,6 +7,7 @@ import {
   categoryHandlers,
   modelHandlers,
   rolesHandlers,
+  userHandlers,
 } from 'mocks/featureHandlers';
 
 export const handlers = [
@@ -18,4 +19,5 @@ export const handlers = [
   ...categoryHandlers,
   ...modelHandlers,
   ...rolesHandlers,
+  ...userHandlers,
 ];
