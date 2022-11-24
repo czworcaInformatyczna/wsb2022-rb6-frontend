@@ -172,7 +172,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           key={params.id}
           label="Edit"
           onClick={() => {
-            navigate(Props.data.editLink + '/' + params.id);
+            navigate(convertUrl(Props.data.editLink, { id: params.id }));
           }}
         />,
         <GridActionsCellItem

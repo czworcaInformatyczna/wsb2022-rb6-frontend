@@ -222,9 +222,9 @@ export const ModelsData: IDataProvider = {
 export const RolesData: IDataProvider = {
   getDataHook: useGetRoles,
   addNewLink: '/Roles/Add',
-  editLink: '/Roles/Edit',
+  editLink: '/Roles/Edit/:id',
   deleteHook: useDeleteRole,
-  detailsLink: '/Roles/Details',
+  detailsLink: '/Roles/Details/:id',
   name: 'Roles',
   columns: [
     {
@@ -266,9 +266,9 @@ export const RolesData: IDataProvider = {
 export const UsersData: IDataProvider = {
   getDataHook: useGetUsers,
   addNewLink: '/Users/Add',
-  editLink: '/Users/Edit',
+  editLink: '/Users/Edit/:id',
   deleteHook: useDeleteUser,
-  detailsLink: '/Users/Details',
+  detailsLink: '/Users/Details/:id',
   name: 'Users',
   columns: [
     {
