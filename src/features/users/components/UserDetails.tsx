@@ -16,6 +16,7 @@ import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel'
 import UserInformations from './UserInformations';
 import NoResult from 'features/assets/components/detailsComponents/noResult';
 import PersonIcon from '@mui/icons-material/Person';
+import UserAssets from './UserAssets';
 
 export const UserDetails = () => {
   const { id } = useParams();
@@ -89,7 +90,7 @@ export const UserDetails = () => {
         <Grid alignItems="center" container direction="row" justifyContent="left">
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6}>
             <Typography ml={2} mt={2} variant="h4" color="primary.main">
-              Role - {user?.name} {user?.surname}
+              User - {user?.name} {user?.surname}
             </Typography>
           </Grid>
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
@@ -117,9 +118,9 @@ export const UserDetails = () => {
             <TabPanel tab={tab} index={0}>
               {user ? <UserInformations user={user} /> : <NoResult />}
             </TabPanel>
-            {/* <TabPanel tab={tab} index={1}>
-              <AssetLicenses id={Number(id)} />
-            </TabPanel> */}
+            <TabPanel tab={tab} index={1}>
+              <UserAssets assets={user?.assets ? user.assets : []} />
+            </TabPanel>
           </Grid>
         </Grid>
       )}

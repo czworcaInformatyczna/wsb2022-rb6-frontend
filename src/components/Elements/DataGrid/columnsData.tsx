@@ -6,6 +6,8 @@ import { useDeleteRole, useGetRoles } from 'features/roles/api';
 import { useDeleteUser, useGetUsers } from 'features/users/api';
 import { Link } from 'react-router-dom';
 import { changeDateTimeFormat } from 'utils';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -290,6 +292,21 @@ export const UsersData: IDataProvider = {
           {params.value}
         </Box>
       ),
+    },
+    {
+      align: 'center',
+      field: 'activated',
+      headerName: 'Confirmed?',
+      width: 100,
+      renderCell: (params) => {
+        return params.row.activated ? (
+          <CheckIcon color="success" />
+        ) : (
+          <Box>
+            <CloseIcon color="error" />
+          </Box>
+        );
+      },
     },
     {
       field: 'name',

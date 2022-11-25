@@ -1,3 +1,5 @@
+import { type IAssetDetails } from 'features/assets';
+
 export interface IUsers {
   data: [
     {
@@ -21,6 +23,7 @@ export interface IAddUser {
 }
 
 export interface IUser {
+  assets: IAssetDetails[];
   email: string;
   name: string;
   phone_number: number;

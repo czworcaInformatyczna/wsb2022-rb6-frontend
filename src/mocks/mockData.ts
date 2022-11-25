@@ -360,6 +360,7 @@ export const usersList = {
   total: 2,
   data: [
     {
+      activated: false,
       id: 1,
       name: 'Jan',
       surname: 'Kowalski',
@@ -368,6 +369,7 @@ export const usersList = {
       roles: [],
     },
     {
+      activated: true,
       id: 2,
       name: 'Maciej',
       surname: 'Nowak',
