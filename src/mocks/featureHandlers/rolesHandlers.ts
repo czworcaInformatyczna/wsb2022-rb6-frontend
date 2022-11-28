@@ -1,5 +1,5 @@
 import { type IRoles } from 'features/roles/types';
-import { permissionsList, Role, Roles } from 'mocks/mockData';
+import { permissionsList, Role, Roles, usersList } from 'mocks/mockData';
 
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
@@ -29,4 +29,26 @@ const updateRole = rest.patch(url(apiUrl.rolesById), (req, res, ctx) => {
   return res(ctx.status(200));
 });
 
-export const rolesHandlers = [addRole, permissions, role, roles, deleteRole, updateRole];
+const addUserToRole = rest.patch(url(apiUrl.addUsersToRole), (req, res, ctx) => {
+  return res(ctx.status(200));
+});
+
+const removeUserFromRole = rest.patch(url(apiUrl.removeUserFromRole), (req, res, ctx) => {
+  return res(ctx.status(200));
+});
+
+const usersInRole = rest.get(url(apiUrl.roleUsers), (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(usersList));
+});
+
+export const rolesHandlers = [
+  addRole,
+  permissions,
+  role,
+  roles,
+  deleteRole,
+  updateRole,
+  addUserToRole,
+  removeUserFromRole,
+  usersInRole,
+];
