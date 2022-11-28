@@ -37,3 +37,9 @@ export interface IAddUserForm {
   roles: [{ id: number; name: string }];
   surname?: string;
 }
+export interface IUserId {
+  id: number;
+}
+export interface IAddUsersToRole {
+  users: number[];
+}

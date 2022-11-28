@@ -26,3 +26,7 @@ export interface IRole {
   };
   rolePermissions: [{ id: number; name: string }];
 }
+
+export interface IAddToRole {
+  users: [{ email: string; id: number; name: string; surname: string }];
+}

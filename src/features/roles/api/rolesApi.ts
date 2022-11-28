@@ -27,3 +27,13 @@ export const useUpdateRole = <T>() => {
   const context = useUpdate<T>(apiUrl.rolesById);
   return context;
 };
+
+export const useAddUsersToRole = <T>() => {
+  const context = useUpdate<T>(apiUrl.addUsersToRole);
+  return context;
+};
+
+export const useDeleteUserFromRole = <T>() => {
+  const context = useUpdate<T>(apiUrl.removeUserFromRole, apiUrl.roles);
+  return context;
+};

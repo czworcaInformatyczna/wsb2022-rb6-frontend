@@ -12,6 +12,7 @@ export interface ISelectInput extends IInputProps {
   multipleValues?: boolean;
   openModal?: (content: JSX.Element) => void;
   options: any[];
+  showEmails?: boolean;
 }
 
 export const SelectInput = ({
@@ -22,6 +23,7 @@ export const SelectInput = ({
   options,
   modalContent,
   multipleValues = false,
+  showEmails = false,
   openModal,
 }: ISelectInput) => {
   const {
@@ -60,7 +62,9 @@ export const SelectInput = ({
               disableCloseOnSelect={multipleValues}
               autoHighlight
               fullWidth
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) =>
+                showEmails ? option.email : option.name ? option.name : ''
+              }
               id={`select-${name}`}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
@@ -89,7 +93,7 @@ export const SelectInput = ({
                       key={option.id}
                     >
                       <Checkbox icon={icon} checkedIcon={checkedIcon} checked={selected} />
-                      {option.name}
+                      {option.email ? option.email : option.name}
                     </Box>
                   ) : (
                     <Box

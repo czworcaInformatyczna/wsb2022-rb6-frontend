@@ -7,7 +7,7 @@ import { ActionMenu } from 'components/Elements/DetailsActionMenu/ActionMenu';
 import { useDeleteRole } from '../api';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
-import { getVariant } from 'utils';
+import { convertUrl, getVariant } from 'utils';
 import { useGetAssetsDataById } from 'features/assets';
 import { type IRole } from '../types';
 import { LoadingScreen } from 'components/Elements/Loading';
@@ -15,6 +15,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import GroupIcon from '@mui/icons-material/Group';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
 import Permissions from './Permissions';
+import RoleUsers from './RoleUsers';
 
 export const RoleDetails = () => {
   const { id } = useParams();
@@ -93,6 +94,11 @@ export const RoleDetails = () => {
           </Grid>
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
             <ActionMenu>
+              <MenuItem
+                onClick={() => navigate(convertUrl(routePath.addToRole, { id: role?.role.name }))}
+              >
+                Add users to role
+              </MenuItem>
               <MenuItem onClick={() => navigate('/Roles/Edit/' + id)}>Edit</MenuItem>
               <MenuItem onClick={handleDeleteRole}>Delete</MenuItem>
             </ActionMenu>
@@ -116,9 +122,9 @@ export const RoleDetails = () => {
             <TabPanel tab={tab} index={0}>
               <Permissions role={role?.rolePermissions ? role.rolePermissions : []} />
             </TabPanel>
-            {/* <TabPanel tab={tab} index={1}>
-              <AssetLicenses id={Number(id)} />
-            </TabPanel> */}
+            <TabPanel tab={tab} index={1}>
+              <RoleUsers id={Number(id)} role={role?.role.name ? role?.role.name : ''} />
+            </TabPanel>
           </Grid>
         </Grid>
       )}
