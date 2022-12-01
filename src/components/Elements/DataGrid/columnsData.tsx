@@ -343,3 +343,82 @@ export const UsersData: IDataProvider = {
     },
   ],
 };
+
+export const ComponentsData: IDataProvider = {
+  getDataHook: useGetUsers,
+  addNewLink: '/Users/Add',
+  editLink: '/Users/Edit/:id',
+  deleteHook: useDeleteUser,
+  detailsLink: '/Users/Details/:id',
+  name: 'Users',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'activated',
+      headerName: 'Confirmed?',
+      width: 100,
+      renderCell: (params) => {
+        return params.row.activated ? (
+          <CheckIcon color="success" />
+        ) : (
+          <Box>
+            <CloseIcon color="error" />
+          </Box>
+        );
+      },
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'surname',
+      headerName: 'Surname',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone number',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'roles',
+      headerName: 'Roles',
+      width: 200,
+
+      valueGetter: (params) => {
+        let roles = '';
+        params.row.roles.map((role: { name: string }) => (roles += role.name + ', '));
+        return roles;
+      },
+    },
+  ],
+};

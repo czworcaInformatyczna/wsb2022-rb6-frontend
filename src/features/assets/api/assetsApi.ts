@@ -47,3 +47,13 @@ export const useDeleteAssetFile = <Number>() => {
   const context = useDelete<Number>(apiUrl.assetFilesById, apiUrl.assetFiles);
   return context;
 };
+
+export const useGetAssetMaintenances = <T>(url: string, params: IDataProviderSettings) => {
+  const context = useFetch<T>(url, params);
+  return context;
+};
+
+export const useAddAssetMaintenances = <T>(url: string) => {
+  const context = usePost<T>(url);
+  return context;
+};

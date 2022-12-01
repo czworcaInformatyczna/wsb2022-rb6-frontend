@@ -23,6 +23,7 @@ import { AddUser } from 'features/users/components/AddUser';
 import { UserDetails } from 'features/users/components/UserDetails';
 import ChangeStatus from 'features/assets/components/ChangeStatus';
 import { AddUserToRole } from 'features/roles/components/AddUserToRole';
+import { AddMaintenance } from 'features/assets/components/detailsComponents/AddMaintenance';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -100,6 +101,7 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<UserDetails />} path={routePath.userDetails} />
         <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
         <Route element={<AddUserToRole />} path={routePath.addToRole} />
+        <Route element={<AddMaintenance />} path={routePath.addAssetMaintenance} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

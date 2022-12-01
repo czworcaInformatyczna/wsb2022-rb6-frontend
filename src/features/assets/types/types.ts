@@ -210,13 +210,18 @@ export interface IAssetHistory {
 }
 
 export interface IAssetMaintenances {
-  endDate: string;
-  id: number;
-  maintenanceType: string;
-  notes: string;
-  startDate: string;
-  title: string;
-  user: string;
+  data: [
+    {
+      endDate: string;
+      id: number;
+      maintenanceType: string;
+      notes: string;
+      startDate: string;
+      title: string;
+      user: string;
+    },
+  ];
+  total: number;
 }
 
 export interface IAssetFiles {
@@ -231,4 +236,24 @@ export interface IAssetFile {
   name: string;
   size: string;
   upload_date: string;
+}
+
+export interface IMaintenance {
+  asset_id: number;
+  end_date: string;
+  maintenance_type: string;
+  notes: string;
+  start_date: string;
+  title: string;
+  user_id: number;
+}
+
+export interface IMaintenanceForm {
+  asset_id: number;
+  end_date: string;
+  maintenance_type: { id: string; name: string };
+  notes: string;
+  start_date: string;
+  title: string;
+  user_id: { id: number; name: string };
 }

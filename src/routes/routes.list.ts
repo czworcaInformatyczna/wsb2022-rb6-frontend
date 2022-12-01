@@ -12,7 +12,7 @@ export const apiUrl = {
   assetLicenses: '/assets/Licenses',
   assetComponents: '/assets/Components',
   assetHistory: '/assets/History',
-  assetMaintenances: '/asset_maintenances',
+  assetMaintenances: '/asset_maintenance',
   assetFiles: '/asset_file',
   licenses: '/licenses',
   licensesCategory: '/licenses/category',
@@ -76,4 +76,5 @@ export const routePath = {
   editUser: '/Users/Edit/:id',
   userDetails: '/Users/Details/:id',
   addToRole: '/Roles/:id/AddUsers',
+  addAssetMaintenance: '/Add/Maintenance/:id',
 };
