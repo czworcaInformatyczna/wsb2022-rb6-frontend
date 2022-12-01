@@ -39,6 +39,7 @@ export const apiUrl = {
   roleUsers: '/role/users/:id',
   addUsersToRole: '/user/massassign/:id',
   removeUserFromRole: '/user/removerole/:id',
+  assetComponentCategory: '/asset_component_category',
 };
 
 export const routePath = {

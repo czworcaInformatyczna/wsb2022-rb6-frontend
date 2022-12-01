@@ -31,17 +31,6 @@ export const AddCategory = ({ isModal = false }: IsModal) => {
   };
 
   const onSubmit = async (data: ICategory) => {
-    //   await addCategory.mutateAsync(data);
-    //   console.log(addCategory.isSuccess);
-    //   if (addCategory.isSuccess) {
-    //     const variant = getVariant('success');
-    //     enqueueSnackbar('Category has been added', { variant });
-    //     reset();
-    //   }
-
-    //   if (addCategory.isError) {
-    //     console.log(addCategory.error);
-    //   }
     addCategory.mutate(data, {
       onSuccess: () => {
         const variant = getVariant('success');
@@ -108,6 +97,11 @@ export const AddCategory = ({ isModal = false }: IsModal) => {
                     label="Asset"
                   />
                   <FormControlLabel disabled value="License" control={<Radio />} label="License" />
+                  <FormControlLabel
+                    value={apiUrl.assetComponentCategory}
+                    control={<Radio />}
+                    label="Component"
+                  />
                 </RadioGroup>
               </FormControl>
             </Grid>
