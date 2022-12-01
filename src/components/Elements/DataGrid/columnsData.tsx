@@ -2,8 +2,12 @@ import { Box } from '@mui/material';
 import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
 import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
 import { useDeleteModel, useGetModels } from 'features/model/api';
+import { useDeleteRole, useGetRoles } from 'features/roles/api';
+import { useDeleteUser, useGetUsers } from 'features/users/api';
 import { Link } from 'react-router-dom';
 import { changeDateTimeFormat } from 'utils';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -179,11 +183,7 @@ export const ModelsData: IDataProvider = {
       field: 'id',
       headerName: 'Id',
       width: 90,
-      renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/AssetDetails/' + params.value}>
-          {params.value}
-        </Box>
-      ),
+      renderCell: (params) => <Box>{params.value}</Box>,
     },
     {
       field: 'name',
@@ -212,11 +212,134 @@ export const ModelsData: IDataProvider = {
     {
       field: 'created_at',
       headerName: 'Create date',
-      width: 200,
+      flex: 1,
       valueGetter: (params) => {
         return params.row.created_at;
       },
       renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
+    },
+  ],
+};
+
+export const RolesData: IDataProvider = {
+  getDataHook: useGetRoles,
+  addNewLink: '/Roles/Add',
+  editLink: '/Roles/Edit/:id',
+  deleteHook: useDeleteRole,
+  detailsLink: '/Roles/Details/:id',
+  name: 'Roles',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Roles/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Roles/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'permissions',
+      headerName: 'Permissions',
+      flex: 1,
+
+      valueGetter: (params) => {
+        let permissions = '';
+        params.row.permissions.map(
+          (permission: { name: string }) => (permissions += permission.name + ', '),
+        );
+        return permissions;
+      },
+    },
+  ],
+};
+
+export const UsersData: IDataProvider = {
+  getDataHook: useGetUsers,
+  addNewLink: '/Users/Add',
+  editLink: '/Users/Edit/:id',
+  deleteHook: useDeleteUser,
+  detailsLink: '/Users/Details/:id',
+  name: 'Users',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'activated',
+      headerName: 'Confirmed?',
+      width: 100,
+      renderCell: (params) => {
+        return params.row.activated ? (
+          <CheckIcon color="success" />
+        ) : (
+          <Box>
+            <CloseIcon color="error" />
+          </Box>
+        );
+      },
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'surname',
+      headerName: 'Surname',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone number',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'roles',
+      headerName: 'Roles',
+      width: 200,
+
+      valueGetter: (params) => {
+        let roles = '';
+        params.row.roles.map((role: { name: string }) => (roles += role.name + ', '));
+        return roles;
+      },
     },
   ],
 };

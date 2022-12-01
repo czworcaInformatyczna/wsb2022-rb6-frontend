@@ -6,6 +6,7 @@ import {
   manufacturerHandlers,
   categoryHandlers,
   modelHandlers,
+  rolesHandlers,
   userHandlers,
 } from 'mocks/featureHandlers';
 
@@ -17,5 +18,6 @@ export const handlers = [
   ...manufacturerHandlers,
   ...categoryHandlers,
   ...modelHandlers,
+  ...rolesHandlers,
   ...userHandlers,
 ];

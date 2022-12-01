@@ -285,10 +285,82 @@ export const categoryList = [
   },
 ];
 
+export const permissionsList = [
+  {
+    name: 'permission',
+    id: 1,
+  },
+  {
+    name: 'permissionMock',
+    id: 2,
+  },
+  {
+    name: 'permissionMock3',
+    id: 3,
+  },
+];
+
+export const Role = {
+  role: { id: 1, name: 'MockRole' },
+  rolePermissions: [
+    {
+      id: 1,
+      name: 'permission1',
+    },
+    {
+      id: 2,
+      name: 'permission3',
+    },
+  ],
+};
+
+export const Roles = {
+  total: 2,
+  data: [
+    {
+      id: 1,
+      name: 'MockRole',
+      permissions: [
+        {
+          id: 1,
+          name: 'permission1',
+          pivot: {
+            role_id: 9,
+            permission_id: 1,
+          },
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: 'admin',
+      permissions: [
+        {
+          id: 1,
+          name: 'permission1',
+          pivot: {
+            role_id: 1,
+            permission_id: 1,
+          },
+        },
+        {
+          id: 2,
+          name: 'permission2',
+          pivot: {
+            role_id: 1,
+            permission_id: 2,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const usersList = {
   total: 2,
   data: [
     {
+      activated: false,
       id: 1,
       name: 'Jan',
       surname: 'Kowalski',
@@ -297,6 +369,7 @@ export const usersList = {
       roles: [],
     },
     {
+      activated: true,
       id: 2,
       name: 'Maciej',
       surname: 'Nowak',
