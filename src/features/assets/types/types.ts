@@ -16,6 +16,7 @@ export interface CustomToolbarProps {
     Number,
     unknown
   >;
+  handleExport: () => any;
   handleModal: (id: GridSelectionModel) => void;
   name: string;
   resetSelection: () => {};
@@ -115,15 +116,16 @@ export interface IDataProvider {
   >;
   detailsLink: string | null;
   editLink: string;
-  getDataHook: (params: IDataProviderSettings) => any;
+  exportLink: string;
+  getDataHook: (params: IDataProviderSettings, enable?: boolean) => any;
   name: string;
-  // Add APIs object that stores api calls
 }
 
 export interface IDataProviderSettings {
   asset_id?: number;
-  page?: number;
-  per_page?: number;
+  export?: boolean | string;
+  page?: number | string;
+  per_page?: number | string;
   search?: string;
   status?: number;
 }

@@ -21,6 +21,8 @@ import { useTheme } from '@mui/material/styles';
 import Labels from 'features/assets/components/Labels';
 import { CreateModal } from '../CreateModal';
 import { routePath } from 'routes';
+import { convertToExportUrl } from 'utils/convertToExportUrl';
+import downloadFile from 'utils/downloadFile';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const theme = useTheme();
@@ -35,7 +37,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const deleteAsset = Props.data.deleteHook();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
-
   const { data: assets, isLoading } = Props.data.getDataHook({
     per_page: pageSize,
     page: page + 1,
@@ -43,6 +44,18 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     ...((Props.status || Props.status === 0) && { status: Props.status }),
     ...(sort !== null && sort),
   });
+
+  const handleExport = () => {
+    const exportUrl = convertToExportUrl(Props.data.exportLink, {
+      per_page: '2',
+      page: '1',
+      ...(filter !== '' && { search: filter }),
+      ...((Props.status || Props.status === 0) && { status: Props.status }),
+      ...(sort !== null && sort),
+      export: 'true',
+    });
+    downloadFile(exportUrl, Props.data.name + '.xlsx');
+  };
 
   const handleOpenModal = (id: GridSelectionModel | number | null) => {
     if (id !== null) {
@@ -252,6 +265,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   deleteHook: Props.data.deleteHook,
                   handleModal: handleOpenModal,
                   name: Props.data.name,
+                  handleExport: handleExport,
                 },
               }}
               disableColumnMenu

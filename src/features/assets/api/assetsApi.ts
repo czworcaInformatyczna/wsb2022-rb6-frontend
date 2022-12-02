@@ -14,8 +14,8 @@ export const useGetModelOptions = () => {
   return context;
 };
 
-export const useGetAssets = (params: IDataProviderSettings) => {
-  const context = useFetch<IAssets[]>(apiUrl.assets, params);
+export const useGetAssets = (params: IDataProviderSettings, enable: boolean = true) => {
+  const context = useFetch<IAssets[]>(apiUrl.assets, params, enable);
   return context;
 };
 
