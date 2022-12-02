@@ -12,6 +12,10 @@ interface IUpdateMutation<T> {
   id: string;
 }
 
+interface IFetchMutation<T> {
+  body: T;
+}
+
 export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey>): Promise<T> => {
   const [url, params] = queryKey;
   const response = await apiClient.get(url, { params });
@@ -50,6 +54,13 @@ export const useDelete = <T>(url: string, getUrl?: string) => {
   return useGenericMutation<T>(
     async (id: T) => await apiClient.delete(convertUrl(url, { id })),
     getUrl ?? url,
+  );
+};
+
+export const useFetchMutation = <T>(url: string) => {
+  return useGenericMutation<IFetchMutation<T>>(
+    async (data: IFetchMutation<T>) => await apiClient.get<IFetchMutation<T>>(url, data.body),
+    url,
   );
 };
 

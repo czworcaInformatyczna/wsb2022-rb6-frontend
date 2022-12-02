@@ -1,5 +1,11 @@
 import { Box } from '@mui/material';
-import { type IDataProvider, useGetAssets, StatusChip, useDeleteAsset } from 'features/assets';
+import {
+  type IDataProvider,
+  useGetAssets,
+  StatusChip,
+  useDeleteAsset,
+  useTEST,
+} from 'features/assets';
 import { useDeleteLicense, useGetLicenses } from 'features/licenses/api';
 import { useDeleteModel, useGetModels } from 'features/model/api';
 import { useDeleteRole, useGetRoles } from 'features/roles/api';
@@ -13,6 +19,7 @@ export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
   addNewLink: '/AddAsset',
   editLink: '/EditAsset/:id',
+  exportHook: useTEST,
   deleteHook: useDeleteAsset,
   detailsLink: '/AssetDetails/:id',
   name: 'Assets',
@@ -119,6 +126,7 @@ export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
   deleteHook: useDeleteLicense,
   addNewLink: '/AddLicense',
+  exportHook: useTEST,
   editLink: '/EditLicense/:id',
   detailsLink: '/LicenseDetails/:id',
   name: 'Licenses',
@@ -175,6 +183,7 @@ export const ModelsData: IDataProvider = {
   getDataHook: useGetModels,
   addNewLink: '/Model/Add',
   editLink: '/Model/Edit/:id',
+  exportHook: useTEST,
   deleteHook: useDeleteModel,
   detailsLink: null,
   name: 'Models',
@@ -224,6 +233,7 @@ export const ModelsData: IDataProvider = {
 export const RolesData: IDataProvider = {
   getDataHook: useGetRoles,
   addNewLink: '/Roles/Add',
+  exportHook: useTEST,
   editLink: '/Roles/Edit/:id',
   deleteHook: useDeleteRole,
   detailsLink: '/Roles/Details/:id',
@@ -268,7 +278,88 @@ export const RolesData: IDataProvider = {
 export const UsersData: IDataProvider = {
   getDataHook: useGetUsers,
   addNewLink: '/Users/Add',
+  exportHook: useTEST,
   editLink: '/Users/Edit/:id',
+  deleteHook: useDeleteUser,
+  detailsLink: '/Users/Details/:id',
+  name: 'Users',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      align: 'center',
+      field: 'activated',
+      headerName: 'Confirmed?',
+      width: 100,
+      renderCell: (params) => {
+        return params.row.activated ? (
+          <CheckIcon color="success" />
+        ) : (
+          <Box>
+            <CloseIcon color="error" />
+          </Box>
+        );
+      },
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
+          {params.value}
+        </Box>
+      ),
+    },
+    {
+      field: 'surname',
+      headerName: 'Surname',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone number',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'roles',
+      headerName: 'Roles',
+      width: 200,
+
+      valueGetter: (params) => {
+        let roles = '';
+        params.row.roles.map((role: { name: string }) => (roles += role.name + ', '));
+        return roles;
+      },
+    },
+  ],
+};
+
+export const ComponentsData: IDataProvider = {
+  getDataHook: useGetUsers,
+  addNewLink: '/Users/Add',
+  editLink: '/Users/Edit/:id',
+  exportHook: useTEST,
   deleteHook: useDeleteUser,
   detailsLink: '/Users/Details/:id',
   name: 'Users',

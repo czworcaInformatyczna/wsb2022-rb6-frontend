@@ -16,6 +16,7 @@ export interface CustomToolbarProps {
     Number,
     unknown
   >;
+  handleExport: () => any;
   handleModal: (id: GridSelectionModel) => void;
   name: string;
   resetSelection: () => {};
@@ -117,6 +118,9 @@ export interface IChangeStatus {
 export interface DataProviderProps {
   link: string;
 }
+interface IFetchMutation<T> {
+  body: T;
+}
 export interface IDataProvider {
   addNewLink: string;
   columns: GridColumns;
@@ -128,13 +132,19 @@ export interface IDataProvider {
   >;
   detailsLink: string | null;
   editLink: string;
-  getDataHook: (params: IDataProviderSettings) => any;
+  exportHook: <T>() => UseMutationResult<
+    AxiosResponse<any, any>,
+    AxiosError<unknown, any>,
+    IFetchMutation<T>,
+    unknown
+  >;
+  getDataHook: (params: IDataProviderSettings, enable?: boolean) => any;
   name: string;
-  // Add APIs object that stores api calls
 }
 
 export interface IDataProviderSettings {
   asset_id?: number;
+  export?: boolean;
   page?: number;
   per_page?: number;
   search?: string;

@@ -5,7 +5,6 @@ import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarDensitySelector,
-  GridToolbarExport,
   // GridToolbarFilterButton,
   GridToolbarQuickFilter,
   GridPagination,
@@ -13,6 +12,7 @@ import {
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { getVariant } from 'utils';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 export const CustomToolbar = (Props: CustomToolbarProps) => {
   const [action, setAction] = useState<string>('');
@@ -80,7 +80,13 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
         <GridToolbarColumnsButton />
         {/* <GridToolbarFilterButton /> */}
         <GridToolbarDensitySelector sx={{ justifySelf: 'flex-end' }} />
-        <GridToolbarExport sx={{ justifySelf: 'flex-end' }} />
+        <Button
+          onClick={Props.handleExport}
+          sx={{ justifySelf: 'flex-end' }}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export
+        </Button>
       </Box>
     </GridToolbarContainer>
   );
