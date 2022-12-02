@@ -244,3 +244,5 @@ export interface IMaintenanceForm {
   title: string;
   user_id: { id: number; name: string };
 }
+
+export type IImage = string;
