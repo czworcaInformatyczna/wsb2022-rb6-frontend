@@ -7,7 +7,7 @@ export const apiUrl = {
   assetFilesById: '/asset_file/:id',
   assetInfo: '/asset/',
   assetInfoEdit: '/assets/DetailsEdit',
-  assetImage: '/assets/Image',
+  assetImage: '/asset/:id/image',
   assetQRCode: '/assets/QRCode',
   assetLicenses: '/assets/Licenses',
   assetComponents: '/assets/Components',

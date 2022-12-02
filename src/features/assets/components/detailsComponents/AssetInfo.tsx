@@ -1,6 +1,6 @@
 import { Box, Table, TableBody, Grid } from '@mui/material';
 import TableRowTemplate from 'components/Elements/Table/tableRow';
-import { useGetAssetsDataById } from 'features/assets/api';
+import { useGetAssetsDataById, useGetImage } from 'features/assets/api';
 import { type IAssetDetails } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
@@ -14,7 +14,8 @@ export const AssetInfo = ({ id }: { id: number }) => {
     Number(id),
     apiUrl.assetInfo + id + '/qr',
   );
-
+  const { data: image } = useGetImage<string>(id);
+  console.log(image);
   return (
     <Box mb={4}>
       {assetDetails === undefined ? (
@@ -150,11 +151,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
                 direction="column"
                 alignItems="center"
               >
-                <img
-                  src={'http://137.74.158.36:81/storage/' + assetDetails.image}
-                  width="70%"
-                  alt="Asset"
-                />
+                <img src={image + '.jpg'} width="70%" alt="Asset" />
               </Grid>
               <Grid
                 item

@@ -1,6 +1,7 @@
 import { type IModelList } from 'features/model/types';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
+import { convertUrl } from 'utils';
 import { type IDataProviderSettings, type IAssets, type IStatus } from '../types';
 
 export const useGetStatusOptions = () => {
@@ -55,5 +56,10 @@ export const useGetAssetMaintenances = <T>(url: string, params: IDataProviderSet
 
 export const useAddAssetMaintenances = <T>(url: string) => {
   const context = usePost<T>(url);
+  return context;
+};
+
+export const useGetImage = <T>(id: number) => {
+  const context = useFetch<T>(convertUrl(apiUrl.assetImage, { id }));
   return context;
 };
