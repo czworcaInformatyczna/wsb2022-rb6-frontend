@@ -15,7 +15,6 @@ import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
 import testData from 'features/assets/api/testData.json';
-import { type IAssetCreate } from 'features/assets';
 
 const statusOptions = rest.get(url(apiUrl.assetsCategory), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetStatusOptions));
@@ -65,11 +64,11 @@ const files = rest.get(url(apiUrl.assetFiles), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetFiles));
 });
 
-const addAsset = rest.post<IAssetCreate>(url(apiUrl.assets), async (req, res, ctx) => {
+const addAsset = rest.post<FormData>(url(apiUrl.assets), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
 
-const deleteAsset = rest.delete<IAssetCreate>(url(apiUrl.assetsById), async (req, res, ctx) => {
+const deleteAsset = rest.delete(url(apiUrl.assetsById), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
 

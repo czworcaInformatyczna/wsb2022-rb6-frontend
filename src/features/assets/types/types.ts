@@ -96,20 +96,7 @@ export interface IAssetDetails {
   tag: string;
   warranty: number;
 }
-export interface IAssetCreate {
-  asset_model_id: number | undefined;
-  id?: number;
-  image?: string | null | undefined;
-  name: string;
-  notes: string;
-  order_number: string;
-  price: number | '';
-  purchase_date: string;
-  serial: string;
-  status: Statuses | undefined;
-  tag: string;
-  warranty: number | '';
-}
+
 export interface IChangeStatus {
   current_holder_id?: number | undefined;
   status: Statuses | undefined;

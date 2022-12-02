@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Accordion,
   AccordionDetails,
@@ -17,7 +16,6 @@ import {
   useGetModelOptions,
   useGetAssetsDataById,
   type IAsset,
-  type IAssetCreate,
   useAddAsset,
   Statuses,
   useUpdateAsset,
@@ -30,15 +28,12 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
-
 import { useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
 import { AddModel } from 'features/model/components/AddModel';
 import { CreateModal } from 'components/Elements/CreateModal';
 import { StatusesList } from '../api/statuses';
-import { getBase64 } from 'utils/getBase64';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
 
@@ -58,14 +53,10 @@ const AddAsset = () => {
     apiUrl.assetInfo + id,
     action === 'Add' ? false : true,
   );
-  const getDateFormat = (dateString: string) => {
-    const dateMoment = moment(dateString, 'DD/MM/YYYY');
-    return dateMoment.toDate().toString();
-  };
 
   const { enqueueSnackbar } = useSnackbar();
-  const addAsset = useAddAsset<IAssetCreate>(apiUrl.assets);
-  const updateAsset = useUpdateAsset<IAssetCreate>();
+  const addAsset = useAddAsset<FormData>(apiUrl.assets);
+  const updateAsset = useUpdateAsset<FormData>();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -148,24 +139,23 @@ const AddAsset = () => {
   ]);
 
   const onSubmit = async (data: IAssetFormInput) => {
-    if (action === 'Add') {
-      const tempData: IAssetCreate = {
-        name: data.AssetName,
-        tag: data.AssetTag,
-        asset_model_id: data.Model?.id,
-        serial: data.Serial,
-        status: data.Status?.id,
-        notes: data.Notes,
-        warranty: data.Waranty,
-        purchase_date:
-          data.DateOfPurchase !== ''
-            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
-            : '',
-        order_number: data.OrderNumber,
-        price: data.PurchaseCost,
-        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
-      };
+    const tempData = new FormData();
+    tempData.append('name', data.AssetName);
+    tempData.append('tag', data.AssetTag);
+    tempData.append('asset_model_id', data.Model?.id ? data.Model.id.toString() : '');
+    tempData.append('serial', data.Serial);
+    tempData.append('status', data.Status?.id ? data.Status.id.toString() : '');
+    tempData.append('notes', data.Notes);
+    tempData.append('warranty', data.Waranty.toString());
+    tempData.append(
+      'purchase_date',
+      data.DateOfPurchase !== '' ? new Date(data.DateOfPurchase).toISOString().split('T')[0] : '',
+    );
+    tempData.append('order_number', data.OrderNumber);
+    tempData.append('price', data.PurchaseCost.toString());
+    if (data.Photo instanceof File) tempData.append('image', data.Photo);
 
+    if (action === 'Add') {
       addAsset.mutate(tempData, {
         onSuccess: () => {
           const variant = getVariant('success');
@@ -181,23 +171,6 @@ const AddAsset = () => {
     }
 
     if (action === 'Edit') {
-      const tempData: IAssetCreate = {
-        name: data.AssetName,
-        tag: data.AssetTag,
-        asset_model_id: data.Model?.id,
-        serial: data.Serial,
-        status: data.Status?.id,
-        notes: data.Notes,
-        warranty: data.Waranty,
-        purchase_date:
-          data.DateOfPurchase !== ''
-            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
-            : '',
-        order_number: data.OrderNumber,
-        price: data.PurchaseCost,
-        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
-      };
-
       if (id !== undefined)
         updateAsset.mutate(
           { id: id, body: tempData },
