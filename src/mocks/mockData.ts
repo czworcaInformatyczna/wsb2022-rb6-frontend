@@ -133,17 +133,20 @@ export const assetHistory = [
   },
 ];
 
-export const assetMaintenances = [
-  {
-    id: '1',
-    maintenanceType: 'upgrade',
-    title: 'Add ram',
-    startDate: '22/10/2022',
-    endDate: '30/10/2022',
-    notes: 'some info',
-    user: 'usr1',
-  },
-];
+export const assetMaintenances = {
+  data: [
+    {
+      id: '1',
+      maintenance_type: 'clean',
+      title: 'Add ram',
+      start_date: '22/10/2022',
+      end_date: '30/10/2022',
+      notes: 'some info',
+      user_id: 'usr1',
+    },
+  ],
+  total: 1,
+};
 
 export const assetFiles = {
   data: [
