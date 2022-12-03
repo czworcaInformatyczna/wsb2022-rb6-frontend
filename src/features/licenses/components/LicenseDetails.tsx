@@ -1,14 +1,12 @@
 import { Box, Grid, Tab, Tabs, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
-import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routePath } from 'routes';
 import { LicenseInfo } from './DetailsComponents/LicenseInfo';
 import { LicenseDeployment } from './DetailsComponents/LicenseDeployment';
-import { LicenseHistory } from './DetailsComponents/LicenseHistory';
 
 export const LicenseDetails = () => {
   const { id } = useParams();
@@ -56,7 +54,6 @@ export const LicenseDetails = () => {
               <Tab icon={<StickyNote2OutlinedIcon />} label="License" />
 
               <Tab icon={<BuildCircleOutlinedIcon />} label="Deploy" />
-              <Tab icon={<HistoryToggleOffIcon />} label="History" />
             </Tabs>
           </Box>
         </Grid>
@@ -66,9 +63,6 @@ export const LicenseDetails = () => {
           </TabPanel>
           <TabPanel tab={tab} index={1}>
             <LicenseDeployment id={Number(id)} />
-          </TabPanel>
-          <TabPanel tab={tab} index={2}>
-            <LicenseHistory id={Number(id)} />
           </TabPanel>
         </Grid>
       </Grid>

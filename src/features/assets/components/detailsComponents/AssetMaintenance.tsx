@@ -33,6 +33,7 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
   const navigate = useNavigate();
+  const deleteMaintenance = useDeleteMaintenance();
   const { data: maintenances } = useGetAssetMaintenances<IAssetMaintenances>(
     apiUrl.assetMaintenances,
     {
@@ -44,8 +45,6 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
-
-  const deleteMaintenance = useDeleteMaintenance();
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPageSize(+event.target.value);

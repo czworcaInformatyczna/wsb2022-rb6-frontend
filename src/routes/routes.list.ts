@@ -11,7 +11,7 @@ export const apiUrl = {
   assetQRCode: '/assets/QRCode',
   assetLicenses: '/assets/Licenses',
   assetComponents: '/assets/Components',
-  assetHistory: '/assets/History',
+  assetHistory: '/log',
   assetMaintenances: '/asset_maintenance',
   assetFiles: '/asset_file',
   licenses: '/licenses',

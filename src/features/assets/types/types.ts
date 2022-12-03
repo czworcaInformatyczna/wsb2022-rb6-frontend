@@ -124,6 +124,8 @@ export interface IDataProvider {
 export interface IDataProviderSettings {
   asset_id?: number;
   export?: boolean | string;
+  item_id?: number;
+  item_type?: string;
   page?: number | string;
   per_page?: number | string;
   search?: string;
@@ -176,10 +178,15 @@ export interface IDatePickerProps extends IInputProps {
 }
 
 export interface IAssetLicenses {
-  expiration_date: string;
-  id: number;
-  key: string;
-  name: string;
+  data: [
+    {
+      expiration_date: string;
+      id: number;
+      key: string;
+      name: string;
+    },
+  ];
+  total: 1;
 }
 
 export interface IAssetComponents {
@@ -190,12 +197,8 @@ export interface IAssetComponents {
 }
 
 export interface IAssetHistory {
-  action: string;
-  date: string;
-  id: number;
-  notes: string;
-  target: string;
-  user: string;
+  data: [{ action: string; date: string; id: number; notes: string; target: string; user: string }];
+  total: number;
 }
 
 export interface IAssetMaintenances {

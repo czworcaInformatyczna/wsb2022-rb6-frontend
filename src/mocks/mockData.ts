@@ -104,14 +104,17 @@ export const assetQRCode = {
   qrCode: 'http://cdn.eso.org/images/screen/eso1907a.jpg',
 };
 
-export const assetLicenses = [
-  {
-    id: '1',
-    name: 'Photoshop',
-    key: 'ba81-874f-3fbe-99b9-30624',
-    expiration_date: '22.12.2032',
-  },
-];
+export const assetLicenses = {
+  data: [
+    {
+      id: '1',
+      name: 'Photoshop',
+      key: 'ba81-874f-3fbe-99b9-30624',
+      expiration_date: '22.12.2032',
+    },
+  ],
+  total: 1,
+};
 
 export const assetComponents = [
   {
@@ -122,16 +125,19 @@ export const assetComponents = [
   },
 ];
 
-export const assetHistory = [
-  {
-    id: '2',
-    date: '22/10/2022',
-    user: 'Admin',
-    action: 'Deploy',
-    target: 'Wojtek1',
-    notes: 'some info',
-  },
-];
+export const assetHistory = {
+  data: [
+    {
+      id: '2',
+      updated_at: '2022-12-02',
+      user_id: 'Admin',
+      action_type: 'Deploy',
+      target: 'Wojtek1',
+      description: { status: 'abc' },
+    },
+  ],
+  total: 1,
+};
 
 export const assetMaintenances = {
   data: [
