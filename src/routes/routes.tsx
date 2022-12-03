@@ -101,7 +101,15 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<UserDetails />} path={routePath.userDetails} />
         <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
         <Route element={<AddUserToRole />} path={routePath.addToRole} />
-        <Route element={<AddMaintenance />} path={routePath.addAssetMaintenance} />
+        <Route
+          element={<AddMaintenance key="AddMaintenance" />}
+          path={routePath.addAssetMaintenance}
+        />
+        <Route
+          element={<AddMaintenance key="EditMaintenance" />}
+          path={routePath.editAssetMaintenances}
+        />
+
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

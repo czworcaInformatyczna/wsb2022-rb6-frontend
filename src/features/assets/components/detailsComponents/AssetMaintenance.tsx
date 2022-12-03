@@ -9,16 +9,27 @@ import {
   TableContainer,
   TablePagination,
   Button,
+  Stack,
+  IconButton,
+  Tooltip,
+  useTheme,
 } from '@mui/material';
-import { type IAssetMaintenances } from 'features/assets/types';
+import { type IMaintenance, type IAssetMaintenances } from 'features/assets/types';
 import NoResult from './noResult';
 import { apiUrl, routePath } from 'routes';
-import { changeDateTimeFormat, convertUrl, isArrayEmpty } from 'utils';
-import { useGetAssetMaintenances } from 'features/assets/api';
+import { changeDateTimeFormat, convertUrl, getVariant, isArrayEmpty } from 'utils';
+import { useDeleteMaintenance, useGetAssetMaintenances } from 'features/assets/api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import { useSnackbar } from 'notistack';
+import { useConfirm } from 'material-ui-confirm';
 
 export const AssetMaintenance = ({ id }: { id: number }) => {
+  const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
+  const confirm = useConfirm();
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
   const navigate = useNavigate();
@@ -30,14 +41,46 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
       page: page,
     },
   );
-  console.log(maintenances);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
+  const deleteMaintenance = useDeleteMaintenance();
+
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPageSize(+event.target.value);
     setPage(0);
+  };
+
+  const handleDelete = (maintenanceId: number) => {
+    const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
+    confirm({
+      title: (
+        <Box component="span" sx={{ color: 'error.main' }}>
+          Are you sure?
+        </Box>
+      ),
+      description: (
+        <Box component="span" sx={{ color: theme.palette.text.primary }}>
+          This action is permanent!
+        </Box>
+      ),
+      contentProps: bgColor,
+      titleProps: bgColor,
+      dialogActionsProps: bgColor,
+      confirmationButtonProps: { variant: 'contained', color: 'success' },
+      cancellationButtonProps: { variant: 'contained', color: 'error' },
+    })
+      .then(() => {
+        deleteMaintenance.mutate(maintenanceId, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar('Maintenance has been deleted', { variant });
+          },
+        });
+        return null;
+      })
+      .catch(() => {});
   };
 
   return (
@@ -75,18 +118,47 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
                     <TableCell width="10%">End date</TableCell>
                     <TableCell>User</TableCell>
                     <TableCell>Notes</TableCell>
+                    <TableCell>{}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {maintenances?.data.map((action: any) => {
+                  {maintenances?.data.map((action: IMaintenance) => {
                     return (
                       <TableRow key={action.id}>
                         <TableCell>{action.title}</TableCell>
                         <TableCell>{action.maintenance_type}</TableCell>
                         <TableCell>{changeDateTimeFormat(action.start_date)}</TableCell>
                         <TableCell>{changeDateTimeFormat(action.end_date)}</TableCell>
-                        <TableCell>{action.user}</TableCell>
+                        <TableCell>{action.user_id}</TableCell>
                         <TableCell>{action.notes}</TableCell>
+                        <TableCell>
+                          <Stack direction="row" spacing={1}>
+                            <Tooltip title="Edit">
+                              <IconButton
+                                onClick={() =>
+                                  navigate(
+                                    convertUrl(routePath.editAssetMaintenances, { id: action.id }),
+                                  )
+                                }
+                                color="warning"
+                                aria-label="edit"
+                              >
+                                <EditIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Delete">
+                              <IconButton
+                                onClick={() => {
+                                  if (action.id !== undefined) handleDelete(action.id);
+                                }}
+                                color="error"
+                                aria-label="delete"
+                              >
+                                <DeleteForeverIcon />
+                              </IconButton>
+                            </Tooltip>
+                          </Stack>
+                        </TableCell>
                       </TableRow>
                     );
                   })}

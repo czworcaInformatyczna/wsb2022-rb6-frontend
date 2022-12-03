@@ -40,6 +40,7 @@ export const apiUrl = {
   addUsersToRole: '/user/massassign/:id',
   removeUserFromRole: '/user/removerole/:id',
   assetComponentCategory: '/asset_component_category',
+  assetMaintenanceEdit: '/asset_maintenance/:id',
 };
 
 export const routePath = {
@@ -76,5 +77,6 @@ export const routePath = {
   editUser: '/Users/Edit/:id',
   userDetails: '/Users/Details/:id',
   addToRole: '/Roles/:id/AddUsers',
-  addAssetMaintenance: '/Add/Maintenance/:id',
+  addAssetMaintenance: '/Maintenance/:id/Add',
+  editAssetMaintenances: '/asset_maintenance/:id/Edit',
 };

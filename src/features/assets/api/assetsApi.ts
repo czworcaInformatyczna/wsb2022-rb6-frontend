@@ -59,6 +59,16 @@ export const useAddAssetMaintenances = <T>(url: string) => {
   return context;
 };
 
+export const useEditAssetMaintenances = <T>() => {
+  const context = useUpdate<T>(apiUrl.assetMaintenanceEdit);
+  return context;
+};
+
+export const useDeleteMaintenance = <Number>() => {
+  const context = useDelete<Number>(apiUrl.assetMaintenanceEdit, apiUrl.assetMaintenances);
+  return context;
+};
+
 export const useGetImage = <T>(id: number) => {
   const context = useFetch<T>(convertUrl(apiUrl.assetImage, { id }));
   return context;

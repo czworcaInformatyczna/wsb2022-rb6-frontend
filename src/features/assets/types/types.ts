@@ -199,17 +199,7 @@ export interface IAssetHistory {
 }
 
 export interface IAssetMaintenances {
-  data: [
-    {
-      endDate: string;
-      id: number;
-      maintenanceType: string;
-      notes: string;
-      startDate: string;
-      title: string;
-      user: string;
-    },
-  ];
+  data: IMaintenance[];
   total: number;
 }
 
@@ -230,11 +220,22 @@ export interface IAssetFile {
 export interface IMaintenance {
   asset_id: number;
   end_date: string;
+  id?: number;
   maintenance_type: string;
   notes: string;
   start_date: string;
   title: string;
   user_id: number;
+}
+
+export interface IMaintenanceDetails {
+  asset_id: number;
+  end_date: string;
+  maintenance_type: string;
+  notes: string;
+  start_date: string;
+  title: string;
+  user: { id: number; name: string };
 }
 
 export interface IMaintenanceForm {
