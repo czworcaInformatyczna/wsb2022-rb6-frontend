@@ -52,7 +52,7 @@ export interface IAsset {
   assetTag: string;
   category: string;
   date_of_purchase: string;
-  id: number | string;
+  id: number;
   image: string;
   manufacturer: string;
   model: string;
@@ -190,10 +190,22 @@ export interface IAssetLicenses {
 }
 
 export interface IAssetComponents {
-  category: string;
-  id: string;
-  name: string;
-  serial: string;
+  data: [
+    {
+      category: {
+        id: number;
+        name: string;
+      };
+      id: number;
+      manufacturer: {
+        id: number;
+        name: string;
+      };
+      name: string;
+      serial: string;
+    },
+  ];
+  total: number;
 }
 
 export interface IAssetHistory {

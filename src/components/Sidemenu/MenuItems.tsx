@@ -73,6 +73,12 @@ export const menuItems = [
         link: '/Users/Add',
         name: 'User',
       },
+      {
+        icon: <AccountTreeOutlinedIcon />,
+        id: 8,
+        link: '/Component/Add',
+        name: 'Component',
+      },
     ],
   },
   {

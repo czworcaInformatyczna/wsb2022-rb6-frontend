@@ -10,7 +10,6 @@ import AddAsset from 'features/assets/components/AddAsset';
 import { routePath } from 'routes';
 import { AssetDetails } from 'features/assets/components/AssetDetails';
 import AddLicense from 'features/licenses/components/AddLicense';
-import { Components } from 'features/components';
 import { LicenseDetails } from 'features/licenses/components/LicenseDetails';
 import { AddManufacturer } from 'features/manufacturer/components/AddManufacturer';
 import { AddCategory } from 'features/category/components/AddCategory';
@@ -24,6 +23,7 @@ import { UserDetails } from 'features/users/components/UserDetails';
 import ChangeStatus from 'features/assets/components/ChangeStatus';
 import { AddUserToRole } from 'features/roles/components/AddUserToRole';
 import { AddMaintenance } from 'features/assets/components/detailsComponents/AddMaintenance';
+import { AddComponent } from 'features/components/components/AddComponent';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -75,7 +75,10 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<AddLicense />} path={routePath.addLicense} />
         <Route element={<AddLicense />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
-        <Route element={<Components />} path={routePath.components} />
+        <Route
+          element={<DataGridTemplate key="Components" data={columns.ComponentsData} />}
+          path={routePath.components}
+        />
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
         <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
         <Route element={<AddCategory />} path={routePath.addCategory} />
@@ -109,7 +112,8 @@ export const AppRoutes = (): JSX.Element => (
           element={<AddMaintenance key="EditMaintenance" />}
           path={routePath.editAssetMaintenances}
         />
-
+        <Route element={<AddComponent key="AddComponent" />} path={routePath.addComponent} />
+        <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

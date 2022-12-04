@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { changeDateTimeFormat } from 'utils';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import { useGetComponents, useDeleteComponent } from 'features/components';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -350,81 +351,64 @@ export const UsersData: IDataProvider = {
 };
 
 export const ComponentsData: IDataProvider = {
-  getDataHook: useGetUsers,
-  addNewLink: '/Users/Add',
-  editLink: '/Users/Edit/:id',
+  getDataHook: useGetComponents,
+  addNewLink: '/Component/Add',
+  editLink: '/Component/:id/Edit',
   exportLink: '/asset',
-  deleteHook: useDeleteUser,
-  detailsLink: '/Users/Details/:id',
-  name: 'Users',
+  deleteHook: useDeleteComponent,
+  detailsLink: null,
+  name: 'Components',
   columns: [
     {
       field: 'id',
       headerName: 'Id',
       width: 90,
-      renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
-          {params.value}
-        </Box>
-      ),
-    },
-    {
-      field: 'email',
-      headerName: 'Email',
-      width: 200,
-      renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
-          {params.value}
-        </Box>
-      ),
-    },
-    {
-      align: 'center',
-      field: 'activated',
-      headerName: 'Confirmed?',
-      width: 100,
-      renderCell: (params) => {
-        return params.row.activated ? (
-          <CheckIcon color="success" />
-        ) : (
-          <Box>
-            <CloseIcon color="error" />
-          </Box>
-        );
-      },
+      renderCell: (params) => <Box>{params.value}</Box>,
     },
     {
       field: 'name',
       headerName: 'Name',
       width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'serial',
+      headerName: 'Serial',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'manufacturer',
+      headerName: 'Manufacturer',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.manufacturer.name;
+      },
+    },
+    {
+      field: 'category',
+      headerName: 'Category',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.asset_component_category.name;
+      },
+    },
+    {
+      field: 'asset_id',
+      headerName: 'Assigned to',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.asset_id;
+      },
       renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/Users/Details/' + params.id}>
-          {params.value}
+        <Box
+          component={Link}
+          sx={{ color: 'text.primary' }}
+          to={'/AssetDetails/' + params.row.asset_id}
+        >
+          Asset - {params.value}
         </Box>
       ),
-    },
-    {
-      field: 'surname',
-      headerName: 'Surname',
-      width: 200,
-      renderCell: (params) => <Box>{params.value}</Box>,
-    },
-    {
-      field: 'phone_number',
-      headerName: 'Phone number',
-      width: 200,
-      renderCell: (params) => <Box>{params.value}</Box>,
-    },
-    {
-      field: 'roles',
-      headerName: 'Roles',
-      width: 200,
-
-      valueGetter: (params) => {
-        let roles = '';
-        params.row.roles.map((role: { name: string }) => (roles += role.name + ', '));
-        return roles;
-      },
     },
   ],
 };

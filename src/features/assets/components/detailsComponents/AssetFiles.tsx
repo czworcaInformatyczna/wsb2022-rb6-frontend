@@ -83,7 +83,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ margin: 1 }}>
+      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
         Upload file
       </Button>
       {isArrayEmpty(files?.data) ? (
