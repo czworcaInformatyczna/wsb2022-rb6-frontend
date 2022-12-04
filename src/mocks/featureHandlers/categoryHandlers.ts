@@ -1,4 +1,5 @@
 import { type ICategory } from 'features/category/types';
+import { componentCategoryList } from 'mocks/mockData';
 
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
@@ -8,4 +9,8 @@ const addCategory = rest.post<ICategory>(url(apiUrl.addAssetCategory), async (re
   return await res(ctx.status(200));
 });
 
-export const categoryHandlers = [addCategory];
+const getCategory = rest.get(url(apiUrl.componentCategoryList), (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(componentCategoryList));
+});
+
+export const categoryHandlers = [addCategory, getCategory];

@@ -116,14 +116,34 @@ export const assetLicenses = {
   total: 1,
 };
 
-export const assetComponents = [
-  {
-    id: '1',
-    name: 'PNY XLR8 RGB 16GB 3200Mhz',
-    serial: 'ba81-874f-3fbe-99b9-30624',
-    category: 'RAM',
-  },
-];
+export const assetComponents = {
+  data: [
+    {
+      id: 1,
+      created_at: '2022-11-26T11:20:37.000000Z',
+      updated_at: '2022-11-26T11:20:37.000000Z',
+      asset_id: 2,
+      asset_component_category_id: 2,
+      manufacturer_id: 2,
+      name: 'PNY XLR8 RGB 16GB 3200Mhz',
+      serial: 'ba81-874f-3fbe-99b9-30624',
+      asset_count: 1,
+      asset_component_category: {
+        id: 2,
+        created_at: null,
+        updated_at: null,
+        name: 'Pamięć RAM',
+      },
+      manufacturer: {
+        id: 2,
+        name: 'Omnis sed',
+        created_at: '2022-11-03T19:18:31.000000Z',
+        updated_at: '2022-11-03T19:18:31.000000Z',
+      },
+    },
+  ],
+  total: 1,
+};
 
 export const assetHistory = {
   data: [
@@ -149,6 +169,10 @@ export const assetMaintenances = {
       end_date: '30/10/2022',
       notes: 'some info',
       user_id: 'usr1',
+      user: {
+        id: 1,
+        email: 'usr1',
+      },
     },
   ],
   total: 1,
@@ -431,6 +455,23 @@ export const modelList = {
         created_at: '2022-10-17T20:24:42.000000Z',
         updated_at: '2022-10-17T20:24:42.000000Z',
       },
+    },
+  ],
+};
+
+export const componentCategoryList = {
+  data: [
+    {
+      name: 'mock1',
+      id: 1,
+    },
+    {
+      name: 'mock2',
+      id: 2,
+    },
+    {
+      name: 'mock3',
+      id: 3,
     },
   ],
 };

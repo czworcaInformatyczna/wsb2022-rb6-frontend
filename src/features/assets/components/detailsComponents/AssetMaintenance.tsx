@@ -128,7 +128,7 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
                         <TableCell>{action.maintenance_type}</TableCell>
                         <TableCell>{changeDateTimeFormat(action.start_date)}</TableCell>
                         <TableCell>{changeDateTimeFormat(action.end_date)}</TableCell>
-                        <TableCell>{action.user_id}</TableCell>
+                        <TableCell>{action.user?.email}</TableCell>
                         <TableCell>{action.notes}</TableCell>
                         <TableCell>
                           <Stack direction="row" spacing={1}>

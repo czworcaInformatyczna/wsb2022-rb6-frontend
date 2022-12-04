@@ -240,6 +240,10 @@ export interface IMaintenance {
   notes: string;
   start_date: string;
   title: string;
+  user?: {
+    email: string;
+    id: number;
+  };
   user_id: number;
 }
 

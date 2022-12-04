@@ -88,7 +88,43 @@ const uploadFile = rest.post(url(apiUrl.assetFiles), async (req, res, ctx) => {
   return await res(ctx.status(200));
 });
 
+const deleteMaintenance = rest.delete(url(apiUrl.assetMaintenanceEdit), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const editMaintenance = rest.patch(url(apiUrl.assetMaintenanceEdit), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const addAssetMaintenance = rest.post(url(apiUrl.assetMaintenances), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const getMaintenanceDetails = rest.get(url(apiUrl.assetMaintenanceEdit), async (req, res, ctx) => {
+  return await res(ctx.status(200), ctx.json(assetMaintenances.data[0]));
+});
+
+const deleteAssetComponent = rest.delete(url(apiUrl.component), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const addAssetComponent = rest.post(url(apiUrl.components), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
+const getAssetComponent = rest.get(url(apiUrl.component), async (req, res, ctx) => {
+  return await res(ctx.status(200), ctx.json(assetComponents.data[0]));
+});
+
+const editAssetComponent = rest.patch(url(apiUrl.component), async (req, res, ctx) => {
+  return await res(ctx.status(200));
+});
+
 export const assetHandlers = [
+  getMaintenanceDetails,
+  addAssetMaintenance,
+  editMaintenance,
+  deleteMaintenance,
   statusOptions,
   modelOptions,
   assets,
@@ -107,4 +143,8 @@ export const assetHandlers = [
   downloadAssetFile,
   deleteAssetFile,
   uploadFile,
+  deleteAssetComponent,
+  addAssetComponent,
+  getAssetComponent,
+  editAssetComponent,
 ];
