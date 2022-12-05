@@ -13,8 +13,9 @@ export const apiUrl = {
   assetHistory: '/log',
   assetMaintenances: '/asset_maintenance',
   assetFiles: '/asset_file',
-  licenses: '/licenses',
-  licensesCategory: '/licenses/category',
+  licenses: '/licence',
+  licenseById: '/licence/:id',
+  licensesCategory: '/licence/category',
   licensesManufacturers: '/licenses/manufacturers',
   licenseInfoEdit: '/licenses/DetailsEdit',
   components: '/asset_component',
@@ -41,6 +42,7 @@ export const apiUrl = {
   removeUserFromRole: '/user/removerole/:id',
   assetComponentCategory: '/asset_component_category',
   assetMaintenanceEdit: '/asset_maintenance/:id',
+  licenseCategory: '/licence/category',
 };
 
 export const routePath = {

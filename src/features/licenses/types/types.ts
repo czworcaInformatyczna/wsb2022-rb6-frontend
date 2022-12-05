@@ -16,17 +16,14 @@ export interface ILicenses {
 }
 
 export interface ILicense {
-  category: string;
+  category_id: number | null;
+  email: string;
   expiration_date: string;
-  id: number;
-  key: string;
-  licensed_to: string;
-  manufacturer: string;
+  manufacturer_id: number | null;
   name: string;
-  notes: string;
-  orderNumber: number;
-  purchaseCost: number;
-  quantity: number;
+  product_key: string;
+  reassignable: boolean;
+  slots: number;
 }
 export interface ILicenseDetails {
   available: number;
@@ -55,21 +52,29 @@ export interface ILicenseDeploys {
 }
 
 export interface ILicenseFormInput extends FieldValues {
-  Category: ILicenseCategory | null;
-  DateOfPurchase: string;
-  ExpirationDate: string;
-  Key: string;
-  LicensedTo: string;
-  Manufacturer: ILicenseManufacturer | null;
-  Name: string;
-  Notes: string;
-  OrderNumber: number | string;
-  PurchaseCost: number | '';
-  Quantity: number | '';
+  category_id: {
+    id: number;
+    name: string;
+  } | null;
+  email: string;
+  expiration_date: string;
+  manufacturer_id: {
+    id: number;
+    name: string;
+  } | null;
+  name: string;
+  product_key: string;
+  reassignable: boolean;
+  slots: number;
 }
 export interface ILicenseCategory {
-  id: number;
-  name: string;
+  data: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
+  total: number;
 }
 export interface ILicenseManufacturer {
   id: number;

@@ -96,7 +96,11 @@ export const AddCategory = ({ isModal = false }: IsModal) => {
                     control={<Radio />}
                     label="Asset"
                   />
-                  <FormControlLabel disabled value="License" control={<Radio />} label="License" />
+                  <FormControlLabel
+                    value={apiUrl.licenseCategory}
+                    control={<Radio />}
+                    label="License"
+                  />
                   <FormControlLabel
                     value={apiUrl.assetComponentCategory}
                     control={<Radio />}
