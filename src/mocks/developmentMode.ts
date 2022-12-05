@@ -3,7 +3,7 @@
 import { MOCK_API } from 'config';
 
 export const developmentMode = (): void => {
-  if (!MOCK_API) {
+  if (MOCK_API) {
     const { mswWorker } = require('./mswWorker');
     mswWorker.start();
   }
