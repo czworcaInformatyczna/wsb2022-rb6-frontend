@@ -9,6 +9,8 @@ import { changeDateTimeFormat, convertUrl } from 'utils';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useGetComponents, useDeleteComponent } from 'features/components';
+import { apiUrl } from 'routes';
+import DisplayImage from 'utils/DisplayImage';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -57,18 +59,16 @@ export const AssetsData: IDataProvider = {
       disableExport: true,
       filterable: false,
       renderCell: (params) => {
-        return (
-          <img
-            alt="Asset"
-            src={'http://137.74.158.36:81/storage/' + params.value}
-            style={{
-              width: '100%',
-              height: undefined,
-            }}
-          />
-        );
+        if (params.row.has_image)
+          return DisplayImage(
+            convertUrl(apiUrl.assetsById, { id: params.id }) +
+              '/image.' +
+              params.row.image_extension,
+          );
+        else return 'No image';
       },
     },
+
     {
       field: 'serial',
       headerName: 'Serial',

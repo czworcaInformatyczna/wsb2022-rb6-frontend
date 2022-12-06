@@ -1,11 +1,16 @@
 import { Box, Table, TableBody, Grid } from '@mui/material';
 import TableRowTemplate from 'components/Elements/Table/tableRow';
-import { useGetAssetsDataById, useGetImage } from 'features/assets/api';
+import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetDetails } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
-import { changeDateTimeFormat } from 'utils';
+import { changeDateTimeFormat, convertUrl } from 'utils';
+import getImage from 'utils/getImage';
+import { useEffect, useState } from 'react';
+
 export const AssetInfo = ({ id }: { id: number }) => {
+  const [image, setImage] = useState<JSX.Element>();
+
   const { data: assetDetails } = useGetAssetsDataById<IAssetDetails>(
     Number(id),
     apiUrl.assetInfo + id,
@@ -14,8 +19,15 @@ export const AssetInfo = ({ id }: { id: number }) => {
     Number(id),
     apiUrl.assetInfo + id + '/qr',
   );
-  const { data: image } = useGetImage<string>(id);
-  console.log(image);
+
+  useEffect(() => {
+    if (assetDetails?.has_image) {
+      getImage(convertUrl(apiUrl.assetsById, { id }) + '/image.' + assetDetails.image_extension)
+        .then((response) => setImage(response))
+        .catch((e) => console.log(e));
+    }
+  }, [assetDetails?.has_image, assetDetails?.image_extension, id]);
+
   return (
     <Box mb={4}>
       {assetDetails === undefined ? (
@@ -151,7 +163,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
                 direction="column"
                 alignItems="center"
               >
-                <img src={image + '.jpg'} width="70%" alt="Asset" />
+                {assetDetails.has_image ? image : ''}
               </Grid>
               <Grid
                 item

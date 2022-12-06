@@ -69,8 +69,8 @@ export const useDeleteMaintenance = <Number>() => {
   return context;
 };
 
-export const useGetImage = <T>(id: number) => {
-  const context = useFetch<T>(convertUrl(apiUrl.assetImage, { id }));
+export const useGetImage = <T>(id: number, extension: string) => {
+  const context = useFetch<T>(convertUrl(apiUrl.assetImage, { id }) + '.' + extension);
   return context;
 };
 

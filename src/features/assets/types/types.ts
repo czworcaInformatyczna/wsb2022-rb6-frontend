@@ -84,8 +84,10 @@ export interface IAssetDetails {
   created_at: string;
   current_holder: { email: string; id: number };
   current_holder_id: number;
+  has_image: boolean;
   id: number | string;
   image: string;
+  image_extension: string;
   name: string;
   notes: string;
   order_number: string;
