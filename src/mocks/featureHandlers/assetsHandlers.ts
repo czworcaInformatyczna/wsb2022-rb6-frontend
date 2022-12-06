@@ -120,6 +120,13 @@ const editAssetComponent = rest.patch(url(apiUrl.component), async (req, res, ct
   return await res(ctx.status(200));
 });
 
+const addAssetComponentCategory = rest.post(
+  url(apiUrl.assetComponentCategory),
+  async (req, res, ctx) => {
+    return await res(ctx.status(200));
+  },
+);
+
 export const assetHandlers = [
   getMaintenanceDetails,
   addAssetMaintenance,
@@ -147,4 +154,5 @@ export const assetHandlers = [
   addAssetComponent,
   getAssetComponent,
   editAssetComponent,
+  addAssetComponentCategory,
 ];

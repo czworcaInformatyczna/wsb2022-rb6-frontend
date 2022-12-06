@@ -36,7 +36,7 @@ export const LicenseHistory = ({ id }: { id: number }) => {
       page: page + 1,
     },
   );
-  console.log(history);
+
   return (
     <Box mb={4}>
       {isArrayEmpty(history?.data) ? (

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
 import { LicenseInfo } from './DetailsComponents/LicenseInfo';
 import { LicenseDeployment } from './DetailsComponents/LicenseDeployment';
-import { type ILicenseFormInput } from '../types';
+import { type ILicenseInfo } from '../types';
 import { useGetAssetsDataById } from 'features/assets';
 import { convertUrl, getVariant } from 'utils';
 import { LoadingScreen } from 'components/Elements/Loading';
@@ -28,7 +28,7 @@ export const LicenseDetails = () => {
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
   const deleteLicense = useDeleteLicense();
-  const { data: licenseDetails } = useGetAssetsDataById<ILicenseFormInput>(
+  const { data: licenseDetails } = useGetAssetsDataById<ILicenseInfo>(
     Number(id),
     convertUrl(apiUrl.licenseById, { id: id }),
   );
@@ -66,8 +66,8 @@ export const LicenseDetails = () => {
         deleteLicense.mutate(id, {
           onSuccess: () => {
             const variant = getVariant('success');
-            enqueueSnackbar('Asset has been deleted', { variant });
-            navigate(routePath.assets);
+            enqueueSnackbar('License has been deleted', { variant });
+            navigate(routePath.licenses);
           },
         });
         return null;
@@ -95,7 +95,7 @@ export const LicenseDetails = () => {
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
           <ActionMenu>
             <MenuItem
-              disabled={licenseDetails?.remaining_slots < 1}
+              disabled={licenseDetails ? licenseDetails?.remaining_slots < 1 : true}
               onClick={() => navigate(convertUrl(routePath.deployLicense, { id: id }))}
             >
               Deploy

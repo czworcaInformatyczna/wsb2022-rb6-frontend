@@ -151,9 +151,36 @@ export const assetHistory = {
       id: '2',
       updated_at: '2022-12-02',
       user_id: 'Admin',
+      user: { email: 'asdk@gmail.com' },
       action_type: 'Deploy',
+      target: 'test1',
+      description: { status: 'abc' },
+    },
+  ],
+  total: 1,
+};
+
+export const licenseHistoryMock = {
+  data: [
+    {
+      id: '2',
+      created_at: '2022-12-02',
+      user_id: 'Admin',
+      user: { email: 'asdk@gmail.com' },
+      action: 'Deploy',
       target: 'Wojtek1',
       description: { status: 'abc' },
+      licencable: { email: 'test@gmail.com' },
+    },
+    {
+      id: '3',
+      created_at: '2022-12-02',
+      user_id: 'Admin',
+      user: { email: 'asdk@gmail.com' },
+      action: 'edit',
+      target: 'Wojtek1',
+      description: { status: 'abc' },
+      licencable: { name: 'assetName' },
     },
   ],
   total: 1,
@@ -192,20 +219,37 @@ export const assetFiles = {
   total: 1,
 };
 
-export const licenseCategoryOptions = [
-  {
-    id: '1',
-    name: 'Graphic',
-  },
-  {
-    id: '2',
-    name: 'Office',
-  },
-  {
-    id: '3',
-    name: 'Video edditing',
-  },
-];
+export const licenseFilesMock = {
+  data: [
+    {
+      id: '1',
+      name: 'file1',
+      extension: '.txt',
+      size: '5KB',
+      created_at: '2022-11-27T18:09',
+      uploader: { email: 'email@email.com' },
+    },
+  ],
+  total: 1,
+};
+
+export const licenseCategoryOptions = {
+  data: [
+    {
+      id: 1,
+      name: 'Graphic',
+    },
+    {
+      id: 2,
+      name: 'Office',
+    },
+    {
+      id: 3,
+      name: 'Video edditing',
+    },
+  ],
+  total: 3,
+};
 
 export const licenseManufacturerOptions = [
   {
@@ -219,18 +263,23 @@ export const licenseManufacturerOptions = [
 ];
 
 export const licenseEditMock = {
+  slots: 5,
   id: 14,
   name: 'Photoshop',
-  key: 'ASD-ASD-343-SDF',
-  manufacturer: 'Adobe',
-  expiration_date: '22/10/2033',
-  licensed_to: 'user@user.com',
-  quantity: 8,
-  notes: 'some info',
-  category: 'Graphic',
-  dateOfPurchase: '22//09/2019',
-  purchaseCost: 200,
-  order_number: '12312sad',
+  product_key: 'ASD-ASD-343-SDF',
+  manufacturer: {
+    name: 'adobe',
+    id: 1,
+  },
+  expiration_date: '22.10.2033',
+  email: 'user@user.com',
+  category: {
+    name: 'Graphic',
+    id: 1,
+  },
+  category_id: 1,
+  manufacturer_id: 1,
+  reassignable: true,
 };
 
 export const licenseDetailsMock = {
@@ -243,61 +292,37 @@ export const licenseDetailsMock = {
     name: 'adobe',
     id: 1,
   },
-  expiration_date: '22/10/2033',
+  expiration_date: '2033-10-22T00:00',
   email: 'user@user.com',
   category: {
     name: 'Graphic',
     id: 1,
   },
-  category_id: {
-    name: 'Graphic',
-    id: 1,
-  },
-  manufacturer_id: {
-    name: 'adobe',
-    id: 1,
-  },
+  category_id: 1,
+  manufacturer_id: 1,
   reassignable: true,
 };
 
-export const licenseDeploysMock = [
-  {
-    id: 1,
-    deployed_to: {
-      type: '',
-      name: '',
+export const licenseDeploysMock = {
+  assets: [
+    {
+      id: 1,
+      name: 'laptop',
+      pivot: {
+        licencable_id: 1,
+      },
     },
-    notes: '',
-    is_deployed: false,
-  },
-  {
-    id: 2,
-    deployed_to: {
-      type: '',
-      name: '',
+  ],
+  users: [
+    {
+      email: 'test@gmail.com',
+      id: '1',
+      pivot: {
+        licencable_id: 1,
+      },
     },
-    notes: '',
-    is_deployed: false,
-  },
-  {
-    id: 3,
-    deployed_to: {
-      type: 'user',
-      name: 'user67',
-    },
-    notes: 'some info76',
-    is_deployed: true,
-  },
-  {
-    id: 4,
-    deployed_to: {
-      type: 'user',
-      name: 'user98',
-    },
-    notes: 'some info89',
-    is_deployed: true,
-  },
-];
+  ],
+};
 
 export const manufacturerList = [
   {

@@ -157,7 +157,7 @@ const AddAsset = () => {
     tempData.append('order_number', data.OrderNumber);
     tempData.append('price', data.PurchaseCost.toString());
     if (data.Photo instanceof File) tempData.append('image', data.Photo);
-    console.log(data.Status);
+
     if (action === 'Add') {
       addAsset.mutate(tempData, {
         onSuccess: () => {

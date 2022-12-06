@@ -81,6 +81,26 @@ export interface ILicenseFormInput extends FieldValues {
   reassignable: boolean;
   slots: number;
 }
+
+export interface ILicenseInfo {
+  category: {
+    id: number;
+    name: string;
+  };
+  category_id: number;
+  email: string;
+  expiration_date: string;
+  manufacturer: {
+    id: number;
+    name: string;
+  };
+  manufacturer_id: number;
+  name: string;
+  product_key: string;
+  reassignable: boolean;
+  remaining_slots: number;
+  slots: number;
+}
 export interface ILicenseCategory {
   data: [
     {

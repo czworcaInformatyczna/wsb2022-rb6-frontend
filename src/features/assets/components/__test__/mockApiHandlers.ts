@@ -24,7 +24,7 @@ export const fetchAssetsInfo = rest.get(apiUrl.assetInfoEdit, async (req, res, c
   return await res(ctx.status(200), ctx.json(assetDetailsEdit));
 });
 
-export const fetchAssetsComponents = rest.get(apiUrl.components + '?*', async (req, res, ctx) => {
+export const fetchAssetsComponents = rest.get(apiUrl.components, async (req, res, ctx) => {
   return await res(ctx.status(200), ctx.json(assetComponents));
 });
 

@@ -21,21 +21,17 @@ describe('LicenseDeployment', () => {
     });
 
     // Table Head
-    expect(await screen.findByText(/Id/i)).toBeInTheDocument();
+
     expect(await screen.findByText(/deployed to/i)).toBeInTheDocument();
-    expect(await screen.findByText(/notes/i)).toBeInTheDocument();
+    expect(await screen.findByText(/type/i)).toBeInTheDocument();
     expect(await screen.findByText(/action/i)).toBeInTheDocument();
 
     // Table Body
 
-    expect(await screen.findByText(/1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/2/i)).toBeInTheDocument();
-    expect(await screen.findByText(/3/i)).toBeInTheDocument();
-    expect(await screen.findByText(/4/i)).toBeInTheDocument();
-    expect(await screen.findByText(/user67/i)).toBeInTheDocument();
-    expect(await screen.findByText(/some info76/i)).toBeInTheDocument();
-    expect(await screen.findByText(/user98/i)).toBeInTheDocument();
-    expect(await screen.findByText(/some info89/i)).toBeInTheDocument();
+    expect(await screen.findByText(/test@gmail.com/i)).toBeInTheDocument();
+    expect(await screen.findByText(/user/i)).toBeInTheDocument();
+    expect(await screen.findByText(/laptop/i)).toBeInTheDocument();
+    expect(await screen.findByText(/asset/i)).toBeInTheDocument();
   });
 
   it('should display no result', async () => {

@@ -1,11 +1,11 @@
 import { Box, Table, TableBody, Grid } from '@mui/material';
 import TableRowTemplate from 'components/Elements/Table/tableRow';
-import { type ILicenseFormInput } from 'features/licenses/types';
+import { type ILicenseInfo } from 'features/licenses/types';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface IProps {
-  licenseDetails: ILicenseFormInput;
+  licenseDetails: ILicenseInfo;
 }
 
 export const LicenseInfo = (props: IProps) => {

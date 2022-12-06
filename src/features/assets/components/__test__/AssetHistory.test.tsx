@@ -28,9 +28,9 @@ describe('AssetHistory', () => {
 
     // Table Body
     expect(await screen.findByText('2022-12-02')).toBeInTheDocument();
-    expect(await screen.findByText(/Admin/i)).toBeInTheDocument();
+    expect(await screen.findByText(/asdk@gmail.com/i)).toBeInTheDocument();
     expect(await screen.findByText(/Deploy/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Wojtek1/i)).toBeInTheDocument();
+    expect(await screen.findByText(/test1/i)).toBeInTheDocument();
     expect(await screen.findByText(/status/i)).toBeInTheDocument();
   });
 

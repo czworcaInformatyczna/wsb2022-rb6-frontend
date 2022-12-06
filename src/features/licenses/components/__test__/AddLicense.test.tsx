@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable testing-library/no-unnecessary-act */
 import { act, render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
@@ -11,13 +12,16 @@ import * as element from './getElemetns';
 import { QueryClientProvider } from 'react-query';
 import { getQueryClient } from 'lib/react-query';
 import { type AppProviderProps } from 'providers/types';
+import { SnackbarProvider } from 'notistack';
 jest.setTimeout(10000);
 const Provider = ({ children }: AppProviderProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <BrowserRouter>
-        <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
-      </BrowserRouter>
+      <SnackbarProvider maxSnack={3}>
+        <BrowserRouter>
+          <QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>
+        </BrowserRouter>
+      </SnackbarProvider>
     </LocalizationProvider>
   );
 };
@@ -36,12 +40,8 @@ describe('AddLicense form', () => {
     expect(element.getSelectCategory()).toBeInTheDocument();
     expect(element.getSelectManufacturer()).toBeInTheDocument();
     expect(element.getQuantity()).toBeInTheDocument();
-    expect(await element.getExpirationDate()).toBeInTheDocument();
-    expect(await element.getLicensedTo()).toBeInTheDocument();
-    expect(await element.getDateOfPurchase()).toBeInTheDocument();
-    expect(await element.getOrderNumber()).toBeInTheDocument();
-    expect(await element.getPurchaseCost()).toBeInTheDocument();
-    expect(await element.getNotes()).toBeInTheDocument();
+    expect(element.getExpirationDate()).toBeInTheDocument();
+    expect(element.getLicensedTo()).toBeInTheDocument();
   });
 
   it('should display error messages', async () => {

@@ -73,8 +73,8 @@ export const AppRoutes = (): JSX.Element => (
         />
         <Route element={<AddAsset key="AddAsset" />} path={routePath.addAsset} />
         <Route element={<AddAsset key="EditAsset" />} path={routePath.editAsset} />
-        <Route element={<AddLicense />} path={routePath.addLicense} />
-        <Route element={<AddLicense />} path={routePath.editLicense} />
+        <Route element={<AddLicense key="AddLicense" />} path={routePath.addLicense} />
+        <Route element={<AddLicense key="EditLicense" />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
         <Route
           element={<DataGridTemplate key="Components" data={columns.ComponentsData} />}

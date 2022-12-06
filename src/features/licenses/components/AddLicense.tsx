@@ -1,13 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import { CreateModal } from 'components/Elements/CreateModal';
 import { DatePickerInput, SelectInput, TextInput } from 'components/Elements/FormInputs';
 import { CheckBox } from 'components/Elements/FormInputs/CheckBox';
@@ -23,7 +14,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
 import { getVariant } from 'utils';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useAddLicense, useUpdateLicense, useGetLicenseCategory } from '../api';
 import { type ILicenseFormInput, type ILicense } from '../types';
@@ -57,6 +47,7 @@ const AddLicense = ({ isModal = false }: IsModal) => {
     (assetValues: any) => {
       setValue('name', assetValues.name);
       setValue('product_key', assetValues.product_key);
+
       const categoryObject = categoryOptions?.data.find((option) => {
         return option.id === assetValues.category_id;
       });
@@ -83,9 +74,7 @@ const AddLicense = ({ isModal = false }: IsModal) => {
     },
     [id],
   );
-
   useEffect(() => {
-    reset();
     const isEdit = location.pathname.includes('Edit');
     if (isIdNotValid(isEdit)) {
       navigate(routePath.pageNotFound);
@@ -99,10 +88,6 @@ const AddLicense = ({ isModal = false }: IsModal) => {
         setValues(license);
         setLoading(false);
       }
-    }
-
-    if (!isEdit) {
-      setAction('Add');
     }
   }, [id, isIdNotValid, license, location.pathname, navigate, refetch, reset, setValues]);
 
@@ -206,40 +191,20 @@ const AddLicense = ({ isModal = false }: IsModal) => {
                   type="number"
                   rules={{ required: 'Required value' }}
                 />
-                <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-                  <Accordion disableGutters>
-                    <AccordionSummary
-                      aria-controls="panel1a-content"
-                      expandIcon={<ExpandMoreIcon />}
-                      id="panel1a-header"
-                      sx={{
-                        backgroundColor: 'background.default',
-                      }}
-                    >
-                      <Typography>Additional informations</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails
-                      sx={{
-                        backgroundColor: 'background.paper',
-                      }}
-                    >
-                      <Grid alignContent="center" container display="flex" spacing={2}>
-                        <TextInput
-                          label="Email"
-                          name="email"
-                          rules={{
-                            required: 'Required value',
-                            pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: 'invalid email address',
-                            },
-                          }}
-                        />
-                        <DatePickerInput label="Expiration date" name="expiration_date" />
-                      </Grid>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
+
+                <TextInput
+                  label="Email"
+                  name="email"
+                  rules={{
+                    required: 'Required value',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'invalid email address',
+                    },
+                  }}
+                />
+                <DatePickerInput label="Expiration date" name="expiration_date" />
+
                 <Grid
                   alignContent="center"
                   display="flex"
