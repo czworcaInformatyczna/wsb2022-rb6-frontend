@@ -10,33 +10,36 @@ import {
   TableContainer,
   TablePagination,
 } from '@mui/material';
-import { useDeleteAssetFile, useGetAssetFile } from 'features/assets/api';
-import { type IAssetFiles } from 'features/assets/types';
+import { useGetAssetFile } from 'features/assets/api';
 import { useState } from 'react';
 import downloadFile from 'utils/downloadFile';
 import { apiUrl } from 'routes';
-import { changeDateTimeFormat, isArrayEmpty } from 'utils';
-import NoResult from './noResult';
+import { changeDateTimeFormat, convertUrl, isArrayEmpty } from 'utils';
+
 import { CreateModal } from 'components/Elements/CreateModal';
-import UploadFile from './UploadFile';
+
 import { useConfirm } from 'material-ui-confirm';
 import { useTheme } from '@mui/material/styles';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
+import { type ILicenseFiles } from 'features/licenses/types';
+import NoResult from 'features/assets/components/detailsComponents/noResult';
+import UploadFile from 'features/assets/components/detailsComponents/UploadFile';
+import { useDeleteLicenseFile } from 'features/licenses/api';
 
-export const AssetFiles = ({ id }: { id: number }) => {
+export const LicensesFiles = ({ id }: { id: number }) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
-  const { data: files } = useGetAssetFile<IAssetFiles>(apiUrl.assetFiles, {
+  const { data: files } = useGetAssetFile<ILicenseFiles>(convertUrl(apiUrl.licenseFile, { id }), {
     asset_id: id,
     per_page: pageSize,
     page: page + 1,
   });
-  const deleteFile = useDeleteAssetFile();
+  const deleteFile = useDeleteLicenseFile(id);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -128,7 +131,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
                             color="success"
                             onClick={() => {
                               downloadFile(
-                                apiUrl.assetFiles + '/' + file.id + '/download',
+                                convertUrl(apiUrl.downloadLicenseFile, { id: file.id }),
                                 file.name,
                               );
                             }}
@@ -165,7 +168,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
       <CreateModal
         open={open}
         setOpen={setOpen}
-        content={<UploadFile type="Asset" assetId={id} closeModal={closeModal} />}
+        content={<UploadFile type="License" assetId={id} closeModal={closeModal} />}
       />
     </Box>
   );

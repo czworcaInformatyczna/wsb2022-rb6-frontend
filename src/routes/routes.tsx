@@ -24,6 +24,7 @@ import ChangeStatus from 'features/assets/components/ChangeStatus';
 import { AddUserToRole } from 'features/roles/components/AddUserToRole';
 import { AddMaintenance } from 'features/assets/components/detailsComponents/AddMaintenance';
 import { AddComponent } from 'features/components/components/AddComponent';
+import DeployLicense from 'features/licenses/components/DeployLicense';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -114,6 +115,7 @@ export const AppRoutes = (): JSX.Element => (
         />
         <Route element={<AddComponent key="AddComponent" />} path={routePath.addComponent} />
         <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
+        <Route element={<DeployLicense />} path={routePath.deployLicense} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

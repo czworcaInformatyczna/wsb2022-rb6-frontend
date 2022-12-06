@@ -25,7 +25,7 @@ export const fetchLicenseEditInfo = rest.get(apiUrl.licenseInfoEdit, async (req,
   return await res(ctx.status(200), ctx.json(licenseEditMock));
 });
 
-export const fetchLicenseDetails = rest.get(url(apiUrl.licenseInfo), (req, res, ctx) => {
+export const fetchLicenseDetails = rest.get(url(apiUrl.licenseById), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(licenseDetailsMock));
 });
 

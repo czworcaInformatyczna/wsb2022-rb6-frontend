@@ -6,28 +6,19 @@ import {
   TableCell,
   Grid,
   TableHead,
-  TablePagination,
   TableContainer,
+  TablePagination,
 } from '@mui/material';
-import { useGetAssetsDataById } from 'features/assets/api';
-import NoResult from './noResult';
-import { apiUrl } from 'routes';
-import { type IAssetComponents } from 'features/assets/types';
-import { convertUrl, isArrayEmpty } from 'utils';
+import NoResult from 'features/assets/components/detailsComponents/noResult';
+import { useGetLicenseHistory } from 'features/licenses/api';
+import { type ILicenseHistory } from 'features/licenses/types';
 import { useState } from 'react';
+import { apiUrl } from 'routes';
+import { changeDateTimeFormat, convertUrl, isArrayEmpty } from 'utils';
 
-export const AssetComponents = ({ id }: { id: number }) => {
+export const LicenseHistory = ({ id }: { id: number }) => {
   const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(0);
-
-  const { data: components } = useGetAssetsDataById<IAssetComponents>(
-    Number(id),
-    convertUrl(apiUrl.components, {
-      asset_id: id,
-      per_page: pageSize,
-      page: page + 1,
-    }),
-  );
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -38,9 +29,17 @@ export const AssetComponents = ({ id }: { id: number }) => {
     setPage(0);
   };
 
+  const { data: history } = useGetLicenseHistory<ILicenseHistory>(
+    convertUrl(apiUrl.licenseHistory, { id }),
+    {
+      per_page: pageSize,
+      page: page + 1,
+    },
+  );
+  console.log(history);
   return (
     <Box mb={4}>
-      {isArrayEmpty(components?.data) ? (
+      {isArrayEmpty(history?.data) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -57,22 +56,24 @@ export const AssetComponents = ({ id }: { id: number }) => {
                   }}
                 >
                   <TableRow>
-                    <TableCell>Id</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Serial</TableCell>
-                    <TableCell>Category </TableCell>
-                    <TableCell>Manufacturer</TableCell>
+                    <TableCell width="15%">Date</TableCell>
+                    <TableCell width="20%">User</TableCell>
+                    <TableCell width="15%">Action</TableCell>
+                    <TableCell width="15%">Target</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {components?.data.map((component: any) => {
+                  {history?.data.map((action: any) => {
                     return (
-                      <TableRow key={component.id}>
-                        <TableCell>{component.id}</TableCell>
-                        <TableCell>{component.name}</TableCell>
-                        <TableCell>{component.serial}</TableCell>
-                        <TableCell>{component.asset_component_category.name}</TableCell>
-                        <TableCell>{component.manufacturer.name}</TableCell>
+                      <TableRow key={action.id}>
+                        <TableCell>{changeDateTimeFormat(action.created_at)}</TableCell>
+                        <TableCell>{action.user.email}</TableCell>
+                        <TableCell>{action.action}</TableCell>
+                        <TableCell>
+                          {action.licencable.email
+                            ? action.licencable.email
+                            : action.licencable.name}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -82,7 +83,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, 50]}
               component="div"
-              count={components ? components.total : 0}
+              count={history ? history.total : 0}
               rowsPerPage={pageSize}
               page={page}
               onPageChange={handleChangePage}

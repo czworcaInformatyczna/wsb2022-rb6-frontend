@@ -48,7 +48,7 @@ const licenses = rest.get(url(apiUrl.assetLicenses), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetLicenses));
 });
 
-const components = rest.get(url(apiUrl.components + '?*'), (req, res, ctx) => {
+const components = rest.get(url(apiUrl.components), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(assetComponents));
 });
 

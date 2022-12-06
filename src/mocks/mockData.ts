@@ -234,20 +234,30 @@ export const licenseEditMock = {
 };
 
 export const licenseDetailsMock = {
-  available: 5,
-  deployed: 30,
+  slots: 5,
+  remaining_slots: 30,
   id: 14,
   name: 'Photoshop',
-  key: 'ASD-ASD-343-SDF',
-  manufacturer: 'Adobe',
+  product_key: 'ASD-ASD-343-SDF',
+  manufacturer: {
+    name: 'adobe',
+    id: 1,
+  },
   expiration_date: '22/10/2033',
-  licensed_to: 'user@user.com',
-  quantity: 8,
-  notes: 'some info',
-  category: 'Graphic',
-  dateOfPurchase: '22//09/2019',
-  purchaseCost: 200,
-  order_number: '12312sad',
+  email: 'user@user.com',
+  category: {
+    name: 'Graphic',
+    id: 1,
+  },
+  category_id: {
+    name: 'Graphic',
+    id: 1,
+  },
+  manufacturer_id: {
+    name: 'adobe',
+    id: 1,
+  },
+  reassignable: true,
 };
 
 export const licenseDeploysMock = [

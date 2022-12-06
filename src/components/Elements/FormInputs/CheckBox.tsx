@@ -4,6 +4,7 @@ import { Controller } from 'react-hook-form';
 import { type IInputProps } from 'features/assets';
 
 export interface ITextInput extends IInputProps {
+  checked?: boolean;
   endAdornment?: string;
   helperText?: string;
   rules: Exclude<RegisterOptions, 'setValueAs' | 'valueAsDate' | 'valueAsNumber'>;
@@ -30,7 +31,7 @@ export const CheckBox = ({ label, name, rules }: ITextInput) => {
       <Grid alignContent="center" display="flex" item lg={6} md={6} sm={6} xl={6} xs={6}>
         <Controller
           control={control}
-          defaultValue=""
+          defaultValue={false}
           name={name}
           render={({ field }) => (
             <FormControlLabel control={<Checkbox {...field} />} label={label} />

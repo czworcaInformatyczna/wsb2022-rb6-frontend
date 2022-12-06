@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { licenseDetailsMock } from 'mocks';
 import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
 import { LicenseInfo } from '../DetailsComponents/LicenseInfo';
@@ -8,7 +9,7 @@ import { fetchLicenseDetails } from './mockApiHandlers';
 const Provider = () => {
   return (
     <AppProvider>
-      <LicenseInfo id={1} />
+      <LicenseInfo licenseDetails={licenseDetailsMock} />
     </AppProvider>
   );
 };

@@ -23,7 +23,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
   const { data: history } = useGetAssetHistory<IAssetHistory>(apiUrl.assetHistory, {
     item_type: 'asset',
     per_page: pageSize,
-    page: page,
+    page: page + 1,
     item_id: id,
   });
 
@@ -73,7 +73,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
                     return (
                       <TableRow key={action.id}>
                         <TableCell>{changeDateTimeFormat(action.updated_at)}</TableCell>
-                        <TableCell>{action.user_id}</TableCell>
+                        <TableCell>{action.user.email}</TableCell>
                         <TableCell>{action.action_type}</TableCell>
                         <TableCell>{action.target}</TableCell>
                         <TableCell>{getObjectKeys(action.description)}</TableCell>

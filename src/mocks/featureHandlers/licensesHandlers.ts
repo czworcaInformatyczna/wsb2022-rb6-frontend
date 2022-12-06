@@ -24,7 +24,7 @@ const manufacturersOptions = rest.get(url(apiUrl.licensesManufacturers), (req, r
 const licenseEdit = rest.get(url(apiUrl.licenseInfoEdit), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(licenseEditMock));
 });
-const licenseDetails = rest.get(url(apiUrl.licenseInfo), (req, res, ctx) => {
+const licenseDetails = rest.get(url(apiUrl.licenseById), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(licenseDetailsMock));
 });
 const licenseDeploys = rest.get(url(apiUrl.licenseDeploys), (req, res, ctx) => {

@@ -1,6 +1,7 @@
 import { type IDataProviderSettings } from 'features/assets';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
+import { convertUrl } from 'utils';
 import { type ILicenseManufacturer, type ILicenseCategory, type ILicenses } from '../types';
 
 export const useGetLicenses = (params: IDataProviderSettings) => {
@@ -35,5 +36,28 @@ export const useAddLicense = <T>() => {
 
 export const useGetLicenseCategory = () => {
   const context = useFetch<ILicenseCategory>(apiUrl.licensesCategory);
+  return context;
+};
+
+export const useDeployLicense = <T>(id: number) => {
+  const context = usePost<T>(convertUrl(apiUrl.licenseDeploys, { id }));
+  return context;
+};
+
+export const useDetachLicense = <T>(id: number) => {
+  const context = useUpdate<T>(apiUrl.detachLicense, convertUrl(apiUrl.licenseDeploys, { id }));
+  return context;
+};
+
+export const useGetLicenseHistory = <T>(url: string, params: IDataProviderSettings) => {
+  const context = useFetch<T>(url, params);
+  return context;
+};
+
+export const useDeleteLicenseFile = <Number>(id: number) => {
+  const context = useDelete<Number>(
+    apiUrl.deleteLicenseFile,
+    convertUrl(apiUrl.licenseFile, { id }),
+  );
   return context;
 };

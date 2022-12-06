@@ -5,7 +5,7 @@ import { useDeleteModel, useGetModels } from 'features/model/api';
 import { useDeleteRole, useGetRoles } from 'features/roles/api';
 import { useDeleteUser, useGetUsers } from 'features/users/api';
 import { Link } from 'react-router-dom';
-import { changeDateTimeFormat } from 'utils';
+import { changeDateTimeFormat, convertUrl } from 'utils';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useGetComponents, useDeleteComponent } from 'features/components';
@@ -122,8 +122,8 @@ export const LicensesData: IDataProvider = {
   deleteHook: useDeleteLicense,
   addNewLink: '/AddLicense',
   exportLink: '/asset',
-  editLink: '/EditLicense/:id',
-  detailsLink: '/LicenseDetails/:id',
+  editLink: '/License/:id/Edit',
+  detailsLink: '/License/:id/Details',
   name: 'Licenses',
   columns: [
     {
@@ -131,7 +131,11 @@ export const LicensesData: IDataProvider = {
       headerName: 'Id',
       width: 90,
       renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.value}>
+        <Box
+          component={Link}
+          sx={{ color: 'text.primary' }}
+          to={convertUrl('/License/:id/Details', { id: params.id })}
+        >
           {params.value}
         </Box>
       ),
@@ -141,35 +145,67 @@ export const LicensesData: IDataProvider = {
       headerName: 'Name',
       width: 200,
       renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.id}>
+        <Box
+          component={Link}
+          sx={{ color: 'text.primary' }}
+          to={convertUrl('/License/:id/Details', { id: params.id })}
+        >
           {params.value}
         </Box>
       ),
     },
     {
-      field: 'key',
+      field: 'product_key',
       headerName: 'Key',
       width: 200,
       renderCell: (params) => (
-        <Box component={Link} sx={{ color: 'text.primary' }} to={'/LicenseDetails/' + params.id}>
+        <Box
+          component={Link}
+          sx={{ color: 'text.primary' }}
+          to={convertUrl('/License/:id/Details', { id: params.id })}
+        >
           {params.value}
         </Box>
       ),
     },
-    { field: 'manufacturer', headerName: 'Manufacturer', width: 200 },
-    { field: 'expiration_date', headerName: 'Expiration date', width: 200 },
-    { field: 'licensed_to', headerName: 'Licensed to', width: 200 },
     {
-      field: 'quantity',
-      align: 'center',
-      headerName: 'Quantity',
-      width: 100,
+      field: 'manufacturer',
+      headerName: 'Manufacturer',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.manufacturer.name;
+      },
     },
     {
-      field: 'available',
-      align: 'center',
-      headerName: 'Available',
+      field: 'category',
+      headerName: 'Category',
+      width: 200,
+      valueGetter: (params) => {
+        return params.row.category.name;
+      },
+    },
+    {
+      field: 'slots',
+
+      headerName: 'Slots',
       width: 100,
+    },
+    { field: 'expiration_date', headerName: 'Expiration date', width: 200 },
+    { field: 'email', headerName: 'Licensed to', width: 200 },
+    {
+      field: 'reassignable',
+      headerName: 'Reassignable',
+      width: 120,
+      align: 'center',
+      renderCell: (params) => {
+        return params.row.reassignable ? (
+          <CheckIcon color="success" />
+        ) : (
+          <Box>
+            <CloseIcon color="error" />
+          </Box>
+        );
+      },
     },
   ],
 };

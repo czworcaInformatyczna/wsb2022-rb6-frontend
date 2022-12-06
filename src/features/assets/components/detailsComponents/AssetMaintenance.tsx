@@ -39,7 +39,7 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
     {
       asset_id: id,
       per_page: pageSize,
-      page: page,
+      page: page + 1,
     },
   );
   const handleChangePage = (event: unknown, newPage: number) => {

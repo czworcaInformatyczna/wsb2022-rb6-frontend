@@ -45,10 +45,24 @@ export interface IDeployedTo {
   type: string;
 }
 export interface ILicenseDeploys {
-  deployed_to: IDeployedTo;
-  id: number;
-  is_deployed: boolean;
-  notes: string;
+  assets: [
+    {
+      id: number;
+      name: string;
+      pivot: {
+        licencable_id: number;
+      };
+    },
+  ];
+  users: [
+    {
+      email: string;
+      id: number;
+      pivot: {
+        licencable_id: number;
+      };
+    },
+  ];
 }
 
 export interface ILicenseFormInput extends FieldValues {
@@ -79,4 +93,39 @@ export interface ILicenseCategory {
 export interface ILicenseManufacturer {
   id: number;
   name: string;
+}
+
+export interface IDeploy {
+  model: string;
+  model_id: number | null;
+}
+
+export interface IDeployForm {
+  asset?: {
+    id: number;
+    name?: string;
+  };
+  model: string;
+  user?: {
+    email?: string;
+    id: number;
+  };
+}
+
+export interface ILicenseHistory {
+  data: [{ action: string; date: string; id: number; notes: string; user: string }];
+  total: number;
+}
+
+export interface ILicenseFile {
+  download_link: string;
+  extension: string;
+  id: number;
+  name: string;
+  size: string;
+  upload_date: string;
+}
+export interface ILicenseFiles {
+  data: ILicenseFiles[];
+  total: number;
 }

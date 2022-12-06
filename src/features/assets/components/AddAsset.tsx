@@ -144,7 +144,10 @@ const AddAsset = () => {
     tempData.append('tag', data.AssetTag);
     tempData.append('asset_model_id', data.Model?.id ? data.Model.id.toString() : '');
     tempData.append('serial', data.Serial);
-    tempData.append('status', data.Status?.id ? data.Status.id.toString() : '');
+    tempData.append(
+      'status',
+      data.Status?.id || data.Status?.id === 0 ? data.Status.id.toString() : '',
+    );
     tempData.append('notes', data.Notes);
     tempData.append('warranty', data.Waranty.toString());
     tempData.append(
@@ -154,7 +157,7 @@ const AddAsset = () => {
     tempData.append('order_number', data.OrderNumber);
     tempData.append('price', data.PurchaseCost.toString());
     if (data.Photo instanceof File) tempData.append('image', data.Photo);
-
+    console.log(data.Status);
     if (action === 'Add') {
       addAsset.mutate(tempData, {
         onSuccess: () => {
