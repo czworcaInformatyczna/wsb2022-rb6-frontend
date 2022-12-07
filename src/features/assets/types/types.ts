@@ -152,6 +152,10 @@ export interface IAssetFormInput extends FieldValues {
   Serial: string;
   Status: IStatus | null;
   Waranty: number | '';
+  currentHolder?: {
+    id: number;
+    name: string;
+  };
 }
 
 export interface IUploadFile {

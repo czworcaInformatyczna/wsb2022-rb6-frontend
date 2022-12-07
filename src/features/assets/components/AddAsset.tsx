@@ -17,8 +17,9 @@ import {
   useGetAssetsDataById,
   type IAsset,
   useAddAsset,
-  Statuses,
   useUpdateAsset,
+  useEditImage,
+  Statuses,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -36,10 +37,12 @@ import { CreateModal } from 'components/Elements/CreateModal';
 import { StatusesList } from '../api/statuses';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
+import { useGetUsers } from 'features/users/api';
 
 const AddAsset = () => {
   const methods = useForm<IAssetFormInput>();
-  const { handleSubmit, setValue, reset, setError } = methods;
+  const { handleSubmit, setValue, reset, setError, watch } = methods;
+  const watchStatus = watch('Status');
   const navigate = useNavigate();
   const statusOptions = StatusesList;
   const { data: modelOptions } = useGetModelOptions();
@@ -47,13 +50,13 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-
+  const editImage = useEditImage(Number(id));
   const { data: asset, refetch } = useGetAssetsDataById<IAsset>(
     Number(id),
     apiUrl.assetInfo + id,
     action === 'Add' ? false : true,
   );
-
+  const { data: users } = useGetUsers();
   const { enqueueSnackbar } = useSnackbar();
   const addAsset = useAddAsset<FormData>(apiUrl.assets);
   const updateAsset = useUpdateAsset<FormData>();
@@ -75,6 +78,8 @@ const AddAsset = () => {
       setValue('Model', modelObject !== undefined ? modelObject : null);
       const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
+      if (statusObject?.id === Statuses.Deployed)
+        setValue('currentHolder', assetValues.current_holder);
       setValue('Notes', assetValues.notes === null ? '' : assetValues.notes);
       setValue('AssetName', assetValues.name);
       setValue('Waranty', assetValues.warranty === null ? '' : assetValues.warranty);
@@ -140,6 +145,7 @@ const AddAsset = () => {
 
   const onSubmit = async (data: IAssetFormInput) => {
     const tempData = new FormData();
+    const editImageData = new FormData();
     tempData.append('name', data.AssetName);
     tempData.append('tag', data.AssetTag);
     tempData.append('asset_model_id', data.Model?.id ? data.Model.id.toString() : '');
@@ -156,8 +162,10 @@ const AddAsset = () => {
     );
     tempData.append('order_number', data.OrderNumber);
     tempData.append('price', data.PurchaseCost.toString());
+    if (data.Status?.id === Statuses.Deployed && data.currentHolder !== undefined)
+      tempData.append('current_holder_id', data.currentHolder?.id.toString());
     if (data.Photo instanceof File) tempData.append('image', data.Photo);
-
+    if (data.Photo instanceof File) editImageData.append('image', data.Photo);
     if (action === 'Add') {
       addAsset.mutate(tempData, {
         onSuccess: () => {
@@ -180,8 +188,17 @@ const AddAsset = () => {
           {
             onSuccess: () => {
               const variant = getVariant('success');
-              enqueueSnackbar('Asset has been edited', { variant });
-              navigate(routePath.assets);
+              if (data.Photo instanceof File)
+                editImage.mutate(editImageData, {
+                  onSuccess: () => {
+                    enqueueSnackbar('Asset has been edited', { variant });
+                    navigate(routePath.assets);
+                  },
+                });
+              else {
+                enqueueSnackbar('Asset has been edited', { variant });
+                navigate(routePath.assets);
+              }
             },
             onError(error) {
               const e: { message: string } = error.response?.data as { message: string };
@@ -266,14 +283,17 @@ const AddAsset = () => {
                 <SelectInput
                   label="Status"
                   name="Status"
-                  options={
-                    statusOptions
-                      ? statusOptions.filter((status) => status.id !== Statuses.Deployed)
-                      : []
-                  }
-                  modalContent={<div>Placeholder</div>}
-                  openModal={openModal}
+                  options={statusOptions ? statusOptions : []}
+                  createButton={false}
                 />
+                {watchStatus?.id === Statuses.Deployed ? (
+                  <SelectInput
+                    label="User"
+                    name="currentHolder"
+                    options={users ? users.data : []}
+                    createButton={false}
+                  />
+                ) : null}
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
                     <AccordionSummary

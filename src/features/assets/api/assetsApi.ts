@@ -78,3 +78,8 @@ export const useGetAssetHistory = <T>(url: string, params: IDataProviderSettings
   const context = useFetch<T>(url, params);
   return context;
 };
+
+export const useEditImage = <T>(id: number) => {
+  const context = usePost<T>(convertUrl(apiUrl.assetImage, { id }));
+  return context;
+};
