@@ -3,7 +3,7 @@ import Logout from '@mui/icons-material/Logout';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
-import { Hidden } from '@mui/material';
+import { Hidden, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -14,8 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { useAuth } from 'providers/AuthProvider';
 import * as React from 'react';
+import DisplayAvatar from 'utils/DisplayAvatar';
 
 export const AccountMenu = (): JSX.Element => {
+  const { auth } = useAuth();
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
   const { handleLogout } = useAuth();
   const open = Boolean(anchorElement);
@@ -47,6 +49,14 @@ export const AccountMenu = (): JSX.Element => {
               <MoreVertIcon />
             </Hidden>
             <Hidden smDown>
+              <Typography
+                sx={{
+                  marginRight: 1,
+                }}
+              >
+                {auth.email}
+              </Typography>
+              <DisplayAvatar url="/avatar" />
               <ArrowDropDownIcon />
             </Hidden>
           </IconButton>

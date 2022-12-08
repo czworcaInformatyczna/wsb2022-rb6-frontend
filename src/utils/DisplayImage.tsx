@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import getImage from './getImage';
+import { getImage } from './getImage';
 
 const DisplayImage = (url: string | null) => {
   const [image, setImage] = useState<JSX.Element | string>('No Image');

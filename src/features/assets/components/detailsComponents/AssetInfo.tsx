@@ -5,7 +5,7 @@ import { type IAssetDetails } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
 import { changeDateTimeFormat, convertUrl } from 'utils';
-import getImage from 'utils/getImage';
+import { getImage } from 'utils/getImage';
 import { useEffect, useState } from 'react';
 
 export const AssetInfo = ({ id }: { id: number }) => {

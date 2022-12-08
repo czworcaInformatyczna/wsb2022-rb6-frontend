@@ -46,6 +46,7 @@ export const apiUrl = {
   detachLicense: '/licence/:id/licencables/1',
   deleteLicenseFile: '/licence/managment/file/:id',
   downloadLicenseFile: '/licence/managment/file/:id/download',
+  avatar: '/avatar/:id',
 };
 
 export const routePath = {
