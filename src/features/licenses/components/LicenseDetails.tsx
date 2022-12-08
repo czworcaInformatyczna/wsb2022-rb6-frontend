@@ -132,7 +132,10 @@ export const LicenseDetails = () => {
             )}
           </TabPanel>
           <TabPanel tab={tab} index={1}>
-            <LicenseDeployment id={Number(id)} />
+            <LicenseDeployment
+              reassignable={licenseDetails?.reassignable ? licenseDetails?.reassignable : false}
+              id={Number(id)}
+            />
           </TabPanel>
           <TabPanel tab={tab} index={2}>
             <LicenseHistory id={Number(id)} />

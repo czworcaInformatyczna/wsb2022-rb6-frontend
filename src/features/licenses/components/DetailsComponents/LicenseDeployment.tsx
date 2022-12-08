@@ -17,7 +17,7 @@ import { useSnackbar } from 'notistack';
 import { apiUrl } from 'routes';
 import { convertUrl, getVariant, isArrayEmpty } from 'utils';
 
-export const LicenseDeployment = ({ id }: { id: number }) => {
+export const LicenseDeployment = ({ id, reassignable }: { id: number; reassignable: boolean }) => {
   const { data: licenseDeploys } = useGetAssetsDataById<ILicenseDeploys>(
     Number(id),
     convertUrl(apiUrl.licenseDeploys, { id: id }),
@@ -95,13 +95,15 @@ export const LicenseDeployment = ({ id }: { id: number }) => {
                         <TableCell>{deploy.name}</TableCell>
                         <TableCell>Asset</TableCell>
                         <TableCell align="right">
-                          <Button
-                            onClick={() => handleDetach('asset', deploy.id)}
-                            variant="contained"
-                            color="error"
-                          >
-                            Return
-                          </Button>
+                          {reassignable && (
+                            <Button
+                              onClick={() => handleDetach('asset', deploy.id)}
+                              variant="contained"
+                              color="error"
+                            >
+                              Return
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     );
