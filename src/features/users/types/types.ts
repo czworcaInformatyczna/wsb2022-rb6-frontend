@@ -1,4 +1,5 @@
 import { type IAssetDetails } from 'features/assets';
+import { type ILicense } from 'features/licenses';
 
 export interface IUsers {
   data: [
@@ -25,6 +26,7 @@ export interface IAddUser {
 export interface IUser {
   assets: IAssetDetails[];
   email: string;
+  licences: ILicense[];
   name: string;
   phone_number: number;
   roles: [{ id: number; name: string }];

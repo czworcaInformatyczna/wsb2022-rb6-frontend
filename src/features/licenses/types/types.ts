@@ -19,6 +19,7 @@ export interface ILicense {
   category_id: number | null;
   email: string;
   expiration_date: string;
+  id?: number;
   manufacturer_id: number | null;
   name: string;
   product_key: string;
