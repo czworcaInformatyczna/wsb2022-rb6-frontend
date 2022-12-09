@@ -59,12 +59,16 @@ export const AssetsData: IDataProvider = {
       disableExport: true,
       filterable: false,
       renderCell: (params) => {
-        return DisplayImage(
-          params.row.has_image
-            ? convertUrl(apiUrl.assetsById, { id: params.id }) +
-                '/image.' +
-                params.row.image_extension
-            : null,
+        return (
+          <DisplayImage
+            url={
+              params.row.has_image
+                ? convertUrl(apiUrl.assetsById, { id: params.id }) +
+                  '/image.' +
+                  params.row.image_extension
+                : null
+            }
+          />
         );
       },
     },
