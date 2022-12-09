@@ -45,3 +45,8 @@ export interface IUserId {
 export interface IAddUsersToRole {
   users: number[];
 }
+
+export interface IChangePassword {
+  password: string;
+  password_confirmation: string;
+}

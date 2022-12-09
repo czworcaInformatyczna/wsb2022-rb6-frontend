@@ -47,6 +47,7 @@ export const apiUrl = {
   deleteLicenseFile: '/licence/managment/file/:id',
   downloadLicenseFile: '/licence/managment/file/:id/download',
   avatar: '/avatar/:id',
+  changePassword: '/changepassword',
 };
 
 export const routePath = {
@@ -88,4 +89,5 @@ export const routePath = {
   addComponent: '/Component/Add',
   editComponent: '/Component/:id/Edit',
   deployLicense: '/License/:id/Deploy',
+  changePassword: '/Profile/ChangePassword',
 };

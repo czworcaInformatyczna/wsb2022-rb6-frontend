@@ -1,7 +1,6 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Logout from '@mui/icons-material/Logout';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import { Hidden, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -15,12 +14,16 @@ import Tooltip from '@mui/material/Tooltip';
 import { useAuth } from 'providers/AuthProvider';
 import * as React from 'react';
 import DisplayAvatar from 'utils/DisplayAvatar';
+import LockResetIcon from '@mui/icons-material/LockReset';
+import { useNavigate } from 'react-router';
+import { routePath } from 'routes';
 
 export const AccountMenu = (): JSX.Element => {
   const { auth } = useAuth();
   const [anchorElement, setAnchorElement] = React.useState<HTMLElement | null>(null);
   const { handleLogout } = useAuth();
   const open = Boolean(anchorElement);
+  const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElement(event.currentTarget);
   };
@@ -28,6 +31,8 @@ export const AccountMenu = (): JSX.Element => {
   const handleClose = () => {
     setAnchorElement(null);
   };
+
+  const avatar = <DisplayAvatar url="/avatar" />;
 
   return (
     <>
@@ -56,7 +61,7 @@ export const AccountMenu = (): JSX.Element => {
               >
                 {auth.email}
               </Typography>
-              <DisplayAvatar url="/avatar" />
+              {avatar}
               <ArrowDropDownIcon />
             </Hidden>
           </IconButton>
@@ -89,6 +94,8 @@ export const AccountMenu = (): JSX.Element => {
             overflow: 'visible',
           },
         }}
+        keepMounted
+        disablePortal
         anchorEl={anchorElement}
         anchorOrigin={{
           horizontal: 'right',
@@ -103,18 +110,20 @@ export const AccountMenu = (): JSX.Element => {
           vertical: 'top',
         }}
       >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
+        <MenuItem>{avatar} Profile</MenuItem>
         <MenuItem>
           <Avatar /> My account
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem
+          onClick={() => {
+            navigate(routePath.changePassword);
+          }}
+        >
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <LockResetIcon fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Change Password
         </MenuItem>
         <MenuItem>
           <ListItemIcon>

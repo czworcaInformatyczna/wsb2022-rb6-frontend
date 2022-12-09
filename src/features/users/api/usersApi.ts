@@ -22,3 +22,8 @@ export const useUpdateUser = <T>() => {
   const context = useUpdate<T>(apiUrl.usersById);
   return context;
 };
+
+export const useChangePassword = <T>() => {
+  const context = useUpdate<T>(apiUrl.changePassword);
+  return context;
+};

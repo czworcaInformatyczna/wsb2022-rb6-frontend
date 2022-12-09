@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { getAvatar } from './getImage';
 
 const DisplayAvatar = ({ url }: { url: string }) => {
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string | undefined>(undefined);
+
   useEffect(() => {
-    if (url !== null)
+    if (url !== null && image === undefined)
       getAvatar(url)
         .then((response) => setImage(response))
         .catch((e) => console.log(e));
-  }, [url]);
+  }, [image, url]);
   return (
     <Avatar
       alt="Avatar"
