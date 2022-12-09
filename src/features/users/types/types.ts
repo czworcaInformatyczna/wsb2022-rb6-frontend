@@ -26,6 +26,7 @@ export interface IAddUser {
 export interface IUser {
   assets: IAssetDetails[];
   email: string;
+  id: number;
   licences: ILicense[];
   name: string;
   phone_number: number;
@@ -49,4 +50,8 @@ export interface IAddUsersToRole {
 export interface IChangePassword {
   password: string;
   password_confirmation: string;
+}
+
+export interface IAvatar {
+  avatar: File;
 }

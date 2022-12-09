@@ -3,7 +3,6 @@ import Logout from '@mui/icons-material/Logout';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Settings from '@mui/icons-material/Settings';
 import { Hidden, Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -110,10 +109,14 @@ export const AccountMenu = (): JSX.Element => {
           vertical: 'top',
         }}
       >
-        <MenuItem>{avatar} Profile</MenuItem>
-        <MenuItem>
-          <Avatar /> My account
+        <MenuItem
+          onClick={() => {
+            navigate(routePath.profile);
+          }}
+        >
+          {avatar} Profile
         </MenuItem>
+
         <Divider />
         <MenuItem
           onClick={() => {

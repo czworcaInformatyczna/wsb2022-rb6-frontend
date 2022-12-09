@@ -26,6 +26,9 @@ import { AddMaintenance } from 'features/assets/components/detailsComponents/Add
 import { AddComponent } from 'features/components/components/AddComponent';
 import DeployLicense from 'features/licenses/components/DeployLicense';
 import { ChangePassword } from 'features/users/components/ChangePassword';
+import { MyProfile } from 'features/users/components/MyProfile';
+import UploadAvatar from 'features/users/components/UploadAvatar';
+import UpdatePhoneNumber from 'features/users/components/UpdatePhoneNumber';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -118,6 +121,9 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
         <Route element={<DeployLicense />} path={routePath.deployLicense} />
         <Route element={<ChangePassword />} path={routePath.changePassword} />
+        <Route element={<MyProfile />} path={routePath.profile} />
+        <Route element={<UploadAvatar />} path={routePath.avatar} />
+        <Route element={<UpdatePhoneNumber />} path={routePath.phoneNumber} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>
