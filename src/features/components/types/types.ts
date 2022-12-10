@@ -1,5 +1,3 @@
-import { type IManufacturer } from 'features/model/types';
-
 export interface ICategory {
   id: number;
   name: string;
@@ -18,7 +16,7 @@ export interface ICategoryList {
 export interface IComponentForm {
   asset_component_category_id: ICategory | null;
   asset_id: { id: number; name: string } | null;
-  manufacturer_id: IManufacturer | null;
+  manufacturer_id: { id: number; name: string } | null;
   name: string;
   serial: string;
 }

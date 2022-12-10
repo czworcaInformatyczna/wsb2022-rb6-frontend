@@ -52,7 +52,7 @@ export const AddComponent = ({ isModal = false }: IsModal) => {
       });
 
       setValue('asset_component_category_id', categoryObject !== undefined ? categoryObject : null);
-      const manufacturerObject = manufacturerOptions?.find(
+      const manufacturerObject = manufacturerOptions?.data.find(
         (option) => option.id === assetValues.manufacturer_id,
       );
       setValue('manufacturer_id', manufacturerObject !== undefined ? manufacturerObject : null);
@@ -169,7 +169,7 @@ export const AddComponent = ({ isModal = false }: IsModal) => {
                 <SelectInput
                   label="Manufacturer"
                   name="manufacturer_id"
-                  options={manufacturerOptions ? manufacturerOptions : []}
+                  options={manufacturerOptions ? manufacturerOptions?.data : []}
                   modalContent={<AddManufacturer isModal />}
                   openModal={openModal}
                 />
