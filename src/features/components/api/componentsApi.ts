@@ -1,9 +1,10 @@
+import { type IDataProviderSettings } from 'features/assets';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type IComponents, type IAssetList, type ICategoryList } from '../types';
 
-export const useGetComponents = () => {
-  const context = useFetch<IComponents>(apiUrl.components);
+export const useGetComponents = (params?: IDataProviderSettings) => {
+  const context = useFetch<IComponents>(apiUrl.components, params);
   return context;
 };
 

@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useGetComponents, useDeleteComponent } from 'features/components';
 import { apiUrl } from 'routes';
 import DisplayImage from 'utils/DisplayImage';
+import { useDeleteManufacturers, useGetMaintenancePag } from 'features/manufacturer/api';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -218,7 +219,7 @@ export const ModelsData: IDataProvider = {
   getDataHook: useGetModels,
   addNewLink: '/Model/Add',
   editLink: '/Model/Edit/:id',
-  exportLink: '/asset',
+  exportLink: '/asset_model',
   deleteHook: useDeleteModel,
   detailsLink: null,
   name: 'Models',
@@ -394,7 +395,7 @@ export const ComponentsData: IDataProvider = {
   getDataHook: useGetComponents,
   addNewLink: '/Component/Add',
   editLink: '/Component/:id/Edit',
-  exportLink: '/asset',
+  exportLink: '/asset_component',
   deleteHook: useDeleteComponent,
   detailsLink: null,
   name: 'Components',
@@ -449,6 +450,37 @@ export const ComponentsData: IDataProvider = {
           Asset - {params.value}
         </Box>
       ),
+    },
+  ],
+};
+
+export const ManufacturerData: IDataProvider = {
+  getDataHook: useGetMaintenancePag,
+  addNewLink: '/Manufacturer/Add',
+  editLink: '/Manufacturer/:id/Edit',
+  exportLink: '/manufacturer',
+  deleteHook: useDeleteManufacturers,
+  detailsLink: null,
+  name: 'Manufacturers',
+  columns: [
+    {
+      field: 'id',
+      headerName: 'Id',
+      width: 90,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      flex: 1,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'created_at',
+      headerName: 'Created',
+      width: 200,
+      renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
     },
   ],
 };

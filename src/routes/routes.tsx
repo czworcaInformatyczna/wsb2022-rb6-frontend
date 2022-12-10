@@ -85,7 +85,14 @@ export const AppRoutes = (): JSX.Element => (
           path={routePath.components}
         />
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
-        <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
+        <Route
+          element={<AddManufacturer key="AddManufacturer" />}
+          path={routePath.addManufacturer}
+        />
+        <Route
+          element={<AddManufacturer key="EditManufacturer" />}
+          path={routePath.editManufacturer}
+        />
         <Route element={<AddCategory />} path={routePath.addCategory} />
         <Route element={<AddModel key="AddModel" />} path={routePath.addModel} />
         <Route element={<AddModel key="EditModel" />} path={routePath.editModel} />
@@ -96,6 +103,10 @@ export const AppRoutes = (): JSX.Element => (
         <Route
           element={<DataGridTemplate key="Roles" data={columns.RolesData} />}
           path={routePath.roles}
+        />
+        <Route
+          element={<DataGridTemplate key="Manufacturers" data={columns.ManufacturerData} />}
+          path={routePath.manufacturers}
         />
         <Route element={<AddRole key="AddRole" />} path={routePath.addRole} />
         <Route element={<AddRole key="EditRole" />} path={routePath.editRole} />

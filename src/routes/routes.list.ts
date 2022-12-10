@@ -50,6 +50,7 @@ export const apiUrl = {
   changePassword: '/changepassword',
   profile: '/user/self',
   uploadAvatar: '/user/edit',
+  manufacturerById: '/manufacturer/:id',
 };
 
 export const routePath = {
@@ -73,6 +74,7 @@ export const routePath = {
   components: '/Components',
   licenseDetails: '/License/:id/Details',
   addManufacturer: '/Manufacturer/Add',
+  editManufacturer: '/Manufacturer/:id/Edit',
   addCategory: '/Category/Add',
   addModel: '/Model/Add',
   editModel: '/Model/Edit/:id',
@@ -95,4 +97,5 @@ export const routePath = {
   profile: '/Profile',
   avatar: '/Profile/Avatar',
   phoneNumber: '/Profile/PhoneNumber',
+  manufacturers: '/Manufacturers',
 };
