@@ -324,34 +324,41 @@ export const licenseDeploysMock = {
   ],
 };
 
-export const manufacturerList = [
-  {
-    name: 'mock1',
-    id: 1,
-  },
-  {
-    name: 'mock2',
-    id: 2,
-  },
-  {
-    name: 'mock3',
-    id: 3,
-  },
-];
-export const categoryList = [
-  {
-    name: 'mock1',
-    id: 1,
-  },
-  {
-    name: 'mock2',
-    id: 2,
-  },
-  {
-    name: 'mock3',
-    id: 3,
-  },
-];
+export const manufacturerList = {
+  data: [
+    {
+      name: 'mock1',
+      id: 1,
+    },
+    {
+      name: 'mock2',
+      id: 2,
+    },
+    {
+      name: 'mock3',
+      id: 3,
+    },
+  ],
+  total: 3,
+};
+
+export const categoryList = {
+  data: [
+    {
+      name: 'mock1',
+      id: 1,
+    },
+    {
+      name: 'mock2',
+      id: 2,
+    },
+    {
+      name: 'mock3',
+      id: 3,
+    },
+  ],
+  total: 3,
+};
 
 export const permissionsList = [
   {

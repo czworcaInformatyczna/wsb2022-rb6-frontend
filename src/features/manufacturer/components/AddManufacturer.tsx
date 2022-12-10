@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
-import { convertUrl, getVariant } from 'utils';
+import { getVariant } from 'utils';
 import { useAddManufacturer, useUpdateManufacturer } from '../api';
 import { type IsModal, type IManufacturer } from '../types';
 
@@ -23,7 +23,7 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
   const updateManufacturer = useUpdateManufacturer<IManufacturer>();
   const { data: manufacturer, refetch } = useGetAssetsDataById<IManufacturer>(
     Number(id),
-    convertUrl(apiUrl.manufacturerById, { id }),
+    apiUrl.manufacturerList + '/' + id,
     action === 'Add' ? false : true,
   );
 
