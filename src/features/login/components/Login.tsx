@@ -60,7 +60,7 @@ export const Login: FC = (): JSX.Element => {
                 typography: { xs: 'h5', md: 'h4' },
               }}
             >
-              Jakiś inspirujący teskt
+              Makes asset managment easier!
             </Typography>
           </Box>
         </BackgroundContainer>
