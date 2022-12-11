@@ -51,6 +51,7 @@ export const apiUrl = {
   profile: '/user/self',
   uploadAvatar: '/user/edit',
   manufacturerById: '/manufacturer/:id',
+  forgotPassword: '/forgotpassword',
 };
 
 export const routePath = {
@@ -98,4 +99,5 @@ export const routePath = {
   avatar: '/Profile/Avatar',
   phoneNumber: '/Profile/PhoneNumber',
   manufacturers: '/Manufacturers',
+  resetPassword: '/ForgotPassword',
 };

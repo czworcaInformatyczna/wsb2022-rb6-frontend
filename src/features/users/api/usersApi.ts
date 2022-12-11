@@ -37,3 +37,8 @@ export const useUploadAvatar = <T>() => {
   const context = usePost<T>(apiUrl.uploadAvatar);
   return context;
 };
+
+export const useForgotPassword = <T>() => {
+  const context = usePost<T>(apiUrl.forgotPassword);
+  return context;
+};

@@ -6,6 +6,8 @@ import { type ILogin } from 'features/login/types';
 import { getErrorMessage } from 'utils/getErrorMessage';
 import { BackgroundContainer, LoginBox, ActionButton, focusColors } from 'features/login';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import { routePath } from 'routes';
 
 export const Login: FC = (): JSX.Element => {
   const {
@@ -115,6 +117,17 @@ export const Login: FC = (): JSX.Element => {
                 />
               </div>
               <div>
+                <Typography pt={1}>
+                  <Box
+                    component={Link}
+                    to={routePath.resetPassword}
+                    sx={{
+                      color: 'gray',
+                    }}
+                  >
+                    Forgot password?
+                  </Box>
+                </Typography>
                 <ActionButton variant="contained" type="submit" color="primary" disabled={loading}>
                   Log in
                 </ActionButton>

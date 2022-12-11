@@ -29,10 +29,12 @@ import { ChangePassword } from 'features/users/components/ChangePassword';
 import { MyProfile } from 'features/users/components/MyProfile';
 import UploadAvatar from 'features/users/components/UploadAvatar';
 import UpdatePhoneNumber from 'features/users/components/UpdatePhoneNumber';
+import { ForgotPassword } from 'features/users/components/ForgotPassword';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
     <Route path={routePath.login} element={<Login />} />
+    <Route path={routePath.resetPassword} element={<ForgotPassword />} />
     <Route element={<RequireAuth />}>
       <Route path={routePath.main} element={<Layout />}>
         {/* <AppRoutes /> */}
