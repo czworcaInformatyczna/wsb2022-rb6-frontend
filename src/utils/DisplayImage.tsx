@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getImage } from './getImage';
+import { getAvatar } from './getImage';
 
 const DisplayImage = ({ url }: { url: string | null }) => {
   const [image, setImage] = useState<JSX.Element | string>('No Image');
   useEffect(() => {
     if (url !== null)
-      getImage(url)
-        .then((response) => setImage(response))
+      getAvatar(url)
+        .then((response) => setImage(<img width="80%" src={response} alt="Asset" />))
         .catch((e) => console.log(e));
   }, [url]);
 

@@ -11,7 +11,7 @@ import UserAssets from './UserAssets';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import UserLicenses from './AssetLicenses';
 import { useGetProfile } from '../api';
-import { getImage } from 'utils/getImage';
+import { getAvatar } from 'utils/getImage';
 import { convertUrl } from 'utils';
 import { apiUrl } from 'routes';
 
@@ -25,8 +25,8 @@ export const MyProfile = () => {
 
   useEffect(() => {
     if (user)
-      getImage(convertUrl(apiUrl.avatar, { id: user?.id }))
-        .then((response) => setImage(response))
+      getAvatar(convertUrl(apiUrl.avatar, { id: user?.id }))
+        .then((response) => setImage(<img width="80%" src={response} alt="Asset" />))
         .catch((e) => console.log(e));
   }, [user, user?.id]);
 

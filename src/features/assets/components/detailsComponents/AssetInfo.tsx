@@ -5,7 +5,7 @@ import { type IAssetDetails } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
 import { changeDateTimeFormat, convertUrl } from 'utils';
-import { getImage } from 'utils/getImage';
+import { getAvatar } from 'utils/getImage';
 import { useEffect, useState } from 'react';
 
 export const AssetInfo = ({ id }: { id: number }) => {
@@ -22,8 +22,8 @@ export const AssetInfo = ({ id }: { id: number }) => {
 
   useEffect(() => {
     if (assetDetails?.has_image) {
-      getImage(convertUrl(apiUrl.assetsById, { id }) + '/image.' + assetDetails.image_extension)
-        .then((response) => setImage(response))
+      getAvatar(convertUrl(apiUrl.assetsById, { id }) + '/image.' + assetDetails.image_extension)
+        .then((response) => setImage(<img src={response} alt="Asset" />))
         .catch((e) => console.log(e));
     }
   }, [assetDetails?.has_image, assetDetails?.image_extension, id]);
