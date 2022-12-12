@@ -15,7 +15,7 @@ export const apiUrl = {
   assetFiles: '/asset_file',
   licenses: '/licence',
   licenseById: '/licence/:id',
-  licensesCategory: '/licence/category',
+  licensesCategory: '/licence_category',
   licensesManufacturers: '/licenses/manufacturers',
   licenseInfoEdit: '/licenses/DetailsEdit',
   licenseFile: '/licence/:id/file',
@@ -42,7 +42,7 @@ export const apiUrl = {
   removeUserFromRole: '/user/removerole/:id',
   assetComponentCategory: '/asset_component_category',
   assetMaintenanceEdit: '/asset_maintenance/:id',
-  licenseCategory: '/licence/category',
+  licenseCategory: '/licence_category',
   detachLicense: '/licence/:id/licencables/1',
   deleteLicenseFile: '/licence/managment/file/:id',
   downloadLicenseFile: '/licence/managment/file/:id/download',
@@ -52,6 +52,8 @@ export const apiUrl = {
   uploadAvatar: '/user/edit',
   manufacturerById: '/manufacturer/:id',
   forgotPassword: '/forgotpassword',
+  allCategories: '/category',
+  deleteCategory: '/',
 };
 
 export const routePath = {
@@ -100,4 +102,5 @@ export const routePath = {
   phoneNumber: '/Profile/PhoneNumber',
   manufacturers: '/Manufacturers',
   resetPassword: '/ForgotPassword',
+  categories: '/Categories',
 };

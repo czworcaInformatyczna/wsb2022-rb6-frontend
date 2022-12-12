@@ -517,3 +517,24 @@ export const componentCategoryList = {
     },
   ],
 };
+
+export const allCategoryList = {
+  data: [
+    {
+      name: 'mock1',
+      category_id: 1,
+      category_type: 'license',
+    },
+    {
+      name: 'mock2',
+      category_id: 2,
+      category_type: 'license',
+    },
+    {
+      name: 'mock3',
+      category_id: 3,
+      category_type: 'license',
+    },
+  ],
+  total: 3,
+};

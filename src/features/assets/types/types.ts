@@ -117,7 +117,7 @@ export interface IDataProvider {
     unknown
   >;
   detailsLink: string | null;
-  editLink: string;
+  editLink: string | null;
   exportLink: string;
   getDataHook: (params: IDataProviderSettings, enable?: boolean) => any;
   name: string;

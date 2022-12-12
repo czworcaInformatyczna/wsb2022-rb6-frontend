@@ -12,6 +12,7 @@ import { useGetComponents, useDeleteComponent } from 'features/components';
 import { apiUrl } from 'routes';
 import DisplayImage from 'utils/DisplayImage';
 import { useDeleteManufacturers, useGetMaintenancePag } from 'features/manufacturer/api';
+import { useDeleteCategories, useGetCategories } from 'features/category/api';
 
 export const AssetsData: IDataProvider = {
   getDataHook: useGetAssets,
@@ -481,6 +482,36 @@ export const ManufacturerData: IDataProvider = {
       headerName: 'Created',
       width: 200,
       renderCell: (params) => <Box>{changeDateTimeFormat(params.value)}</Box>,
+    },
+  ],
+};
+
+export const CategoriesData: IDataProvider = {
+  getDataHook: useGetCategories,
+  addNewLink: '/Category/Add',
+  editLink: null,
+  exportLink: '/category',
+  deleteHook: useDeleteCategories,
+  detailsLink: null,
+  name: 'Categories',
+  columns: [
+    {
+      field: 'category_id',
+      headerName: 'Id',
+      width: 90,
+    },
+    {
+      field: 'category_name',
+      headerName: 'Name',
+      width: 200,
+      flex: 1,
+      renderCell: (params) => <Box>{params.value}</Box>,
+    },
+    {
+      field: 'category_type',
+      headerName: 'Type',
+      width: 200,
+      renderCell: (params) => <Box>{params.value}</Box>,
     },
   ],
 };

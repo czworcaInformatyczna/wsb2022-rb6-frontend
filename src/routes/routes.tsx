@@ -86,6 +86,10 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Components" data={columns.ComponentsData} />}
           path={routePath.components}
         />
+        <Route
+          element={<DataGridTemplate key="Categories" data={columns.CategoriesData} />}
+          path={routePath.categories}
+        />
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
         <Route
           element={<AddManufacturer key="AddManufacturer" />}

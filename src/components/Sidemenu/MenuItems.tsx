@@ -175,4 +175,11 @@ export const menuItems = [
     name: 'Manufacturers',
     nestedList: null,
   },
+  {
+    icon: <CategoryIcon />,
+    id: 11,
+    link: '/Categories',
+    name: 'Categories',
+    nestedList: null,
+  },
 ];

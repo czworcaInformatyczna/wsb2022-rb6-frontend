@@ -116,7 +116,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | string) => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
     confirm({
       title: (
@@ -174,18 +174,21 @@ export const DataGridTemplate = (Props: AssetsProps) => {
             console.log(params.id);
           }}
         />,
+
         <GridActionsCellItem
           icon={
             <Tooltip title="Edit">
               <Box>
-                <EditIcon sx={{ color: 'warning.main' }} />{' '}
+                <EditIcon sx={{ color: 'warning.main' }} />
               </Box>
             </Tooltip>
           }
           key={params.id}
           label="Edit"
+          disabled={Props.data.editLink === null}
           onClick={() => {
-            navigate(convertUrl(Props.data.editLink, { id: params.id }));
+            if (Props.data.editLink !== null)
+              navigate(convertUrl(Props.data.editLink, { id: params.id }));
           }}
         />,
         <GridActionsCellItem
@@ -199,7 +202,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           key={params.id}
           label="Delete"
           onClick={() => {
-            handleDelete(Number(params.id));
+            handleDelete(params.id);
           }}
         />,
       ],
@@ -290,6 +293,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               pageSize={pageSize}
               pagination
               paginationMode="server"
+              getRowId={
+                Props.data.name === 'Categories'
+                  ? (row: any) => row.category_type + '/' + row.category_id
+                  : undefined
+              }
               rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
               rows={assets === undefined ? [] : assets.data}
@@ -362,14 +370,21 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 </MenuItem>,
               ]}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
+              {Props.data.editLink !== null && (
+                <MenuItem
+                  onClick={() => {
+                    if (Props.data.editLink !== null)
+                      navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
+                  }}
+                >
+                  Edit
+                </MenuItem>
+              )}
               <MenuItem
-                onClick={() => {
-                  navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
-                }}
+                onClick={() =>
+                  handleDelete(contextMenu?.elementId ? contextMenu.elementId.toString() : '')
+                }
               >
-                Edit
-              </MenuItem>
-              <MenuItem onClick={() => handleDelete(Number(contextMenu?.elementId))}>
                 Delete
               </MenuItem>
             </Menu>
