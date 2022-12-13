@@ -60,3 +60,7 @@ export const useUpdate = <T>(url: string, getUrl?: string) => {
     getUrl ?? url,
   );
 };
+
+export const useDeleteByUrl = <T>(url: string, getUrl?: string) => {
+  return useGenericMutation<T>(async (id: T) => await apiClient.delete(url + id), getUrl ?? url);
+};

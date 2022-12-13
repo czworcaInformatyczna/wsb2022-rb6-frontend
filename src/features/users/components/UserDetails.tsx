@@ -17,6 +17,8 @@ import UserInformations from './UserInformations';
 import NoResult from 'features/assets/components/detailsComponents/noResult';
 import PersonIcon from '@mui/icons-material/Person';
 import UserAssets from './UserAssets';
+import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
+import UserLicenses from './AssetLicenses';
 
 export const UserDetails = () => {
   const { id } = useParams();
@@ -111,6 +113,7 @@ export const UserDetails = () => {
               >
                 <Tab icon={<PersonIcon />} label="Informations" />
                 <Tab icon={<FormatListBulletedIcon />} label="Assets" />
+                <Tab icon={<StickyNote2OutlinedIcon />} label="Licenses" />
               </Tabs>
             </Box>
           </Grid>
@@ -120,6 +123,9 @@ export const UserDetails = () => {
             </TabPanel>
             <TabPanel tab={tab} index={1}>
               <UserAssets assets={user?.assets ? user.assets : []} />
+            </TabPanel>
+            <TabPanel tab={tab} index={2}>
+              <UserLicenses licenses={user?.licences ? user.licences : []} />
             </TabPanel>
           </Grid>
         </Grid>

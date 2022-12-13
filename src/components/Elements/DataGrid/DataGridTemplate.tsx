@@ -21,6 +21,8 @@ import { useTheme } from '@mui/material/styles';
 import Labels from 'features/assets/components/Labels';
 import { CreateModal } from '../CreateModal';
 import { routePath } from 'routes';
+import { convertToExportUrl } from 'utils/convertToExportUrl';
+import downloadFile from 'utils/downloadFile';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
   const theme = useTheme();
@@ -35,7 +37,6 @@ export const DataGridTemplate = (Props: AssetsProps) => {
   const deleteAsset = Props.data.deleteHook();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
-
   const { data: assets, isLoading } = Props.data.getDataHook({
     per_page: pageSize,
     page: page + 1,
@@ -43,6 +44,18 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     ...((Props.status || Props.status === 0) && { status: Props.status }),
     ...(sort !== null && sort),
   });
+
+  const handleExport = () => {
+    const exportUrl = convertToExportUrl(Props.data.exportLink, {
+      per_page: '2',
+      page: '1',
+      ...(filter !== '' && { search: filter }),
+      ...((Props.status || Props.status === 0) && { status: Props.status }),
+      ...(sort !== null && sort),
+      export: 'true',
+    });
+    downloadFile(exportUrl, Props.data.name + '.xlsx');
+  };
 
   const handleOpenModal = (id: GridSelectionModel | number | null) => {
     if (id !== null) {
@@ -103,7 +116,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
     });
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | string) => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
     confirm({
       title: (
@@ -161,18 +174,21 @@ export const DataGridTemplate = (Props: AssetsProps) => {
             console.log(params.id);
           }}
         />,
+
         <GridActionsCellItem
           icon={
             <Tooltip title="Edit">
               <Box>
-                <EditIcon sx={{ color: 'warning.main' }} />{' '}
+                <EditIcon sx={{ color: 'warning.main' }} />
               </Box>
             </Tooltip>
           }
           key={params.id}
           label="Edit"
+          disabled={Props.data.editLink === null}
           onClick={() => {
-            navigate(convertUrl(Props.data.editLink, { id: params.id }));
+            if (Props.data.editLink !== null)
+              navigate(convertUrl(Props.data.editLink, { id: params.id }));
           }}
         />,
         <GridActionsCellItem
@@ -186,7 +202,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           key={params.id}
           label="Delete"
           onClick={() => {
-            handleDelete(Number(params.id));
+            handleDelete(params.id);
           }}
         />,
       ],
@@ -252,6 +268,7 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   deleteHook: Props.data.deleteHook,
                   handleModal: handleOpenModal,
                   name: Props.data.name,
+                  handleExport: handleExport,
                 },
               }}
               disableColumnMenu
@@ -276,6 +293,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
               pageSize={pageSize}
               pagination
               paginationMode="server"
+              getRowId={
+                Props.data.name === 'Categories'
+                  ? (row: any) => row.category_type + '/' + row.category_id
+                  : undefined
+              }
               rowCount={assets === undefined ? 0 : assets.total}
               rowHeight={75}
               rows={assets === undefined ? [] : assets.data}
@@ -348,14 +370,21 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 </MenuItem>,
               ]}
               <MenuItem onClick={() => {}}>Clone</MenuItem>
+              {Props.data.editLink !== null && (
+                <MenuItem
+                  onClick={() => {
+                    if (Props.data.editLink !== null)
+                      navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
+                  }}
+                >
+                  Edit
+                </MenuItem>
+              )}
               <MenuItem
-                onClick={() => {
-                  navigate(convertUrl(Props.data.editLink, { id: contextMenu?.elementId }));
-                }}
+                onClick={() =>
+                  handleDelete(contextMenu?.elementId ? contextMenu.elementId.toString() : '')
+                }
               >
-                Edit
-              </MenuItem>
-              <MenuItem onClick={() => handleDelete(Number(contextMenu?.elementId))}>
                 Delete
               </MenuItem>
             </Menu>

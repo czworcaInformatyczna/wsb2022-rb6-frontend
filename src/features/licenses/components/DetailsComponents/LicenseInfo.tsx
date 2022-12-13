@@ -1,18 +1,17 @@
 import { Box, Table, TableBody, Grid } from '@mui/material';
 import TableRowTemplate from 'components/Elements/Table/tableRow';
-import { useGetAssetsDataById } from 'features/assets/api';
-import { type ILicenseDetails } from 'features/licenses/types';
-import { apiUrl } from 'routes';
+import { type ILicenseInfo } from 'features/licenses/types';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
-export const LicenseInfo = ({ id }: { id: number }) => {
-  const { data: licenseDetails } = useGetAssetsDataById<ILicenseDetails>(
-    Number(id),
-    apiUrl.licenseInfo,
-  );
+interface IProps {
+  licenseDetails: ILicenseInfo;
+}
 
+export const LicenseInfo = (props: IProps) => {
   return (
     <Box mb={4}>
-      {licenseDetails === undefined ? (
+      {props.licenseDetails === undefined ? (
         <Box>No info provided</Box>
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -25,85 +24,72 @@ export const LicenseInfo = ({ id }: { id: number }) => {
               <TableBody>
                 <TableRowTemplate
                   name="Name"
-                  value={licenseDetails.name}
+                  value={props.licenseDetails.name}
                   even={false}
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
                   name="Manufacturer"
-                  value={licenseDetails.manufacturer}
+                  value={props.licenseDetails.manufacturer.name}
                   even
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
                   name="Key"
-                  value={licenseDetails.key}
+                  value={props.licenseDetails.product_key}
                   even={false}
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
                   name="Category"
-                  value={licenseDetails.category}
+                  value={props.licenseDetails.category.name}
                   even
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
                   name="Expiration date"
-                  value={licenseDetails.expiration_date}
+                  value={props.licenseDetails.expiration_date}
                   even={false}
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
                   name="Licensed to"
-                  value={licenseDetails.licensed_to}
+                  value={props.licenseDetails.email}
                   even
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
-                  name="Quantity"
-                  value={licenseDetails.quantity}
+                  name="Number of slots"
+                  value={props.licenseDetails.slots}
                   even={false}
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
-                  name="Available"
-                  value={licenseDetails.available}
+                  name="Free slots"
+                  value={props.licenseDetails.remaining_slots}
                   even
                   keyWidth="20%"
                   valueWidth="80%"
                 />
                 <TableRowTemplate
-                  name="Deployed"
-                  value={licenseDetails.deployed}
+                  name="Reassignable"
+                  value={
+                    props.licenseDetails.reassignable ? (
+                      <CheckIcon color="success" />
+                    ) : (
+                      <Box>
+                        <CloseIcon color="error" />
+                      </Box>
+                    )
+                  }
                   even={false}
-                  keyWidth="20%"
-                  valueWidth="80%"
-                />
-                <TableRowTemplate
-                  name="Purchase cost"
-                  value={licenseDetails.purchaseCost}
-                  even
-                  keyWidth="20%"
-                  valueWidth="80%"
-                />
-                <TableRowTemplate
-                  name="Order number"
-                  value={licenseDetails.order_number}
-                  even={false}
-                  keyWidth="20%"
-                  valueWidth="80%"
-                />
-                <TableRowTemplate
-                  name="Notes"
-                  value={licenseDetails.notes}
-                  even
                   keyWidth="20%"
                   valueWidth="80%"
                 />
@@ -115,7 +101,3 @@ export const LicenseInfo = ({ id }: { id: number }) => {
     </Box>
   );
 };
-
-// id: number;
-// notes: string;
-// orderNumber: number;

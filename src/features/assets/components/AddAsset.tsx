@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Accordion,
   AccordionDetails,
@@ -17,10 +16,10 @@ import {
   useGetModelOptions,
   useGetAssetsDataById,
   type IAsset,
-  type IAssetCreate,
   useAddAsset,
-  Statuses,
   useUpdateAsset,
+  useEditImage,
+  Statuses,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -30,21 +29,20 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
-
 import { useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
 import { AddModel } from 'features/model/components/AddModel';
 import { CreateModal } from 'components/Elements/CreateModal';
 import { StatusesList } from '../api/statuses';
-import { getBase64 } from 'utils/getBase64';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
+import { useGetUsers } from 'features/users/api';
 
 const AddAsset = () => {
   const methods = useForm<IAssetFormInput>();
-  const { handleSubmit, setValue, reset, setError } = methods;
+  const { handleSubmit, setValue, reset, setError, watch } = methods;
+  const watchStatus = watch('Status');
   const navigate = useNavigate();
   const statusOptions = StatusesList;
   const { data: modelOptions } = useGetModelOptions();
@@ -52,20 +50,16 @@ const AddAsset = () => {
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-
+  const editImage = useEditImage(Number(id));
   const { data: asset, refetch } = useGetAssetsDataById<IAsset>(
     Number(id),
     apiUrl.assetInfo + id,
     action === 'Add' ? false : true,
   );
-  const getDateFormat = (dateString: string) => {
-    const dateMoment = moment(dateString, 'DD/MM/YYYY');
-    return dateMoment.toDate().toString();
-  };
-
+  const { data: users } = useGetUsers();
   const { enqueueSnackbar } = useSnackbar();
-  const addAsset = useAddAsset<IAssetCreate>(apiUrl.assets);
-  const updateAsset = useUpdateAsset<IAssetCreate>();
+  const addAsset = useAddAsset<FormData>(apiUrl.assets);
+  const updateAsset = useUpdateAsset<FormData>();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -84,6 +78,8 @@ const AddAsset = () => {
       setValue('Model', modelObject !== undefined ? modelObject : null);
       const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
+      if (statusObject?.id === Statuses.Deployed)
+        setValue('currentHolder', assetValues.current_holder);
       setValue('Notes', assetValues.notes === null ? '' : assetValues.notes);
       setValue('AssetName', assetValues.name);
       setValue('Waranty', assetValues.warranty === null ? '' : assetValues.warranty);
@@ -148,24 +144,29 @@ const AddAsset = () => {
   ]);
 
   const onSubmit = async (data: IAssetFormInput) => {
+    const tempData = new FormData();
+    const editImageData = new FormData();
+    tempData.append('name', data.AssetName);
+    tempData.append('tag', data.AssetTag);
+    tempData.append('asset_model_id', data.Model?.id ? data.Model.id.toString() : '');
+    tempData.append('serial', data.Serial);
+    tempData.append(
+      'status',
+      data.Status?.id || data.Status?.id === 0 ? data.Status.id.toString() : '',
+    );
+    tempData.append('notes', data.Notes);
+    tempData.append('warranty', data.Waranty.toString());
+    tempData.append(
+      'purchase_date',
+      data.DateOfPurchase !== '' ? new Date(data.DateOfPurchase).toISOString().split('T')[0] : '',
+    );
+    tempData.append('order_number', data.OrderNumber);
+    tempData.append('price', data.PurchaseCost.toString());
+    if (data.Status?.id === Statuses.Deployed && data.currentHolder !== undefined)
+      tempData.append('current_holder_id', data.currentHolder?.id.toString());
+    if (data.Photo instanceof File) tempData.append('image', data.Photo);
+    if (data.Photo instanceof File) editImageData.append('image', data.Photo);
     if (action === 'Add') {
-      const tempData: IAssetCreate = {
-        name: data.AssetName,
-        tag: data.AssetTag,
-        asset_model_id: data.Model?.id,
-        serial: data.Serial,
-        status: data.Status?.id,
-        notes: data.Notes,
-        warranty: data.Waranty,
-        purchase_date:
-          data.DateOfPurchase !== ''
-            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
-            : '',
-        order_number: data.OrderNumber,
-        price: data.PurchaseCost,
-        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
-      };
-
       addAsset.mutate(tempData, {
         onSuccess: () => {
           const variant = getVariant('success');
@@ -181,31 +182,23 @@ const AddAsset = () => {
     }
 
     if (action === 'Edit') {
-      const tempData: IAssetCreate = {
-        name: data.AssetName,
-        tag: data.AssetTag,
-        asset_model_id: data.Model?.id,
-        serial: data.Serial,
-        status: data.Status?.id,
-        notes: data.Notes,
-        warranty: data.Waranty,
-        purchase_date:
-          data.DateOfPurchase !== ''
-            ? new Date(data.DateOfPurchase).toISOString().split('T')[0]
-            : '',
-        order_number: data.OrderNumber,
-        price: data.PurchaseCost,
-        ...(data.Photo instanceof File && { image: (await getBase64(data.Photo)) as string }),
-      };
-
       if (id !== undefined)
         updateAsset.mutate(
           { id: id, body: tempData },
           {
             onSuccess: () => {
               const variant = getVariant('success');
-              enqueueSnackbar('Asset has been edited', { variant });
-              navigate(routePath.assets);
+              if (data.Photo instanceof File)
+                editImage.mutate(editImageData, {
+                  onSuccess: () => {
+                    enqueueSnackbar('Asset has been edited', { variant });
+                    navigate(routePath.assets);
+                  },
+                });
+              else {
+                enqueueSnackbar('Asset has been edited', { variant });
+                navigate(routePath.assets);
+              }
             },
             onError(error) {
               const e: { message: string } = error.response?.data as { message: string };
@@ -290,14 +283,17 @@ const AddAsset = () => {
                 <SelectInput
                   label="Status"
                   name="Status"
-                  options={
-                    statusOptions
-                      ? statusOptions.filter((status) => status.id !== Statuses.Deployed)
-                      : []
-                  }
-                  modalContent={<div>Placeholder</div>}
-                  openModal={openModal}
+                  options={statusOptions ? statusOptions : []}
+                  createButton={false}
                 />
+                {watchStatus?.id === Statuses.Deployed ? (
+                  <SelectInput
+                    label="User"
+                    name="currentHolder"
+                    options={users ? users.data : []}
+                    createButton={false}
+                  />
+                ) : null}
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
                     <AccordionSummary

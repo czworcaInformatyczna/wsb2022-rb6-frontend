@@ -4,8 +4,13 @@ import { useGetAssetsDataById } from 'features/assets/api';
 import { type IAssetDetails } from 'features/assets/types';
 import { apiUrl } from 'routes';
 import { StatusChip } from '../StatusChip';
-import { changeDateTimeFormat } from 'utils';
+import { changeDateTimeFormat, convertUrl } from 'utils';
+import { getAvatar } from 'utils/getImage';
+import { useEffect, useState } from 'react';
+
 export const AssetInfo = ({ id }: { id: number }) => {
+  const [image, setImage] = useState<JSX.Element>();
+
   const { data: assetDetails } = useGetAssetsDataById<IAssetDetails>(
     Number(id),
     apiUrl.assetInfo + id,
@@ -14,6 +19,14 @@ export const AssetInfo = ({ id }: { id: number }) => {
     Number(id),
     apiUrl.assetInfo + id + '/qr',
   );
+
+  useEffect(() => {
+    if (assetDetails?.has_image) {
+      getAvatar(convertUrl(apiUrl.assetsById, { id }) + '/image.' + assetDetails.image_extension)
+        .then((response) => setImage(<img src={response} alt="Asset" />))
+        .catch((e) => console.log(e));
+    }
+  }, [assetDetails?.has_image, assetDetails?.image_extension, id]);
 
   return (
     <Box mb={4}>
@@ -150,11 +163,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
                 direction="column"
                 alignItems="center"
               >
-                <img
-                  src={'http://137.74.158.36:81/storage/' + assetDetails.image}
-                  width="70%"
-                  alt="Asset"
-                />
+                {assetDetails.has_image ? image : ''}
               </Grid>
               <Grid
                 item

@@ -24,14 +24,14 @@ describe('AssetHistory', () => {
     expect(await screen.findByText(/user/i)).toBeInTheDocument();
     expect(await screen.findByText(/action/i)).toBeInTheDocument();
     expect(await screen.findByText(/target/i)).toBeInTheDocument();
-    expect(await screen.findByText(/notes/i)).toBeInTheDocument();
+    expect(await screen.findByText(/description/i)).toBeInTheDocument();
 
     // Table Body
-    expect(await screen.findByText('22/10/2022')).toBeInTheDocument();
-    expect(await screen.findByText(/Admin/i)).toBeInTheDocument();
+    expect(await screen.findByText('2022-12-02')).toBeInTheDocument();
+    expect(await screen.findByText(/asdk@gmail.com/i)).toBeInTheDocument();
     expect(await screen.findByText(/Deploy/i)).toBeInTheDocument();
-    expect(await screen.findByText(/Wojtek1/i)).toBeInTheDocument();
-    expect(await screen.findByText(/some info/i)).toBeInTheDocument();
+    expect(await screen.findByText(/test1/i)).toBeInTheDocument();
+    expect(await screen.findByText(/status/i)).toBeInTheDocument();
   });
 
   it('should display no result', async () => {

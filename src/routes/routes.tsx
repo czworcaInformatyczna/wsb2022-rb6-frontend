@@ -10,7 +10,6 @@ import AddAsset from 'features/assets/components/AddAsset';
 import { routePath } from 'routes';
 import { AssetDetails } from 'features/assets/components/AssetDetails';
 import AddLicense from 'features/licenses/components/AddLicense';
-import { Components } from 'features/components';
 import { LicenseDetails } from 'features/licenses/components/LicenseDetails';
 import { AddManufacturer } from 'features/manufacturer/components/AddManufacturer';
 import { AddCategory } from 'features/category/components/AddCategory';
@@ -23,10 +22,19 @@ import { AddUser } from 'features/users/components/AddUser';
 import { UserDetails } from 'features/users/components/UserDetails';
 import ChangeStatus from 'features/assets/components/ChangeStatus';
 import { AddUserToRole } from 'features/roles/components/AddUserToRole';
+import { AddMaintenance } from 'features/assets/components/detailsComponents/AddMaintenance';
+import { AddComponent } from 'features/components/components/AddComponent';
+import DeployLicense from 'features/licenses/components/DeployLicense';
+import { ChangePassword } from 'features/users/components/ChangePassword';
+import { MyProfile } from 'features/users/components/MyProfile';
+import UploadAvatar from 'features/users/components/UploadAvatar';
+import UpdatePhoneNumber from 'features/users/components/UpdatePhoneNumber';
+import { ForgotPassword } from 'features/users/components/ForgotPassword';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
     <Route path={routePath.login} element={<Login />} />
+    <Route path={routePath.resetPassword} element={<ForgotPassword />} />
     <Route element={<RequireAuth />}>
       <Route path={routePath.main} element={<Layout />}>
         {/* <AppRoutes /> */}
@@ -71,12 +79,26 @@ export const AppRoutes = (): JSX.Element => (
         />
         <Route element={<AddAsset key="AddAsset" />} path={routePath.addAsset} />
         <Route element={<AddAsset key="EditAsset" />} path={routePath.editAsset} />
-        <Route element={<AddLicense />} path={routePath.addLicense} />
-        <Route element={<AddLicense />} path={routePath.editLicense} />
+        <Route element={<AddLicense key="AddLicense" />} path={routePath.addLicense} />
+        <Route element={<AddLicense key="EditLicense" />} path={routePath.editLicense} />
         <Route element={<AssetDetails />} path={routePath.assetDetails} />
-        <Route element={<Components />} path={routePath.components} />
+        <Route
+          element={<DataGridTemplate key="Components" data={columns.ComponentsData} />}
+          path={routePath.components}
+        />
+        <Route
+          element={<DataGridTemplate key="Categories" data={columns.CategoriesData} />}
+          path={routePath.categories}
+        />
         <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
-        <Route element={<AddManufacturer />} path={routePath.addManufacturer} />
+        <Route
+          element={<AddManufacturer key="AddManufacturer" />}
+          path={routePath.addManufacturer}
+        />
+        <Route
+          element={<AddManufacturer key="EditManufacturer" />}
+          path={routePath.editManufacturer}
+        />
         <Route element={<AddCategory />} path={routePath.addCategory} />
         <Route element={<AddModel key="AddModel" />} path={routePath.addModel} />
         <Route element={<AddModel key="EditModel" />} path={routePath.editModel} />
@@ -87,6 +109,10 @@ export const AppRoutes = (): JSX.Element => (
         <Route
           element={<DataGridTemplate key="Roles" data={columns.RolesData} />}
           path={routePath.roles}
+        />
+        <Route
+          element={<DataGridTemplate key="Manufacturers" data={columns.ManufacturerData} />}
+          path={routePath.manufacturers}
         />
         <Route element={<AddRole key="AddRole" />} path={routePath.addRole} />
         <Route element={<AddRole key="EditRole" />} path={routePath.editRole} />
@@ -100,6 +126,21 @@ export const AppRoutes = (): JSX.Element => (
         <Route element={<UserDetails />} path={routePath.userDetails} />
         <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
         <Route element={<AddUserToRole />} path={routePath.addToRole} />
+        <Route
+          element={<AddMaintenance key="AddMaintenance" />}
+          path={routePath.addAssetMaintenance}
+        />
+        <Route
+          element={<AddMaintenance key="EditMaintenance" />}
+          path={routePath.editAssetMaintenances}
+        />
+        <Route element={<AddComponent key="AddComponent" />} path={routePath.addComponent} />
+        <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
+        <Route element={<DeployLicense />} path={routePath.deployLicense} />
+        <Route element={<ChangePassword />} path={routePath.changePassword} />
+        <Route element={<MyProfile />} path={routePath.profile} />
+        <Route element={<UploadAvatar />} path={routePath.avatar} />
+        <Route element={<UpdatePhoneNumber />} path={routePath.phoneNumber} />
         <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Route>

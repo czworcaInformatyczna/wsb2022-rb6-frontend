@@ -1,7 +1,7 @@
 import { type IDataProviderSettings } from 'features/assets';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
-import { type IManufacturer, type ICategory, type IModelList } from '../types';
+import { type IManufacturer, type IAssetCategory, type IModelList } from '../types';
 
 export const useAddModel = <T>(url: string) => {
   const context = usePost<T>(url);
@@ -9,12 +9,12 @@ export const useAddModel = <T>(url: string) => {
 };
 
 export const useGetManufacturer = () => {
-  const context = useFetch<IManufacturer[]>(apiUrl.manufacturerList);
+  const context = useFetch<IManufacturer>(apiUrl.manufacturerList);
   return context;
 };
 
 export const useGetCategory = () => {
-  const context = useFetch<ICategory[]>(apiUrl.categoryList);
+  const context = useFetch<IAssetCategory>(apiUrl.categoryList);
   return context;
 };
 

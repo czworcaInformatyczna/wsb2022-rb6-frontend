@@ -5,35 +5,57 @@ import { type IUploadFile } from 'features/assets/types';
 import { useSnackbar } from 'notistack';
 import { FormProvider, useForm } from 'react-hook-form';
 import { apiUrl } from 'routes';
-import { getVariant } from 'utils';
+import { convertUrl, getVariant } from 'utils';
 
 interface IProps {
   assetId: number;
   closeModal: () => void;
+  type: 'Asset' | 'License';
 }
 
 const UploadFile = (props: IProps) => {
   const methods = useForm<any>();
   const { handleSubmit } = methods;
   const uploadFile = useAddAsset<FormData>(apiUrl.assetFiles);
+  const uploadLicenseFile = useAddAsset<FormData>(
+    convertUrl(apiUrl.licenseFile, { id: props.assetId }),
+  );
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = (data: IUploadFile) => {
     const formData = new FormData();
-    formData.append('file', data.file);
-    formData.append('asset_id', props.assetId.toString());
-    uploadFile.mutate(formData, {
-      onSuccess: () => {
-        const variant = getVariant('success');
-        enqueueSnackbar('Asset has been added', { variant });
-        methods.reset();
-        props.closeModal();
-      },
-      onError(error) {
-        const e: { message: string } = error.response?.data as { message: string };
-        methods.setError('file', { type: 'server', message: e.message }, { shouldFocus: false });
-      },
-    });
+    if (props.type === 'Asset') {
+      formData.append('file', data.file);
+      formData.append('asset_id', props.assetId.toString());
+      uploadFile.mutate(formData, {
+        onSuccess: () => {
+          const variant = getVariant('success');
+          enqueueSnackbar('Asset file has been added', { variant });
+          methods.reset();
+          props.closeModal();
+        },
+        onError(error) {
+          const e: { message: string } = error.response?.data as { message: string };
+          methods.setError('file', { type: 'server', message: e.message }, { shouldFocus: false });
+        },
+      });
+    }
+
+    if (props.type === 'License') {
+      formData.append('file', data.file);
+      uploadLicenseFile.mutate(formData, {
+        onSuccess: () => {
+          const variant = getVariant('success');
+          enqueueSnackbar('License File has been added', { variant });
+          methods.reset();
+          props.closeModal();
+        },
+        onError(error) {
+          const e: { message: string } = error.response?.data as { message: string };
+          methods.setError('file', { type: 'server', message: e.message }, { shouldFocus: false });
+        },
+      });
+    }
   };
 
   return (

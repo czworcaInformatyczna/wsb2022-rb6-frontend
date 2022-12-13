@@ -34,7 +34,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
   const { data: files } = useGetAssetFile<IAssetFiles>(apiUrl.assetFiles, {
     asset_id: id,
     per_page: pageSize,
-    page: page,
+    page: page + 1,
   });
   const deleteFile = useDeleteAssetFile();
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -83,7 +83,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ margin: 1 }}>
+      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
         Upload file
       </Button>
       {isArrayEmpty(files?.data) ? (
@@ -165,7 +165,7 @@ export const AssetFiles = ({ id }: { id: number }) => {
       <CreateModal
         open={open}
         setOpen={setOpen}
-        content={<UploadFile assetId={id} closeModal={closeModal} />}
+        content={<UploadFile type="Asset" assetId={id} closeModal={closeModal} />}
       />
     </Box>
   );

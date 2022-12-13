@@ -43,12 +43,12 @@ export const AddModel = ({ isModal = false }: IsModal) => {
   const setValues = useCallback(
     (assetValues: any) => {
       setValue('name', assetValues.name);
-      const categoryObject = categoryOptions?.find(
+      const categoryObject = categoryOptions?.data.find(
         (option) => option.id === assetValues.asset_category_id,
       );
 
       setValue('asset_category_id', categoryObject !== undefined ? categoryObject : null);
-      const manufacturerObject = manufacturerOptions?.find(
+      const manufacturerObject = manufacturerOptions?.data.find(
         (option) => option.id === assetValues.manufacturer_id,
       );
       setValue('manufacturer_id', manufacturerObject !== undefined ? manufacturerObject : null);
@@ -158,14 +158,14 @@ export const AddModel = ({ isModal = false }: IsModal) => {
                 <SelectInput
                   label="Manufacturer"
                   name="manufacturer_id"
-                  options={manufacturerOptions ? manufacturerOptions : []}
+                  options={manufacturerOptions ? manufacturerOptions?.data : []}
                   modalContent={<AddManufacturer isModal />}
                   openModal={openModal}
                 />
                 <SelectInput
                   label="Category"
                   name="asset_category_id"
-                  options={categoryOptions ? categoryOptions : []}
+                  options={categoryOptions ? categoryOptions?.data : []}
                   modalContent={<AddCategory isModal />}
                   openModal={openModal}
                 />

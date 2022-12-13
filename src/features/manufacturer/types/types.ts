@@ -1,4 +1,5 @@
 export interface IManufacturer {
+  created_at: string;
   name: string;
 }
 

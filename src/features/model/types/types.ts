@@ -1,6 +1,6 @@
 export interface IModelForm {
   asset_category_id: ICategory | null;
-  manufacturer_id: IManufacturer | null;
+  manufacturer_id: { id: number; name: string } | null;
   name: string;
 }
 
@@ -11,12 +11,17 @@ export interface IModel {
 }
 
 export interface IManufacturer {
-  id: number;
-  name: string;
+  data: [{ id: number; name: string }];
+  total: number;
 }
 export interface ICategory {
   id: number;
   name: string;
+}
+
+export interface IAssetCategory {
+  data: [{ id: number; name: string }];
+  total: number;
 }
 
 export interface IModelList {

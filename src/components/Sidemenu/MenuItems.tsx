@@ -73,6 +73,12 @@ export const menuItems = [
         link: '/Users/Add',
         name: 'User',
       },
+      {
+        icon: <AccountTreeOutlinedIcon />,
+        id: 8,
+        link: '/Component/Add',
+        name: 'Component',
+      },
     ],
   },
   {
@@ -160,6 +166,20 @@ export const menuItems = [
     id: 9,
     link: '/Models',
     name: 'Models',
+    nestedList: null,
+  },
+  {
+    icon: <ConstructionIcon />,
+    id: 10,
+    link: '/Manufacturers',
+    name: 'Manufacturers',
+    nestedList: null,
+  },
+  {
+    icon: <CategoryIcon />,
+    id: 11,
+    link: '/Categories',
+    name: 'Categories',
     nestedList: null,
   },
 ];
