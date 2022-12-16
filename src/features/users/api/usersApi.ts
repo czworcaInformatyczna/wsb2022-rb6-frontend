@@ -1,4 +1,5 @@
 import { type IDataProviderSettings } from 'features/assets';
+import { type IRoles } from 'features/roles/types';
 import { useDelete, useFetch, usePost, useUpdate } from 'lib/react-query';
 import { apiUrl } from 'routes';
 import { type IUsers } from '../types';
@@ -40,5 +41,10 @@ export const useUploadAvatar = <T>() => {
 
 export const useForgotPassword = <T>() => {
   const context = usePost<T>(apiUrl.forgotPassword);
+  return context;
+};
+
+export const useGetRoles = () => {
+  const context = useFetch<IRoles>(apiUrl.roles, { per_page: 30 });
   return context;
 };

@@ -10,7 +10,7 @@ const QRScanner = (Props) => {
     if (data != null) {
       if (error !== null) setError(null);
       Props.setOpen(false);
-      navigate('Asset/' + data.text + '/Status');
+      navigate('AssetDetails/' + data.text);
     }
   };
 

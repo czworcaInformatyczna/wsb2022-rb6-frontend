@@ -27,7 +27,7 @@ const ChangeStatus = () => {
     isLoading,
     isError,
   } = useGetAssetsDataById<IAssetDetails>(Number(id), apiUrl.assetInfo + id);
-  const { data: users } = useGetUsers();
+  const { data: users } = useGetUsers({ per_page: 30 });
   const { enqueueSnackbar } = useSnackbar();
   const updateAsset = useUpdateAsset();
 

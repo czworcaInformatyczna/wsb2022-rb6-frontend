@@ -17,7 +17,7 @@ export const AddUserToRole = ({ isModal = false }: IsModal) => {
   const methods = useForm<IAddToRole>();
   const { handleSubmit, setError, reset } = methods;
   const addToRole = useAddUsersToRole<IAddUsersToRole>();
-  const { data: users } = useGetUsers();
+  const { data: users } = useGetUsers({ per_page: 30 });
   const { id } = useParams();
   const navigate = useNavigate();
 

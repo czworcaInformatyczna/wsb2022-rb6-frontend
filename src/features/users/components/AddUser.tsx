@@ -10,8 +10,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
 import { getVariant } from 'utils';
 import { type IAddUser, type IAddUserForm, type IUser } from '../types';
-import { useAddUser, useUpdateUser } from '../api';
-import { useGetRoles } from 'features/roles/api';
+import { useAddUser, useUpdateUser, useGetRoles } from '../api';
 
 export const AddUser = ({ isModal = false }: IsModal) => {
   const { enqueueSnackbar } = useSnackbar();

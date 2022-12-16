@@ -24,11 +24,11 @@ export const useAddComponent = <T>() => {
 };
 
 export const useGetComponentCategory = () => {
-  const context = useFetch<ICategoryList>(apiUrl.componentCategoryList);
+  const context = useFetch<ICategoryList>(apiUrl.componentCategoryList, { per_page: 30 });
   return context;
 };
 
 export const useGetAssets = () => {
-  const context = useFetch<IAssetList>(apiUrl.assets);
+  const context = useFetch<IAssetList>(apiUrl.assets, { per_page: 30 });
   return context;
 };

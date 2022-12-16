@@ -29,7 +29,7 @@ const DeployLicense = () => {
   const { handleSubmit, reset, watch, control } = methods;
   const watchStatus = watch('model');
   const { id } = useParams();
-  const { data: users } = useGetUsers();
+  const { data: users } = useGetUsers({ per_page: 30 });
   const { enqueueSnackbar } = useSnackbar();
   const deployLicense = useDeployLicense<IDeploy>(Number(id));
   const { data: assets } = useGetAssets();

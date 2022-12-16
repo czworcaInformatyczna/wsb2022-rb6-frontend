@@ -32,7 +32,7 @@ export const AddMaintenance = ({ isModal = false }: IsModal) => {
   const methods = useForm<IMaintenanceForm>();
   const { handleSubmit, setError, reset } = methods;
   const addMaintenance = useAddAssetMaintenances<IMaintenance>(apiUrl.assetMaintenances);
-  const { data: users } = useGetUsers();
+  const { data: users } = useGetUsers({ per_page: 30 });
   const navigate = useNavigate();
   const location = useLocation();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');

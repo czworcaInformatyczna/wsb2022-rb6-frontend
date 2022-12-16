@@ -9,12 +9,12 @@ export const useAddModel = <T>(url: string) => {
 };
 
 export const useGetManufacturer = () => {
-  const context = useFetch<IManufacturer>(apiUrl.manufacturerList);
+  const context = useFetch<IManufacturer>(apiUrl.manufacturerList, { per_page: 30 });
   return context;
 };
 
 export const useGetCategory = () => {
-  const context = useFetch<IAssetCategory>(apiUrl.categoryList);
+  const context = useFetch<IAssetCategory>(apiUrl.categoryList, { per_page: 30 });
   return context;
 };
 

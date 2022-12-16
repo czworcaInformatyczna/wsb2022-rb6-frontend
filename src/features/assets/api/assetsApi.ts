@@ -10,7 +10,7 @@ export const useGetStatusOptions = () => {
 };
 
 export const useGetModelOptions = () => {
-  const context = useFetch<IModelList>(apiUrl.assetsModel);
+  const context = useFetch<IModelList>(apiUrl.assetsModel, { per_page: 30 });
   return context;
 };
 
