@@ -1,15 +1,25 @@
-export interface IStatistics {
-  barData: ExtendedChartData[];
-  columnData: ChartData[];
-  donutData: ChartData[];
-  lineData: ChartData[];
+import { type BarDatum } from '@nivo/bar';
+import { type PieDatum } from 'components/Dashboard';
+
+export interface AssetCategoryStatistic extends StatisticBase, BarDatum {
+  models_count: number;
 }
 
-export interface ExtendedChartData extends ChartData {
-  secondLabel: string;
+export interface StatisticBase {
+  assets_count: number;
+  id: number;
+  name: string;
 }
 
-export interface ChartData {
-  label: string;
-  value: number;
+export interface AssetStatusStatistic extends BarDatum {
+  count: number;
+  status: number;
+}
+
+export interface Statistics {
+  assetCategory: AssetCategoryStatistic[];
+  assetModel: PieDatum[];
+  assetStatus: PieDatum[];
+  manufacturer: PieDatum[];
+  user: StatisticBase[];
 }

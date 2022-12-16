@@ -1,134 +1,159 @@
-const barData = [
+const assetCategory = [
   {
-    secondLabel: 'Warsaw',
-    label: '2018',
-    value: 947,
+    id: 2,
+    name: 'Nulla distinctio',
+    models_count: 3,
+    assets_count: 4,
   },
   {
-    secondLabel: 'Warsaw',
-    label: '2019',
-    value: 1402,
+    id: 3,
+    name: 'Dolorem vitae',
+    models_count: 2,
+    assets_count: 3,
   },
   {
-    secondLabel: 'Warsaw',
-    label: '2020',
-    value: 3634,
+    id: 5,
+    name: 'Fuga vitae',
+    models_count: 1,
+    assets_count: 1,
   },
   {
-    secondLabel: 'Warsaw',
-    label: '2021',
-    value: 5268,
-  },
-
-  {
-    secondLabel: 'Wroclaw',
-    label: '2018',
-    value: 133,
+    id: 6,
+    name: 'Sed accusamus',
+    models_count: 1,
+    assets_count: 1,
   },
   {
-    secondLabel: 'Wroclaw',
-    label: '2019',
-    value: 221,
+    id: 7,
+    name: 'Assumenda nesciunt',
+    models_count: 1,
+    assets_count: 1,
   },
   {
-    secondLabel: 'Wroclaw',
-    label: '2020',
-    value: 767,
-  },
-  {
-    secondLabel: 'Wroclaw',
-    label: '2021',
-    value: 1766,
-  },
-
-  {
-    secondLabel: 'Poznan',
-    label: '2018',
-    value: 408,
-  },
-  {
-    secondLabel: 'Poznan',
-    label: '2019',
-    value: 547,
-  },
-  {
-    secondLabel: 'Poznan',
-    label: '2020',
-    value: 729,
-  },
-  {
-    secondLabel: 'Poznan',
-    label: '2021',
-    value: 628,
+    id: 8,
+    name: 'Provident omnis',
+    models_count: 1,
+    assets_count: 1,
+    assets_countColor: 'red',
   },
 ];
 
-const donutData = [
+const assetModel = [
   {
-    label: 'Ready to deploy',
-    value: 27,
+    id: 1,
+    name: 'Est corrupti',
+    assets_count: 3,
   },
   {
-    label: 'Deployed',
-    value: 25,
+    id: 2,
+    name: 'Quisquam aut',
+    assets_count: 1,
   },
   {
-    label: 'Maintenance',
-    value: 18,
+    id: 3,
+    name: 'Odit consequatur',
+    assets_count: 1,
   },
   {
-    label: 'Archived',
-    value: 15,
+    id: 4,
+    name: 'Perferendis aut',
+    assets_count: 1,
+  },
+  {
+    id: 5,
+    name: 'Voluptatem et',
+    assets_count: 1,
+  },
+  {
+    id: 6,
+    name: 'Ut ut',
+    assets_count: 1,
+  },
+  {
+    id: 7,
+    name: 'Enim asperiores',
+    assets_count: 2,
+  },
+  {
+    id: 9,
+    name: 'Maxime maxime',
+    assets_count: 1,
   },
 ];
 
-const lineData = [
+const assetStatus = [
   {
-    label: '2018',
-    value: 40,
+    status: 0,
+    count: 4,
   },
   {
-    label: '2019',
-    value: 70,
+    status: 25,
+    count: 2,
   },
   {
-    label: '2020',
-    value: 120,
+    status: 50,
+    count: 3,
   },
   {
-    label: '2021',
-    value: 200,
+    status: 100,
+    count: 2,
   },
 ];
 
-const columnData = [
+const manufacturer = [
   {
-    label: 'Laptops',
-    value: 400,
+    id: '2',
+    name: 'Omnis sed',
+    assets_count: 3,
   },
   {
-    label: 'Desktops',
-    value: 52,
+    id: '3',
+    name: 'Reiciendis odio',
+    assets_count: 2,
   },
   {
-    label: 'Mobile Phones',
-    value: 61,
+    id: 5,
+    name: 'Ut aliquid',
+    assets_count: 1,
   },
   {
-    label: 'Displays',
-    value: 145,
+    id: 6,
+    name: 'Qui rerum',
+    assets_count: 2,
   },
   {
-    label: 'Tablets',
-    value: 48,
-  },
-  {
-    label: 'Keyboards',
-    value: 350,
-  },
-  {
-    label: 'Mouse',
-    value: 380,
+    id: 10,
+    name: 'Occaecati tempore',
+    assets_count: 3,
   },
 ];
-export const statisticsData = { barData, donutData, lineData, columnData };
+
+const user = [
+  {
+    id: 7,
+    name: 'Presley Klocko',
+    assets_count: 3,
+  },
+  {
+    id: 6,
+    name: 'Keegan Leffler',
+    assets_count: 2,
+  },
+  {
+    id: 9,
+    name: 'Ms. Hanna Cole Jr.',
+    assets_count: 2,
+  },
+  {
+    id: 1,
+    name: 'Lilla Carroll',
+    assets_count: 1,
+  },
+  {
+    id: 5,
+    name: 'Elva Schmitt',
+    assets_count: 1,
+  },
+];
+
+export const statisticsData = { assetCategory, assetModel, assetStatus, manufacturer, user };

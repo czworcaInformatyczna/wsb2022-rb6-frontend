@@ -1,4 +1,5 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import { LoadingScreen } from 'components/Elements/Loading';
 
 interface IDashboardItem {
@@ -8,9 +9,11 @@ interface IDashboardItem {
 }
 export const DashboardItem = ({ title, children, loading }: IDashboardItem) => {
   return (
-    <Grid item lg={6} md={6} sm={12} xl={6} xs={12}>
-      <h2>{title}</h2>
-      {loading ? <LoadingScreen /> : children}
+    <Grid item lg={12} md={12} sm={12} xl={12} xs={12} ml={3}>
+      <Typography ml={2} variant="h4">
+        {title}
+      </Typography>
+      <Box sx={{ width: '75%', height: '90%' }}>{loading ? <LoadingScreen /> : children}</Box>
     </Grid>
   );
 };
