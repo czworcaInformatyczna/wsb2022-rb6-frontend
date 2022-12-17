@@ -128,6 +128,8 @@ export interface IDataProviderSettings {
   export?: boolean | string;
   item_id?: number;
   item_type?: string;
+  model?: string;
+  model_id?: number;
   page?: number | string;
   per_page?: number | string;
   search?: string;

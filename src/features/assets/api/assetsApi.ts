@@ -83,3 +83,8 @@ export const useEditImage = <T>(id: number) => {
   const context = usePost<T>(convertUrl(apiUrl.assetImage, { id }));
   return context;
 };
+
+export const useGetLicenses = <T>(params: IDataProviderSettings) => {
+  const context = useFetch<T>(apiUrl.assetLicenses, params);
+  return context;
+};

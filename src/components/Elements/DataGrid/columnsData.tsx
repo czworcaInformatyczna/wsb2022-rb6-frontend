@@ -127,7 +127,7 @@ export const LicensesData: IDataProvider = {
   getDataHook: useGetLicenses,
   deleteHook: useDeleteLicense,
   addNewLink: '/AddLicense',
-  exportLink: '/asset',
+  exportLink: '/licence',
   editLink: '/License/:id/Edit',
   detailsLink: '/License/:id/Details',
   name: 'Licenses',
@@ -270,7 +270,7 @@ export const ModelsData: IDataProvider = {
 export const RolesData: IDataProvider = {
   getDataHook: useGetRoles,
   addNewLink: '/Roles/Add',
-  exportLink: '/asset',
+  exportLink: '/role',
   editLink: '/Roles/Edit/:id',
   deleteHook: useDeleteRole,
   detailsLink: '/Roles/Details/:id',
@@ -315,7 +315,7 @@ export const RolesData: IDataProvider = {
 export const UsersData: IDataProvider = {
   getDataHook: useGetUsers,
   addNewLink: '/Users/Add',
-  exportLink: '/asset',
+  exportLink: '/user',
   editLink: '/Users/Edit/:id',
   deleteHook: useDeleteUser,
   detailsLink: '/Users/Details/:id',
