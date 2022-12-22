@@ -14,14 +14,15 @@ interface IUpdateMutation<T> {
 
 export const handleFetch = async <T>({ queryKey }: QueryFunctionContext<QueryKey>): Promise<T> => {
   const [url, params] = queryKey;
-  const response = await apiClient.get(url, params);
+  const response = await apiClient.get(url, { params });
   return response.data;
 };
 
-export const useFetch = <T>(url: string | null, params?: object) => {
+export const useFetch = <T>(url: string | null, params?: object, enable?: boolean) => {
   const queryContext = useQuery<T, Error, T, QueryKey>(
     [url!, params],
     async ({ queryKey, meta }) => await handleFetch({ queryKey, meta }),
+    { enabled: enable },
   );
   return queryContext;
 };
@@ -58,4 +59,8 @@ export const useUpdate = <T>(url: string, getUrl?: string) => {
       await apiClient.patch<IUpdateMutation<T>>(convertUrl(url, { id: data.id }), data.body),
     getUrl ?? url,
   );
+};
+
+export const useDeleteByUrl = <T>(url: string, getUrl?: string) => {
+  return useGenericMutation<T>(async (id: T) => await apiClient.delete(url + id), getUrl ?? url);
 };

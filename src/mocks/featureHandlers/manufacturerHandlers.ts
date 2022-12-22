@@ -4,7 +4,7 @@ import { apiUrl } from 'routes';
 import { url } from 'utils';
 
 const addManufacturer = rest.post<IManufacturer>(
-  url(apiUrl.addAssetManufacturer),
+  url(apiUrl.addManufacturer),
   async (req, res, ctx) => {
     return await res(ctx.status(200));
   },

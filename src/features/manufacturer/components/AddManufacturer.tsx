@@ -1,48 +1,88 @@
-import {
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 
 import { TextInput } from 'components/Elements/FormInputs';
+import { useGetAssetsDataById } from 'features/assets';
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { apiUrl } from 'routes';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { apiUrl, routePath } from 'routes';
 import { getVariant } from 'utils';
-import { useAddManufacturer } from '../api';
+import { useAddManufacturer, useUpdateManufacturer } from '../api';
 import { type IsModal, type IManufacturer } from '../types';
 
 export const AddManufacturer = ({ isModal = false }: IsModal) => {
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm<IManufacturer>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const { handleSubmit, setError, reset } = methods;
-  const [url, setUrl] = useState<string>(apiUrl.addAssetManufacturer);
-  const addManufacturer = useAddManufacturer<IManufacturer>(url);
+  const addManufacturer = useAddManufacturer<IManufacturer>(apiUrl.addManufacturer);
+  const updateManufacturer = useUpdateManufacturer<IManufacturer>();
+  const { data: manufacturer, refetch } = useGetAssetsDataById<IManufacturer>(
+    Number(id),
+    apiUrl.manufacturerList + '/' + id,
+    action === 'Add' ? false : true,
+  );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl((event.target as HTMLInputElement).value);
-  };
+  const isIdNotValid = useCallback(
+    (isEdit: boolean) => {
+      return isEdit && id === undefined && !Number(id);
+    },
+    [id],
+  );
+
+  useEffect(() => {
+    reset();
+    const isEdit = location.pathname.includes('Edit');
+    if (isIdNotValid(isEdit)) {
+      navigate(routePath.pageNotFound);
+    }
+
+    if (isEdit && id !== undefined) {
+      setAction('Edit');
+      if (manufacturer !== undefined) {
+        void refetch();
+        reset({ name: manufacturer.name });
+      }
+    }
+
+    if (!isEdit) {
+      setAction('Add');
+    }
+  }, [manufacturer, id, isIdNotValid, location.pathname, navigate, refetch, reset]);
 
   const onSubmit = async (data: IManufacturer) => {
-    addManufacturer.mutate(data, {
-      onSuccess: () => {
-        const variant = getVariant('success');
-        enqueueSnackbar('Manufacturer has been added', { variant });
-        reset();
-      },
-      onError(error) {
-        const e: { message: string } = error.response?.data as { message: string };
-        setError('name', { type: 'server', message: e.message }, { shouldFocus: false });
-      },
-    });
+    if (action === 'Add')
+      addManufacturer.mutate(data, {
+        onSuccess: () => {
+          const variant = getVariant('success');
+          enqueueSnackbar('Manufacturer has been added', { variant });
+          reset();
+        },
+        onError(error) {
+          const e: { message: string } = error.response?.data as { message: string };
+          setError('name', { type: 'server', message: e.message }, { shouldFocus: false });
+        },
+      });
+
+    if (action === 'Edit' && id)
+      updateManufacturer.mutate(
+        { id: id, body: data },
+        {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar('Manufacturer has been updated', { variant });
+            navigate(routePath.manufacturers);
+          },
+          onError(error) {
+            const e: { message: string } = error.response?.data as { message: string };
+            setError('name', { type: 'server', message: e.message }, { shouldFocus: false });
+          },
+        },
+      );
   };
 
   return (
@@ -60,7 +100,7 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
       <Grid alignItems="center" container justifyContent="start" pt={2} spacing={0}>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <Typography ml={2} variant="h4">
-            Add manufacturer
+            {action} manufacturer
           </Typography>
         </Grid>
       </Grid>
@@ -73,34 +113,6 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
           }}
         >
           <Grid alignContent="center" container display="flex" item mt={2} spacing={2}>
-            <Grid
-              item
-              lg={12}
-              md={12}
-              sm={12}
-              xl={12}
-              xs={12}
-              display="flex"
-              justifyContent="center"
-            >
-              <FormControl>
-                <FormLabel id="manufacturer-radio-group">Type</FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={url}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value={apiUrl.addAssetManufacturer}
-                    control={<Radio />}
-                    label="Asset"
-                  />
-                  <FormControlLabel disabled value="License" control={<Radio />} label="License" />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
             <TextInput label="Name" name="name" rules={{ required: 'Required value' }} />
             <Grid
               alignContent="center"
@@ -122,7 +134,7 @@ export const AddManufacturer = ({ isModal = false }: IsModal) => {
                   marginRight: 2,
                 }}
               >
-                Add
+                {action}
               </Button>
             </Grid>
           </Grid>

@@ -6,17 +6,14 @@ import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
 export const AssetLicenses = ({ id }: { id: number }) => {
-  const { data: licenses } = useGetAssetsDataById<IAssetLicenses[]>(
-    Number(id),
-    apiUrl.assetLicenses,
-  );
+  const { data: licenses } = useGetAssetsDataById<IAssetLicenses>(Number(id), apiUrl.assetLicenses);
   const removeLicense = (licenseId: number) => {
     console.log(licenseId);
   };
 
   return (
     <Box mb={4}>
-      {isArrayEmpty(licenses) ? (
+      {isArrayEmpty(licenses?.data) ? (
         <NoResult />
       ) : (
         <Grid alignItems="center" container pt={2} pl={2} pr={2} spacing={2}>
@@ -39,7 +36,7 @@ export const AssetLicenses = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {licenses?.map((license: any) => {
+                {licenses?.data.map((license: any) => {
                   return (
                     <TableRow key={license.id}>
                       <TableCell>{license.name}</TableCell>

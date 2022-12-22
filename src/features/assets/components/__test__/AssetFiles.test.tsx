@@ -28,7 +28,8 @@ describe('AssetFiles', () => {
     expect(await screen.findByText(/file1/i)).toBeInTheDocument();
     expect(await screen.findByText(/.txt/i)).toBeInTheDocument();
     expect(await screen.findByText(/5kb/i)).toBeInTheDocument();
-    expect(await screen.findByText('22/10/2022')).toBeInTheDocument();
+    expect(await screen.findByText(/2022-11-27/i)).toBeInTheDocument();
+    expect(await screen.findByText(/email@email.com/i)).toBeInTheDocument();
   });
 
   it('should display no result', async () => {

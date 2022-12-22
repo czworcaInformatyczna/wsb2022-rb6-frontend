@@ -15,7 +15,7 @@ export const getKey = () => {
 
 export const getQuantity = () => {
   return screen.getByRole('spinbutton', {
-    name: /quantity/i,
+    name: /number of uses/i,
   });
 };
 
@@ -41,23 +41,20 @@ export const getNotes = async () => {
 };
 
 export const getDateOfPurchase = async () => {
-  await user.click(getAdditionalInformation()); // Open acccordion so the element can be visible and found by getByRole
   return screen.getByRole('textbox', {
     name: /date of purchase/i,
   });
 };
 
-export const getExpirationDate = async () => {
-  await user.click(getAdditionalInformation()); // Open acccordion so the element can be visible and found by getByRole
+export const getExpirationDate = () => {
   return screen.getByRole('textbox', {
     name: /expiration date/i,
   });
 };
 
-export const getLicensedTo = async () => {
-  await user.click(getAdditionalInformation()); // Open acccordion so the element can be visible and found by getByRole
+export const getLicensedTo = () => {
   return screen.getByRole('textbox', {
-    name: /licensed to/i,
+    name: /email/i,
   });
 };
 

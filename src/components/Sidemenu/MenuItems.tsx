@@ -15,6 +15,7 @@ import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CategoryIcon from '@mui/icons-material/Category';
 import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const menuItems = [
   {
@@ -59,6 +60,24 @@ export const menuItems = [
         id: 5,
         link: '/Model/Add',
         name: 'Model',
+      },
+      {
+        icon: <AdminPanelSettingsIcon />,
+        id: 6,
+        link: '/Roles/Add',
+        name: 'Role',
+      },
+      {
+        icon: <PersonIcon />,
+        id: 7,
+        link: '/Users/Add',
+        name: 'User',
+      },
+      {
+        icon: <AccountTreeOutlinedIcon />,
+        id: 8,
+        link: '/Component/Add',
+        name: 'Component',
       },
     ],
   },
@@ -140,6 +159,27 @@ export const menuItems = [
     id: 8,
     link: '/Roles',
     name: 'Roles',
+    nestedList: null,
+  },
+  {
+    icon: <DevicesOtherIcon />,
+    id: 9,
+    link: '/Models',
+    name: 'Models',
+    nestedList: null,
+  },
+  {
+    icon: <ConstructionIcon />,
+    id: 10,
+    link: '/Manufacturers',
+    name: 'Manufacturers',
+    nestedList: null,
+  },
+  {
+    icon: <CategoryIcon />,
+    id: 11,
+    link: '/Categories',
+    name: 'Categories',
     nestedList: null,
   },
 ];

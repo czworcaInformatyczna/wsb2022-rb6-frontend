@@ -11,16 +11,23 @@ import { type AppProviderProps } from 'providers/types';
 import { routePath } from 'routes';
 import { fetchAssetsCategory, fetchAssetsInfo, fetchAssetsModel } from './mockApiHandlers';
 import { mswServer } from 'mocks/mswServer';
+import { ConfirmProvider } from 'material-ui-confirm';
+import { SnackbarProvider } from 'notistack';
+jest.setTimeout(10000);
 
 const Provider = ({ children }: AppProviderProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={getQueryClient()}>
-        <MemoryRouter initialEntries={['/EditAsset/1']}>
-          <Routes>
-            <Route element={children} path={routePath.editAsset} />
-          </Routes>
-        </MemoryRouter>
+        <ConfirmProvider>
+          <SnackbarProvider maxSnack={3}>
+            <MemoryRouter initialEntries={['/EditAsset/1']}>
+              <Routes>
+                <Route element={children} path={routePath.editAsset} />
+              </Routes>
+            </MemoryRouter>
+          </SnackbarProvider>
+        </ConfirmProvider>
       </QueryClientProvider>
     </LocalizationProvider>
   );

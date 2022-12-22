@@ -1,18 +1,14 @@
 import {
   licenseCategoryOptions,
   licenseManufacturerOptions,
-  licenseEditMock,
   licenseDetailsMock,
   licenseDeploysMock,
   assetHistory,
+  licenseEditMock,
 } from 'mocks';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
-
-export const fetchLicenseCategory = rest.get(apiUrl.licensesCategory, async (req, res, ctx) => {
-  return await res(ctx.status(200), ctx.json(licenseCategoryOptions));
-});
 
 export const fetchLicenseManufacturers = rest.get(
   apiUrl.licensesManufacturers,
@@ -21,11 +17,11 @@ export const fetchLicenseManufacturers = rest.get(
   },
 );
 
-export const fetchLicenseEditInfo = rest.get(apiUrl.licenseInfoEdit, async (req, res, ctx) => {
+export const fetchLicenseEditInfo = rest.get(apiUrl.licenseById, async (req, res, ctx) => {
   return await res(ctx.status(200), ctx.json(licenseEditMock));
 });
 
-export const fetchLicenseDetails = rest.get(url(apiUrl.licenseInfo), (req, res, ctx) => {
+export const fetchLicenseDetails = rest.get(url(apiUrl.licenseById), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(licenseDetailsMock));
 });
 
@@ -39,6 +35,10 @@ export const fetchLicenseHistory = rest.get(url(apiUrl.licenseHistory), (req, re
 
 export const fetchAssetEmptyResponse = rest.get(url('*'), (req, res, ctx) => {
   return res(ctx.status(200), ctx.json([]));
+});
+
+export const fetchLicenseCategory = rest.get(url(apiUrl.licenseCategory), (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(licenseCategoryOptions));
 });
 
 export const handlers = [

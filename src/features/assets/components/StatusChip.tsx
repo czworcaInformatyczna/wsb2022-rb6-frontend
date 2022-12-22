@@ -1,7 +1,7 @@
 import { Statuses } from 'features/assets';
 import { Box, Chip, Typography } from '@mui/material';
 
-export const StatusChip = (status: string) => {
+export const StatusChip = (status: number) => {
   return (
     <Box>
       {(() => {
@@ -13,7 +13,7 @@ export const StatusChip = (status: string) => {
                 label={
                   <Box textAlign="center" width="110px">
                     <Typography fontWeight="bold" fontSize="14px">
-                      {status}
+                      Ready to deploy
                     </Typography>
                   </Box>
                 }
@@ -25,7 +25,7 @@ export const StatusChip = (status: string) => {
                 color="info"
                 label={
                   <Box textAlign="center" width="110px">
-                    <Typography fontWeight="bold">{status}</Typography>
+                    <Typography fontWeight="bold">Deployed</Typography>
                   </Box>
                 }
               />
@@ -36,7 +36,7 @@ export const StatusChip = (status: string) => {
                 color="warning"
                 label={
                   <Box textAlign="center" width="110px">
-                    <Typography fontWeight="bold">{status}</Typography>
+                    <Typography fontWeight="bold">Maintained</Typography>
                   </Box>
                 }
               />
@@ -47,7 +47,7 @@ export const StatusChip = (status: string) => {
                 color="error"
                 label={
                   <Box textAlign="center" width="110px">
-                    <Typography fontWeight="bold">{status}</Typography>
+                    <Typography fontWeight="bold">Archived</Typography>
                   </Box>
                 }
               />

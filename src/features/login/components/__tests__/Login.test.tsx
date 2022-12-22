@@ -5,6 +5,7 @@ import { QueryClientProvider } from 'react-query';
 import { AuthContext, type IAuth } from 'providers/AuthProvider';
 import { getQueryClient } from 'lib/react-query';
 import { CustomThemeProvider } from 'providers/CustomTheme';
+import { BrowserRouter } from 'react-router-dom';
 
 const mockHandleLogin = jest.fn();
 
@@ -22,7 +23,9 @@ const renderLogin = () => {
     <AuthContext.Provider value={getProviderValue()}>
       <QueryClientProvider client={getQueryClient()}>
         <CustomThemeProvider>
-          <Login />
+          <BrowserRouter>
+            <Login />
+          </BrowserRouter>
         </CustomThemeProvider>
       </QueryClientProvider>
     </AuthContext.Provider>,

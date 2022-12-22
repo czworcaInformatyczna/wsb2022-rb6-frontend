@@ -1,5 +1,6 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import { render, screen, act } from '@testing-library/react';
+import { licenseDetailsMock } from 'mocks';
 import { mswServer } from 'mocks/mswServer';
 import { AppProvider } from 'providers/AppProvider';
 import { LicenseInfo } from '../DetailsComponents/LicenseInfo';
@@ -8,7 +9,7 @@ import { fetchLicenseDetails } from './mockApiHandlers';
 const Provider = () => {
   return (
     <AppProvider>
-      <LicenseInfo id={1} />
+      <LicenseInfo licenseDetails={licenseDetailsMock} />
     </AppProvider>
   );
 };
@@ -29,20 +30,12 @@ describe('LicenseInfo', () => {
     expect(await screen.findByText(/category/i)).toBeInTheDocument();
     expect(await screen.findByText(/Graphic/i)).toBeInTheDocument();
     expect(await screen.findByText(/expiration date/i)).toBeInTheDocument();
-    expect(await screen.findByText('22/10/2033')).toBeInTheDocument();
+    expect(await screen.findByText('2033-10-22T00:00')).toBeInTheDocument();
     expect(await screen.findByText(/licensed to/i)).toBeInTheDocument();
     expect(await screen.findByText('user@user.com')).toBeInTheDocument();
-    expect(await screen.findByText(/quantity/i)).toBeInTheDocument();
-    expect(await screen.findByText(/8/i)).toBeInTheDocument();
-    expect(await screen.findByText(/available/i)).toBeInTheDocument();
+    expect(await screen.findByText(/number of slots/i)).toBeInTheDocument();
     expect(await screen.findByText(/5/i)).toBeInTheDocument();
-    expect(await screen.findByText(/deployed/i)).toBeInTheDocument();
+    expect(await screen.findByText(/free slots/i)).toBeInTheDocument();
     expect(await screen.findByText(/30/i)).toBeInTheDocument();
-    expect(await screen.findByText(/purchase cost/i)).toBeInTheDocument();
-    expect(await screen.findByText(/200/i)).toBeInTheDocument();
-    expect(await screen.findByText(/order number/i)).toBeInTheDocument();
-    expect(await screen.findByText(/12312sad/i)).toBeInTheDocument();
-    expect(await screen.findByText(/notes/i)).toBeInTheDocument();
-    expect(await screen.findByText(/some info/i)).toBeInTheDocument();
   });
 });

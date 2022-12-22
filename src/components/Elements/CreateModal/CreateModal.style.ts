@@ -4,10 +4,12 @@ export const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '40%',
+  minWidth: '300px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   display: 'flex',
   alignContent: 'center',
   justifyContent: 'center',
+  overflow: 'auto',
 };

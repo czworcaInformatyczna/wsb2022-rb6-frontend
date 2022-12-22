@@ -1,22 +1,29 @@
-import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import { Autocomplete, Box, Button, Checkbox, Grid, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { type IInputProps } from 'features/assets';
 
 export interface ISelectInput extends IInputProps {
   containsImg?: boolean;
-  modalContent: JSX.Element;
-  openModal: (content: JSX.Element) => void;
+  createButton?: boolean;
+  modalContent?: JSX.Element;
+  multipleValues?: boolean;
+  openModal?: (content: JSX.Element) => void;
   options: any[];
+  showEmails?: boolean;
 }
 
 export const SelectInput = ({
+  createButton = true,
   name,
   label,
   containsImg,
   options,
   modalContent,
+  multipleValues = false,
+  showEmails = false,
   openModal,
 }: ISelectInput) => {
   const {
@@ -25,6 +32,8 @@ export const SelectInput = ({
   } = useFormContext();
 
   const error = errors[name];
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
@@ -44,14 +53,18 @@ export const SelectInput = ({
       <Grid alignContent="center" display="flex" item lg={6} md={6} sm={6} xl={6} xs={6}>
         <Controller
           control={control}
-          defaultValue={null}
+          defaultValue={multipleValues ? [] : null}
           name={name}
           render={({ field }) => (
             <Autocomplete
               {...field}
+              multiple={multipleValues}
+              disableCloseOnSelect={multipleValues}
               autoHighlight
               fullWidth
-              getOptionLabel={(option) => (option.name ? option.name : '')}
+              getOptionLabel={(option) =>
+                showEmails ? option.email : option.name ? option.name : ''
+              }
               id={`select-${name}`}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               onChange={(_, data) => field.onChange(data)}
@@ -70,10 +83,29 @@ export const SelectInput = ({
                   size="small"
                 />
               )}
-              renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                  {containsImg && <img alt="" loading="lazy" src={option.img} width="20" />}
-                  {option.name}
+              renderOption={(props, option, { selected }) => (
+                <Box key={option.id}>
+                  {multipleValues ? (
+                    <Box
+                      component="li"
+                      sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                      key={option.id}
+                    >
+                      <Checkbox icon={icon} checkedIcon={checkedIcon} checked={selected} />
+                      {option.email ? option.email : option.name}
+                    </Box>
+                  ) : (
+                    <Box
+                      component="li"
+                      sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                      {...props}
+                      key={option.id}
+                    >
+                      {containsImg && <img alt="" loading="lazy" src={option.img} width="20" />}
+                      {option.email ? option.email : option.name}
+                    </Box>
+                  )}
                 </Box>
               )}
             />
@@ -95,17 +127,19 @@ export const SelectInput = ({
         xl={3}
         xs={12}
       >
-        <Button
-          sx={{
-            maxHeight: '40px',
-          }}
-          onClick={() => {
-            openModal(modalContent);
-          }}
-          variant="contained"
-        >
-          Create
-        </Button>
+        {createButton && (
+          <Button
+            sx={{
+              maxHeight: '40px',
+            }}
+            onClick={() => {
+              if (openModal !== undefined) openModal(modalContent ? modalContent : <div />);
+            }}
+            variant="contained"
+          >
+            Create
+          </Button>
+        )}
       </Grid>
     </Grid>
   );

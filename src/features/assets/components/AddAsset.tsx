@@ -13,10 +13,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   type IAssetFormInput,
-  useGetStatusOptions,
   useGetModelOptions,
   useGetAssetsDataById,
   type IAsset,
+  useAddAsset,
+  useUpdateAsset,
+  useEditImage,
+  Statuses,
 } from 'features/assets';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
@@ -26,30 +29,37 @@ import {
   UploadImage,
   TextInput,
 } from 'components/Elements/FormInputs';
-
 import { useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
 import { LoadingScreen } from 'components/Elements/Loading';
 import { apiUrl, routePath } from 'routes';
 import { AddModel } from 'features/model/components/AddModel';
 import { CreateModal } from 'components/Elements/CreateModal';
+import { StatusesList } from '../api/statuses';
+import { getVariant } from 'utils';
+import { useSnackbar } from 'notistack';
+import { useGetUsers } from 'features/users/api';
 
 const AddAsset = () => {
   const methods = useForm<IAssetFormInput>();
-  const { handleSubmit, setValue, reset } = methods;
+  const { handleSubmit, setValue, reset, setError, watch } = methods;
+  const watchStatus = watch('Status');
   const navigate = useNavigate();
-  const { data: statusOptions } = useGetStatusOptions();
+  const statusOptions = StatusesList;
   const { data: modelOptions } = useGetModelOptions();
   const location = useLocation();
   const { id } = useParams();
   const [action, setAction] = useState<'Add' | 'Edit'>('Add');
   const [loading, setLoading] = useState<boolean>(false);
-  const { data: asset } = useGetAssetsDataById<IAsset>(Number(id), apiUrl.assetInfoEdit);
-  const getDateFormat = (dateString: string) => {
-    const dateMoment = moment(dateString, 'DD/MM/YYYY');
-    return dateMoment.toDate().toString();
-  };
-
+  const editImage = useEditImage(Number(id));
+  const { data: asset, refetch } = useGetAssetsDataById<IAsset>(
+    Number(id),
+    apiUrl.assetInfo + id,
+    action === 'Add' ? false : true,
+  );
+  const { data: users } = useGetUsers();
+  const { enqueueSnackbar } = useSnackbar();
+  const addAsset = useAddAsset<FormData>(apiUrl.assets);
+  const updateAsset = useUpdateAsset<FormData>();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -60,18 +70,25 @@ const AddAsset = () => {
 
   const setValues = useCallback(
     (assetValues: any) => {
-      setValue('AssetTag', assetValues.assetTag);
+      setValue('AssetTag', assetValues.tag);
       setValue('Serial', assetValues.serial);
-      const modelObject = modelOptions?.find((option) => option.name === assetValues.model);
+      const modelObject = modelOptions?.data?.find(
+        (option) => option.id === assetValues.asset_model_id,
+      );
       setValue('Model', modelObject !== undefined ? modelObject : null);
-      const statusObject = statusOptions?.find((option) => option.name === assetValues.status);
+      const statusObject = statusOptions?.find((option) => option.id === assetValues.status);
       setValue('Status', statusObject !== undefined ? statusObject : null);
-      setValue('Notes', assetValues.notes);
+      if (statusObject?.id === Statuses.Deployed)
+        setValue('currentHolder', assetValues.current_holder);
+      setValue('Notes', assetValues.notes === null ? '' : assetValues.notes);
       setValue('AssetName', assetValues.name);
-      setValue('Waranty', assetValues.waranty);
-      setValue('OrderNumber', assetValues.orderNumber);
-      setValue('DateOfPurchase', getDateFormat(assetValues.dateOfPurchase));
-      setValue('PurchaseCost', assetValues.purchaseCost);
+      setValue('Waranty', assetValues.warranty === null ? '' : assetValues.warranty);
+      setValue('OrderNumber', assetValues.order_number === null ? '' : assetValues.order_number);
+      setValue(
+        'DateOfPurchase',
+        assetValues.purchase_date === null ? '' : assetValues.purchase_date,
+      );
+      setValue('PurchaseCost', assetValues.price === null ? '' : assetValues.price);
     },
     [modelOptions, setValue, statusOptions],
   );
@@ -105,6 +122,7 @@ const AddAsset = () => {
       setLoading(true);
       setAction('Edit');
       if (asset !== undefined) {
+        void refetch();
         setValues(asset);
         setLoading(false);
       }
@@ -113,13 +131,82 @@ const AddAsset = () => {
     if (!isEdit) {
       setAction('Add');
     }
-  }, [asset, id, isIdNotValid, location.pathname, navigate, reset, setValues, statusOptions]);
+  }, [
+    asset,
+    id,
+    isIdNotValid,
+    location.pathname,
+    navigate,
+    refetch,
+    reset,
+    setValues,
+    statusOptions,
+  ]);
 
-  const onSubmit = (data: IAssetFormInput) => {
-    const tempData = { ...data };
-    if (tempData.DateOfPurchase !== '')
-      tempData.DateOfPurchase = new Date(tempData.DateOfPurchase).toISOString();
-    console.log(tempData);
+  const onSubmit = async (data: IAssetFormInput) => {
+    const tempData = new FormData();
+    const editImageData = new FormData();
+    tempData.append('name', data.AssetName);
+    tempData.append('tag', data.AssetTag);
+    tempData.append('asset_model_id', data.Model?.id ? data.Model.id.toString() : '');
+    tempData.append('serial', data.Serial);
+    tempData.append(
+      'status',
+      data.Status?.id || data.Status?.id === 0 ? data.Status.id.toString() : '',
+    );
+    tempData.append('notes', data.Notes);
+    tempData.append('warranty', data.Waranty.toString());
+    tempData.append(
+      'purchase_date',
+      data.DateOfPurchase !== '' ? new Date(data.DateOfPurchase).toISOString().split('T')[0] : '',
+    );
+    tempData.append('order_number', data.OrderNumber);
+    tempData.append('price', data.PurchaseCost.toString());
+    if (data.Status?.id === Statuses.Deployed && data.currentHolder !== undefined)
+      tempData.append('current_holder_id', data.currentHolder?.id.toString());
+    if (data.Photo instanceof File) tempData.append('image', data.Photo);
+    if (data.Photo instanceof File) editImageData.append('image', data.Photo);
+    if (action === 'Add') {
+      addAsset.mutate(tempData, {
+        onSuccess: () => {
+          const variant = getVariant('success');
+          enqueueSnackbar('Asset has been added', { variant });
+          reset();
+        },
+        onError(error) {
+          console.log(error);
+          const e: { message: string } = error.response?.data as { message: string };
+          setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
+        },
+      });
+    }
+
+    if (action === 'Edit') {
+      if (id !== undefined)
+        updateAsset.mutate(
+          { id: id, body: tempData },
+          {
+            onSuccess: () => {
+              const variant = getVariant('success');
+              if (data.Photo instanceof File)
+                editImage.mutate(editImageData, {
+                  onSuccess: () => {
+                    enqueueSnackbar('Asset has been edited', { variant });
+                    navigate(routePath.assets);
+                  },
+                });
+              else {
+                enqueueSnackbar('Asset has been edited', { variant });
+                navigate(routePath.assets);
+              }
+            },
+            onError(error) {
+              const e: { message: string } = error.response?.data as { message: string };
+              setError('AssetTag', { type: 'server', message: e.message }, { shouldFocus: false });
+            },
+          },
+        );
+    }
   };
 
   return (
@@ -179,12 +266,17 @@ const AddAsset = () => {
                   name="AssetTag"
                   rules={{ required: 'Required value' }}
                 />
+                <TextInput
+                  label="Asset Name"
+                  name="AssetName"
+                  rules={{ required: 'Required value' }}
+                />
                 <TextInput label="Serial" name="Serial" rules={{ required: 'Required value' }} />
                 <SelectInput
                   label="Model"
                   name="Model"
                   containsImg
-                  options={modelOptions ? modelOptions : []}
+                  options={modelOptions?.data ? modelOptions.data : []}
                   modalContent={<AddModel isModal />}
                   openModal={openModal}
                 />
@@ -192,9 +284,16 @@ const AddAsset = () => {
                   label="Status"
                   name="Status"
                   options={statusOptions ? statusOptions : []}
-                  modalContent={<div>Placeholder</div>}
-                  openModal={openModal}
+                  createButton={false}
                 />
+                {watchStatus?.id === Statuses.Deployed ? (
+                  <SelectInput
+                    label="User"
+                    name="currentHolder"
+                    options={users ? users.data : []}
+                    createButton={false}
+                  />
+                ) : null}
                 <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
                   <Accordion disableGutters>
                     <AccordionSummary
@@ -215,7 +314,7 @@ const AddAsset = () => {
                       <Grid alignContent="center" container display="flex" spacing={2}>
                         <MultiLineTextInput label="Notes" name="Notes" rows={4} />
                         <UploadImage buttonText="Upload photo" name="Photo" accept="image/*" />
-                        <TextInput label="Asset Name" name="AssetName" rules={{}} />
+
                         <TextInput
                           helperText="No. of  Months"
                           label="Waranty"
@@ -256,7 +355,6 @@ const AddAsset = () => {
                           rules={{}}
                           type="number"
                         />
-                        <UploadImage buttonText="Upload Receipt Image" name="Receipt" accept="*" />
                       </Grid>
                     </AccordionDetails>
                   </Accordion>

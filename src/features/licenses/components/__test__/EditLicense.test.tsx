@@ -15,16 +15,19 @@ import {
   fetchLicenseEditInfo,
 } from './mockApiHandlers';
 import { mswServer } from 'mocks/mswServer';
-
+import { SnackbarProvider } from 'notistack';
+jest.setTimeout(10000);
 const Provider = ({ children }: AppProviderProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <QueryClientProvider client={getQueryClient()}>
-        <MemoryRouter initialEntries={['/EditLicense/1']}>
-          <Routes>
-            <Route element={children} path={routePath.editLicense} />
-          </Routes>
-        </MemoryRouter>
+        <SnackbarProvider maxSnack={3}>
+          <MemoryRouter initialEntries={['/License/1/Edit']}>
+            <Routes>
+              <Route element={children} path={routePath.editLicense} />
+            </Routes>
+          </MemoryRouter>
+        </SnackbarProvider>
       </QueryClientProvider>
     </LocalizationProvider>
   );
@@ -45,7 +48,7 @@ describe('Edit license form', () => {
       screen.getAllByRole('button', {
         name: /edit/i,
       }).length,
-    ).toBe(2);
+    ).toBe(1);
   });
 
   it('inputs should have value', async () => {
@@ -66,9 +69,5 @@ describe('Edit license form', () => {
     expect(element.getQuantity()).toHaveValue();
     expect(await element.getExpirationDate()).toHaveValue();
     expect(await element.getLicensedTo()).toHaveValue();
-    expect(await element.getDateOfPurchase()).toHaveValue();
-    expect(await element.getOrderNumber()).toHaveValue();
-    expect(await element.getPurchaseCost()).toHaveValue();
-    expect(await element.getNotes()).toHaveValue();
   });
 });
