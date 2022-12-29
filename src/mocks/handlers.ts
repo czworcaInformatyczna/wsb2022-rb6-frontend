@@ -2,6 +2,7 @@ import {
   assetHandlers,
   loginHandlers,
   licensesHandlers,
+  dashboardHandlers,
   manufacturerHandlers,
   categoryHandlers,
   modelHandlers,
@@ -16,6 +17,7 @@ export const handlers = [
   ...manufacturerHandlers,
   ...categoryHandlers,
   ...modelHandlers,
+  ...dashboardHandlers,
   ...rolesHandlers,
   ...userHandlers,
 ];
