@@ -5,5 +5,6 @@ export * from './licensesHandlers';
 export * from './manufacturerHandlers';
 export * from './categoryHandlers';
 export * from './modelHandlers';
+export * from './dashboard';
 export * from './rolesHandlers';
 export * from './userHandlers';

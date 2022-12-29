@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@date-io/date-fns": "^2.16.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -11,6 +12,9 @@
     "@mui/types": "^7.1.5",
     "@mui/x-data-grid": "^5.17.3",
     "@mui/x-date-pickers": "^5.0.3",
+    "@nivo/bar": "^0.80.0",
+    "@nivo/core": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -22,6 +26,7 @@
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
     "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "material-ui-confirm": "^3.0.7",
     "moment": "^2.29.4",
     "notistack": "^2.0.8",
@@ -63,6 +68,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
+    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.20",
     "@types/react-router": "^5.1.18",
     "@types/uuid": "^8.3.4",

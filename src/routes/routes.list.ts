@@ -31,6 +31,7 @@ export const apiUrl = {
   addAssetModel: '/asset_model',
   manufacturerList: '/manufacturer',
   categoryList: '/asset_category',
+  statistics: '/statistics',
   componentCategoryList: '/asset_component_category',
   roles: '/role',
   rolesById: '/role/:id',
