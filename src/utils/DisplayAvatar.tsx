@@ -14,7 +14,6 @@ const DisplayAvatar = ({ url }: { url: string }) => {
   }, [image, url]);
   return (
     <Avatar
-      alt="Avatar"
       src={image}
       sx={{
         height: 30,

@@ -22,6 +22,7 @@ export const AssetsData: IDataProvider = {
   deleteHook: useDeleteAsset,
   detailsLink: '/AssetDetails/:id',
   name: 'Assets',
+  permission: 'Manage Assets',
   columns: [
     {
       field: 'id',
@@ -131,6 +132,7 @@ export const LicensesData: IDataProvider = {
   editLink: '/License/:id/Edit',
   detailsLink: '/License/:id/Details',
   name: 'Licenses',
+  permission: 'Manage Licences',
   columns: [
     {
       field: 'id',
@@ -224,6 +226,7 @@ export const ModelsData: IDataProvider = {
   deleteHook: useDeleteModel,
   detailsLink: null,
   name: 'Models',
+  permission: 'Manage Models',
   columns: [
     {
       field: 'id',
@@ -275,6 +278,7 @@ export const RolesData: IDataProvider = {
   deleteHook: useDeleteRole,
   detailsLink: '/Roles/Details/:id',
   name: 'Roles',
+  permission: 'Manage Roles',
   columns: [
     {
       field: 'id',
@@ -320,6 +324,7 @@ export const UsersData: IDataProvider = {
   deleteHook: useDeleteUser,
   detailsLink: '/Users/Details/:id',
   name: 'Users',
+  permission: 'Manage Users',
   columns: [
     {
       field: 'id',
@@ -400,6 +405,7 @@ export const ComponentsData: IDataProvider = {
   deleteHook: useDeleteComponent,
   detailsLink: null,
   name: 'Components',
+  permission: 'Manage Components',
   columns: [
     {
       field: 'id',
@@ -463,6 +469,7 @@ export const ManufacturerData: IDataProvider = {
   deleteHook: useDeleteManufacturers,
   detailsLink: null,
   name: 'Manufacturers',
+  permission: 'Manage Manufacturers',
   columns: [
     {
       field: 'id',
@@ -494,6 +501,7 @@ export const CategoriesData: IDataProvider = {
   deleteHook: useDeleteCategories,
   detailsLink: null,
   name: 'Categories',
+  permission: 'Manage Categories',
   columns: [
     {
       field: 'category_id',

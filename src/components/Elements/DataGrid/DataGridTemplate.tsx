@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { type ContextMenu, type AssetsProps, CustomToolbar, type ISort } from 'features/assets';
 import { type GridColumnVisibilityModel } from '@mui/x-data-grid';
 import { type GridColumns } from '@mui/x-data-grid';
@@ -23,8 +23,11 @@ import { CreateModal } from '../CreateModal';
 import { routePath } from 'routes';
 import { convertToExportUrl } from 'utils/convertToExportUrl';
 import downloadFile from 'utils/downloadFile';
+import { PermissionContext } from 'providers/Permissions/Permission.provider';
 
 export const DataGridTemplate = (Props: AssetsProps) => {
+  const permission = useContext(PermissionContext);
+  const [isManage, setIsManage] = useState<boolean>(false);
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
@@ -78,7 +81,11 @@ export const DataGridTemplate = (Props: AssetsProps) => {
 
   React.useEffect(() => {
     getDataGridState();
-  }, [getDataGridState]);
+    if (permission) {
+      const check = permission.find((perm) => Props.data.permission === perm);
+      setIsManage(check ? true : false);
+    }
+  }, [Props.data.permission, getDataGridState, permission]);
 
   const navigate = useNavigate();
   const saveColumnsVisibility = (newVisibilityModel: GridColumnVisibilityModel) => {
@@ -209,7 +216,9 @@ export const DataGridTemplate = (Props: AssetsProps) => {
       width: 150,
     },
   ];
-  const columnsWithAction: GridColumns = [...Props.data.columns, ...actions];
+  const columnsWithAction: GridColumns = isManage
+    ? [...Props.data.columns, ...actions]
+    : [...Props.data.columns];
   return (
     <Box
       sx={{
@@ -239,14 +248,16 @@ export const DataGridTemplate = (Props: AssetsProps) => {
           </Grid>
           <Grid item lg={3} md={3} sm={6} xl={3} xs={6}>
             <Box display="flex" justifyContent="end" mr={2}>
-              <Button
-                color="success"
-                onClick={() => navigate(Props.data.addNewLink)}
-                size="medium"
-                variant="contained"
-              >
-                Add new
-              </Button>
+              {isManage && (
+                <Button
+                  color="success"
+                  onClick={() => navigate(Props.data.addNewLink)}
+                  size="medium"
+                  variant="contained"
+                >
+                  Add new
+                </Button>
+              )}
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -350,16 +361,18 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                 </MenuItem>
               )}
               {Props.data.name === 'Assets' && [
-                <MenuItem
-                  key="ChangeStatus"
-                  onClick={() => {
-                    navigate(
-                      convertUrl(routePath.assetChangeStatus, { id: contextMenu?.elementId }),
-                    );
-                  }}
-                >
-                  Change status
-                </MenuItem>,
+                isManage && (
+                  <MenuItem
+                    key="ChangeStatus"
+                    onClick={() => {
+                      navigate(
+                        convertUrl(routePath.assetChangeStatus, { id: contextMenu?.elementId }),
+                      );
+                    }}
+                  >
+                    Change status
+                  </MenuItem>
+                ),
                 <MenuItem
                   key="GenerateLabels"
                   onClick={() => {
@@ -369,8 +382,8 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   Generate Label
                 </MenuItem>,
               ]}
-              <MenuItem onClick={() => {}}>Clone</MenuItem>
-              {Props.data.editLink !== null && (
+              {isManage && <MenuItem onClick={() => {}}>Clone</MenuItem>}
+              {Props.data.editLink !== null && isManage && (
                 <MenuItem
                   onClick={() => {
                     if (Props.data.editLink !== null)
@@ -380,13 +393,15 @@ export const DataGridTemplate = (Props: AssetsProps) => {
                   Edit
                 </MenuItem>
               )}
-              <MenuItem
-                onClick={() =>
-                  handleDelete(contextMenu?.elementId ? contextMenu.elementId.toString() : '')
-                }
-              >
-                Delete
-              </MenuItem>
+              {isManage && (
+                <MenuItem
+                  onClick={() =>
+                    handleDelete(contextMenu?.elementId ? contextMenu.elementId.toString() : '')
+                  }
+                >
+                  Delete
+                </MenuItem>
+              )}
             </Menu>
           </Grid>
         </Grid>

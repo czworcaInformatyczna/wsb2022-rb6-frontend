@@ -20,11 +20,11 @@ export const SearchInput = () => {
 
   return (
     <Box>
-      <div ref={divRef}>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <div ref={divRef}>
           <StyledInputBase
             inputProps={{
               'aria-label': 'search',
@@ -34,13 +34,20 @@ export const SearchInput = () => {
               setAnchorEl(divRef.current);
               setSearch(e.target.value);
             }}
+            onBlur={clearSearch}
             value={search}
           />
-        </Search>
-      </div>
-      <Popper open={results !== undefined} placement="bottom" disablePortal anchorEl={anchorEl}>
-        <ResultList results={results ? results : []} clear={clearSearch} />
-      </Popper>
+        </div>
+        <Popper
+          onMouseDown={(e) => e.preventDefault()}
+          open={results !== undefined}
+          placement="bottom"
+          disablePortal
+          anchorEl={anchorEl}
+        >
+          <ResultList results={results ? results : []} clear={clearSearch} />
+        </Popper>
+      </Search>
     </Box>
   );
 };

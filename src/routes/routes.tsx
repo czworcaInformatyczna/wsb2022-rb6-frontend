@@ -30,6 +30,8 @@ import { MyProfile } from 'features/users/components/MyProfile';
 import UploadAvatar from 'features/users/components/UploadAvatar';
 import UpdatePhoneNumber from 'features/users/components/UpdatePhoneNumber';
 import { ForgotPassword } from 'features/users/components/ForgotPassword';
+import { CheckPermission } from './CheckPermission';
+import { NotPermitted } from 'components/PageNotFound/NotPermitted';
 
 export const AppRoutes = (): JSX.Element => (
   <Routes>
@@ -77,11 +79,6 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Licenses" data={columns.LicensesData} />}
           path={routePath.licenses}
         />
-        <Route element={<AddAsset key="AddAsset" />} path={routePath.addAsset} />
-        <Route element={<AddAsset key="EditAsset" />} path={routePath.editAsset} />
-        <Route element={<AddLicense key="AddLicense" />} path={routePath.addLicense} />
-        <Route element={<AddLicense key="EditLicense" />} path={routePath.editLicense} />
-        <Route element={<AssetDetails />} path={routePath.assetDetails} />
         <Route
           element={<DataGridTemplate key="Components" data={columns.ComponentsData} />}
           path={routePath.components}
@@ -90,18 +87,6 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Categories" data={columns.CategoriesData} />}
           path={routePath.categories}
         />
-        <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
-        <Route
-          element={<AddManufacturer key="AddManufacturer" />}
-          path={routePath.addManufacturer}
-        />
-        <Route
-          element={<AddManufacturer key="EditManufacturer" />}
-          path={routePath.editManufacturer}
-        />
-        <Route element={<AddCategory />} path={routePath.addCategory} />
-        <Route element={<AddModel key="AddModel" />} path={routePath.addModel} />
-        <Route element={<AddModel key="EditModel" />} path={routePath.editModel} />
         <Route
           element={<DataGridTemplate key="Models" data={columns.ModelsData} />}
           path={routePath.models}
@@ -114,34 +99,69 @@ export const AppRoutes = (): JSX.Element => (
           element={<DataGridTemplate key="Manufacturers" data={columns.ManufacturerData} />}
           path={routePath.manufacturers}
         />
-        <Route element={<AddRole key="AddRole" />} path={routePath.addRole} />
-        <Route element={<AddRole key="EditRole" />} path={routePath.editRole} />
-        <Route element={<RoleDetails />} path={routePath.roleDetails} />
         <Route
           element={<DataGridTemplate key="Users" data={columns.UsersData} />}
           path={routePath.users}
         />
-        <Route element={<AddUser key="AddUser" />} path={routePath.addUser} />
-        <Route element={<AddUser key="EditUser" />} path={routePath.editUser} />
+        <Route element={<AssetDetails />} path={routePath.assetDetails} />
+        <Route element={<LicenseDetails />} path={routePath.licenseDetails} />
+        <Route element={<RoleDetails />} path={routePath.roleDetails} />
         <Route element={<UserDetails />} path={routePath.userDetails} />
-        <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
-        <Route element={<AddUserToRole />} path={routePath.addToRole} />
-        <Route
-          element={<AddMaintenance key="AddMaintenance" />}
-          path={routePath.addAssetMaintenance}
-        />
-        <Route
-          element={<AddMaintenance key="EditMaintenance" />}
-          path={routePath.editAssetMaintenances}
-        />
-        <Route element={<AddComponent key="AddComponent" />} path={routePath.addComponent} />
-        <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
-        <Route element={<DeployLicense />} path={routePath.deployLicense} />
+        <Route element={<CheckPermission required="Manage Assets" />}>
+          <Route element={<AddAsset key="AddAsset" />} path={routePath.addAsset} />
+          <Route element={<AddAsset key="EditAsset" />} path={routePath.editAsset} />
+          <Route element={<ChangeStatus />} path={routePath.assetChangeStatus} />
+          <Route
+            element={<AddMaintenance key="AddMaintenance" />}
+            path={routePath.addAssetMaintenance}
+          />
+          <Route
+            element={<AddMaintenance key="EditMaintenance" />}
+            path={routePath.editAssetMaintenances}
+          />
+        </Route>
+        <Route element={<CheckPermission required="Manage Licences" />}>
+          <Route element={<AddLicense key="AddLicense" />} path={routePath.addLicense} />
+          <Route element={<AddLicense key="EditLicense" />} path={routePath.editLicense} />
+          <Route element={<DeployLicense />} path={routePath.deployLicense} />
+        </Route>
+        <Route element={<CheckPermission required="Manage Manufacturers" />}>
+          <Route
+            element={<AddManufacturer key="AddManufacturer" />}
+            path={routePath.addManufacturer}
+          />
+          <Route
+            element={<AddManufacturer key="EditManufacturer" />}
+            path={routePath.editManufacturer}
+          />
+        </Route>
+        <Route element={<CheckPermission required="Manage Categories" />}>
+          <Route element={<AddCategory />} path={routePath.addCategory} />
+        </Route>
+        <Route element={<CheckPermission required="Manage Models" />}>
+          <Route element={<AddModel key="AddModel" />} path={routePath.addModel} />
+          <Route element={<AddModel key="EditModel" />} path={routePath.editModel} />
+        </Route>
+        <Route element={<CheckPermission required="Manage Roles" />}>
+          <Route element={<AddRole key="AddRole" />} path={routePath.addRole} />
+          <Route element={<AddRole key="EditRole" />} path={routePath.editRole} />
+          <Route element={<AddUserToRole />} path={routePath.addToRole} />
+        </Route>
+        <Route element={<CheckPermission required="Manage Users" />}>
+          <Route element={<AddUser key="AddUser" />} path={routePath.addUser} />
+          <Route element={<AddUser key="EditUser" />} path={routePath.editUser} />
+        </Route>
+        <Route element={<CheckPermission required="Manage Components" />}>
+          <Route element={<AddComponent key="AddComponent" />} path={routePath.addComponent} />
+          <Route element={<AddComponent key="EditComponent" />} path={routePath.editComponent} />
+        </Route>
+
         <Route element={<ChangePassword />} path={routePath.changePassword} />
         <Route element={<MyProfile />} path={routePath.profile} />
         <Route element={<UploadAvatar />} path={routePath.avatar} />
         <Route element={<UpdatePhoneNumber />} path={routePath.phoneNumber} />
         <Route path="/*" element={<PageNotFound />} />
+        <Route path="/PermissionDenied" element={<NotPermitted />} />
       </Route>
     </Route>
   </Routes>

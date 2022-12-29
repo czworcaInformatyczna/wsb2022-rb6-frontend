@@ -121,6 +121,7 @@ export interface IDataProvider {
   exportLink: string;
   getDataHook: (params: IDataProviderSettings, enable?: boolean) => any;
   name: string;
+  permission: string;
 }
 
 export interface IDataProviderSettings {
