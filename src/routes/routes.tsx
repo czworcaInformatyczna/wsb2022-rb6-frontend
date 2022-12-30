@@ -41,6 +41,7 @@ export const AppRoutes = (): JSX.Element => (
       <Route path={routePath.main} element={<Layout />}>
         {/* <AppRoutes /> */}
         <Route path={routePath.dashboard} element={<Dashboard />} />
+        <Route path={routePath.main} element={<Dashboard />} />
         <Route path={routePath.accessories} element={<Accessories />} />
         <Route element={<DataGridTemplate data={columns.AssetsData} />} path={routePath.assets} />
         <Route

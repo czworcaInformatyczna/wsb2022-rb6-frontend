@@ -50,7 +50,7 @@ const UserLicenses = ({ licenses }: { licenses: ILicense[] }) => {
                           </Link>
                         </TableCell>
                         <TableCell>
-                          <Link to={convertUrl(routePath.assetDetails, { id: license.id })}>
+                          <Link to={convertUrl(routePath.licenseDetails, { id: license.id })}>
                             <Typography color="text.primary"> {license.product_key} </Typography>
                           </Link>
                         </TableCell>

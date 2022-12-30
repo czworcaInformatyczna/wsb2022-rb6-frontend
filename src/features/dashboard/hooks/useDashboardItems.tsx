@@ -5,9 +5,11 @@ import {
   getManufacturerProps,
   getAssetStatusesProps,
 } from 'features/dashboard';
+import { routePath } from 'routes';
 
 interface IDashboardItems {
   chart: JSX.Element;
+  link: string;
   title: string;
 }
 
@@ -18,16 +20,19 @@ export const useDashboardItems = () => {
   if (data) {
     dashboardItems = [
       {
-        title: 'Asset Categories',
-        chart: <Bar {...getAssetCategoriesProps(data.assetCategory)} />,
-      },
-      {
         title: 'Manufacturer',
         chart: <Donut {...getManufacturerProps(data.manufacturer)} />,
+        link: routePath.manufacturers,
       },
       {
         title: 'Asset Statuses',
         chart: <Donut {...getAssetStatusesProps(data.assetStatus)} />,
+        link: routePath.assets,
+      },
+      {
+        title: 'Asset Categories',
+        chart: <Bar {...getAssetCategoriesProps(data.assetCategory)} />,
+        link: routePath.categories,
       },
     ];
   }

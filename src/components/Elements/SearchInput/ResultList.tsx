@@ -74,7 +74,7 @@ const ResultList = ({ results, clear }: { clear: () => void; results: any[] }) =
       sx={{
         backgroundColor: 'background.default',
         border: 1,
-        borderColor: 'secondary.main',
+        borderColor: 'primary.main',
         width: '233px',
       }}
     >
@@ -93,7 +93,7 @@ const ResultList = ({ results, clear }: { clear: () => void; results: any[] }) =
                     width: '100%',
                     '&:hover': {
                       backgroundColor: 'rgba(0,0,0,0.30)',
-                      color: 'secondary.main',
+                      color: 'primary.main',
                       cursor: 'pointer',
                     },
                   }}

@@ -8,6 +8,7 @@ import { BackgroundContainer, LoginBox, ActionButton, focusColors } from 'featur
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { routePath } from 'routes';
+import { inputLabelClasses } from '@mui/material/InputLabel';
 
 export const Login: FC = (): JSX.Element => {
   const {
@@ -90,6 +91,19 @@ export const Login: FC = (): JSX.Element => {
                       size="small"
                       variant="outlined"
                       sx={focusColors}
+                      inputProps={{
+                        sx: {
+                          color: '#d8dee8',
+                        },
+                      }}
+                      InputLabelProps={{
+                        sx: {
+                          color: 'rgba(255, 255, 255, 0.7)',
+                          [`&.${inputLabelClasses.shrink}`]: {
+                            color: 'rgba(255, 255, 255, 0.7)',
+                          },
+                        },
+                      }}
                     />
                   )}
                 />
@@ -111,7 +125,20 @@ export const Login: FC = (): JSX.Element => {
                       size="small"
                       variant="outlined"
                       type="password"
-                      sx={{ marginTop: '5%', ...focusColors }}
+                      sx={{ marginTop: '5%', ...focusColors, color: 'red' }}
+                      inputProps={{
+                        sx: {
+                          color: '#d8dee8',
+                        },
+                      }}
+                      InputLabelProps={{
+                        sx: {
+                          color: 'rgba(255, 255, 255, 0.7)',
+                          [`&.${inputLabelClasses.shrink}`]: {
+                            color: 'rgba(255, 255, 255, 0.7)',
+                          },
+                        },
+                      }}
                     />
                   )}
                 />

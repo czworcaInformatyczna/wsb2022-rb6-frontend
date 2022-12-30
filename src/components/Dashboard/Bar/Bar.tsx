@@ -31,6 +31,18 @@ export const Bar = (props: Partial<Omit<BarSvgProps<BarDatum>, 'height' | 'width
           fill: palette.text.primary,
         },
       },
+      tooltip: {
+        container: {
+          background: '#ffffff',
+          color: '#333333',
+          fontSize: 20,
+        },
+        basic: {},
+        chip: {},
+        table: {},
+        tableCell: {},
+        tableCellValue: {},
+      },
     },
     margin: { top: 50, right: 130, bottom: 50, left: 60 },
     padding: 0.3,
