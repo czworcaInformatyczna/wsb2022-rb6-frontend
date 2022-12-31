@@ -538,3 +538,14 @@ export const allCategoryList = {
   ],
   total: 3,
 };
+
+export const userPermissionsList = [
+  'Manage Roles',
+  'Manage Users',
+  'Manage Licences',
+  'Manage Assets',
+  'Manage Manufacturers',
+  'Manage Categories',
+  'Manage Components',
+  'Manage Models',
+];

@@ -1,4 +1,4 @@
-import { usersList } from 'mocks/mockData';
+import { userPermissionsList, usersList } from 'mocks/mockData';
 import { rest } from 'msw';
 import { apiUrl } from 'routes';
 import { url } from 'utils';
@@ -27,4 +27,16 @@ const userAvatar = rest.get(url('/avatar'), (req, res, ctx) => {
   return res(ctx.status(200));
 });
 
-export const userHandlers = [users, createUser, userDetails, deleteUser, editUser, userAvatar];
+const permissions = rest.get(url('/user/permissions'), (req, res, ctx) => {
+  return res(ctx.status(200), ctx.json(userPermissionsList));
+});
+
+export const userHandlers = [
+  permissions,
+  users,
+  createUser,
+  userDetails,
+  deleteUser,
+  editUser,
+  userAvatar,
+];
