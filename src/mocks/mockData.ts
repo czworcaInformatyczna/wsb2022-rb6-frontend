@@ -109,7 +109,7 @@ export const assetLicenses = {
     {
       id: '1',
       name: 'Photoshop',
-      key: 'ba81-874f-3fbe-99b9-30624',
+      product_key: 'ba81-874f-3fbe-99b9-30624',
       expiration_date: '22.12.2032',
     },
   ],
