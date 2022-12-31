@@ -8,7 +8,7 @@ import { fetchAssetEmptyResponse } from './mockApiHandlers';
 const Provider = () => {
   return (
     <AppProvider>
-      <AssetFiles id={1} />
+      <AssetFiles id={1} isManage />
     </AppProvider>
   );
 };

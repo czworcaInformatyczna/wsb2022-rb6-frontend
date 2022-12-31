@@ -26,7 +26,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useSnackbar } from 'notistack';
 import { useConfirm } from 'material-ui-confirm';
 
-export const AssetMaintenance = ({ id }: { id: number }) => {
+export const AssetMaintenance = ({ id, isManage }: { id: number; isManage: boolean }) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
@@ -84,16 +84,18 @@ export const AssetMaintenance = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => navigate(convertUrl(routePath.addAssetMaintenance, { id }))}
-        sx={{
-          ml: 2,
-        }}
-      >
-        Add maintenance
-      </Button>
+      {isManage && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => navigate(convertUrl(routePath.addAssetMaintenance, { id }))}
+          sx={{
+            ml: 2,
+          }}
+        >
+          Add maintenance
+        </Button>
+      )}
       {isArrayEmpty(maintenances?.data) ? (
         <NoResult />
       ) : (

@@ -8,7 +8,7 @@ import { fetchAssetEmptyResponse, fetchLicenseDeployment } from './mockApiHandle
 const Provider = () => {
   return (
     <AppProvider>
-      <LicenseDeployment reassignable id={1} />
+      <LicenseDeployment reassignable id={1} isManage />
     </AppProvider>
   );
 };

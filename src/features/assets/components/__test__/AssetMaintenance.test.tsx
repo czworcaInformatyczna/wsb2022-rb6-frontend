@@ -8,7 +8,7 @@ import { fetchAssetEmptyResponse, fetchAssetsMaintenances } from './mockApiHandl
 const Provider = () => {
   return (
     <AppProvider>
-      <AssetMaintenance id={1} />
+      <AssetMaintenance id={1} isManage />
     </AppProvider>
   );
 };

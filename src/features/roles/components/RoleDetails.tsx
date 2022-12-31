@@ -1,5 +1,5 @@
 import { Box, Grid, MenuItem, Tab, Tabs, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
@@ -16,9 +16,12 @@ import GroupIcon from '@mui/icons-material/Group';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
 import Permissions from './Permissions';
 import RoleUsers from './RoleUsers';
+import { PermissionContext } from 'providers/Permissions/Permission.provider';
 
 export const RoleDetails = () => {
   const { id } = useParams();
+  const permission = useContext(PermissionContext);
+  const [isManage, setIsManage] = useState<boolean>(false);
   const navigate = useNavigate();
   const deleteRole = useDeleteRole();
   const theme = useTheme();
@@ -38,7 +41,12 @@ export const RoleDetails = () => {
     if (!Number(id)) {
       navigate(routePath.pageNotFound);
     }
-  }, [id, navigate]);
+
+    if (permission) {
+      const check = permission.find((perm) => 'Manage Roles' === perm);
+      setIsManage(check ? true : false);
+    }
+  }, [id, navigate, permission]);
 
   const handleDeleteRole = () => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
@@ -93,15 +101,17 @@ export const RoleDetails = () => {
             </Typography>
           </Grid>
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
-            <ActionMenu>
-              <MenuItem
-                onClick={() => navigate(convertUrl(routePath.addToRole, { id: role?.role.name }))}
-              >
-                Add users to role
-              </MenuItem>
-              <MenuItem onClick={() => navigate('/Roles/Edit/' + id)}>Edit</MenuItem>
-              <MenuItem onClick={handleDeleteRole}>Delete</MenuItem>
-            </ActionMenu>
+            {isManage && (
+              <ActionMenu>
+                <MenuItem
+                  onClick={() => navigate(convertUrl(routePath.addToRole, { id: role?.role.name }))}
+                >
+                  Add users to role
+                </MenuItem>
+                <MenuItem onClick={() => navigate('/Roles/Edit/' + id)}>Edit</MenuItem>
+                <MenuItem onClick={handleDeleteRole}>Delete</MenuItem>
+              </ActionMenu>
+            )}
           </Grid>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
             <Box sx={{ maxWidth: { xl: '100%', lg: '100%', md: '100%', xs: 320, sm: 480 } }}>

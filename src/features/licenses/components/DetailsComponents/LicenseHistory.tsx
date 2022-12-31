@@ -69,11 +69,14 @@ export const LicenseHistory = ({ id }: { id: number }) => {
                         <TableCell>{changeDateTimeFormat(action.created_at)}</TableCell>
                         <TableCell>{action.user.email}</TableCell>
                         <TableCell>{action.action}</TableCell>
-                        <TableCell>
-                          {action.licencable.email
-                            ? action.licencable.email
-                            : action.licencable.name}
-                        </TableCell>
+                        {action.licencable !== null && (
+                          <TableCell>
+                            {action.licencable?.email
+                              ? action.licencable.email
+                              : action.licencable.name}
+                          </TableCell>
+                        )}
+                        {action.licencable === null && <TableCell>[Target deleted]</TableCell>}
                       </TableRow>
                     );
                   })}
