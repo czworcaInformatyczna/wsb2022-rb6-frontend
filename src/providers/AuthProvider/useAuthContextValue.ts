@@ -10,7 +10,7 @@ export const useAuthContextValue = () => {
 
   useEffect(() => {
     if (auth.email === null) {
-      const email = Cookies.get('inven_app_email');
+      const email = Cookies.get(emailCookie);
       if (email) setAuth({ email: email, token: null });
     }
   }, [auth.email]);
