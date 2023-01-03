@@ -23,6 +23,10 @@ const handleError = (error: any) => {
     Cookies.remove(permissionCookie);
     if (error.config.url !== '/login') window.location.href = '/login';
   }
+
+  if (status === 404) {
+    window.location.href = '/PageNotFound';
+  }
 };
 
 export const apiClient = axios.create({
