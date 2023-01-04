@@ -24,7 +24,7 @@ import { useTheme } from '@mui/material/styles';
 import { getVariant } from 'utils';
 import { useSnackbar } from 'notistack';
 
-export const AssetFiles = ({ id }: { id: number }) => {
+export const AssetFiles = ({ id, isManage }: { id: number; isManage: boolean }) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
@@ -83,9 +83,11 @@ export const AssetFiles = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
-        Upload file
-      </Button>
+      {isManage && (
+        <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
+          Upload file
+        </Button>
+      )}
       {isArrayEmpty(files?.data) ? (
         <NoResult />
       ) : (
@@ -135,14 +137,16 @@ export const AssetFiles = ({ id }: { id: number }) => {
                           >
                             Download
                           </Button>
-                          <Button
-                            variant="contained"
-                            sx={{ margin: 1 }}
-                            onClick={() => handleDelete(file.id)}
-                            color="error"
-                          >
-                            Delete
-                          </Button>
+                          {isManage && (
+                            <Button
+                              variant="contained"
+                              sx={{ margin: 1 }}
+                              onClick={() => handleDelete(file.id)}
+                              color="error"
+                            >
+                              Delete
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     );

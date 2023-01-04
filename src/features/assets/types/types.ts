@@ -121,6 +121,7 @@ export interface IDataProvider {
   exportLink: string;
   getDataHook: (params: IDataProviderSettings, enable?: boolean) => any;
   name: string;
+  permission: string;
 }
 
 export interface IDataProviderSettings {
@@ -128,6 +129,8 @@ export interface IDataProviderSettings {
   export?: boolean | string;
   item_id?: number;
   item_type?: string;
+  model?: string;
+  model_id?: number;
   page?: number | string;
   per_page?: number | string;
   search?: string;

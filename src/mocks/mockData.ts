@@ -109,7 +109,7 @@ export const assetLicenses = {
     {
       id: '1',
       name: 'Photoshop',
-      key: 'ba81-874f-3fbe-99b9-30624',
+      product_key: 'ba81-874f-3fbe-99b9-30624',
       expiration_date: '22.12.2032',
     },
   ],
@@ -538,3 +538,14 @@ export const allCategoryList = {
   ],
   total: 3,
 };
+
+export const userPermissionsList = [
+  'Manage Roles',
+  'Manage Users',
+  'Manage Licences',
+  'Manage Assets',
+  'Manage Manufacturers',
+  'Manage Categories',
+  'Manage Components',
+  'Manage Models',
+];

@@ -23,7 +23,7 @@ export const AssetInfo = ({ id }: { id: number }) => {
   useEffect(() => {
     if (assetDetails?.has_image) {
       getAvatar(convertUrl(apiUrl.assetsById, { id }) + '/image.' + assetDetails.image_extension)
-        .then((response) => setImage(<img src={response} alt="Asset" />))
+        .then((response) => setImage(<img src={response} width="80%" alt="Asset" />))
         .catch((e) => console.log(e));
     }
   }, [assetDetails?.has_image, assetDetails?.image_extension, id]);

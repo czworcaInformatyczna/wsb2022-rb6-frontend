@@ -1,5 +1,5 @@
 import { Box, Grid, MenuItem, Tab, Tabs, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
 import { TabPanel } from 'features/assets/components/detailsComponents/TabPanel';
@@ -19,9 +19,12 @@ import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
 import { LicenseHistory } from './DetailsComponents/LicenseHistory';
 import { LicensesFiles } from './DetailsComponents/LicensesFiles';
 import FolderIcon from '@mui/icons-material/Folder';
+import { PermissionContext } from 'providers/Permissions/Permission.provider';
 
 export const LicenseDetails = () => {
   const { id } = useParams();
+  const permission = useContext(PermissionContext);
+  const [isManage, setIsManage] = useState<boolean>(false);
   const [tab, setTab] = useState(0);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -37,7 +40,12 @@ export const LicenseDetails = () => {
     if (!Number(id)) {
       navigate(routePath.pageNotFound);
     }
-  }, [id, navigate]);
+
+    if (permission) {
+      const check = permission.find((perm) => 'Manage Licences' === perm);
+      setIsManage(check ? true : false);
+    }
+  }, [id, navigate, permission]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -93,18 +101,20 @@ export const LicenseDetails = () => {
           </Typography>
         </Grid>
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
-          <ActionMenu>
-            <MenuItem
-              disabled={licenseDetails ? licenseDetails?.remaining_slots < 1 : true}
-              onClick={() => navigate(convertUrl(routePath.deployLicense, { id: id }))}
-            >
-              Deploy
-            </MenuItem>
-            <MenuItem onClick={() => navigate(convertUrl(routePath.editLicense, { id: id }))}>
-              Edit
-            </MenuItem>
-            <MenuItem onClick={handleDelete}>Delete</MenuItem>
-          </ActionMenu>
+          {isManage && (
+            <ActionMenu>
+              <MenuItem
+                disabled={licenseDetails ? licenseDetails?.remaining_slots < 1 : true}
+                onClick={() => navigate(convertUrl(routePath.deployLicense, { id: id }))}
+              >
+                Deploy
+              </MenuItem>
+              <MenuItem onClick={() => navigate(convertUrl(routePath.editLicense, { id: id }))}>
+                Edit
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+            </ActionMenu>
+          )}
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <Box sx={{ maxWidth: { xl: '100%', lg: '100%', md: '100%', xs: 320, sm: 480 } }}>
@@ -133,6 +143,7 @@ export const LicenseDetails = () => {
           </TabPanel>
           <TabPanel tab={tab} index={1}>
             <LicenseDeployment
+              isManage={isManage}
               reassignable={licenseDetails?.reassignable ? licenseDetails?.reassignable : false}
               id={Number(id)}
             />
@@ -141,7 +152,7 @@ export const LicenseDetails = () => {
             <LicenseHistory id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={3}>
-            <LicensesFiles id={Number(id)} />
+            <LicensesFiles id={Number(id)} isManage={isManage} />
           </TabPanel>
         </Grid>
       </Grid>

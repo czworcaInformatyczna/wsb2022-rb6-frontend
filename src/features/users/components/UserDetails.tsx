@@ -1,5 +1,5 @@
 import { Box, Grid, MenuItem, Tab, Tabs, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiUrl, routePath } from 'routes';
@@ -19,9 +19,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import UserAssets from './UserAssets';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import UserLicenses from './AssetLicenses';
+import { PermissionContext } from 'providers/Permissions/Permission.provider';
 
 export const UserDetails = () => {
   const { id } = useParams();
+  const permission = useContext(PermissionContext);
+  const [isManage, setIsManage] = useState<boolean>(false);
   const navigate = useNavigate();
   const deleteUser = useDeleteUser();
   const theme = useTheme();
@@ -41,7 +44,12 @@ export const UserDetails = () => {
     if (!Number(id)) {
       navigate(routePath.pageNotFound);
     }
-  }, [id, navigate]);
+
+    if (permission) {
+      const check = permission.find((perm) => 'Manage Users' === perm);
+      setIsManage(check ? true : false);
+    }
+  }, [id, navigate, permission]);
 
   const handleDeleteUser = () => {
     const bgColor = { sx: { backgroundColor: theme.palette.background.paper } };
@@ -96,10 +104,12 @@ export const UserDetails = () => {
             </Typography>
           </Grid>
           <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
-            <ActionMenu>
-              <MenuItem onClick={() => navigate('/Users/Edit/' + id)}>Edit</MenuItem>
-              <MenuItem onClick={handleDeleteUser}>Delete</MenuItem>
-            </ActionMenu>
+            {isManage && (
+              <ActionMenu>
+                <MenuItem onClick={() => navigate('/Users/Edit/' + id)}>Edit</MenuItem>
+                <MenuItem onClick={handleDeleteUser}>Delete</MenuItem>
+              </ActionMenu>
+            )}
           </Grid>
           <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
             <Box sx={{ maxWidth: { xl: '100%', lg: '100%', md: '100%', xs: 320, sm: 480 } }}>

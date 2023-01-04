@@ -14,33 +14,39 @@ export const BackgroundContainer = styled(Container)(({ theme }) => {
   };
 });
 
-export const LoginBox = styled(Box)(({ theme }) => {
+export const LoginBox = styled(Box)(() => {
   return {
-    backgroundColor: theme.palette.background.dark,
+    backgroundColor: '#2C387E',
     height: '100vh',
     minHeight: '120%',
     minWidth: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderLeft: '2px solid ' + theme.palette.primary.main,
+    borderLeft: '2px solid #0A7FB1',
   };
 });
 
-export const ActionButton = styled(Button)(({ theme }) => {
+export const ActionButton = styled(Button)(() => {
   return {
+    backgroundColor: '#3f51b5',
     display: 'flex',
     margin: 'auto',
     marginTop: '5%',
-    color: theme.palette.text.primary,
+    color: '#ffffff',
   };
 });
 
 export const focusColors = {
-  '& .MuiInputLabel-root.Mui-focused': { color: 'secondary.main' },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+    },
+  },
+  '& .MuiInputLabel-root.Mui-focused': { color: '#0A7FB1' },
   '& .MuiOutlinedInput-root.Mui-focused': {
     '& > fieldset': {
-      borderColor: 'secondary.main',
+      borderColor: '#0A7FB1',
     },
   },
 };

@@ -17,7 +17,15 @@ import { useSnackbar } from 'notistack';
 import { apiUrl } from 'routes';
 import { convertUrl, getVariant, isArrayEmpty } from 'utils';
 
-export const LicenseDeployment = ({ id, reassignable }: { id: number; reassignable: boolean }) => {
+export const LicenseDeployment = ({
+  id,
+  reassignable,
+  isManage,
+}: {
+  id: number;
+  isManage: boolean;
+  reassignable: boolean;
+}) => {
   const { data: licenseDeploys } = useGetAssetsDataById<ILicenseDeploys>(
     Number(id),
     convertUrl(apiUrl.licenseDeploys, { id: id }),
@@ -78,13 +86,15 @@ export const LicenseDeployment = ({ id, reassignable }: { id: number; reassignab
                         <TableCell>{deploy.email}</TableCell>
                         <TableCell>User</TableCell>
                         <TableCell align="right">
-                          <Button
-                            onClick={() => handleDetach('user', deploy.id)}
-                            variant="contained"
-                            color="error"
-                          >
-                            Return
-                          </Button>
+                          {isManage && reassignable && (
+                            <Button
+                              onClick={() => handleDetach('user', deploy.id)}
+                              variant="contained"
+                              color="error"
+                            >
+                              Return
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     );
@@ -95,7 +105,7 @@ export const LicenseDeployment = ({ id, reassignable }: { id: number; reassignab
                         <TableCell>{deploy.name}</TableCell>
                         <TableCell>Asset</TableCell>
                         <TableCell align="right">
-                          {reassignable && (
+                          {isManage && reassignable && (
                             <Button
                               onClick={() => handleDetach('asset', deploy.id)}
                               variant="contained"

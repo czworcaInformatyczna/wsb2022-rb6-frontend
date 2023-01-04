@@ -27,7 +27,7 @@ import NoResult from 'features/assets/components/detailsComponents/noResult';
 import UploadFile from 'features/assets/components/detailsComponents/UploadFile';
 import { useDeleteLicenseFile } from 'features/licenses/api';
 
-export const LicensesFiles = ({ id }: { id: number }) => {
+export const LicensesFiles = ({ id, isManage }: { id: number; isManage: boolean }) => {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const confirm = useConfirm();
@@ -86,9 +86,11 @@ export const LicensesFiles = ({ id }: { id: number }) => {
 
   return (
     <Box mb={4}>
-      <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
-        Upload file
-      </Button>
+      {isManage && (
+        <Button color="primary" variant="contained" onClick={() => setOpen(true)} sx={{ ml: 2 }}>
+          Upload file
+        </Button>
+      )}
       {isArrayEmpty(files?.data) ? (
         <NoResult />
       ) : (
@@ -138,14 +140,16 @@ export const LicensesFiles = ({ id }: { id: number }) => {
                           >
                             Download
                           </Button>
-                          <Button
-                            variant="contained"
-                            sx={{ margin: 1 }}
-                            onClick={() => handleDelete(file.id)}
-                            color="error"
-                          >
-                            Delete
-                          </Button>
+                          {isManage && (
+                            <Button
+                              variant="contained"
+                              sx={{ margin: 1 }}
+                              onClick={() => handleDelete(file.id)}
+                              color="error"
+                            >
+                              Delete
+                            </Button>
+                          )}
                         </TableCell>
                       </TableRow>
                     );

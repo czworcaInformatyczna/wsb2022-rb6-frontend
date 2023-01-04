@@ -9,7 +9,7 @@ export const apiUrl = {
   assetInfoEdit: '/assets/DetailsEdit',
   assetImage: '/asset/:id/image',
   assetQRCode: '/assets/QRCode',
-  assetLicenses: '/assets/Licenses',
+  assetLicenses: '/licencables',
   assetHistory: '/log',
   assetMaintenances: '/asset_maintenance',
   assetFiles: '/asset_file',

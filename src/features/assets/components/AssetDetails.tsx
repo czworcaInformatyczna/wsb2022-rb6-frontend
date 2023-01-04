@@ -1,5 +1,5 @@
 import { Box, Grid, MenuItem, Tab, Tabs, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import WebAssetIcon from '@mui/icons-material/WebAsset';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
@@ -22,8 +22,11 @@ import { useConfirm } from 'material-ui-confirm';
 import { convertUrl, getVariant } from 'utils';
 import { CreateModal } from 'components/Elements/CreateModal';
 import Labels from './Labels';
+import { PermissionContext } from 'providers/Permissions/Permission.provider';
 
 export const AssetDetails = () => {
+  const permission = useContext(PermissionContext);
+  const [isManage, setIsManage] = useState<boolean>(false);
   const { id } = useParams();
   const [tab, setTab] = useState(0);
   const navigate = useNavigate();
@@ -38,7 +41,12 @@ export const AssetDetails = () => {
     if (!Number(id)) {
       navigate(routePath.pageNotFound);
     }
-  }, [id, navigate]);
+
+    if (permission) {
+      const check = permission.find((perm) => 'Manage Assets' === perm);
+      setIsManage(check ? true : false);
+    }
+  }, [id, navigate, permission]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -102,19 +110,23 @@ export const AssetDetails = () => {
           </Typography>
         </Grid>
         <Grid item lg={6} md={6} sm={6} xl={6} xs={6} display="flex" justifyContent="flex-end">
-          <ActionMenu>
-            <MenuItem onClick={() => navigate(convertUrl(routePath.assetChangeStatus, { id: id }))}>
-              Change status
-            </MenuItem>
-            <MenuItem onClick={() => navigate(convertUrl(routePath.editAsset, { id: id }))}>
-              Edit
-            </MenuItem>
-            <MenuItem disabled onClick={() => {}}>
-              Clone
-            </MenuItem>
-            <MenuItem onClick={handleDelete}>Delete</MenuItem>
-            <MenuItem onClick={() => handleOpenModal()}>Generate label</MenuItem>
-          </ActionMenu>
+          {isManage && (
+            <ActionMenu>
+              <MenuItem
+                onClick={() => navigate(convertUrl(routePath.assetChangeStatus, { id: id }))}
+              >
+                Change status
+              </MenuItem>
+              <MenuItem onClick={() => navigate(convertUrl(routePath.editAsset, { id: id }))}>
+                Edit
+              </MenuItem>
+              <MenuItem disabled onClick={() => {}}>
+                Clone
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              <MenuItem onClick={() => handleOpenModal()}>Generate label</MenuItem>
+            </ActionMenu>
+          )}
         </Grid>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
           <Box sx={{ maxWidth: { xl: '100%', lg: '100%', md: '100%', xs: 320, sm: 480 } }}>
@@ -149,10 +161,10 @@ export const AssetDetails = () => {
             <AssetHistory id={Number(id)} />
           </TabPanel>
           <TabPanel tab={tab} index={4}>
-            <AssetMaintenance id={Number(id)} />
+            <AssetMaintenance id={Number(id)} isManage={isManage} />
           </TabPanel>
           <TabPanel tab={tab} index={5}>
-            <AssetFiles id={Number(id)} />
+            <AssetFiles id={Number(id)} isManage={isManage} />
           </TabPanel>
         </Grid>
       </Grid>

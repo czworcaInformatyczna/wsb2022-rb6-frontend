@@ -11,22 +11,20 @@ export const Dashboard = () => {
       sx={{
         width: { lg: '100%', xs: '100%' },
         flexGrow: 0,
-        backgroundColor: 'background.paper',
-        boxShadow: 1,
         borderRadius: 1,
-        marginTop: 2,
+        paddingBottom: 2,
       }}
     >
-      <Grid container spacing={4}>
+      <Grid container spacing={1}>
         <Grid item lg={12} md={12} sm={12} xl={12} xs={12}>
-          <Typography ml={2} variant="h4">
+          <Typography m={2} variant="h3">
             Dashboard
           </Typography>
         </Grid>
 
         {dashboardItems
           ? dashboardItems.map((item, index) => (
-              <DashboardItem key={index} title={item.title} loading={isLoading}>
+              <DashboardItem key={index} title={item.title} link={item.link} loading={isLoading}>
                 {item.chart}
               </DashboardItem>
             ))
