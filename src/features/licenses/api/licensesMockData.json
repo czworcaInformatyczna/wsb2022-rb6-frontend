@@ -1,0 +1,22 @@
+{
+  "total": 1,
+  "data": [
+    {
+      "id": 1,
+      "name": "Photoshop",
+      "product_key": "ASD-ASD-343-SDF",
+      "manufacturer": {
+        "id": 1,
+        "name": "Adobe"
+      },
+      "category": {
+        "id": 1,
+        "name": "Graphic"
+      },
+      "expiration_date": "22/10/2033",
+      "email": "user@user.com",
+      "slots": 8,
+      "reassignable": true
+    }
+  ]
+}

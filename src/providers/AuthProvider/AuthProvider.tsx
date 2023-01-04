@@ -5,6 +5,7 @@ import { useAuthContextValue } from 'providers/AuthProvider';
 
 export const tokenCookie = 'inven_app_token';
 export const emailCookie = 'inven_app_email';
+export const permissionCookie = 'inven_app_perm';
 export interface IAuth {
   email: string | null;
   token: string | null;

@@ -3,7 +3,6 @@ import AddIcon from '@mui/icons-material/Add';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
-import CableIcon from '@mui/icons-material/Cable';
 import CableOutlinedIcon from '@mui/icons-material/CableOutlined';
 import CheckIcon from '@mui/icons-material/Check';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,6 +12,10 @@ import GroupIcon from '@mui/icons-material/Group';
 import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined';
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import CategoryIcon from '@mui/icons-material/Category';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import PersonIcon from '@mui/icons-material/Person';
 
 export const menuItems = [
   {
@@ -35,10 +38,46 @@ export const menuItems = [
         name: 'Asset',
       },
       {
-        icon: <CableIcon />,
-        id: 1,
-        link: '/AddAccessories',
-        name: 'Accessories',
+        icon: <StickyNote2OutlinedIcon />,
+        id: 2,
+        link: '/AddLicense',
+        name: 'License',
+      },
+      {
+        icon: <ConstructionIcon />,
+        id: 3,
+        link: '/Manufacturer/Add',
+        name: 'Manufacturer',
+      },
+      {
+        icon: <CategoryIcon />,
+        id: 4,
+        link: '/Category/Add',
+        name: 'Category',
+      },
+      {
+        icon: <DevicesOtherIcon />,
+        id: 5,
+        link: '/Model/Add',
+        name: 'Model',
+      },
+      {
+        icon: <AdminPanelSettingsIcon />,
+        id: 6,
+        link: '/Roles/Add',
+        name: 'Role',
+      },
+      {
+        icon: <PersonIcon />,
+        id: 7,
+        link: '/Users/Add',
+        name: 'User',
+      },
+      {
+        icon: <AccountTreeOutlinedIcon />,
+        id: 8,
+        link: '/Component/Add',
+        name: 'Component',
       },
     ],
   },
@@ -120,6 +159,27 @@ export const menuItems = [
     id: 8,
     link: '/Roles',
     name: 'Roles',
+    nestedList: null,
+  },
+  {
+    icon: <DevicesOtherIcon />,
+    id: 9,
+    link: '/Models',
+    name: 'Models',
+    nestedList: null,
+  },
+  {
+    icon: <ConstructionIcon />,
+    id: 10,
+    link: '/Manufacturers',
+    name: 'Manufacturers',
+    nestedList: null,
+  },
+  {
+    icon: <CategoryIcon />,
+    id: 11,
+    link: '/Categories',
+    name: 'Categories',
     nestedList: null,
   },
 ];

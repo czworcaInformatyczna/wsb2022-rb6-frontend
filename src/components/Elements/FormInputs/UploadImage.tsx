@@ -1,18 +1,25 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { type IFormInput } from 'features/assets';
+import { type IAssetFormInput } from 'features/assets';
 import { useState } from 'react';
 import { type FieldPath, useFormContext } from 'react-hook-form';
 
 export interface IUploadImage {
   accept: string;
   buttonText: string;
-  name: FieldPath<IFormInput>;
+  name: FieldPath<IAssetFormInput>;
 }
 export const UploadImage = ({ name, buttonText, accept }: IUploadImage) => {
-  const [img, setImg] = useState<string>();
+  const [img, setImg] = useState<string | null>();
   const [fileName, setFileName] = useState<string>('');
 
-  const { register, setValue } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
+
+  const val = getValues(name);
+  if (val instanceof FileList && img) {
+    setFileName('');
+    setImg(null);
+  }
+
   return (
     <Grid alignContent="center" container display="flex" item spacing={2}>
       <Grid

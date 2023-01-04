@@ -5,15 +5,35 @@ import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarDensitySelector,
-  GridToolbarExport,
-  GridToolbarFilterButton,
+  // GridToolbarFilterButton,
   GridToolbarQuickFilter,
   GridPagination,
 } from '@mui/x-data-grid';
 import { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { getVariant } from 'utils';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 export const CustomToolbar = (Props: CustomToolbarProps) => {
   const [action, setAction] = useState<string>('');
+  const deleteAsset = Props.deleteHook();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClick = () => {
+    if (action === 'Delete')
+      Props.selectedItems.map((item) =>
+        deleteAsset.mutate(item, {
+          onSuccess: () => {
+            const variant = getVariant('success');
+            enqueueSnackbar('Elements has been deleted', { variant });
+            Props.resetSelection();
+          },
+        }),
+      );
+    if (action === 'Generate Label') {
+      Props.handleModal(Props.selectedItems);
+    }
+  };
 
   return (
     <GridToolbarContainer
@@ -39,17 +59,16 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
               }}
               value={action}
             >
-              <MenuItem value="Clone">Clone</MenuItem>
-              <MenuItem value="Edit">Edit</MenuItem>
-              <MenuItem value="Generate Label">Generate Label</MenuItem>
+              <MenuItem value="Delete">Delete</MenuItem>
+              {Props.name === 'Assets' && (
+                <MenuItem value="Generate Label">Generate Label</MenuItem>
+              )}
             </Select>
           </FormControl>
           <Button
             size="large"
             disabled={(action === '' ? true : false) || Props.selectedItems.length === 0}
-            onClick={() => {
-              alert('clicked');
-            }}
+            onClick={handleClick}
             variant="contained"
           >
             Apply
@@ -59,9 +78,15 @@ export const CustomToolbar = (Props: CustomToolbarProps) => {
       <Box>
         <GridPagination />
         <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
+        {/* <GridToolbarFilterButton /> */}
         <GridToolbarDensitySelector sx={{ justifySelf: 'flex-end' }} />
-        <GridToolbarExport sx={{ justifySelf: 'flex-end' }} />
+        <Button
+          onClick={Props.handleExport}
+          sx={{ justifySelf: 'flex-end' }}
+          startIcon={<FileDownloadIcon />}
+        >
+          Export
+        </Button>
       </Box>
     </GridToolbarContainer>
   );

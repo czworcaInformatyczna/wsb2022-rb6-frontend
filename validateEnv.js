@@ -2,7 +2,7 @@ require('dotenv').config();
 
 console.log('checking envs...');
 
-const requiredVariables = ['REACT_APP_API_URL', 'REACT_APP_MOCK_API'];
+const requiredVariables = ['REACT_APP_API_URL'];
 
 let errors = [];
 

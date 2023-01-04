@@ -2,32 +2,51 @@ import { Container, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import BackgroundImage from 'features/login/assets/login_background.jpg';
 
-export const BackgroundContainer = styled(Container)({
-  background: `url(${BackgroundImage})`,
-  backgroundSize: 'cover',
-  position: 'fixed',
-  top: '-10%',
-  left: '0',
-  minHeight: '120%',
-  minWidth: '100%',
-});
-
-export const LoginBox = styled(Box)(({ theme }) => {
+export const BackgroundContainer = styled(Container)(({ theme }) => {
   return {
-    backgroundColor: theme.palette.background.dark,
-    padding: '1rem',
-    position: 'fixed',
-    top: '40%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    height: '15rem',
+    background: `url(${BackgroundImage})`,
+    backgroundSize: 'cover',
+    height: '100vh',
+    minHeight: '120%',
+    width: '100%',
+    minWidth: '100%',
+    color: theme.palette.grey[300],
   };
 });
 
-export const ActionButton = styled(Button)(({ theme }) => {
+export const LoginBox = styled(Box)(() => {
   return {
+    backgroundColor: '#2C387E',
+    height: '100vh',
+    minHeight: '120%',
+    minWidth: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderLeft: '2px solid #0A7FB1',
+  };
+});
+
+export const ActionButton = styled(Button)(() => {
+  return {
+    backgroundColor: '#3f51b5',
+    display: 'flex',
+    margin: 'auto',
     marginTop: '5%',
-    marginLeft: '50%',
-    color: theme.palette.text.primary,
+    color: '#ffffff',
   };
 });
+
+export const focusColors = {
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'rgba(255, 255, 255, 0.5)',
+    },
+  },
+  '& .MuiInputLabel-root.Mui-focused': { color: '#0A7FB1' },
+  '& .MuiOutlinedInput-root.Mui-focused': {
+    '& > fieldset': {
+      borderColor: '#0A7FB1',
+    },
+  },
+};

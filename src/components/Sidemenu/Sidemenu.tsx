@@ -20,6 +20,10 @@ import {
   menuItems,
 } from 'components/Sidemenu';
 import { ColorModeContext } from 'providers/CustomTheme';
+import { useState, useContext, useEffect } from 'react';
+import { CreateModal } from 'components/Elements/CreateModal';
+import QRScanner from 'features/qrScanner/components/QRScanner';
+import Brightness6Icon from '@mui/icons-material/Brightness6';
 
 export const Wrap: React.FC<WrapProps> = ({ if: condition, with: wrapper, children }) => {
   return !condition ? wrapper(children) : <>{children}</>;
@@ -130,9 +134,10 @@ export const menuItemList = (
 
 export const SideMenu = (props: myProps) => {
   const [openNested, setOpenNested] = React.useState<Nested>({});
-  const handleColorMode = React.useContext(ColorModeContext);
+  const handleColorMode = useContext(ColorModeContext);
+  const [open, setOpen] = useState<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (openNested === undefined) {
       const object: Nested = {};
       for (const value of menuItems) {
@@ -163,6 +168,7 @@ export const SideMenu = (props: myProps) => {
         overflowX: 'hidden',
       }}
     >
+      <CreateModal open={open} setOpen={setOpen} content={<QRScanner setOpen={setOpen} />} />
       <List
         aria-labelledby="nested-list-subheader"
         component="nav"
@@ -209,7 +215,7 @@ export const SideMenu = (props: myProps) => {
       >
         <Divider />
         <ListItemButton
-          onClick={handleColorMode.toggleColorMode}
+          onClick={() => setOpen(true)}
           sx={{
             height: '48px',
           }}
@@ -219,6 +225,23 @@ export const SideMenu = (props: myProps) => {
           </ListItemIcon>
           <ListItemText
             primary="Scanner"
+            sx={{
+              opacity: props.open ? 1 : 1,
+            }}
+          />
+        </ListItemButton>
+        <Divider />
+        <ListItemButton
+          onClick={handleColorMode.toggleColorMode}
+          sx={{
+            height: '48px',
+          }}
+        >
+          <ListItemIcon>
+            <Brightness6Icon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Theme"
             sx={{
               opacity: props.open ? 1 : 1,
             }}

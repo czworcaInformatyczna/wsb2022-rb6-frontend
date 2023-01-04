@@ -1,11 +1,15 @@
 export const style = {
   position: 'absolute',
-  top: '50%',
+  top: '35%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '40%',
+  minWidth: '300px',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  display: 'flex',
+  alignContent: 'center',
+  justifyContent: 'center',
+  overflow: 'auto',
 };

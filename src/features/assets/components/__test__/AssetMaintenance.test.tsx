@@ -8,7 +8,7 @@ import { fetchAssetEmptyResponse, fetchAssetsMaintenances } from './mockApiHandl
 const Provider = () => {
   return (
     <AppProvider>
-      <AssetMaintenance id={1} />
+      <AssetMaintenance id={1} isManage />
     </AppProvider>
   );
 };
@@ -29,7 +29,7 @@ describe('AssetMaintenance', () => {
     expect(await screen.findByText(/notes/i)).toBeInTheDocument();
     // Table Body
     expect(await screen.findByText(/add ram/i)).toBeInTheDocument();
-    expect(await screen.findByText(/upgrade/i)).toBeInTheDocument();
+    expect(await screen.findByText(/clean/i)).toBeInTheDocument();
     expect(await screen.findByText('22/10/2022')).toBeInTheDocument();
     expect(await screen.findByText('30/10/2022')).toBeInTheDocument();
     expect(await screen.findByText(/usr1/i)).toBeInTheDocument();
