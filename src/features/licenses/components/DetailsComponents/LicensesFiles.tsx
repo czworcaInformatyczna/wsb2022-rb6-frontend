@@ -158,7 +158,7 @@ export const LicensesFiles = ({ id, isManage }: { id: number; isManage: boolean 
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               component="div"
               count={files ? files.total : 0}
               rowsPerPage={pageSize}

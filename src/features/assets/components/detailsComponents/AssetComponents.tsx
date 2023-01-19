@@ -80,7 +80,7 @@ export const AssetComponents = ({ id }: { id: number }) => {
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               component="div"
               count={components ? components.total : 0}
               rowsPerPage={pageSize}

@@ -167,7 +167,7 @@ export const AssetMaintenance = ({ id, isManage }: { id: number; isManage: boole
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               component="div"
               count={maintenances ? maintenances.total : 0}
               rowsPerPage={pageSize}
