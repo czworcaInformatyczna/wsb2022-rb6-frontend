@@ -1,5 +1,4 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material';
-
 import { TextInput } from 'components/Elements/FormInputs';
 import { type IsModal } from 'features/manufacturer/types';
 import { useSnackbar } from 'notistack';
