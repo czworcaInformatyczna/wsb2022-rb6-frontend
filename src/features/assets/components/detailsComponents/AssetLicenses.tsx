@@ -12,7 +12,6 @@ import {
 import { useGetLicenses } from 'features/assets/api';
 import { type IAssetLicenses } from 'features/assets/types';
 import { useState } from 'react';
-
 import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
