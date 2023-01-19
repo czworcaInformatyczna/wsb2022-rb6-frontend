@@ -142,8 +142,8 @@ export const AddRole = ({ isModal = false }: IsModal) => {
                   label="Permissions"
                   name="permissions"
                   options={permissionsOptions ? permissionsOptions : []}
-                  createButton={false}
                   multipleValues
+                  createButton={false}
                 />
                 <Grid
                   alignContent="center"

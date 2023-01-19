@@ -12,7 +12,6 @@ import {
 import { useGetLicenses } from 'features/assets/api';
 import { type IAssetLicenses } from 'features/assets/types';
 import { useState } from 'react';
-
 import { isArrayEmpty } from 'utils';
 import NoResult from './noResult';
 
@@ -76,7 +75,7 @@ export const AssetLicenses = ({ id }: { id: number }) => {
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               component="div"
               count={licenses ? licenses.total : 0}
               rowsPerPage={pageSize}
