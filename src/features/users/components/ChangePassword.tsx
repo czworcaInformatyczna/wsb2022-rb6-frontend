@@ -93,7 +93,7 @@ export const ChangePassword = ({ isModal = false }: IsModal) => {
                   marginRight: 2,
                 }}
               >
-                Add
+                Change
               </Button>
             </Grid>
           </Grid>

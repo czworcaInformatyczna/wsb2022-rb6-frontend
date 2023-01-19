@@ -84,7 +84,7 @@ export const AssetHistory = ({ id }: { id: number }) => {
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50]}
+              rowsPerPageOptions={[5, 10, 20, 30]}
               component="div"
               count={history ? history.total : 0}
               rowsPerPage={pageSize}
