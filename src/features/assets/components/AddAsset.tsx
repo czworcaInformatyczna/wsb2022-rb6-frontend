@@ -59,7 +59,7 @@ const AddAsset = () => {
   const { data: users } = useGetUsers();
   const { enqueueSnackbar } = useSnackbar();
   const addAsset = useAddAsset<FormData>(apiUrl.assets);
-  const updateAsset = useUpdateAsset<FormData>();
+  const updateAsset = useUpdateAsset<any>();
   const [open, setOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<JSX.Element>(<Box />);
 
@@ -144,6 +144,17 @@ const AddAsset = () => {
   ]);
 
   const onSubmit = async (data: IAssetFormInput) => {
+    const editData = {
+      name: data.AssetName,
+      tag: data.AssetTag,
+      asset_model_id: data.Model?.id ? data.Model.id.toString() : '',
+      serial: data.Serial,
+      status: data.Status?.id || data.Status?.id === 0 ? data.Status.id.toString() : '',
+      notes: data.Notes,
+      warranty: data.Waranty.toString(),
+      order_number: data.OrderNumber,
+      price: data.PurchaseCost.toString(),
+    };
     const tempData = new FormData();
     const editImageData = new FormData();
     tempData.append('name', data.AssetName);
@@ -184,7 +195,7 @@ const AddAsset = () => {
     if (action === 'Edit') {
       if (id !== undefined)
         updateAsset.mutate(
-          { id: id, body: tempData },
+          { id: id, body: editData },
           {
             onSuccess: () => {
               const variant = getVariant('success');
